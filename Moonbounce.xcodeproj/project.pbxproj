@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		062452B39A60BE294A84A0BB /* Pods_Moonbounce.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F3E75C00756DFE009D5BB62 /* Pods_Moonbounce.framework */; };
+		463C25CE1DDA51D600EA282B /* openvpn in Resources */ = {isa = PBXBuildFile; fileRef = 463C25CD1DDA51D600EA282B /* openvpn */; };
+		465F18F11DDA684600C8F1B8 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465F18F01DDA684600C8F1B8 /* NetworkExtension.framework */; };
 		467CB5B71DBEB6E90086E341 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467CB5B61DBEB6E90086E341 /* AppDelegate.swift */; };
 		467CB5B91DBEB6E90086E341 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 467CB5B81DBEB6E90086E341 /* Assets.xcassets */; };
 		467CB5BC1DBEB6E90086E341 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 467CB5BA1DBEB6E90086E341 /* MainMenu.xib */; };
 		467CB5C51DBEB8CF0086E341 /* MoonbounceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467CB5C31DBEB8CF0086E341 /* MoonbounceViewController.swift */; };
 		467CB5C61DBEB8CF0086E341 /* MoonbounceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 467CB5C41DBEB8CF0086E341 /* MoonbounceViewController.xib */; };
 		467CB5C91DBEB9730086E341 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467CB5C81DBEB9730086E341 /* EventMonitor.swift */; };
-		46D143661DD1099F00803B0A /* openvpn in Resources */ = {isa = PBXBuildFile; fileRef = 46D143651DD1099F00803B0A /* openvpn */; };
 		B44390591DC00EA000389352 /* PopoverContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44390581DC00EA000389352 /* PopoverContentView.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +33,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		463C25CD1DDA51D600EA282B /* openvpn */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = openvpn; sourceTree = "<group>"; };
+		465F18F01DDA684600C8F1B8 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		465F18F21DDA684600C8F1B8 /* Moonbounce.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Moonbounce.entitlements; sourceTree = "<group>"; };
 		467CB5B31DBEB6E90086E341 /* Moonbounce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moonbounce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		467CB5B61DBEB6E90086E341 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		467CB5B81DBEB6E90086E341 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -39,8 +44,10 @@
 		467CB5C31DBEB8CF0086E341 /* MoonbounceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoonbounceViewController.swift; path = ViewControllers/MoonbounceViewController.swift; sourceTree = "<group>"; };
 		467CB5C41DBEB8CF0086E341 /* MoonbounceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MoonbounceViewController.xib; path = ViewControllers/MoonbounceViewController.xib; sourceTree = "<group>"; };
 		467CB5C81DBEB9730086E341 /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventMonitor.swift; path = Helpers/EventMonitor.swift; sourceTree = "<group>"; };
-		46D143651DD1099F00803B0A /* openvpn */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = openvpn; sourceTree = "<group>"; };
+		8F3E75C00756DFE009D5BB62 /* Pods_Moonbounce.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moonbounce.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B44390581DC00EA000389352 /* PopoverContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopoverContentView.swift; path = Helpers/PopoverContentView.swift; sourceTree = "<group>"; };
+		E3EF67AE557941F6B7BF027C /* Pods-Moonbounce.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moonbounce.release.xcconfig"; path = "Pods/Target Support Files/Pods-Moonbounce/Pods-Moonbounce.release.xcconfig"; sourceTree = "<group>"; };
+		E8AEB23FF0A27A86253088F5 /* Pods-Moonbounce.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moonbounce.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Moonbounce/Pods-Moonbounce.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +55,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				062452B39A60BE294A84A0BB /* Pods_Moonbounce.framework in Frameworks */,
+				465F18F11DDA684600C8F1B8 /* NetworkExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +68,8 @@
 			children = (
 				467CB5B51DBEB6E90086E341 /* Moonbounce */,
 				467CB5B41DBEB6E90086E341 /* Products */,
+				BE54378B0ED5B9062BBBDA1B /* Pods */,
+				D1943F52C69C7904415E81F0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,6 +84,7 @@
 		467CB5B51DBEB6E90086E341 /* Moonbounce */ = {
 			isa = PBXGroup;
 			children = (
+				465F18F21DDA684600C8F1B8 /* Moonbounce.entitlements */,
 				B4646E481DCBA937007C3EFA /* Controllers */,
 				467CB5C71DBEB8DE0086E341 /* ViewControllers */,
 				467CB5CA1DBEB9790086E341 /* Helpers */,
@@ -96,7 +108,7 @@
 		467CB5CA1DBEB9790086E341 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				46D143651DD1099F00803B0A /* openvpn */,
+				463C25CD1DDA51D600EA282B /* openvpn */,
 				467CB5C81DBEB9730086E341 /* EventMonitor.swift */,
 				B44390581DC00EA000389352 /* PopoverContentView.swift */,
 			);
@@ -110,6 +122,24 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		BE54378B0ED5B9062BBBDA1B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E8AEB23FF0A27A86253088F5 /* Pods-Moonbounce.debug.xcconfig */,
+				E3EF67AE557941F6B7BF027C /* Pods-Moonbounce.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D1943F52C69C7904415E81F0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				465F18F01DDA684600C8F1B8 /* NetworkExtension.framework */,
+				8F3E75C00756DFE009D5BB62 /* Pods_Moonbounce.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -117,10 +147,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 467CB5C01DBEB6E90086E341 /* Build configuration list for PBXNativeTarget "Moonbounce" */;
 			buildPhases = (
+				E3A2DF1E0E311789B6CFA66A /* [CP] Check Pods Manifest.lock */,
 				467CB5AF1DBEB6E90086E341 /* Sources */,
 				467CB5B01DBEB6E90086E341 /* Frameworks */,
 				467CB5B11DBEB6E90086E341 /* Resources */,
 				B4A901811DD7C1430076DBF6 /* Embed Frameworks */,
+				73F49971E945EC616EC2FF58 /* [CP] Embed Pods Frameworks */,
+				28130EDE327918EB733207B1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -143,8 +176,13 @@
 				TargetAttributes = {
 					467CB5B21DBEB6E90086E341 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = U3N4TN3S3X;
+						DevelopmentTeam = MBKZKFSG24;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.VPNLite = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -172,13 +210,61 @@
 			buildActionMask = 2147483647;
 			files = (
 				467CB5C61DBEB8CF0086E341 /* MoonbounceViewController.xib in Resources */,
-				46D143661DD1099F00803B0A /* openvpn in Resources */,
+				463C25CE1DDA51D600EA282B /* openvpn in Resources */,
 				467CB5B91DBEB6E90086E341 /* Assets.xcassets in Resources */,
 				467CB5BC1DBEB6E90086E341 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		28130EDE327918EB733207B1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Moonbounce/Pods-Moonbounce-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		73F49971E945EC616EC2FF58 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Moonbounce/Pods-Moonbounce-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E3A2DF1E0E311789B6CFA66A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		467CB5AF1DBEB6E90086E341 /* Sources */ = {
@@ -300,12 +386,14 @@
 		};
 		467CB5C11DBEB6E90086E341 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8AEB23FF0A27A86253088F5 /* Pods-Moonbounce.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Moonbounce/Moonbounce.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = U3N4TN3S3X;
+				DEVELOPMENT_TEAM = MBKZKFSG24;
 				INFOPLIST_FILE = Moonbounce/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
@@ -317,12 +405,14 @@
 		};
 		467CB5C21DBEB6E90086E341 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E3EF67AE557941F6B7BF027C /* Pods-Moonbounce.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Moonbounce/Moonbounce.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = U3N4TN3S3X;
+				DEVELOPMENT_TEAM = MBKZKFSG24;
 				INFOPLIST_FILE = Moonbounce/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;

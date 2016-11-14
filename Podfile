@@ -6,6 +6,6 @@ use_frameworks!
 target 'Moonbounce' do
 
 
-  pod 'SwiftyOpenVPNClient', :git => 'https://github.com/OperatorFoundation/SwiftyOpenVPNClient.git', :tag => '1.0.0'
+  pod 'SwiftyOpenVPNClient', :git => 'https://github.com/OperatorFoundation/SwiftyOpenVPNClient.git'
 
 end
