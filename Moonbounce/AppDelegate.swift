@@ -48,6 +48,23 @@ class AppDelegate: NSObject, NSApplicationDelegate
                 self.closePopover(sender: event)
             }
         })
+        
+        //Cocoa normally keeps you from launching more than one instance at a time, but sometimes it happens anyway
+        if let bundleID = Bundle.main.bundleIdentifier
+        {
+            if NSRunningApplication.runningApplications(withBundleIdentifier: bundleID).count > 1
+            {
+                //Activate the existing instance and lose this one
+                let apps = NSRunningApplication.runningApplications(withBundleIdentifier: bundleID)
+                for app in apps
+                {
+                    if app != NSRunningApplication.current()
+                    {
+                        app.activate(options: [])
+                    }
+                }
+            }
+        }
     }
     
     func showPopover(sender: AnyObject?)

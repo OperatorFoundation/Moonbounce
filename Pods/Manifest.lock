@@ -1,0 +1,21 @@
+PODS:
+  - SwiftyOpenVPNClient (1.0.0)
+
+DEPENDENCIES:
+  - SwiftyOpenVPNClient (from `https://github.com/OperatorFoundation/SwiftyOpenVPNClient.git`)
+
+EXTERNAL SOURCES:
+  SwiftyOpenVPNClient:
+    :git: https://github.com/OperatorFoundation/SwiftyOpenVPNClient.git
+
+CHECKOUT OPTIONS:
+  SwiftyOpenVPNClient:
+    :commit: a40621aee02295de6a740968c5687a5fb72aa93e
+    :git: https://github.com/OperatorFoundation/SwiftyOpenVPNClient.git
+
+SPEC CHECKSUMS:
+  SwiftyOpenVPNClient: 1d24aa0f165fa3defa85343f64230acc9dc7428e
+
+PODFILE CHECKSUM: 55a95b63f6e8e3fb7356219e4adf13b11e6b8a37
+
+COCOAPODS: 1.1.1

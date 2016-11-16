@@ -83,14 +83,19 @@ public class OpenVPN: NSObject
     public func start(completion:@escaping (_ launched:Bool) -> Void)
     {
         let arguments = processArguments()
-        runScript(arguments) { (wasLaunched) in
+        runScript(arguments)
+        { (wasLaunched) in
             completion(wasLaunched)
         }
     }
     
-    func stop(completion:(_ stopped:Bool) -> Void)
+    public func stop(completion:(_ stopped:Bool) -> Void)
     {
-        
+        if connectTask != nil
+        {
+            connectTask!.terminate()
+            completion(!connectTask.isRunning)
+        }
     }
     
     private func processArguments() -> [String]

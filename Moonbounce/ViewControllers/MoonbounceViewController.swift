@@ -109,15 +109,24 @@ class MoonbounceViewController: NSViewController
         runBackgroundAnimation()
         statusLabel.stringValue = "Connecting"
         
+        //Update button name
+        if let connectButtonFont = NSFont(name: self.proximaNARegular, size: 13)
+        {
+            let connectButtonAttributes = [NSForegroundColorAttributeName: NSColor.white,
+                                           NSFontAttributeName: connectButtonFont]
+            self.toggleConnectionButton.attributedTitle = NSAttributedString(string: "Disconnect", attributes: connectButtonAttributes)
+        }
+        
         if MoonbounceViewController.openVPN != nil
         {
-            MoonbounceViewController.openVPN?.start(completion: { (isConnected) in
+            MoonbounceViewController.openVPN!.start(completion: { (isConnected) in
                 //Go back to the main thread
                 DispatchQueue.main.async(execute:
                     {
                         //You can safely do UI stuff here
                         //Verify that connection was succesful and update accordingly
                         self.isConnected = isConnected
+                        self.runningScript = false
                 })
             })
         }
@@ -132,7 +141,14 @@ class MoonbounceViewController: NSViewController
     
     func disconnect()
     {
-        isConnected = false
+        MoonbounceViewController.openVPN?.stop(completion:
+        { (stopped) in
+            //
+        })
+        
+        self.isConnected = false
+        self.runningScript = false
+        
     }
     
     //Dev purposes - Show output from command line task

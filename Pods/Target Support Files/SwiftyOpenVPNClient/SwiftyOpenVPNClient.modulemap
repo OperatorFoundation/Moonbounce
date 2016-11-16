@@ -1,0 +1,6 @@
+framework module SwiftyOpenVPNClient {
+  umbrella header "SwiftyOpenVPNClient-umbrella.h"
+
+  export *
+  module * { export * }
+}
