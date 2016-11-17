@@ -24,9 +24,10 @@ public class OpenVPN: NSObject
     6  to  11  --  Debug  info range (see errlevel.h for additional information on
     debug levels).*/
     
+    static var connectTask:Process!
+    
     public var verbosity = 3
     public var configFileName = "config.ovpn"
-    public var connectTask:Process!
     public var outputPipe:Pipe?
     
     private var pathToOpenVPNExecutable:String
@@ -82,8 +83,19 @@ public class OpenVPN: NSObject
     
     public func start(completion:@escaping (_ launched:Bool) -> Void)
     {
-        let arguments = processArguments()
-        runScript(arguments)
+        
+        //Path to script file
+        guard let path = Bundle.main.path(forResource: "openvpn", ofType: nil)
+            else
+        {
+            print("Unable to locate openVPN program")
+            return
+        }
+        
+        //Arguments
+        let arguments = connectToOpenVPNArguments()
+        
+        runScript(path, arguments: arguments)
         { (wasLaunched) in
             completion(wasLaunched)
         }
@@ -91,65 +103,79 @@ public class OpenVPN: NSObject
     
     public func stop(completion:(_ stopped:Bool) -> Void)
     {
-        if connectTask != nil
+        if OpenVPN.connectTask != nil
         {
-            connectTask!.terminate()
-            completion(!connectTask.isRunning)
+            OpenVPN.connectTask!.terminate()
+            completion(!OpenVPN.connectTask.isRunning)
         }
     }
     
-    private func processArguments() -> [String]
+    private func connectToOpenVPNArguments() -> [String]
     {
         //List of arguments for Process/Task
         var processArguments: [String] = []
         
+        //processArguments.append("--daemon")
         processArguments.append("--cd")
         processArguments.append(directory)
         processArguments.append("--verb")
         processArguments.append(String(verbosity))
         processArguments.append("--config")
         processArguments.append(configFileName)
+        processArguments.append("--verb")
+        processArguments.append(String(verbosity))
+        processArguments.append("--cd")
+        processArguments.append(directory)
+        processArguments.append("--management")
+        processArguments.append("127.0.0.1")
+        processArguments.append("1337")
+        processArguments.append("--management-query-passwords")
+        //processArguments.append("--management-hold")
         
         return processArguments
     }
-    
-    private func runScript(_ arguments: [String], completion:@escaping (_ launched: Bool) -> Void)
+
+    private func runScript(_ path: String, arguments: [String], completion:@escaping (_ launched: Bool) -> Void)
     {
         //Run heavy lifting on the background thread.
         let taskQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
         taskQueue.async
+        {
+            //Creates a new Process and assigns it to the connectTask property.
+            OpenVPN.connectTask = Process()
+            //The launchPath is the path to the executable to run.
+            OpenVPN.connectTask.launchPath = path
+            //Arguments will pass the arguments to the executable, as though typed directly into terminal.
+            OpenVPN.connectTask.arguments = arguments
+            
+            //Do something after the process (FKA NSTask) is finished
+            OpenVPN.connectTask.terminationHandler =
             {
-                //Path to script file
-                guard let path = Bundle.main.path(forResource: "openvpn", ofType: nil)
-                    else
-                {
-                    print("Unable to locate openVPN program")
-                    return
-                }
-                
-                //Creates a new Process and assigns it to the connectTask property.
-                self.connectTask = Process()
-                //The launchPath is the path to the executable to run.
-                self.connectTask.launchPath = path
-                //Arguments will pass the arguments to the executable, as though typed directly into terminal.
-                self.connectTask.arguments = arguments
-                
-                //Do something after the process (FKA NSTask) is finished
-                self.connectTask.terminationHandler =
-                {
-                    task in
+                task in
                     
-                    //TODO: Give actual results one day
-                    completion(true)
+                //TODO: Give actual results one day
+                completion(true)
+            }
+            
+            self.addOutputObserver()
+            
+            //Go ahead and launch the process/task
+            OpenVPN.connectTask.launch()
+            
+            //Block any other activity on this thread until the process/task is finished
+            OpenVPN.connectTask.waitUntilExit()
+            
+            if !OpenVPN.connectTask.isRunning
+            {
+                let status = OpenVPN.connectTask.terminationStatus
+                
+                //TODO: You’ll need to look at the documentation for that task to learn what values it returns under what circumstances.
+                if status == 0 {
+                    print("Task succeeded.")
+                } else {
+                    print("Task failed.")
                 }
-                
-                self.addOutputObserver()
-                
-                //Go ahead and launch the process/task
-                self.connectTask.launch()
-
-                //Block any other activity on this thread until the process/task is finished
-                self.connectTask.waitUntilExit()
+            }
         }
     }
     
@@ -157,7 +183,7 @@ public class OpenVPN: NSObject
     func addOutputObserver()
     {
         outputPipe = Pipe()
-        connectTask.standardOutput = outputPipe
+        OpenVPN.connectTask.standardOutput = outputPipe
         outputPipe!.fileHandleForReading.waitForDataInBackgroundAndNotify()
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: outputPipe!.fileHandleForReading, queue: nil, using:

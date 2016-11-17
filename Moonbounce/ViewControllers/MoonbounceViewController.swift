@@ -108,6 +108,7 @@ class MoonbounceViewController: NSViewController
         outputView.string = ""
         runBackgroundAnimation()
         statusLabel.stringValue = "Connecting"
+        isConnected = true
         
         //Update button name
         if let connectButtonFont = NSFont(name: self.proximaNARegular, size: 13)
@@ -181,14 +182,16 @@ class MoonbounceViewController: NSViewController
             titleLabel.attributedStringValue = NSAttributedString(string: "MOONBOUNCE VPN", attributes: titleLabelAttributes)
         }
         
-        //Connection Button Styling
-        if let connectButtonFont = NSFont(name: proximaNARegular, size: 13)
+        //Connection Button and label Styling
+        if isConnected
         {
-            let connectButtonAttributes = [NSForegroundColorAttributeName: NSColor.white,
-                                           NSFontAttributeName: connectButtonFont]
-            toggleConnectionButton.attributedTitle = NSAttributedString(string: "Connect", attributes: connectButtonAttributes)
-            //toggleConnectionButton.attributedAlternateTitle = NSAttributedString(string: "Disconnect", attributes: connectButtonAttributes)
+            showConnectedStatus()
         }
+        else
+        {
+            showDisconnectedStatus()
+        }
+        
         //Connect Button Border
         toggleConnectionButton.layer?.backgroundColor = .clear
         toggleConnectionButton.layer?.borderColor = .white
