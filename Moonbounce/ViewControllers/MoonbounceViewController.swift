@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import SwiftyOpenVPNClient
 
 class MoonbounceViewController: NSViewController
 {

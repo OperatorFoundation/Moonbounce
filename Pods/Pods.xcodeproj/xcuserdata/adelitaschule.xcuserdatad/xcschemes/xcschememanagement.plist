@@ -8,21 +8,13 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-		</dict>
-		<key>SwiftyOpenVPNClient.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>00BA8D81E4998A96622BD41956380C07</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4E5F6FB3EF85D62416FC3B735A3801F4</key>
+		<key>72CE0FD89CC663CC437D42573289A73B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

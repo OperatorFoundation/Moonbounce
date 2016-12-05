@@ -7,65 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		37CB0C0F067F4EF8556A1A626D452043 /* SwiftyOpenVPNClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 73217D5D8150C076E104E3CE9A03FCFB /* SwiftyOpenVPNClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		420125C3F6DF2E1749D10BBDFC074643 /* OpenVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3255AA220A41B5A286801C9DF8F1A8 /* OpenVPN.swift */; };
-		43962EB9A89A4A2F79D071D570A54E48 /* Pods-Moonbounce-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D6C5949025DCF4DE426A84FB0E6473D0 /* Pods-Moonbounce-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45CFC82585894A041345E53AC391F36B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 270DD1219F1E6CF00379D39F252D87C6 /* Cocoa.framework */; };
-		5359504492121C56E31B987914E1CC93 /* Pods-Moonbounce-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 528BFF4E1E2070F522C7B0940A3529BE /* Pods-Moonbounce-dummy.m */; };
-		55464E1A2ADC3E57055837EA5036B172 /* SwiftyOpenVPNClient-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 755E60158A52CF5A7859898F34C49C53 /* SwiftyOpenVPNClient-dummy.m */; };
-		766A77B2315EE5C5F00AF536DA2B1BEE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 270DD1219F1E6CF00379D39F252D87C6 /* Cocoa.framework */; };
-		7977AA2F0FE27567D391E774568CC889 /* SwiftyOpenVPNClient-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 00CE1C49B4D18C9B24592CDA449D7B2A /* SwiftyOpenVPNClient-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		305F72812EE1F87BF2A2CD90391790E6 /* Pods-Moonbounce-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 528BFF4E1E2070F522C7B0940A3529BE /* Pods-Moonbounce-dummy.m */; };
+		3373A4B1EE3C5ADED707CE5200A50639 /* Pods-Moonbounce-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D6C5949025DCF4DE426A84FB0E6473D0 /* Pods-Moonbounce-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA251B542655FBF70BFD35E3F479F254 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 270DD1219F1E6CF00379D39F252D87C6 /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		EA9320FBC9E5ADC1359C93FE260D7D97 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 00BA8D81E4998A96622BD41956380C07;
-			remoteInfo = SwiftyOpenVPNClient;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		00CE1C49B4D18C9B24592CDA449D7B2A /* SwiftyOpenVPNClient-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyOpenVPNClient-umbrella.h"; sourceTree = "<group>"; };
 		270DD1219F1E6CF00379D39F252D87C6 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		3966CE996B4B72FEC293D792B03D256E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41EAEADC88060709F6C876EB683CEE3A /* Pods-Moonbounce-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Moonbounce-acknowledgements.markdown"; sourceTree = "<group>"; };
 		4CECD9CBBFE2AC5DA0B8F6CEA05EFE45 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		528BFF4E1E2070F522C7B0940A3529BE /* Pods-Moonbounce-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Moonbounce-dummy.m"; sourceTree = "<group>"; };
-		5934D232C18741DB93C8B4F2B0D1E181 /* SwiftyOpenVPNClient.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftyOpenVPNClient.xcconfig; sourceTree = "<group>"; };
+		6260A950E94DFC7FEC080EA40B2CAB88 /* Pods_Moonbounce.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Moonbounce.framework; path = "Pods-Moonbounce.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		67CBC5C678819734F93E64637700A778 /* Pods-Moonbounce-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Moonbounce-acknowledgements.plist"; sourceTree = "<group>"; };
-		73217D5D8150C076E104E3CE9A03FCFB /* SwiftyOpenVPNClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SwiftyOpenVPNClient.h; path = SwiftyOpenVPNClient/SwiftyOpenVPNClient.h; sourceTree = "<group>"; };
-		755E60158A52CF5A7859898F34C49C53 /* SwiftyOpenVPNClient-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftyOpenVPNClient-dummy.m"; sourceTree = "<group>"; };
 		78C157900A7F3FC9D201B6912BA80A13 /* Pods-Moonbounce-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Moonbounce-resources.sh"; sourceTree = "<group>"; };
-		848B377569E76F79F3A55E179F2F17C8 /* SwiftyOpenVPNClient.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SwiftyOpenVPNClient.modulemap; sourceTree = "<group>"; };
-		8B436A1E43E5F7505DB9D92A3F7AF43A /* SwiftyOpenVPNClient-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyOpenVPNClient-prefix.pch"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9D9386A56D9C61834435B974C6B29F55 /* Pods-Moonbounce-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Moonbounce-frameworks.sh"; sourceTree = "<group>"; };
-		C34A20C9A9A6C113F7FCFDBE44F509DB /* SwiftyOpenVPNClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftyOpenVPNClient.framework; path = SwiftyOpenVPNClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEB8DEA5EB479F06FF7E88E3B1AA5595 /* Pods_Moonbounce.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Moonbounce.framework; path = "Pods-Moonbounce.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6C5949025DCF4DE426A84FB0E6473D0 /* Pods-Moonbounce-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Moonbounce-umbrella.h"; sourceTree = "<group>"; };
 		D70881B9930A74837DFAB826D0B0EA3A /* Pods-Moonbounce.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-Moonbounce.modulemap"; sourceTree = "<group>"; };
-		DE3255AA220A41B5A286801C9DF8F1A8 /* OpenVPN.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OpenVPN.swift; path = SwiftyOpenVPNClient/OpenVPN.swift; sourceTree = "<group>"; };
 		E744E7E3802898CF935D4D93ABF53B64 /* Pods-Moonbounce.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Moonbounce.release.xcconfig"; sourceTree = "<group>"; };
 		FCF60A7183D3DD7A83C5EAE5D4DA778C /* Pods-Moonbounce.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Moonbounce.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		5F1AFC59643155F17F5B2A5301C2B5D2 /* Frameworks */ = {
+		4154C56D4DC023B6410BB087E22AE54D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				766A77B2315EE5C5F00AF536DA2B1BEE /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CEBC2186E9CDEEDF35BE901359AEF61F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				45CFC82585894A041345E53AC391F36B /* Cocoa.framework in Frameworks */,
+				EA251B542655FBF70BFD35E3F479F254 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,14 +54,6 @@
 				04C068A18C5413F804A2959126093416 /* OS X */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		4B4FF49536A3012F42171C5CE8EEB711 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				8C9495DCCFBF95DFA4ABC85AAC4E0580 /* SwiftyOpenVPNClient */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		68B0E7189129CB84DD72AD84CA70B19F /* Targets Support Files */ = {
@@ -127,42 +87,15 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				39E9EE8210D861DFD82346C1F5EB7218 /* Frameworks */,
-				4B4FF49536A3012F42171C5CE8EEB711 /* Pods */,
-				DB9BFAF43505ABFCB4E23BBE9301F79F /* Products */,
+				B0D0890737536CFADA7433B329D43D72 /* Products */,
 				68B0E7189129CB84DD72AD84CA70B19F /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		8C9495DCCFBF95DFA4ABC85AAC4E0580 /* SwiftyOpenVPNClient */ = {
+		B0D0890737536CFADA7433B329D43D72 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DE3255AA220A41B5A286801C9DF8F1A8 /* OpenVPN.swift */,
-				73217D5D8150C076E104E3CE9A03FCFB /* SwiftyOpenVPNClient.h */,
-				C7F9607BFED346753C9AC96D06F2FFFC /* Support Files */,
-			);
-			name = SwiftyOpenVPNClient;
-			path = SwiftyOpenVPNClient;
-			sourceTree = "<group>";
-		};
-		C7F9607BFED346753C9AC96D06F2FFFC /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				3966CE996B4B72FEC293D792B03D256E /* Info.plist */,
-				848B377569E76F79F3A55E179F2F17C8 /* SwiftyOpenVPNClient.modulemap */,
-				5934D232C18741DB93C8B4F2B0D1E181 /* SwiftyOpenVPNClient.xcconfig */,
-				755E60158A52CF5A7859898F34C49C53 /* SwiftyOpenVPNClient-dummy.m */,
-				8B436A1E43E5F7505DB9D92A3F7AF43A /* SwiftyOpenVPNClient-prefix.pch */,
-				00CE1C49B4D18C9B24592CDA449D7B2A /* SwiftyOpenVPNClient-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/SwiftyOpenVPNClient";
-			sourceTree = "<group>";
-		};
-		DB9BFAF43505ABFCB4E23BBE9301F79F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				CEB8DEA5EB479F06FF7E88E3B1AA5595 /* Pods_Moonbounce.framework */,
-				C34A20C9A9A6C113F7FCFDBE44F509DB /* SwiftyOpenVPNClient.framework */,
+				6260A950E94DFC7FEC080EA40B2CAB88 /* Pods_Moonbounce.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -170,59 +103,32 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		866659D2D34CD96AB14879C3038F48D2 /* Headers */ = {
+		E02870C28D0F8B17C2180C22AD9AF3C6 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7977AA2F0FE27567D391E774568CC889 /* SwiftyOpenVPNClient-umbrella.h in Headers */,
-				37CB0C0F067F4EF8556A1A626D452043 /* SwiftyOpenVPNClient.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CA8EBE4B5C4456DD35A5DE22BAD9AEED /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				43962EB9A89A4A2F79D071D570A54E48 /* Pods-Moonbounce-umbrella.h in Headers */,
+				3373A4B1EE3C5ADED707CE5200A50639 /* Pods-Moonbounce-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		00BA8D81E4998A96622BD41956380C07 /* SwiftyOpenVPNClient */ = {
+		72CE0FD89CC663CC437D42573289A73B /* Pods-Moonbounce */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 99EBC39D9C8EBDFCDFDBEA15F9B8F22E /* Build configuration list for PBXNativeTarget "SwiftyOpenVPNClient" */;
+			buildConfigurationList = 8ABC23F63B3D7AC254B02A0C3776ED8B /* Build configuration list for PBXNativeTarget "Pods-Moonbounce" */;
 			buildPhases = (
-				B0B9FE856373E59DF04C11A0C8B2A5EE /* Sources */,
-				5F1AFC59643155F17F5B2A5301C2B5D2 /* Frameworks */,
-				866659D2D34CD96AB14879C3038F48D2 /* Headers */,
+				86533A293C399A0952D2A5795B355B8A /* Sources */,
+				4154C56D4DC023B6410BB087E22AE54D /* Frameworks */,
+				E02870C28D0F8B17C2180C22AD9AF3C6 /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-			);
-			name = SwiftyOpenVPNClient;
-			productName = SwiftyOpenVPNClient;
-			productReference = C34A20C9A9A6C113F7FCFDBE44F509DB /* SwiftyOpenVPNClient.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		4E5F6FB3EF85D62416FC3B735A3801F4 /* Pods-Moonbounce */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1E514EFD19151FA73CC76E133541A611 /* Build configuration list for PBXNativeTarget "Pods-Moonbounce" */;
-			buildPhases = (
-				21EA4C838C244A08E1FFC0A656020EB5 /* Sources */,
-				CEBC2186E9CDEEDF35BE901359AEF61F /* Frameworks */,
-				CA8EBE4B5C4456DD35A5DE22BAD9AEED /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				95C76781BA7E3D9A5C017FE134C74338 /* PBXTargetDependency */,
 			);
 			name = "Pods-Moonbounce";
 			productName = "Pods-Moonbounce";
-			productReference = CEB8DEA5EB479F06FF7E88E3B1AA5595 /* Pods_Moonbounce.framework */;
+			productReference = 6260A950E94DFC7FEC080EA40B2CAB88 /* Pods_Moonbounce.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -242,84 +148,27 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = DB9BFAF43505ABFCB4E23BBE9301F79F /* Products */;
+			productRefGroup = B0D0890737536CFADA7433B329D43D72 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4E5F6FB3EF85D62416FC3B735A3801F4 /* Pods-Moonbounce */,
-				00BA8D81E4998A96622BD41956380C07 /* SwiftyOpenVPNClient */,
+				72CE0FD89CC663CC437D42573289A73B /* Pods-Moonbounce */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		21EA4C838C244A08E1FFC0A656020EB5 /* Sources */ = {
+		86533A293C399A0952D2A5795B355B8A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5359504492121C56E31B987914E1CC93 /* Pods-Moonbounce-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B0B9FE856373E59DF04C11A0C8B2A5EE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				420125C3F6DF2E1749D10BBDFC074643 /* OpenVPN.swift in Sources */,
-				55464E1A2ADC3E57055837EA5036B172 /* SwiftyOpenVPNClient-dummy.m in Sources */,
+				305F72812EE1F87BF2A2CD90391790E6 /* Pods-Moonbounce-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		95C76781BA7E3D9A5C017FE134C74338 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SwiftyOpenVPNClient;
-			target = 00BA8D81E4998A96622BD41956380C07 /* SwiftyOpenVPNClient */;
-			targetProxy = EA9320FBC9E5ADC1359C93FE260D7D97 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		09276591CE914A3A570D97181ED2B3FC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = FCF60A7183D3DD7A83C5EAE5D4DA778C /* Pods-Moonbounce.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_VERSION = A;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-Moonbounce/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MODULEMAP_FILE = "Target Support Files/Pods-Moonbounce/Pods-Moonbounce.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_Moonbounce;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		34342BBF37D3A9ED85FF2EB654934920 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -364,9 +213,9 @@
 			};
 			name = Debug;
 		};
-		46091919FB7B2F4CE6540FACF5117F58 /* Debug */ = {
+		3CD62A7C9E70E08BEC75C1919EC3D62D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5934D232C18741DB93C8B4F2B0D1E181 /* SwiftyOpenVPNClient.xcconfig */;
+			baseConfigurationReference = FCF60A7183D3DD7A83C5EAE5D4DA778C /* Pods-Moonbounce.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -382,24 +231,26 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_VERSION = A;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SwiftyOpenVPNClient/SwiftyOpenVPNClient-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SwiftyOpenVPNClient/Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-Moonbounce/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MODULEMAP_FILE = "Target Support Files/SwiftyOpenVPNClient/SwiftyOpenVPNClient.modulemap";
+				MODULEMAP_FILE = "Target Support Files/Pods-Moonbounce/Pods-Moonbounce.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = SwiftyOpenVPNClient;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Moonbounce;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		6FCAE22E95BC7E967D12FE277723E7FD /* Release */ = {
+		4ECCB0E84F2F51A1AE9F2BC9787AEFF4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E744E7E3802898CF935D4D93ABF53B64 /* Pods-Moonbounce.release.xcconfig */;
 			buildSettings = {
@@ -431,40 +282,6 @@
 				PRODUCT_NAME = Pods_Moonbounce;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		A1F3474F8FCFD8F4AA3E8563D82B58B1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5934D232C18741DB93C8B4F2B0D1E181 /* SwiftyOpenVPNClient.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_VERSION = A;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SwiftyOpenVPNClient/SwiftyOpenVPNClient-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SwiftyOpenVPNClient/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MODULEMAP_FILE = "Target Support Files/SwiftyOpenVPNClient/SwiftyOpenVPNClient.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = SwiftyOpenVPNClient;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -513,15 +330,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1E514EFD19151FA73CC76E133541A611 /* Build configuration list for PBXNativeTarget "Pods-Moonbounce" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				09276591CE914A3A570D97181ED2B3FC /* Debug */,
-				6FCAE22E95BC7E967D12FE277723E7FD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -531,11 +339,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		99EBC39D9C8EBDFCDFDBEA15F9B8F22E /* Build configuration list for PBXNativeTarget "SwiftyOpenVPNClient" */ = {
+		8ABC23F63B3D7AC254B02A0C3776ED8B /* Build configuration list for PBXNativeTarget "Pods-Moonbounce" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				46091919FB7B2F4CE6540FACF5117F58 /* Debug */,
-				A1F3474F8FCFD8F4AA3E8563D82B58B1 /* Release */,
+				3CD62A7C9E70E08BEC75C1919EC3D62D /* Debug */,
+				4ECCB0E84F2F51A1AE9F2BC9787AEFF4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

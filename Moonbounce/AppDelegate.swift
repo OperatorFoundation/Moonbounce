@@ -25,6 +25,16 @@ class AppDelegate: NSObject, NSApplicationDelegate
 
     func applicationDidFinishLaunching(_ aNotification: Notification)
     {
+        //Install God-Mode Helper
+        if !HelperAppInstaller.blessHelper(label: "org.OperatorFoundation.MoonbounceHelperTool")
+        {
+            print("Could not install MoonbounceHelperTool")
+        }
+        else
+        {
+            print("MoonbounceHelperTool installed on application startup.")
+        }
+        
         //Set up the status bar item/button
         if let moonbounceButton = statusItem.button
         {
