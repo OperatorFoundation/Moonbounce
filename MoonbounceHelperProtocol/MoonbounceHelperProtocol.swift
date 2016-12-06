@@ -10,6 +10,6 @@ import Foundation
 @objc(MoonbounceHelperProtocol)
 protocol MoonbounceHelperProtocol
 {
-    func startOpenVPN(appDirectory: String, configFileName: String, kextFilePath: String, completion:@escaping (_ launched:Bool) -> Void)
+    func startOpenVPN(openVPNFilePath: String, kextFilePath: String, configFileName: String)
     func stopOpenVPN(kextFilePath: String)
 }

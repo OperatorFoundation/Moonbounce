@@ -19,20 +19,7 @@ class MoonbounceViewController: NSViewController
     @IBOutlet weak var laserLeadingConstraint: NSLayoutConstraint!
     
     dynamic var runningScript = false
-    static var openVPN:OpenVPN?
-    {
-        get
-        {
-            guard let path = Bundle.main.path(forResource: "openvpn", ofType: nil)
-                else
-            {
-                print("Could not find openVPN executable. wtf D:")
-                return nil
-            }
-            
-            return OpenVPN(pathToOVPNExecutable: path)
-        }
-    }
+    static var openVPN = OpenVPN()
     
     //Advanced Mode Outlets
     @IBOutlet weak var advancedModeHeightConstraint: NSLayoutConstraint!
@@ -117,38 +104,31 @@ class MoonbounceViewController: NSViewController
             self.toggleConnectionButton.attributedTitle = NSAttributedString(string: "Disconnect", attributes: connectButtonAttributes)
         }
         
-        if MoonbounceViewController.openVPN != nil
+        MoonbounceViewController.openVPN.start(completion:
         {
-            MoonbounceViewController.openVPN!.start(completion: { (isConnected) in
-                //Go back to the main thread
-                DispatchQueue.main.async(execute:
-                    {
-                        //You can safely do UI stuff here
-                        //Verify that connection was succesful and update accordingly
-                        self.isConnected = isConnected
-                        self.runningScript = false
-                })
-            })
-        }
+            (isConnected) in
             
-        else
-        {
-            print("Unable to locate openVPN")
-            self.isConnected = false
-            return
-        }
+            //Go back to the main thread
+            DispatchQueue.main.async(execute:
+            {
+                //You can safely do UI stuff here
+                //Verify that connection was succesful and update accordingly
+                self.isConnected = isConnected
+                self.runningScript = false
+            })
+        })
     }
     
     func disconnect()
     {
-        MoonbounceViewController.openVPN?.stop(completion:
-        { (stopped) in
+        MoonbounceViewController.openVPN.stop(completion:
+        {
+            (stopped) in
             //
         })
         
         self.isConnected = false
         self.runningScript = false
-        
     }
     
     //Dev purposes - Show output from command line task

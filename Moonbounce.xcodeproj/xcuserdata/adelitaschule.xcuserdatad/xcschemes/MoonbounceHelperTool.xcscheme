@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B442B5FE1DEF8F82001E433D"
-               BuildableName = "MoonbounceHelperTool"
-               BlueprintName = "MoonbounceHelperTool"
+               BuildableName = "org.OperatorFoundation.MoonbounceHelperTool"
+               BlueprintName = "org.OperatorFoundation.MoonbounceHelperTool"
                ReferencedContainer = "container:Moonbounce.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B442B5FE1DEF8F82001E433D"
-            BuildableName = "MoonbounceHelperTool"
-            BlueprintName = "MoonbounceHelperTool"
+            BuildableName = "org.OperatorFoundation.MoonbounceHelperTool"
+            BlueprintName = "org.OperatorFoundation.MoonbounceHelperTool"
             ReferencedContainer = "container:Moonbounce.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -56,8 +56,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B442B5FE1DEF8F82001E433D"
-            BuildableName = "MoonbounceHelperTool"
-            BlueprintName = "MoonbounceHelperTool"
+            BuildableName = "org.OperatorFoundation.MoonbounceHelperTool"
+            BlueprintName = "org.OperatorFoundation.MoonbounceHelperTool"
             ReferencedContainer = "container:Moonbounce.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -75,8 +75,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B442B5FE1DEF8F82001E433D"
-            BuildableName = "MoonbounceHelperTool"
-            BlueprintName = "MoonbounceHelperTool"
+            BuildableName = "org.OperatorFoundation.MoonbounceHelperTool"
+            BlueprintName = "org.OperatorFoundation.MoonbounceHelperTool"
             ReferencedContainer = "container:Moonbounce.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

@@ -11,6 +11,6 @@ import ServiceManagement
 
 NSLog( "Launching Moonbounce Helper..")
 let helperTool = MoonbounceHelper()
-helperTool
+helperTool.run()
 
 

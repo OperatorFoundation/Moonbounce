@@ -8,14 +8,53 @@
 
 import Foundation
 
-public class MoonbounceHelper: NSObject
+class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegate
 {
     static var connectTask:Process!
     var verbosity = 3
     
-    func startOpenVPN(appDirectory: String, configFileName: String, kextFilePath: String) -> Bool
+    fileprivate var listener:NSXPCListener
+    fileprivate let kHelperToolMachServiceName = "org.OperatorFoundation.MoonbounceHelperTool"
+    
+    override init()
+    {
+        // Set up our XPC listener to handle requests on our Mach service.
+        self.listener = NSXPCListener(machServiceName:kHelperToolMachServiceName)
+        super.init()
+        self.listener.delegate = self
+    }
+    
+    func run()
+    {
+        // Tell the XPC listener to start processing requests.
+        // Resume the listener. At this point, NSXPCListener will take over the execution of this service, managing its lifetime as needed.
+        self.listener.resume()
+        // Run the run loop forever.
+        RunLoop.current.run()
+    }
+    
+    // Called by our XPC listener when a new connection comes in.  We configure the connection
+    // with our protocol and ourselves as the main object.
+    func listener(_ listener:NSXPCListener, shouldAcceptNewConnection newConnection: NSXPCConnection) -> Bool
+    {
+        print("new incoming connection")
+        // Configure the new connection and resume it. Because this is a singleton object, we set 'self' as the exported object and configure the connection to export the 'SMJobBlessHelperProtocol' protocol that we implement on this object.
+        newConnection.exportedInterface = NSXPCInterface(with:MoonbounceHelperProtocol.self)
+        newConnection.exportedObject = self;
+        newConnection.resume()
+        return true
+    }
+    
+    func startOpenVPN(openVPNFilePath: String, kextFilePath: String, configFileName: String)
     {
         //We need TUN Kernel Extension in order to connect to OpenVPN
+        //Path to script file
+        guard let kextFilePath = Bundle.main.path(forResource: "tun.kext", ofType: nil)
+            else
+        {
+            print("Unable to locate kext")
+            return
+        }
         loadKextScript(arguments: kextArguments(kextFilePath: kextFilePath))
         
         //Path to script file
@@ -23,18 +62,33 @@ public class MoonbounceHelper: NSObject
             else
         {
             print("Unable to locate openVPN program")
-            return false
+            return
         }
         
         //Arguments
+        ///Blah blah make or get Application Support Directory
+        guard let appDirectory = getApplicationDirectory()?.path
+            else
+        {
+            print("Unable to locate application directory.")
+            return
+        }
+        
         let openVpnArguments = connectToOpenVPNArguments(directory: appDirectory, configFileName: configFileName)
         
-        return runOpenVpnScript(path, arguments: openVpnArguments)
+        _ = runOpenVpnScript(path, arguments: openVpnArguments)
     }
     
     func stopOpenVPN(kextFilePath: String)
     {
-        //Unload the TUN Kext
+        //We need TUN Kernel Extension in order to connect to unload the TUN Kext
+        //Path to script file
+        guard let kextFilePath = Bundle.main.path(forResource: "tun.kext", ofType: nil)
+            else
+        {
+            print("Unable to locate kext")
+            return
+        }
         unloadKextScript(arguments: kextArguments(kextFilePath: kextFilePath))
         
         //Disconnect OpenVPN
@@ -198,17 +252,52 @@ public class MoonbounceHelper: NSObject
         outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: outputPipe.fileHandleForReading, queue: nil, using:
-            {
-                notification in
-                
-                let output = outputPipe.fileHandleForReading.availableData
-                let outputString = String(data: output, encoding: String.Encoding.utf8) ?? ""
-                
-                //TODO: Save output to a log file
-                print(outputString)
-                
-                outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+        {
+            notification in
+            
+            let output = outputPipe.fileHandleForReading.availableData
+            let outputString = String(data: output, encoding: String.Encoding.utf8) ?? ""
+            
+            //TODO: Save output to a log file
+            print(outputString)
+            
+            outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
         })
+    }
+    
+    func getApplicationDirectory() -> (URL)?
+    {
+        if let bundleID: String = Bundle.main.bundleIdentifier
+        {
+            let fileManager = FileManager.default
+            
+            // Find the application support directory in the home directory.
+            let appSupportDirectory = fileManager.urls(for: FileManager.SearchPathDirectory.applicationSupportDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
+            if appSupportDirectory.count > 0
+            {
+                // Append the bundle ID to the URL for the
+                // Application Support directory
+                let directoryPath = appSupportDirectory[0].appendingPathComponent(bundleID)
+                
+                // If the directory does not exist, this method creates it.
+                // This method is only available in OS X v10.7 and iOS 5.0 or later.
+                
+                do
+                {
+                    try fileManager.createDirectory(at: directoryPath, withIntermediateDirectories: true, attributes: nil)
+                }
+                catch let theError
+                {
+                    // Handle the error.
+                    print(theError)
+                    return nil;
+                }
+                
+                return directoryPath
+            }
+        }
+        
+        return nil
     }
 
 }

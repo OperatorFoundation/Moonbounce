@@ -33,6 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate
         else
         {
             print("MoonbounceHelperTool installed on application startup.")
+            helperClient = HelperAppController.connectToXPCService()
         }
         
         //Set up the status bar item/button

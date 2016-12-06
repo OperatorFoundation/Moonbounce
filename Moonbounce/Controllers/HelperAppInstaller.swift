@@ -12,6 +12,14 @@ import SecurityFoundation
 
 class HelperAppInstaller: NSObject
 {
+//    init()
+//    {
+//        if self.isNeedInstallHelperTool()
+//        {
+//            installHelperTool()
+//        }
+//    }
+    
     //SMJobBless:  Apple's recommended way of running privileged helper
     static func blessHelper(label:String) -> Bool
     {
@@ -101,6 +109,40 @@ class HelperAppInstaller: NSObject
         AuthorizationFree(authRef!, [])
         return result
     }
+    
+    //    func isNeedInstallHelperTool() -> Bool {
+    //        let installedHelperJobDict = SMJobCopyDictionary(kSMDomainSystemLaunchd,kHelperToolName as CFString)
+    //        if installedHelperJobDict == nil {
+    //            NSLog( "Helper tool \(kHelperToolName) has not been installed")
+    //            return true
+    //        }
+    //
+    //        if let installedHelperJobData = installedHelperJobDict?.takeUnretainedValue() as NSDictionary?{
+    //            var installedVersion = 0,currentVersion:Int
+    //            // Helper tool in place, check installed version
+    //            let installedPath = (installedHelperJobData.object(forKey: "ProgramArguments")! as AnyObject).object(at: 0)
+    //            let installedPathURL = URL(fileURLWithPath: installedPath as! String) as CFURL
+    //            if let installedInfoPlist:NSDictionary = CFBundleCopyInfoDictionaryForURL(installedPathURL){
+    //                let installedBundleVersion = installedInfoPlist.object(forKey: "CFBundleVersion")
+    //                installedVersion = ((installedBundleVersion as AnyObject).intValue)!
+    //                //NSLog( "installedVersion: \(installedVersion)")
+    //            }
+    //
+    //            let currentHelperToolURL = Bundle.main.bundleURL.appendingPathComponent("Contents/Library/LaunchServices/" + kHelperToolName)
+    //            let currentInfoPlist:NSDictionary = CFBundleCopyInfoDictionaryForURL(currentHelperToolURL as CFURL!)
+    //            let currentBundleVersion = currentInfoPlist.object(forKey: "CFBundleVersion")
+    //            currentVersion = ((currentBundleVersion as AnyObject).intValue)!
+    //            //NSLog( "currentVersion: \(currentVersion)")
+    //            if ( currentVersion == installedVersion )
+    //            {
+    //                return false
+    //            }else{
+    //                return true
+    //            }
+    //        }else{
+    //            NSLog( "Can not get installed helper tool information.")
+    //        }
+    //    }
 
 
 }

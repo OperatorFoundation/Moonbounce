@@ -29,20 +29,33 @@ public class OpenVPN: NSObject
     public var outputPipe:Pipe?
     
     private var pathToOpenVPNExecutable:String
+    private var pathToKext:String
     private var directory:String = ""
     
-    public init(pathToOVPNExecutable: String)
+    public override init()
     {
-        self.pathToOpenVPNExecutable = pathToOVPNExecutable
-        
-        super.init()
-        
-        ///Blah blah make or get Application Support Directory
-        if let directoryURL = getApplicationDirectory()
+        if let openVpnPath = Bundle.main.path(forResource: "openvpn", ofType: nil)
         {
-            self.directory = directoryURL.path
+            pathToOpenVPNExecutable = openVpnPath
+        }
+        else
+        {
+            print("Could not find openVPN executable. wtf D:")
+            pathToOpenVPNExecutable = ""
         }
         
+        if let kextPath = Bundle.main.path(forResource: "tun-signed.kext", ofType: nil)
+        {
+            pathToKext = kextPath
+        }
+        else
+        {
+            print("Could not find our kext!")
+            pathToKext = ""
+        }
+        
+        super.init()
+                
         //Add listener for app termination so that openVPN connection can be killed
         NotificationCenter.default.addObserver(forName: Notification.Name.NSApplicationWillTerminate, object: nil, queue: nil, using:
         {
@@ -63,64 +76,30 @@ public class OpenVPN: NSObject
         })
     }
     
-    func getApplicationDirectory() -> (URL)?
-    {
-        if let bundleID: String = Bundle.main.bundleIdentifier
-        {
-            let fileManager = FileManager.default
-            
-            // Find the application support directory in the home directory.
-            let appSupportDirectory = fileManager.urls(for: FileManager.SearchPathDirectory.applicationSupportDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
-            if appSupportDirectory.count > 0
-            {
-                // Append the bundle ID to the URL for the
-                // Application Support directory
-                let directoryPath = appSupportDirectory[0].appendingPathComponent(bundleID)
-                
-                // If the directory does not exist, this method creates it.
-                // This method is only available in OS X v10.7 and iOS 5.0 or later.
-                
-                do
-                {
-                    try fileManager.createDirectory(at: directoryPath, withIntermediateDirectories: true, attributes: nil)
-                }
-                catch let theError
-                {
-                    // Handle the error.
-                    print(theError)
-                    return nil;
-                }
-                
-                return directoryPath
-            }
-        }
-        
-        return nil
-    }
-    
     public func start(completion:@escaping (_ launched:Bool) -> Void)
     {
-        
-        //Path to script file
-        guard let path = Bundle.main.path(forResource: "openvpn", ofType: nil)
-            else
+        if helperClient != nil
         {
-            print("Unable to locate openVPN program")
-            return
+            helperClient!.startOpenVPN(openVPNFilePath: pathToOpenVPNExecutable, kextFilePath: pathToKext, configFileName: configFileName)
+            completion(true)
         }
-//        
-//        //Arguments
-//        let arguments = connectToOpenVPNArguments()
-//        
-//        runScript(path, arguments: arguments)
-//        { (wasLaunched) in
-//            completion(wasLaunched)
-//        }
+        else
+        {
+             completion(false)
+        }
     }
     
     public func stop(completion:(_ stopped:Bool) -> Void)
     {
-
+        if helperClient != nil
+        {
+            helperClient!.stopOpenVPN(kextFilePath: pathToKext)
+            completion(true)
+        }
+        else
+        {
+            completion(false)
+        }
     }
     
 
