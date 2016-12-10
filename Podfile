@@ -5,5 +5,6 @@ use_frameworks!
 
 target 'Moonbounce' do
 
+pod 'SwiftPluto', :path => '/Volumes/extDrive/Code/pods/SwiftPluto'
 
 end

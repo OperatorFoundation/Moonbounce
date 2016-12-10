@@ -9,7 +9,7 @@
 import Foundation
 import ServiceManagement
 
-NSLog( "Launching Moonbounce Helper..")
+NSLog( "Launching Moonbounce Helper...")
 let helperTool = MoonbounceHelper()
 helperTool.run()
 

@@ -9,3 +9,4 @@
 import Foundation
 
 var helperClient:MoonbounceHelperProtocol?
+let kOutputTextNotification: CFString = "OutputFromBashNotification" as CFString

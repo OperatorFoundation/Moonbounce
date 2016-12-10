@@ -29,6 +29,7 @@
 		B442B5B61DEE5AAB001E433D /* OpenVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = B442B5B51DEE5AAB001E433D /* OpenVPN.swift */; };
 		B442B6021DEF8F82001E433D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = B442B6011DEF8F82001E433D /* main.swift */; };
 		B44390591DC00EA000389352 /* PopoverContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44390581DC00EA000389352 /* PopoverContentView.swift */; };
+		B494F9251DF89B290094838F /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4672B8961DF60498008134E5 /* Globals.swift */; };
 		B49A4BE91DF71E8700643247 /* shapeshifter-dispatcher in Resources */ = {isa = PBXBuildFile; fileRef = B49A4BE81DF71E8700643247 /* shapeshifter-dispatcher */; };
 /* End PBXBuildFile section */
 
@@ -417,6 +418,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B494F9251DF89B290094838F /* Globals.swift in Sources */,
 				4672B8931DF5F9BF008134E5 /* MoonbounceHelperProtocol.swift in Sources */,
 				4672B8921DF5F9B4008134E5 /* MoonbounceHelper.swift in Sources */,
 				B442B6021DEF8F82001E433D /* main.swift in Sources */,

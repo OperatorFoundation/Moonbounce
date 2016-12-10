@@ -8,8 +8,8 @@
 
 import Cocoa
 
-public let kOutputTextNotification = "OutputFromBashNotification"
-public let outputStringKey = "outputString"
+//public let kOutputTextNotification = "OutputFromBashNotification"
+//public let outputStringKey = "outputString"
 
 public class OpenVPN: NSObject
 {
@@ -26,7 +26,7 @@ public class OpenVPN: NSObject
         
 
     public var configFileName = "config.ovpn"
-    public var outputPipe:Pipe?
+//    public var outputPipe:Pipe?
     
     private var pathToOpenVPNExecutable:String
     private var pathToKext:String

@@ -51,9 +51,22 @@ class MoonbounceViewController: NSViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        //Listen for Bash output
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: kOutputTextNotification), object: nil, queue: nil, using: showProcessOutputInTextView)
+
+        //Listen for Bash output from Helper App
+
+        CFNotificationCenterAddObserver(CFNotificationCenterGetDistributedCenter(), nil,
+        {
+            (_, observer, notificationName, object, userInfo) in
+            //
+            if let observer = observer, let userInfo = userInfo
+            {
+                //Extract pointer to 'self' from void pointer
+                let mySelf = Unmanaged<MoonbounceViewController>.fromOpaque(observer).takeUnretainedValue()
+                mySelf.showProcessOutputInTextView(userInfo: userInfo)
+            }
+            
+        }, kOutputTextNotification, nil, CFNotificationSuspensionBehavior.deliverImmediately)
+        //NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: kOutputTextNotification), object: nil, queue: nil, using: showProcessOutputInTextView)
     }
     
     override func viewWillAppear()
@@ -132,22 +145,23 @@ class MoonbounceViewController: NSViewController
     }
     
     //Dev purposes - Show output from command line task
-    func showProcessOutputInTextView(notification: Notification) -> Void
+    func showProcessOutputInTextView(userInfo: CFDictionary) -> Void
     {
-        guard let userInfo = notification.userInfo, let outputString = userInfo[outputStringKey] as? String
-        else
-        {
-            print("No userInfo found in notification")
-            return
-        }
+//        guard let userInfo = notification.userInfo, let outputString = userInfo[outputStringKey] as? String
+//        else
+//        {
+//            print("No userInfo found in notification")
+//            return
+//        }
         
-        let previousOutput = self.outputView.string ?? ""
-        let nextOutput = previousOutput + "\n" + outputString
-        self.outputView.string = nextOutput
-        
-        //Scroll the textview so that newest lines are visible
-        let range = NSRange(location: nextOutput.characters.count, length: 0)
-        self.outputView.scrollRangeToVisible(range)
+        print(userInfo)
+//        let previousOutput = self.outputView.string ?? ""
+//        let nextOutput = previousOutput + "\n" + outputString
+//        self.outputView.string = nextOutput
+//        
+//        //Scroll the textview so that newest lines are visible
+//        let range = NSRange(location: nextOutput.characters.count, length: 0)
+//        self.outputView.scrollRangeToVisible(range)
     }
     
     //MARK: UI Helpers

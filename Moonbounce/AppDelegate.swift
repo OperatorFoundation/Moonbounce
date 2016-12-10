@@ -60,6 +60,19 @@ class AppDelegate: NSObject, NSApplicationDelegate
             }
         })
         
+        //Send NSLog output into a log file
+        var paths: Array = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentsDirectory: String = paths[0]
+        let logPath: String = documentsDirectory.appending("/moonbounceConsole.log")
+        
+        if (isatty(STDERR_FILENO) == 0)
+        {
+            freopen(logPath, "a+", stderr)
+            freopen(logPath, "a+", stdin)
+            freopen(logPath, "a+", stdout)
+        }
+        print(logPath)
+        
         //Cocoa normally keeps you from launching more than one instance at a time, but sometimes it happens anyway
         if let bundleID = Bundle.main.bundleIdentifier
         {

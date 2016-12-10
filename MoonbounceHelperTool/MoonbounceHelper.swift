@@ -13,6 +13,8 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
     static var connectTask:Process!
     var verbosity = 3
     
+    let logPath = NSHomeDirectory()+"/Documents/debug.log"
+    
     fileprivate var listener:NSXPCListener
     fileprivate let kHelperToolMachServiceName = "org.OperatorFoundation.MoonbounceHelperTool"
     
@@ -22,6 +24,7 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
         self.listener = NSXPCListener(machServiceName:kHelperToolMachServiceName)
         super.init()
         self.listener.delegate = self
+        self.writeToLog(content: "Initialized Helper Tool")
     }
     
     func run()
@@ -49,6 +52,8 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
     {
         //We need TUN Kernel Extension in order to connect to OpenVPN
         //Path to script file
+        
+        
         guard let kextFilePath = Bundle.main.path(forResource: "tun.kext", ofType: nil)
             else
         {
@@ -137,6 +142,7 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
     
     private func runOpenVpnScript(_ path: String, arguments: [String]) -> Bool
     {
+        writeToLog(content: "Helper func: runOpenVpnScript")
         //Run heavy lifting on the background thread.
         let taskQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
         taskQueue.async
@@ -181,6 +187,7 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
     
     func loadKextScript(arguments: [String])
     {
+        print("Helper func: loadKextScript")
         //Creates a new Process and assigns it to the connectTask property.
         let kextTask = Process()
         
@@ -260,9 +267,36 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
             
             //TODO: Save output to a log file
             print(outputString)
+            self.writeToLog(content: outputString)
+            CFNotificationCenterPostNotification(CFNotificationCenterGetDistributedCenter(), CFNotificationName(rawValue: kOutputTextNotification), outputString, nil, true)
             
             outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
         })
+    }
+    
+    func writeToLog(content: String)
+    {
+        if let path = self.getApplicationDirectory()?.appendingPathComponent("moonbounceLog.txt").path
+        {
+            if let fileHandle = FileHandle(forWritingAtPath: path)
+            {
+                //append to file
+                fileHandle.seekToEndOfFile()
+                fileHandle.write(content.data(using: String.Encoding.utf8)!)
+            }
+            else
+            {
+                //create new file
+                do
+                {
+                    try content.write(toFile: path, atomically: true, encoding: String.Encoding.utf8)
+                }
+                catch
+                {
+                    print("Error writing to file \(path)")
+                }
+            }
+        }
     }
     
     func getApplicationDirectory() -> (URL)?
