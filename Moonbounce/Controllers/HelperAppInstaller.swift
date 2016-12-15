@@ -69,9 +69,7 @@ class HelperAppInstaller: NSObject
         // Obtain an Authorization Reference
         // You can do this at the beginning of the app. It has no extra rights until later
         var authRef: AuthorizationRef? = nil
-        
-        
-        
+
         //Ask user for admin privilege
         var authItem = AuthorizationItem(name: kSMRightBlessPrivilegedHelper, valueLength: 0, value: nil, flags: 0)
         var authRights = AuthorizationRights(count: 1, items: &authItem)

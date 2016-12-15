@@ -24,28 +24,53 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
         self.listener = NSXPCListener(machServiceName:kHelperToolMachServiceName)
         super.init()
         self.listener.delegate = self
-        self.writeToLog(content: "Initialized Helper Tool")
+    }
+    
+    func testLog()
+    {
+        let logDirectory = "/Users/Lita/Library/Application Support/org.OperatorFoundation.MoonbounceHelperTool/"
+        writeToLog(logDirectory: logDirectory, content: ">>>>>>>Test Log Received<<<<<<<")
+    }
+
+    func test(callback: (String) -> Void)
+    {
+        callback("This is the test callback response")
+    }
+    
+    func testStartOpenVPN(openVPNFilePath: String, configFilePath: String, configFileName: String)
+    {
+        let logDirectory = "/Users/Lita/Library/Application Support/org.OperatorFoundation.MoonbounceHelperTool/"
+        writeToLog(logDirectory: logDirectory, content: ">>>>>>>Test Started OpenVPN<<<<<<<")
+        //writeToLog(logDirectory: logDirectory, content: "OpenVPNFilePath:\(openVPNFilePath)\nConfig File Filepath: \(configFilePath)\nConfig File Name: \(configFileName)")
     }
     
     func run()
     {
         // Tell the XPC listener to start processing requests.
+        let logDirectory = "/Users/Lita/Library/Application Support/org.OperatorFoundation.MoonbounceHelperTool/"
+        writeToLog(logDirectory: logDirectory, content: "*****Run Was Called******")
         
         // Resume the listener. At this point, NSXPCListener will take over the execution of this service, managing its lifetime as needed.
         self.listener.resume()
         
         //TODO: TESTING ONLY
-        self.startOpenVPN(openVPNFilePath: "/Users/Lita/Library/Developer/Xcode/DerivedData/Moonbounce-aosqeamddmsgekczgdbfntvzubaw/Build/Products/Debug/Moonbounce.app/Contents/Resources/openvpn", configFileName: "config.ovpn")
+        //self.startOpenVPN(openVPNFilePath: "/Users/Lita/Library/Developer/Xcode/DerivedData/Moonbounce-aosqeamddmsgekczgdbfntvzubaw/Build/Products/Debug/Moonbounce.app/Contents/Resources/openvpn", configFilePath: "/Users/Lita/Library/Application Support/org.OperatorFoundation.MoonbounceHelperTool/", configFileName: "DO.ovpn")
         
         // Run the run loop forever.
+        writeToLog(logDirectory: logDirectory, content: "^^^^^^We are about to RunLoop this thing up in here^^^^^^")
         RunLoop.current.run()
+        writeToLog(logDirectory: logDirectory, content: "<<<<<<<Our RunLoop is over, it was good while it lasted.>>>>>>>>")
     }
     
     // Called by our XPC listener when a new connection comes in.  We configure the connection
     // with our protocol and ourselves as the main object.
     func listener(_ listener:NSXPCListener, shouldAcceptNewConnection newConnection: NSXPCConnection) -> Bool
     {
+        let logDirectory = "/Users/Lita/Library/Application Support/org.OperatorFoundation.MoonbounceHelperTool/"
+        writeToLog(logDirectory: logDirectory, content: "****New Incoming Connection****")
+        
         print("new incoming connection")
+        
         // Configure the new connection and resume it. Because this is a singleton object, we set 'self' as the exported object and configure the connection to export the 'SMJobBlessHelperProtocol' protocol that we implement on this object.
         newConnection.exportedInterface = NSXPCInterface(with:MoonbounceHelperProtocol.self)
         newConnection.exportedObject = self;
@@ -53,24 +78,21 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
         return true
     }
     
-    func startOpenVPN(openVPNFilePath: String, configFileName: String)
+    func startOpenVPN(openVPNFilePath: String, configFilePath: String, configFileName: String)
     {
+        let logDirectory = "/Users/Lita/Library/Application Support/org.OperatorFoundation.MoonbounceHelperTool/"
+        writeToLog(logDirectory: logDirectory, content: "******* STARTOPENVPN CALLED *******")
         //Arguments
-        ///Blah blah make or get Application Support Directory
-        guard let appDirectory = getApplicationDirectory()?.path
-            else
-        {
-            print("Unable to locate application directory.")
-            return
-        }
+        let openVpnArguments = connectToOpenVPNArguments(directory: configFilePath, configFileName: configFileName)
         
-        let openVpnArguments = connectToOpenVPNArguments(directory: appDirectory, configFileName: configFileName)
-        
-        _ = runOpenVpnScript(openVPNFilePath, arguments: openVpnArguments)
+        _ = runOpenVpnScript(openVPNFilePath, logDirectory: configFilePath, arguments: openVpnArguments)
     }
     
     func stopOpenVPN()
     {
+        let logDirectory = "/Users/Lita/Library/Application Support/org.OperatorFoundation.MoonbounceHelperTool/"
+        writeToLog(logDirectory: logDirectory, content: "******* STOP OPENvpn CALLED *******")
+        
         //Disconnect OpenVPN
         if MoonbounceHelper.connectTask != nil
         {
@@ -108,9 +130,10 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
         return processArguments
     }
     
-    private func runOpenVpnScript(_ path: String, arguments: [String]) -> Bool
+    private func runOpenVpnScript(_ path: String, logDirectory: String, arguments: [String]) -> Bool
     {
-        writeToLog(content: "Helper func: runOpenVpnScript")
+        let directory = "/Users/Lita/Library/Application Support/org.OperatorFoundation.MoonbounceHelperTool/"
+        writeToLog(logDirectory: directory, content: "Helper func: runOpenVpnScript")
         //Run heavy lifting on the background thread.
         //let taskQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
         //taskQueue.async
@@ -137,7 +160,7 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
                 if let outString = String(data: outData, encoding: .utf8)
                 {
                     print(outString)
-                    self.writeToLog(content: outString)
+                    self.writeToLog(logDirectory: logDirectory, content: outString)
                 }
                 
                 let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
@@ -146,171 +169,44 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
                     if errorString != ""
                     {
                         print(errorString)
-                        self.writeToLog(content: "Error: \(errorString)")
+                        self.writeToLog(logDirectory: logDirectory, content: "Error: \(errorString)")
                     }
                 }
                 
                 MoonbounceHelper.connectTask.waitUntilExit()
                 
                 let status = MoonbounceHelper.connectTask.terminationStatus
-                self.writeToLog(content: "Termination Status: \(status)")
+                self.writeToLog(logDirectory: logDirectory, content: "Termination Status: \(status)")
         //}
         
         //This may be a lie :(
         return true
     }
     
-/*    func loadKextScript(arguments: [String])
-    {
-        print("Helper func: loadKextScript")
-        //Creates a new Process and assigns it to the connectTask property.
-        let kextTask = Process()
-        
-        //The launchPath is the path to the executable to run.
-        kextTask.launchPath = "/sbin/kextload"
-        
-        //Arguments will pass the arguments to the executable, as though typed directly into terminal.
-        kextTask.arguments = arguments
-        
-        self.addOutputObserver(process: kextTask, outputPipe: Pipe())
-        kextTask.launch()
-        
-        //Block any other activity on this thread until the process/task is finished
-        kextTask.waitUntilExit()
-        
-        if !kextTask.isRunning
-        {
-            let status = kextTask.terminationStatus
-            
-            //TODO: You’ll need to look at the documentation for that task to learn what values it returns under what circumstances.
-            if status == 0
-            {
-                print("Connect Task status == 0.")
-            }
-            else
-            {
-                print("Connect Task Status == \(status.description).")
-            }
-        }
-    }
- 
-    
-    func unloadKextScript(arguments: [String])
-    {
-        //Creates a new Process and assigns it to the connectTask property.
-        let kextUnloadTask = Process()
-        
-        //The launchPath is the path to the executable to run.
-        kextUnloadTask.launchPath = "/sbin/kextunload"
-        
-        //Arguments will pass the arguments to the executable, as though typed directly into terminal.
-        kextUnloadTask.arguments = arguments
-        
-        self.addOutputObserver(process: kextUnloadTask, outputPipe: Pipe())
-        kextUnloadTask.launch()
-        
-        //Block any other activity on this thread until the process/task is finished
-        kextUnloadTask.waitUntilExit()
-        
-        if !kextUnloadTask.isRunning
-        {
-            let status = kextUnloadTask.terminationStatus
-            
-            //TODO: You’ll need to look at the documentation for that task to learn what values it returns under what circumstances.
-            if status == 0
-            {
-                print("Connect Task status == 0.")
-            }
-            else
-            {
-                print("Connect Task Status == \(status.description).")
-            }
-        }
-    }
- */
-    
-    //Dev purposes - Show output from command line task
-    func addOutputObserver(process: Process, outputPipe: Pipe)
-    {
-        process.standardOutput = outputPipe
-        outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
-        
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: outputPipe.fileHandleForReading, queue: nil, using:
-        {
-            notification in
-            
-            let output = outputPipe.fileHandleForReading.availableData
-            let outputString = String(data: output, encoding: String.Encoding.utf8) ?? ""
-            
-            //TODO: Save output to a log file
-            print(outputString)
-            self.writeToLog(content: outputString)
-            CFNotificationCenterPostNotification(CFNotificationCenterGetDistributedCenter(), CFNotificationName(rawValue: kOutputTextNotification), outputString, nil, true)
-            
-            outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
-        })
-    }
-    
-    func writeToLog(content: String)
+    func writeToLog(logDirectory: String, content: String)
     {
         let timeStamp = Date()
         let contentString = "\n\(timeStamp):\n\(content)\n"
-        if let path = self.getApplicationDirectory()?.appendingPathComponent("moonbounceLog.txt").path
-        {
-            if let fileHandle = FileHandle(forWritingAtPath: path)
-            {
-                //append to file
-                fileHandle.seekToEndOfFile()
-                fileHandle.write(contentString.data(using: String.Encoding.utf8)!)
-            }
-            else
-            {
-                //create new file
-                do
-                {
-                    try contentString.write(toFile: path, atomically: true, encoding: String.Encoding.utf8)
-                }
-                catch
-                {
-                    print("Error writing to file \(path)")
-                }
-            }
-        }
-    }
-    
-    func getApplicationDirectory() -> (URL)?
-    {
-        if let bundleID: String = Bundle.main.bundleIdentifier
-        {
-            let fileManager = FileManager.default
-            
-            // Find the application support directory in the home directory.
-            let appSupportDirectory = fileManager.urls(for: FileManager.SearchPathDirectory.applicationSupportDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
-            if appSupportDirectory.count > 0
-            {
-                // Append the bundle ID to the URL for the
-                // Application Support directory
-                let directoryPath = appSupportDirectory[0].appendingPathComponent(bundleID)
-                
-                // If the directory does not exist, this method creates it.
-                // This method is only available in OS X v10.7 and iOS 5.0 or later.
-                
-                do
-                {
-                    try fileManager.createDirectory(at: directoryPath, withIntermediateDirectories: true, attributes: nil)
-                }
-                catch let theError
-                {
-                    // Handle the error.
-                    print(theError)
-                    return nil;
-                }
-                
-                return directoryPath
-            }
-        }
+        let logFilePath = logDirectory + "moonbounceLog.txt"
         
-        return nil
+        if let fileHandle = FileHandle(forWritingAtPath: logFilePath)
+        {
+            //append to file
+            fileHandle.seekToEndOfFile()
+            fileHandle.write(contentString.data(using: String.Encoding.utf8)!)
+        }
+        else
+        {
+            //create new file
+            do
+            {
+                try contentString.write(toFile: logFilePath, atomically: true, encoding: String.Encoding.utf8)
+            }
+            catch
+            {
+                print("Error writing to file \(logFilePath)")
+            }
+        }
     }
 
 }

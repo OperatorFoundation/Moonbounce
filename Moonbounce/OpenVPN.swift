@@ -13,7 +13,7 @@ import Cocoa
 
 public class OpenVPN: NSObject
 {
-    public var configFileName = "config.ovpn"
+    public var configFileName = "DO.ovpn"
     
     private var pathToOpenVPNExecutable:String
     private var directory:String = ""
@@ -29,9 +29,14 @@ public class OpenVPN: NSObject
             print("Could not find openVPN executable. wtf D:")
             pathToOpenVPNExecutable = ""
         }
-        
+
         super.init()
-                
+        
+        if let pathToConfig = getApplicationDirectory()
+        {
+            directory = pathToConfig.path
+        }
+        
         //Add listener for app termination so that openVPN connection can be killed
         NotificationCenter.default.addObserver(forName: Notification.Name.NSApplicationWillTerminate, object: nil, queue: nil, using:
         {
@@ -54,9 +59,23 @@ public class OpenVPN: NSObject
     
     public func start(completion:@escaping (_ launched:Bool) -> Void)
     {
-        if helperClient != nil
+        print("About to call startOpenVPN")
+        if let helper = helperClient
         {
-            helperClient!.startOpenVPN(openVPNFilePath: pathToOpenVPNExecutable, configFileName: configFileName)
+            helper.testLog()
+            helper.test(callback:
+            {
+                (responseString) in
+                
+                print(responseString)
+            })
+            
+            helper.testStartOpenVPN(openVPNFilePath: pathToOpenVPNExecutable, configFilePath: directory, configFileName: configFileName)
+            
+            helper.startOpenVPN(openVPNFilePath: pathToOpenVPNExecutable, configFilePath: directory, configFileName: configFileName)
+                        
+            print("startOpenVPN was called.")
+            
             completion(true)
         }
         else
@@ -76,6 +95,41 @@ public class OpenVPN: NSObject
         {
             completion(false)
         }
+    }
+    
+    func getApplicationDirectory() -> (URL)?
+    {
+        if let bundleID: String = Bundle.main.bundleIdentifier
+        {
+            let fileManager = FileManager.default
+            
+            // Find the application support directory in the home directory.
+            let appSupportDirectory = fileManager.urls(for: FileManager.SearchPathDirectory.applicationSupportDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
+            if appSupportDirectory.count > 0
+            {
+                // Append the bundle ID to the URL for the
+                // Application Support directory
+                let directoryPath = appSupportDirectory[0].appendingPathComponent(bundleID)
+                
+                // If the directory does not exist, this method creates it.
+                // This method is only available in OS X v10.7 and iOS 5.0 or later.
+                
+                do
+                {
+                    try fileManager.createDirectory(at: directoryPath, withIntermediateDirectories: true, attributes: nil)
+                }
+                catch let theError
+                {
+                    // Handle the error.
+                    print(theError)
+                    return nil;
+                }
+                
+                return directoryPath
+            }
+        }
+        
+        return nil
     }
     
 
