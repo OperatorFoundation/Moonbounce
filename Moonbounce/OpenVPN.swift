@@ -13,23 +13,9 @@ import Cocoa
 
 public class OpenVPN: NSObject
 {
-    /*Output Verbosity: Level 3 is recommended if you want a good summary of  what's
-    happening without being swamped by output.
-    
-    0 -- No output except fatal errors.
-    1 to 4 -- Normal usage range.
-    5  -- Output R and W characters to the console for each packet read and write,
-    uppercase is used for TCP/UDP packets and lowercase is used for TUN/TAP  pack-
-    ets.
-    6  to  11  --  Debug  info range (see errlevel.h for additional information on
-    debug levels).*/
-        
-
     public var configFileName = "config.ovpn"
-//    public var outputPipe:Pipe?
     
     private var pathToOpenVPNExecutable:String
-    private var pathToKext:String
     private var directory:String = ""
     
     public override init()
@@ -42,16 +28,6 @@ public class OpenVPN: NSObject
         {
             print("Could not find openVPN executable. wtf D:")
             pathToOpenVPNExecutable = ""
-        }
-        
-        if let kextPath = Bundle.main.path(forResource: "tun-signed.kext", ofType: nil)
-        {
-            pathToKext = kextPath
-        }
-        else
-        {
-            print("Could not find our kext!")
-            pathToKext = ""
         }
         
         super.init()
@@ -80,7 +56,7 @@ public class OpenVPN: NSObject
     {
         if helperClient != nil
         {
-            helperClient!.startOpenVPN(openVPNFilePath: pathToOpenVPNExecutable, kextFilePath: pathToKext, configFileName: configFileName)
+            helperClient!.startOpenVPN(openVPNFilePath: pathToOpenVPNExecutable, configFileName: configFileName)
             completion(true)
         }
         else
@@ -93,7 +69,7 @@ public class OpenVPN: NSObject
     {
         if helperClient != nil
         {
-            helperClient!.stopOpenVPN(kextFilePath: pathToKext)
+            helperClient!.stopOpenVPN()
             completion(true)
         }
         else

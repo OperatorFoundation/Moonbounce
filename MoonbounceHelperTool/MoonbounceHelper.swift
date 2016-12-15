@@ -30,8 +30,13 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
     func run()
     {
         // Tell the XPC listener to start processing requests.
+        
         // Resume the listener. At this point, NSXPCListener will take over the execution of this service, managing its lifetime as needed.
         self.listener.resume()
+        
+        //TODO: TESTING ONLY
+        self.startOpenVPN(openVPNFilePath: "/Users/Lita/Library/Developer/Xcode/DerivedData/Moonbounce-aosqeamddmsgekczgdbfntvzubaw/Build/Products/Debug/Moonbounce.app/Contents/Resources/openvpn", configFileName: "config.ovpn")
+        
         // Run the run loop forever.
         RunLoop.current.run()
     }
@@ -48,28 +53,8 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
         return true
     }
     
-    func startOpenVPN(openVPNFilePath: String, kextFilePath: String, configFileName: String)
+    func startOpenVPN(openVPNFilePath: String, configFileName: String)
     {
-        //We need TUN Kernel Extension in order to connect to OpenVPN
-        //Path to script file
-        
-        
-        guard let kextFilePath = Bundle.main.path(forResource: "tun.kext", ofType: nil)
-            else
-        {
-            print("Unable to locate kext")
-            return
-        }
-        loadKextScript(arguments: kextArguments(kextFilePath: kextFilePath))
-        
-        //Path to script file
-        guard let path = Bundle.main.path(forResource: "openvpn", ofType: nil)
-            else
-        {
-            print("Unable to locate openVPN program")
-            return
-        }
-        
         //Arguments
         ///Blah blah make or get Application Support Directory
         guard let appDirectory = getApplicationDirectory()?.path
@@ -81,21 +66,11 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
         
         let openVpnArguments = connectToOpenVPNArguments(directory: appDirectory, configFileName: configFileName)
         
-        _ = runOpenVpnScript(path, arguments: openVpnArguments)
+        _ = runOpenVpnScript(openVPNFilePath, arguments: openVpnArguments)
     }
     
-    func stopOpenVPN(kextFilePath: String)
+    func stopOpenVPN()
     {
-        //We need TUN Kernel Extension in order to connect to unload the TUN Kext
-        //Path to script file
-        guard let kextFilePath = Bundle.main.path(forResource: "tun.kext", ofType: nil)
-            else
-        {
-            print("Unable to locate kext")
-            return
-        }
-        unloadKextScript(arguments: kextArguments(kextFilePath: kextFilePath))
-        
         //Disconnect OpenVPN
         if MoonbounceHelper.connectTask != nil
         {
@@ -110,6 +85,7 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
         //List of arguments for Process/Task
         var processArguments: [String] = []
         
+        
         //processArguments.append("--daemon")
         processArguments.append("--cd")
         processArguments.append(directory)
@@ -121,21 +97,13 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
         processArguments.append(String(verbosity))
         processArguments.append("--cd")
         processArguments.append(directory)
-        processArguments.append("--management")
-        processArguments.append("127.0.0.1")
-        processArguments.append("1337")
-        processArguments.append("--management-query-passwords")
+        processArguments.append("--log")
+        processArguments.append("/Users/Lita/Library/Application Support/org.OperatorFoundation.MoonbounceHelperTool/openVPNLog.txt")
+//        processArguments.append("--management")
+//        processArguments.append("127.0.0.1")
+//        processArguments.append("1337")
+//        processArguments.append("--management-query-passwords")
         //processArguments.append("--management-hold")
-        
-        return processArguments
-    }
-    
-    private func kextArguments(kextFilePath: String) -> [String]
-    {
-        //List of arguments for Process/Task
-        var processArguments: [String] = []
-        
-        processArguments.append(kextFilePath)
         
         return processArguments
     }
@@ -144,48 +112,55 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
     {
         writeToLog(content: "Helper func: runOpenVpnScript")
         //Run heavy lifting on the background thread.
-        let taskQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
-        taskQueue.async
-            {
+        //let taskQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
+        //taskQueue.async
+            //{
                 //Creates a new Process and assigns it to the connectTask property.
                 MoonbounceHelper.connectTask = Process()
                 //The launchPath is the path to the executable to run.
                 MoonbounceHelper.connectTask.launchPath = path
                 //Arguments will pass the arguments to the executable, as though typed directly into terminal.
                 MoonbounceHelper.connectTask.arguments = arguments
+                print(arguments)
                 
-                //Do something after the process (FKA NSTask) is finished
+                let outputPipe = Pipe()
+                MoonbounceHelper.connectTask.standardOutput = outputPipe
+                let errorPipe = Pipe()
+                MoonbounceHelper.connectTask.standardError = errorPipe
                 
-                
-                self.addOutputObserver(process: MoonbounceHelper.connectTask, outputPipe: Pipe())
+                //self.addOutputObserver(process: MoonbounceHelper.connectTask, outputPipe: Pipe())
                 
                 //Go ahead and launch the process/task
                 MoonbounceHelper.connectTask.launch()
                 
-                //                //Block any other activity on this thread until the process/task is finished
-                //                MoonbounceHelper.connectTask.waitUntilExit()
-                //
-                //                if !MoonbounceHelper.connectTask.isRunning
-                //                {
-                //                    let status = MoonbounceHelper.connectTask.terminationStatus
-                //
-                //                    //TODO: You’ll need to look at the documentation for that task to learn what values it returns under what circumstances.
-                //                    if status == 0
-                //                    {
-                //                        print("Connect Task status == 0.")
-                //                    }
-                //                    else
-                //                    {
-                //                        print("Connect Task Status == \(status.description).")
-                //                    }
-                //                }
-        }
+                let outData = outputPipe.fileHandleForReading.readDataToEndOfFile()
+                if let outString = String(data: outData, encoding: .utf8)
+                {
+                    print(outString)
+                    self.writeToLog(content: outString)
+                }
+                
+                let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
+                if let errorString = String(data: errorData, encoding: .utf8)
+                {
+                    if errorString != ""
+                    {
+                        print(errorString)
+                        self.writeToLog(content: "Error: \(errorString)")
+                    }
+                }
+                
+                MoonbounceHelper.connectTask.waitUntilExit()
+                
+                let status = MoonbounceHelper.connectTask.terminationStatus
+                self.writeToLog(content: "Termination Status: \(status)")
+        //}
         
         //This may be a lie :(
         return true
     }
     
-    func loadKextScript(arguments: [String])
+/*    func loadKextScript(arguments: [String])
     {
         print("Helper func: loadKextScript")
         //Creates a new Process and assigns it to the connectTask property.
@@ -218,6 +193,7 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
             }
         }
     }
+ 
     
     func unloadKextScript(arguments: [String])
     {
@@ -251,6 +227,7 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
             }
         }
     }
+ */
     
     //Dev purposes - Show output from command line task
     func addOutputObserver(process: Process, outputPipe: Pipe)
@@ -276,20 +253,22 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
     
     func writeToLog(content: String)
     {
+        let timeStamp = Date()
+        let contentString = "\n\(timeStamp):\n\(content)\n"
         if let path = self.getApplicationDirectory()?.appendingPathComponent("moonbounceLog.txt").path
         {
             if let fileHandle = FileHandle(forWritingAtPath: path)
             {
                 //append to file
                 fileHandle.seekToEndOfFile()
-                fileHandle.write(content.data(using: String.Encoding.utf8)!)
+                fileHandle.write(contentString.data(using: String.Encoding.utf8)!)
             }
             else
             {
                 //create new file
                 do
                 {
-                    try content.write(toFile: path, atomically: true, encoding: String.Encoding.utf8)
+                    try contentString.write(toFile: path, atomically: true, encoding: String.Encoding.utf8)
                 }
                 catch
                 {
