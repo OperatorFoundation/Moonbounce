@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "8CC76ABAF63947AEF797E90F48E68BBA4DC36F3A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "8CC76ABAF63947AEF797E90F48E68BBA4DC36F3A" : 9223372036854775807,
+    "84D8D5AE829AE242A05688517C543D4E72CFDB39" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "D5AB36EC-3CD0-4546-BC80-6188BFC65F8F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "8CC76ABAF63947AEF797E90F48E68BBA4DC36F3A" : "Moonbounce\/",
+    "84D8D5AE829AE242A05688517C543D4E72CFDB39" : "pods\/SwiftPluto\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Moonbounce",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Moonbounce.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/OperatorFoundation\/SwiftPluto.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "84D8D5AE829AE242A05688517C543D4E72CFDB39"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:OperatorFoundation\/Moonbounce.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8CC76ABAF63947AEF797E90F48E68BBA4DC36F3A"
+    }
+  ]
+}

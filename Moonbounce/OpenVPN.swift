@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import SwiftSocket
 
 //public let kOutputTextNotification = "OutputFromBashNotification"
 //public let outputStringKey = "outputString"
@@ -76,6 +77,7 @@ public class OpenVPN: NSObject
                         
             print("startOpenVPN was called.")
             
+            connectToManagement()
             completion(true)
         }
         else
@@ -86,9 +88,10 @@ public class OpenVPN: NSObject
     
     public func stop(completion:(_ stopped:Bool) -> Void)
     {
-        if helperClient != nil
+        if let helper = helperClient
         {
-            helperClient!.stopOpenVPN()
+            helper.stopOpenVPN()
+            print("STOP openVPN Called")
             completion(true)
         }
         else
@@ -132,6 +135,85 @@ public class OpenVPN: NSObject
         return nil
     }
     
+    func connectToManagement()
+    {
+        //DispatchQueue.global(qos: .userInitiated)
 
+        let client = TCPClient(address: "127.0.0.1", port: 13374)
+        
+        switch client.connect(timeout: 10)
+        {
+            case .success:
+                print("Connected to management server! 🌈")
+            case .failure(let connectError):
+                print("Failed to connect to management server. 🥀")
+                print("Connection failure: \(connectError)")
+                return
+        }
+        
+        let requestString = "state\nstate on\n"
+        
+        if let requestData = requestString.data(using: .utf8)
+        {
+            switch client.send(data: requestData)
+            {
+                case .success:
+                    print("Successfully sent request for 'State' to management server.")
+                case .failure(let requestError):
+                    print("Management Request Failed: \(requestError)")
+                    return
+            }
+            
+            var responseString = ""
+            while true
+            {
+                if let data = client.read(4096)
+                {
+                    responseString.append(String(bytes: data, encoding: .ascii)!)
+                    
+                    while responseString.contains("\r\n")
+                    {
+                        let arrayOfLines = responseString.components(separatedBy: "\r\n")
+                        var firstLine = arrayOfLines[0]
+                        firstLine.append("\r\n")
+                        if let range = responseString.range(of: firstLine)
+                        {
+                            responseString.removeSubrange(range)
+                        }
+                        print("FirstLine: \(firstLine)")
+                        print("responseString: \(responseString)")
+                        
+                        if firstLine .contains(",")
+                        {
+                            let arrayOfComponents = firstLine.components(separatedBy: ",")
+                            let statusString = arrayOfComponents[1]
+                            print("Status: \(statusString)")
+                            
+                            switch statusString
+                            {
+                                case "CONNECTED":
+                                    //Woohoo we connected, update the UI or some shit
+                                    print("Success response received from management")
+                                    connectionStatus = .connected
+                                case "EXITING":
+                                    //Closed OpenVPN Connection
+                                    print("Exiting response received from management")
+                                default:
+                                    print("Error: Unknown connection status: \(statusString)")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func disconnectFromManagement()
+    {
+        
+    }
+    
+    
 /*🌙*/
 }
+

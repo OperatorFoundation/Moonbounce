@@ -1,0 +1,20 @@
+{
+  "name": "SwiftPluto",
+  "version": "0.0.1",
+  "summary": "SwiftPluto for Pluggable Transports",
+  "description": "Pluto pluggable transports library for Mac apps written in Swift.",
+  "homepage": "https://github.com/OperatorFoundation/SwiftPluto",
+  "license": "MIT",
+  "authors": "Lita",
+  "platforms": {
+    "osx": "10.12"
+  },
+  "source": {
+    "git": "https://github.com/OperatorFoundation/SwiftPluto.git",
+    "tag": "0.0.1"
+  },
+  "source_files": [
+    "SwiftPluto",
+    "SwiftPluto/**/*.{h,m,swift}"
+  ]
+}

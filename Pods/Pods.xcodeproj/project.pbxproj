@@ -7,45 +7,103 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		305F72812EE1F87BF2A2CD90391790E6 /* Pods-Moonbounce-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 528BFF4E1E2070F522C7B0940A3529BE /* Pods-Moonbounce-dummy.m */; };
-		3373A4B1EE3C5ADED707CE5200A50639 /* Pods-Moonbounce-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D6C5949025DCF4DE426A84FB0E6473D0 /* Pods-Moonbounce-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EA251B542655FBF70BFD35E3F479F254 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 270DD1219F1E6CF00379D39F252D87C6 /* Cocoa.framework */; };
+		2F13C6110392A6A32EE0F533EA218A48 /* Pods-Moonbounce-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D6C5949025DCF4DE426A84FB0E6473D0 /* Pods-Moonbounce-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		36D14700758DD1CD8C3545A081AC5D59 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 270DD1219F1E6CF00379D39F252D87C6 /* Cocoa.framework */; };
+		51455D8294071C3386155ABDD7335D75 /* ytcpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 21E505997513D83AFD4626EECDFF20D1 /* ytcpsocket.c */; };
+		5C0DC370515069953EB48B33261DE2A3 /* yudpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 5752BCCE211EF17F51DD509637DDD333 /* yudpsocket.c */; };
+		66C7F140779AF468FEE224069D9402CD /* SwiftSocket-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 566633F20D21C285C3F09F065316813F /* SwiftSocket-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84B29330BECC1DD5161A012798A5DE60 /* UDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886AD7CDE1F5CC782474EF3443C2BA56 /* UDPClient.swift */; };
+		937C714C6599BCFC69864EA4FDDF7FD5 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED4EEBEF28F2D922BF256FED95DA86C /* Result.swift */; };
+		A9F2B39E922FDDDBDB34CD9EAAB6B157 /* SwiftSocket-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B9EF3006C7C4B084D70916C2736D38C1 /* SwiftSocket-dummy.m */; };
+		B19A6D35E3A17FCE641D1F6C180BC544 /* Pods-Moonbounce-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 528BFF4E1E2070F522C7B0940A3529BE /* Pods-Moonbounce-dummy.m */; };
+		C7BDAC20F240C52B5B0C92B85E3608AF /* TCPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C073B5E44A489A40FEBFC1148C40D1B5 /* TCPClient.swift */; };
+		C80F0DA14D0D03E7E7DACDDA12B9FB76 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7FF9585981F7B619C85C2C6E4DCF91 /* Socket.swift */; };
+		FCD58BE7E1F695FEAA65A74250543C92 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 270DD1219F1E6CF00379D39F252D87C6 /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		8A5F279FDE2EA042240DC429BB48F891 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1A641D0A931D78867249F15357D7D04;
+			remoteInfo = SwiftSocket;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		044C54233B5CFB86670AF3DA66E15FE5 /* SwiftPluto.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SwiftPluto.h; sourceTree = "<group>"; };
+		21E505997513D83AFD4626EECDFF20D1 /* ytcpsocket.c */ = {isa = PBXFileReference; includeInIndex = 1; name = ytcpsocket.c; path = Sources/ytcpsocket.c; sourceTree = "<group>"; };
 		270DD1219F1E6CF00379D39F252D87C6 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		31F93E7113EED69B088AB532C45E5FC0 /* SwiftSocket-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftSocket-prefix.pch"; sourceTree = "<group>"; };
 		41EAEADC88060709F6C876EB683CEE3A /* Pods-Moonbounce-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Moonbounce-acknowledgements.markdown"; sourceTree = "<group>"; };
 		4CECD9CBBFE2AC5DA0B8F6CEA05EFE45 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		528BFF4E1E2070F522C7B0940A3529BE /* Pods-Moonbounce-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Moonbounce-dummy.m"; sourceTree = "<group>"; };
-		6260A950E94DFC7FEC080EA40B2CAB88 /* Pods_Moonbounce.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Moonbounce.framework; path = "Pods-Moonbounce.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		566633F20D21C285C3F09F065316813F /* SwiftSocket-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftSocket-umbrella.h"; sourceTree = "<group>"; };
+		5752BCCE211EF17F51DD509637DDD333 /* yudpsocket.c */ = {isa = PBXFileReference; includeInIndex = 1; name = yudpsocket.c; path = Sources/yudpsocket.c; sourceTree = "<group>"; };
+		5C8A634FF9DFABED4157046CF8FC4CB7 /* Pods_Moonbounce.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Moonbounce.framework; path = "Pods-Moonbounce.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		67CBC5C678819734F93E64637700A778 /* Pods-Moonbounce-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Moonbounce-acknowledgements.plist"; sourceTree = "<group>"; };
+		74F63B0012C0D506DB38199F613D1A5E /* SwiftSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftSocket.framework; path = SwiftSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		777B780574BE2141C0C5A02EA2518BF7 /* SwiftSocket.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SwiftSocket.modulemap; sourceTree = "<group>"; };
 		78C157900A7F3FC9D201B6912BA80A13 /* Pods-Moonbounce-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Moonbounce-resources.sh"; sourceTree = "<group>"; };
+		886AD7CDE1F5CC782474EF3443C2BA56 /* UDPClient.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UDPClient.swift; path = Sources/UDPClient.swift; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		97127948B567B5DF799BECE808D6BFBF /* SwiftSocket.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftSocket.xcconfig; sourceTree = "<group>"; };
+		9CF22CB071D3465975A47DF95BAEFB51 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D9386A56D9C61834435B974C6B29F55 /* Pods-Moonbounce-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Moonbounce-frameworks.sh"; sourceTree = "<group>"; };
+		9ED4EEBEF28F2D922BF256FED95DA86C /* Result.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Sources/Result.swift; sourceTree = "<group>"; };
+		B9EF3006C7C4B084D70916C2736D38C1 /* SwiftSocket-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftSocket-dummy.m"; sourceTree = "<group>"; };
+		C073B5E44A489A40FEBFC1148C40D1B5 /* TCPClient.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TCPClient.swift; path = Sources/TCPClient.swift; sourceTree = "<group>"; };
 		D6C5949025DCF4DE426A84FB0E6473D0 /* Pods-Moonbounce-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Moonbounce-umbrella.h"; sourceTree = "<group>"; };
 		D70881B9930A74837DFAB826D0B0EA3A /* Pods-Moonbounce.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-Moonbounce.modulemap"; sourceTree = "<group>"; };
+		DD7FF9585981F7B619C85C2C6E4DCF91 /* Socket.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Socket.swift; path = Sources/Socket.swift; sourceTree = "<group>"; };
 		E744E7E3802898CF935D4D93ABF53B64 /* Pods-Moonbounce.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Moonbounce.release.xcconfig"; sourceTree = "<group>"; };
 		FCF60A7183D3DD7A83C5EAE5D4DA778C /* Pods-Moonbounce.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Moonbounce.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4154C56D4DC023B6410BB087E22AE54D /* Frameworks */ = {
+		0E267DFA2DBE0D835681B56CE73BDCD4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA251B542655FBF70BFD35E3F479F254 /* Cocoa.framework in Frameworks */,
+				36D14700758DD1CD8C3545A081AC5D59 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2049D348D91E07B606CA30F2FE52C7C0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCD58BE7E1F695FEAA65A74250543C92 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00B9511CF82186A9AD59126CBB4414AC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5C8A634FF9DFABED4157046CF8FC4CB7 /* Pods_Moonbounce.framework */,
+				74F63B0012C0D506DB38199F613D1A5E /* SwiftSocket.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		04C068A18C5413F804A2959126093416 /* OS X */ = {
 			isa = PBXGroup;
 			children = (
 				270DD1219F1E6CF00379D39F252D87C6 /* Cocoa.framework */,
 			);
 			name = "OS X";
+			sourceTree = "<group>";
+		};
+		04F81F21E9B2EFE1074777E2D2759FF9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A44A66ADA1344DA9E7A74277DE6C0CE1 /* SwiftSocket */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		39E9EE8210D861DFD82346C1F5EB7218 /* Frameworks */ = {
@@ -55,6 +113,15 @@
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
+		};
+		51A1029221BC347F64B9CDE973294341 /* SwiftPluto */ = {
+			isa = PBXGroup;
+			children = (
+				CD80B3E315FB5C904E16F6A0102A6C99 /* SwiftPluto */,
+			);
+			name = SwiftPluto;
+			path = /Volumes/extDrive/Code/pods/SwiftPluto;
+			sourceTree = "<absolute>";
 		};
 		68B0E7189129CB84DD72AD84CA70B19F /* Targets Support Files */ = {
 			isa = PBXGroup;
@@ -86,49 +153,115 @@
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				AD8EE027DD4037438DC4517D22591862 /* Development Pods */,
 				39E9EE8210D861DFD82346C1F5EB7218 /* Frameworks */,
-				B0D0890737536CFADA7433B329D43D72 /* Products */,
+				04F81F21E9B2EFE1074777E2D2759FF9 /* Pods */,
+				00B9511CF82186A9AD59126CBB4414AC /* Products */,
 				68B0E7189129CB84DD72AD84CA70B19F /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		B0D0890737536CFADA7433B329D43D72 /* Products */ = {
+		A44A66ADA1344DA9E7A74277DE6C0CE1 /* SwiftSocket */ = {
 			isa = PBXGroup;
 			children = (
-				6260A950E94DFC7FEC080EA40B2CAB88 /* Pods_Moonbounce.framework */,
+				9ED4EEBEF28F2D922BF256FED95DA86C /* Result.swift */,
+				DD7FF9585981F7B619C85C2C6E4DCF91 /* Socket.swift */,
+				C073B5E44A489A40FEBFC1148C40D1B5 /* TCPClient.swift */,
+				886AD7CDE1F5CC782474EF3443C2BA56 /* UDPClient.swift */,
+				21E505997513D83AFD4626EECDFF20D1 /* ytcpsocket.c */,
+				5752BCCE211EF17F51DD509637DDD333 /* yudpsocket.c */,
+				AE1F57FCCE0C2C4E7D884CED9E6BE226 /* Support Files */,
 			);
-			name = Products;
+			name = SwiftSocket;
+			path = SwiftSocket;
+			sourceTree = "<group>";
+		};
+		AD8EE027DD4037438DC4517D22591862 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				51A1029221BC347F64B9CDE973294341 /* SwiftPluto */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		AE1F57FCCE0C2C4E7D884CED9E6BE226 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				9CF22CB071D3465975A47DF95BAEFB51 /* Info.plist */,
+				777B780574BE2141C0C5A02EA2518BF7 /* SwiftSocket.modulemap */,
+				97127948B567B5DF799BECE808D6BFBF /* SwiftSocket.xcconfig */,
+				B9EF3006C7C4B084D70916C2736D38C1 /* SwiftSocket-dummy.m */,
+				31F93E7113EED69B088AB532C45E5FC0 /* SwiftSocket-prefix.pch */,
+				566633F20D21C285C3F09F065316813F /* SwiftSocket-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SwiftSocket";
+			sourceTree = "<group>";
+		};
+		CD80B3E315FB5C904E16F6A0102A6C99 /* SwiftPluto */ = {
+			isa = PBXGroup;
+			children = (
+				044C54233B5CFB86670AF3DA66E15FE5 /* SwiftPluto.h */,
+			);
+			name = SwiftPluto;
+			path = SwiftPluto;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		E02870C28D0F8B17C2180C22AD9AF3C6 /* Headers */ = {
+		89F8D9C501C9638E65768A2832849D0B /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3373A4B1EE3C5ADED707CE5200A50639 /* Pods-Moonbounce-umbrella.h in Headers */,
+				66C7F140779AF468FEE224069D9402CD /* SwiftSocket-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8A2F4607FD10B3E4FD3E07EB6F0DCDB0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2F13C6110392A6A32EE0F533EA218A48 /* Pods-Moonbounce-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		72CE0FD89CC663CC437D42573289A73B /* Pods-Moonbounce */ = {
+		5485A84D1E3FAB9E910AEF185F828E99 /* Pods-Moonbounce */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8ABC23F63B3D7AC254B02A0C3776ED8B /* Build configuration list for PBXNativeTarget "Pods-Moonbounce" */;
+			buildConfigurationList = 5BE48EC1F49986445AF492B105C78437 /* Build configuration list for PBXNativeTarget "Pods-Moonbounce" */;
 			buildPhases = (
-				86533A293C399A0952D2A5795B355B8A /* Sources */,
-				4154C56D4DC023B6410BB087E22AE54D /* Frameworks */,
-				E02870C28D0F8B17C2180C22AD9AF3C6 /* Headers */,
+				E75012851B737955E843568115914A86 /* Sources */,
+				2049D348D91E07B606CA30F2FE52C7C0 /* Frameworks */,
+				8A2F4607FD10B3E4FD3E07EB6F0DCDB0 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4589477D55F4E06CE92FB4523643CC82 /* PBXTargetDependency */,
+			);
+			name = "Pods-Moonbounce";
+			productName = "Pods-Moonbounce";
+			productReference = 5C8A634FF9DFABED4157046CF8FC4CB7 /* Pods_Moonbounce.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A1A641D0A931D78867249F15357D7D04 /* SwiftSocket */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B97B4C2931510FC78779D3898CFA9677 /* Build configuration list for PBXNativeTarget "SwiftSocket" */;
+			buildPhases = (
+				05024E6BD0D30E940C745973D11B141E /* Sources */,
+				0E267DFA2DBE0D835681B56CE73BDCD4 /* Frameworks */,
+				89F8D9C501C9638E65768A2832849D0B /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "Pods-Moonbounce";
-			productName = "Pods-Moonbounce";
-			productReference = 6260A950E94DFC7FEC080EA40B2CAB88 /* Pods_Moonbounce.framework */;
+			name = SwiftSocket;
+			productName = SwiftSocket;
+			productReference = 74F63B0012C0D506DB38199F613D1A5E /* SwiftSocket.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -148,27 +281,85 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = B0D0890737536CFADA7433B329D43D72 /* Products */;
+			productRefGroup = 00B9511CF82186A9AD59126CBB4414AC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				72CE0FD89CC663CC437D42573289A73B /* Pods-Moonbounce */,
+				5485A84D1E3FAB9E910AEF185F828E99 /* Pods-Moonbounce */,
+				A1A641D0A931D78867249F15357D7D04 /* SwiftSocket */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		86533A293C399A0952D2A5795B355B8A /* Sources */ = {
+		05024E6BD0D30E940C745973D11B141E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				305F72812EE1F87BF2A2CD90391790E6 /* Pods-Moonbounce-dummy.m in Sources */,
+				937C714C6599BCFC69864EA4FDDF7FD5 /* Result.swift in Sources */,
+				C80F0DA14D0D03E7E7DACDDA12B9FB76 /* Socket.swift in Sources */,
+				A9F2B39E922FDDDBDB34CD9EAAB6B157 /* SwiftSocket-dummy.m in Sources */,
+				C7BDAC20F240C52B5B0C92B85E3608AF /* TCPClient.swift in Sources */,
+				84B29330BECC1DD5161A012798A5DE60 /* UDPClient.swift in Sources */,
+				51455D8294071C3386155ABDD7335D75 /* ytcpsocket.c in Sources */,
+				5C0DC370515069953EB48B33261DE2A3 /* yudpsocket.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E75012851B737955E843568115914A86 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B19A6D35E3A17FCE641D1F6C180BC544 /* Pods-Moonbounce-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		4589477D55F4E06CE92FB4523643CC82 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftSocket;
+			target = A1A641D0A931D78867249F15357D7D04 /* SwiftSocket */;
+			targetProxy = 8A5F279FDE2EA042240DC429BB48F891 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		09DFCD29ACADE0D1B8B766766B314FE7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 97127948B567B5DF799BECE808D6BFBF /* SwiftSocket.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftSocket/SwiftSocket-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftSocket/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MODULEMAP_FILE = "Target Support Files/SwiftSocket/SwiftSocket.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = SwiftSocket;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		34342BBF37D3A9ED85FF2EB654934920 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -213,7 +404,42 @@
 			};
 			name = Debug;
 		};
-		3CD62A7C9E70E08BEC75C1919EC3D62D /* Debug */ = {
+		444DC270A91D23A90788E89CAA503681 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 97127948B567B5DF799BECE808D6BFBF /* SwiftSocket.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftSocket/SwiftSocket-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftSocket/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MODULEMAP_FILE = "Target Support Files/SwiftSocket/SwiftSocket.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = SwiftSocket;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		56FAAD6E01EEB710C8AEDFEA92503747 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FCF60A7183D3DD7A83C5EAE5D4DA778C /* Pods-Moonbounce.debug.xcconfig */;
 			buildSettings = {
@@ -245,12 +471,13 @@
 				PRODUCT_NAME = Pods_Moonbounce;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		4ECCB0E84F2F51A1AE9F2BC9787AEFF4 /* Release */ = {
+		F19B73E31CE695B03A39A01D6BE7A32D /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E744E7E3802898CF935D4D93ABF53B64 /* Pods-Moonbounce.release.xcconfig */;
 			buildSettings = {
@@ -339,11 +566,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8ABC23F63B3D7AC254B02A0C3776ED8B /* Build configuration list for PBXNativeTarget "Pods-Moonbounce" */ = {
+		5BE48EC1F49986445AF492B105C78437 /* Build configuration list for PBXNativeTarget "Pods-Moonbounce" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3CD62A7C9E70E08BEC75C1919EC3D62D /* Debug */,
-				4ECCB0E84F2F51A1AE9F2BC9787AEFF4 /* Release */,
+				56FAAD6E01EEB710C8AEDFEA92503747 /* Debug */,
+				F19B73E31CE695B03A39A01D6BE7A32D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B97B4C2931510FC78779D3898CFA9677 /* Build configuration list for PBXNativeTarget "SwiftSocket" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				444DC270A91D23A90788E89CAA503681 /* Debug */,
+				09DFCD29ACADE0D1B8B766766B314FE7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

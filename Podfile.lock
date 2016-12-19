@@ -1,3 +1,19 @@
-PODFILE CHECKSUM: 0bc03f3ae0095eb8da601a3eab2b8b38f46475d2
+PODS:
+  - SwiftPluto (0.0.1)
+  - SwiftSocket (2.0.1)
+
+DEPENDENCIES:
+  - SwiftPluto (from `/Volumes/extDrive/Code/pods/SwiftPluto`)
+  - SwiftSocket
+
+EXTERNAL SOURCES:
+  SwiftPluto:
+    :path: /Volumes/extDrive/Code/pods/SwiftPluto
+
+SPEC CHECKSUMS:
+  SwiftPluto: cdf2fa3128fc447bf359c820a74accf1437c6d3d
+  SwiftSocket: 2d814afdc97c89217982f86fd036c1874134a63f
+
+PODFILE CHECKSUM: 6fa459defa42862cbbdea92e4125f3a227fc1d7b
 
 COCOAPODS: 1.1.1

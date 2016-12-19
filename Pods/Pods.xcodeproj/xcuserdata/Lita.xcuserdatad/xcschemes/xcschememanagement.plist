@@ -8,30 +8,21 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
-		<key>SwiftyOpenVPNClient.xcscheme</key>
+		<key>SwiftSocket.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>00BA8D81E4998A96622BD41956380C07</key>
+		<key>5485A84D1E3FAB9E910AEF185F828E99</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4E5F6FB3EF85D62416FC3B735A3801F4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>72CE0FD89CC663CC437D42573289A73B</key>
+		<key>A1A641D0A931D78867249F15357D7D04</key>
 		<dict>
 			<key>primary</key>
 			<true/>

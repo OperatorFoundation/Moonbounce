@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0820"
+   LastUpgradeVersion = "0700"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "72CE0FD89CC663CC437D42573289A73B"
+               BlueprintIdentifier = "5485A84D1E3FAB9E910AEF185F828E99"
                BuildableName = "Pods_Moonbounce.framework"
                BlueprintName = "Pods-Moonbounce"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "72CE0FD89CC663CC437D42573289A73B"
+            BlueprintIdentifier = "5485A84D1E3FAB9E910AEF185F828E99"
             BuildableName = "Pods_Moonbounce.framework"
             BlueprintName = "Pods-Moonbounce"
             ReferencedContainer = "container:Pods.xcodeproj">

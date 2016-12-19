@@ -31,7 +31,7 @@ class MoonbounceViewController: NSViewController
     
     let proximaNARegular = "Proxima Nova Alt Regular"
     let advancedMenuHeight: CGFloat = 250.0
-    var isConnected = false
+    var isConnected:Bool = (connectionStatus == .connected)
     {
         didSet
         {

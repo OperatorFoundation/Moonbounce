@@ -10,3 +10,11 @@ import Foundation
 
 var helperClient:MoonbounceHelperProtocol?
 let kOutputTextNotification: CFString = "OutputFromBashNotification" as CFString
+var connectionStatus: Status = .disconnected
+
+enum Status
+{
+    case connected
+    case connecting
+    case disconnected
+}

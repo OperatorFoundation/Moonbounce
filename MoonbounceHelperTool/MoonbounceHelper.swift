@@ -86,6 +86,8 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
         let openVpnArguments = connectToOpenVPNArguments(directory: configFilePath, configFileName: configFileName)
         
         _ = runOpenVpnScript(openVPNFilePath, logDirectory: configFilePath, arguments: openVpnArguments)
+        
+        writeToLog(logDirectory: logDirectory, content: "START OPEN VPN END OF FUNCTION")
     }
     
     func stopOpenVPN()
@@ -98,8 +100,6 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
         {
             MoonbounceHelper.connectTask!.terminate()
         }
-        
-        //TODO: Notify main app of success or failure
     }
     
     private func connectToOpenVPNArguments(directory: String, configFileName: String) -> [String]
@@ -111,21 +111,30 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
         //processArguments.append("--daemon")
         processArguments.append("--cd")
         processArguments.append(directory)
-        processArguments.append("--verb")
-        processArguments.append(String(verbosity))
-        processArguments.append("--config")
-        processArguments.append(configFileName)
-        processArguments.append("--verb")
-        processArguments.append(String(verbosity))
-        processArguments.append("--cd")
-        processArguments.append(directory)
+        
+        //Specify the log file path
         processArguments.append("--log")
         processArguments.append("/Users/Lita/Library/Application Support/org.OperatorFoundation.MoonbounceHelperTool/openVPNLog.txt")
-//        processArguments.append("--management")
-//        processArguments.append("127.0.0.1")
-//        processArguments.append("1337")
-//        processArguments.append("--management-query-passwords")
-        //processArguments.append("--management-hold")
+        
+        //Verbosity of Output
+        processArguments.append("--verb")
+        processArguments.append(String(verbosity))
+        
+        //Config File to use
+        processArguments.append("--config")
+        processArguments.append(configFileName)
+//        processArguments.append("--verb")
+//        processArguments.append(String(verbosity))
+        
+        //Make sure we are still in the correct working directory
+        processArguments.append("--cd")
+        processArguments.append(directory)
+
+        //Set management options
+        processArguments.append("--management")
+        processArguments.append("127.0.0.1")
+        processArguments.append("13374")
+        processArguments.append("--management-query-passwords")
         
         return processArguments
     }
@@ -134,50 +143,46 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
     {
         let directory = "/Users/Lita/Library/Application Support/org.OperatorFoundation.MoonbounceHelperTool/"
         writeToLog(logDirectory: directory, content: "Helper func: runOpenVpnScript")
-        //Run heavy lifting on the background thread.
-        //let taskQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
-        //taskQueue.async
-            //{
-                //Creates a new Process and assigns it to the connectTask property.
-                MoonbounceHelper.connectTask = Process()
-                //The launchPath is the path to the executable to run.
-                MoonbounceHelper.connectTask.launchPath = path
-                //Arguments will pass the arguments to the executable, as though typed directly into terminal.
-                MoonbounceHelper.connectTask.arguments = arguments
-                print(arguments)
-                
-                let outputPipe = Pipe()
-                MoonbounceHelper.connectTask.standardOutput = outputPipe
-                let errorPipe = Pipe()
-                MoonbounceHelper.connectTask.standardError = errorPipe
-                
-                //self.addOutputObserver(process: MoonbounceHelper.connectTask, outputPipe: Pipe())
-                
-                //Go ahead and launch the process/task
-                MoonbounceHelper.connectTask.launch()
-                
-                let outData = outputPipe.fileHandleForReading.readDataToEndOfFile()
-                if let outString = String(data: outData, encoding: .utf8)
-                {
-                    print(outString)
-                    self.writeToLog(logDirectory: logDirectory, content: outString)
-                }
-                
-                let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
-                if let errorString = String(data: errorData, encoding: .utf8)
-                {
-                    if errorString != ""
-                    {
-                        print(errorString)
-                        self.writeToLog(logDirectory: logDirectory, content: "Error: \(errorString)")
-                    }
-                }
-                
-                MoonbounceHelper.connectTask.waitUntilExit()
-                
-                let status = MoonbounceHelper.connectTask.terminationStatus
-                self.writeToLog(logDirectory: logDirectory, content: "Termination Status: \(status)")
-        //}
+        
+        //Creates a new Process and assigns it to the connectTask property.
+        MoonbounceHelper.connectTask = Process()
+        //The launchPath is the path to the executable to run.
+        MoonbounceHelper.connectTask.launchPath = path
+        //Arguments will pass the arguments to the executable, as though typed directly into terminal.
+        MoonbounceHelper.connectTask.arguments = arguments
+        print("Run openVPN args: \(arguments)")
+        
+//        let outputPipe = Pipe()
+//        MoonbounceHelper.connectTask.standardOutput = outputPipe
+//        let errorPipe = Pipe()
+//        MoonbounceHelper.connectTask.standardError = errorPipe
+        
+        //self.addOutputObserver(process: MoonbounceHelper.connectTask, outputPipe: Pipe())
+        
+        //Go ahead and launch the process/task
+        MoonbounceHelper.connectTask.launch()
+        
+        //MoonbounceHelper.connectTask.waitUntilExit()
+        
+//        let outData = outputPipe.fileHandleForReading.readDataToEndOfFile()
+//        if let outString = String(data: outData, encoding: .utf8)
+//        {
+//            print(outString)
+//            self.writeToLog(logDirectory: logDirectory, content: outString)
+//        }
+//        
+//        let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
+//        if let errorString = String(data: errorData, encoding: .utf8)
+//        {
+//            if errorString != ""
+//            {
+//                print(errorString)
+//                self.writeToLog(logDirectory: logDirectory, content: "Error: \(errorString)")
+//            }
+//        }
+//        
+//        let status = MoonbounceHelper.connectTask.terminationStatus
+//        self.writeToLog(logDirectory: logDirectory, content: "Run Open VPN Termination Status: \(status)")
         
         //This may be a lie :(
         return true
