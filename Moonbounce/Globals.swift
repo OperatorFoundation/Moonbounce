@@ -10,11 +10,12 @@ import Foundation
 
 var helperClient:MoonbounceHelperProtocol?
 let kOutputTextNotification: CFString = "OutputFromBashNotification" as CFString
-var connectionStatus: Status = .disconnected
-
-enum Status
+let kConnectionStatusNotification = "ConnectionStatusChnaged"
+var isConnected = false
 {
-    case connected
-    case connecting
-    case disconnected
+    didSet
+    {
+        print("Changed Global var for connection status: \(isConnected)")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kConnectionStatusNotification), object: nil)
+    }
 }

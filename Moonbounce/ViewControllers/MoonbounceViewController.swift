@@ -31,20 +31,6 @@ class MoonbounceViewController: NSViewController
     
     let proximaNARegular = "Proxima Nova Alt Regular"
     let advancedMenuHeight: CGFloat = 250.0
-    var isConnected:Bool = (connectionStatus == .connected)
-    {
-        didSet
-        {
-            if isConnected
-            {
-                showConnectedStatus()
-            }
-            else
-            {
-                showDisconnectedStatus()
-            }
-        }
-    }
     
     //MARK: View Life Cycle
     
@@ -67,6 +53,8 @@ class MoonbounceViewController: NSViewController
             
         }, kOutputTextNotification, nil, CFNotificationSuspensionBehavior.deliverImmediately)
         //NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: kOutputTextNotification), object: nil, queue: nil, using: showProcessOutputInTextView)
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: kConnectionStatusNotification), object: nil, queue: nil, using: connectionStatusChanged)
     }
     
     override func viewWillAppear()
@@ -74,6 +62,12 @@ class MoonbounceViewController: NSViewController
         super.viewWillAppear()
         
         styleViews()
+    }
+    
+    func connectionStatusChanged(notification: Notification)
+    {
+        print("CONNECTION STATUS CHANGED NOTIFICATION")
+        showStatus()
     }
     
     //MARK: Action!
@@ -107,7 +101,7 @@ class MoonbounceViewController: NSViewController
         outputView.string = ""
         runBackgroundAnimation()
         statusLabel.stringValue = "Connecting"
-        isConnected = true
+        runningScript = true
         
         //Update button name
         if let connectButtonFont = NSFont(name: self.proximaNARegular, size: 13)
@@ -119,15 +113,15 @@ class MoonbounceViewController: NSViewController
         
         MoonbounceViewController.openVPN.start(completion:
         {
-            (isConnected) in
+            (connected) in
             
             //Go back to the main thread
             DispatchQueue.main.async(execute:
             {
                 //You can safely do UI stuff here
                 //Verify that connection was succesful and update accordingly
-                self.isConnected = isConnected
                 self.runningScript = false
+                self.showStatus()
             })
         })
     }
@@ -140,7 +134,6 @@ class MoonbounceViewController: NSViewController
             //
         })
         
-        self.isConnected = false
         self.runningScript = false
     }
     
@@ -164,6 +157,18 @@ class MoonbounceViewController: NSViewController
 //        self.outputView.scrollRangeToVisible(range)
     }
     
+    func showStatus()
+    {
+        if isConnected
+        {
+            showConnectedStatus()
+        }
+        else
+        {
+            showDisconnectedStatus()
+        }
+    }
+    
     //MARK: UI Helpers
     func styleViews()
     {
@@ -176,14 +181,7 @@ class MoonbounceViewController: NSViewController
         }
         
         //Connection Button and label Styling
-        if isConnected
-        {
-            showConnectedStatus()
-        }
-        else
-        {
-            showDisconnectedStatus()
-        }
+        showStatus()
         
         //Connect Button Border
         toggleConnectionButton.layer?.backgroundColor = .clear
@@ -217,23 +215,27 @@ class MoonbounceViewController: NSViewController
     func runBackgroundAnimation()
     {
         NSAnimationContext.runAnimationGroup(
-            {
+        {
                 (context) in
                 context.duration = 0.75
                 self.laserLeadingConstraint.animator().constant = 260
-        },completionHandler:
+        },
+        completionHandler:
+        {
+            NSAnimationContext.runAnimationGroup(
             {
-                NSAnimationContext.runAnimationGroup(
-                    { (context) in
-                        context.duration = 0.75
-                        self.laserLeadingConstraint.animator().constant = -5
-                },completionHandler:
-                    {
-                        if self.runningScript == true
-                        {
-                            self.runBackgroundAnimation()
-                        }
-                })
+                (context) in
+                
+                context.duration = 0.75
+                self.laserLeadingConstraint.animator().constant = -5
+            },
+            completionHandler:
+            {
+                if self.runningScript == true
+                {
+                    self.runBackgroundAnimation()
+                }
+            })
         })
     }
     

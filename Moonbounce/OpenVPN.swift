@@ -18,6 +18,7 @@ public class OpenVPN: NSObject
     
     private var pathToOpenVPNExecutable:String
     private var directory:String = ""
+    let client = TCPClient(address: "127.0.0.1", port: 13374)
     
     public override init()
     {
@@ -98,6 +99,9 @@ public class OpenVPN: NSObject
         {
             completion(false)
         }
+        
+        disconnectFromManagement()
+        isConnected = false
     }
     
     func getApplicationDirectory() -> (URL)?
@@ -137,69 +141,71 @@ public class OpenVPN: NSObject
     
     func connectToManagement()
     {
-        //DispatchQueue.global(qos: .userInitiated)
-
-        let client = TCPClient(address: "127.0.0.1", port: 13374)
-        
-        switch client.connect(timeout: 10)
+        let taskQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
+        taskQueue.async
         {
-            case .success:
-                print("Connected to management server! 🌈")
-            case .failure(let connectError):
-                print("Failed to connect to management server. 🥀")
-                print("Connection failure: \(connectError)")
-                return
-        }
-        
-        let requestString = "state\nstate on\n"
-        
-        if let requestData = requestString.data(using: .utf8)
-        {
-            switch client.send(data: requestData)
+            switch self.client.connect(timeout: 10)
             {
                 case .success:
-                    print("Successfully sent request for 'State' to management server.")
-                case .failure(let requestError):
-                    print("Management Request Failed: \(requestError)")
+                    print("Connected to management server! 🌈")
+                case .failure(let connectError):
+                    print("Failed to connect to management server. 🥀")
+                    print("Connection failure: \(connectError)")
                     return
             }
             
-            var responseString = ""
-            while true
+            let requestString = "state\nstate on\n"
+            
+            if let requestData = requestString.data(using: .utf8)
             {
-                if let data = client.read(4096)
+                switch self.client.send(data: requestData)
                 {
-                    responseString.append(String(bytes: data, encoding: .ascii)!)
-                    
-                    while responseString.contains("\r\n")
+                    case .success:
+                        print("Successfully sent request for 'State' to management server.")
+                    case .failure(let requestError):
+                        print("Management Request Failed: \(requestError)")
+                        return
+                }
+                
+                var responseString = ""
+                while true
+                {
+                    if let data = self.client.read(4096)
                     {
-                        let arrayOfLines = responseString.components(separatedBy: "\r\n")
-                        var firstLine = arrayOfLines[0]
-                        firstLine.append("\r\n")
-                        if let range = responseString.range(of: firstLine)
-                        {
-                            responseString.removeSubrange(range)
-                        }
-                        print("FirstLine: \(firstLine)")
-                        print("responseString: \(responseString)")
+                        responseString.append(String(bytes: data, encoding: .ascii)!)
                         
-                        if firstLine .contains(",")
+                        while responseString.contains("\r\n")
                         {
-                            let arrayOfComponents = firstLine.components(separatedBy: ",")
-                            let statusString = arrayOfComponents[1]
-                            print("Status: \(statusString)")
-                            
-                            switch statusString
+                            let arrayOfLines = responseString.components(separatedBy: "\r\n")
+                            var firstLine = arrayOfLines[0]
+                            firstLine.append("\r\n")
+                            if let range = responseString.range(of: firstLine)
                             {
+                                responseString.removeSubrange(range)
+                            }
+                            print("FirstLine: \(firstLine)")
+                            print("responseString: \(responseString)")
+                            
+                            if firstLine .contains(",")
+                            {
+                                let arrayOfComponents = firstLine.components(separatedBy: ",")
+                                let statusString = arrayOfComponents[1]
+                                print("Status: \(statusString)")
+                                
+                                switch statusString
+                                {
                                 case "CONNECTED":
                                     //Woohoo we connected, update the UI or some shit
                                     print("Success response received from management")
-                                    connectionStatus = .connected
+                                    isConnected = true
                                 case "EXITING":
                                     //Closed OpenVPN Connection
+                                    isConnected = false
                                     print("Exiting response received from management")
                                 default:
+                                    isConnected = false
                                     print("Error: Unknown connection status: \(statusString)")
+                                }
                             }
                         }
                     }
@@ -207,10 +213,10 @@ public class OpenVPN: NSObject
             }
         }
     }
-    
+
     func disconnectFromManagement()
     {
-        
+        client.close()
     }
     
     

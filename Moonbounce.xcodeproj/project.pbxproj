@@ -539,6 +539,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E8AEB23FF0A27A86253088F5 /* Pods-Moonbounce.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Moonbounce/Moonbounce.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -556,6 +557,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E3EF67AE557941F6B7BF027C /* Pods-Moonbounce.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Moonbounce/Moonbounce.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
