@@ -61,19 +61,8 @@ public class OpenVPN: NSObject
     
     public func start(completion:@escaping (_ launched:Bool) -> Void)
     {
-        print("About to call startOpenVPN")
         if let helper = helperClient
         {
-            helper.testLog()
-            helper.test(callback:
-            {
-                (responseString) in
-                
-                print(responseString)
-            })
-            
-            helper.testStartOpenVPN(openVPNFilePath: pathToOpenVPNExecutable, configFilePath: directory, configFileName: configFileName)
-            
             helper.startOpenVPN(openVPNFilePath: pathToOpenVPNExecutable, configFilePath: directory, configFileName: configFileName)
                         
             print("startOpenVPN was called.")

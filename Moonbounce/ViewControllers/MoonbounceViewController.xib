@@ -40,7 +40,7 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="background" id="ax9-GS-5Vs"/>
                 </imageView>
                 <imageView translatesAutoresizingMaskIntoConstraints="NO" id="Eoy-Bt-WyB">
-                    <rect key="frame" x="70" y="351" width="34" height="10"/>
+                    <rect key="frame" x="70" y="352" width="34" height="10"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="laser" id="yCl-cc-num"/>
                 </imageView>
                 <imageView translatesAutoresizingMaskIntoConstraints="NO" id="Hrb-VL-FIy" userLabel="Foreground Image View">
@@ -221,6 +221,17 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xg9-Jf-dld">
+                                <rect key="frame" x="297" y="189" width="128" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Launch Server" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yxI-uK-AfJ">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="launchServer:" target="-2" id="GgG-fg-gOr"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <constraints>

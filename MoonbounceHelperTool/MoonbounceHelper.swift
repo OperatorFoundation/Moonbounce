@@ -26,24 +26,6 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
         self.listener.delegate = self
     }
     
-    func testLog()
-    {
-        let logDirectory = "/Users/Lita/Library/Application Support/org.OperatorFoundation.MoonbounceHelperTool/"
-        writeToLog(logDirectory: logDirectory, content: ">>>>>>>Test Log Received<<<<<<<")
-    }
-
-    func test(callback: (String) -> Void)
-    {
-        callback("This is the test callback response")
-    }
-    
-    func testStartOpenVPN(openVPNFilePath: String, configFilePath: String, configFileName: String)
-    {
-        let logDirectory = "/Users/Lita/Library/Application Support/org.OperatorFoundation.MoonbounceHelperTool/"
-        writeToLog(logDirectory: logDirectory, content: ">>>>>>>Test Started OpenVPN<<<<<<<")
-        //writeToLog(logDirectory: logDirectory, content: "OpenVPNFilePath:\(openVPNFilePath)\nConfig File Filepath: \(configFilePath)\nConfig File Name: \(configFileName)")
-    }
-    
     func run()
     {
         // Tell the XPC listener to start processing requests.
@@ -93,7 +75,7 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
     func stopOpenVPN()
     {
         let logDirectory = "/Users/Lita/Library/Application Support/org.OperatorFoundation.MoonbounceHelperTool/"
-        writeToLog(logDirectory: logDirectory, content: "******* STOP OPENvpn CALLED *******")
+        writeToLog(logDirectory: logDirectory, content: "******* STOP OpenVpn CALLED *******")
         
         //Disconnect OpenVPN
         if MoonbounceHelper.connectTask != nil
@@ -107,8 +89,6 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
         //List of arguments for Process/Task
         var processArguments: [String] = []
         
-        
-        //processArguments.append("--daemon")
         processArguments.append("--cd")
         processArguments.append(directory)
         
@@ -123,8 +103,6 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
         //Config File to use
         processArguments.append("--config")
         processArguments.append(configFileName)
-//        processArguments.append("--verb")
-//        processArguments.append(String(verbosity))
         
         //Make sure we are still in the correct working directory
         processArguments.append("--cd")
@@ -150,39 +128,9 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
         MoonbounceHelper.connectTask.launchPath = path
         //Arguments will pass the arguments to the executable, as though typed directly into terminal.
         MoonbounceHelper.connectTask.arguments = arguments
-        print("Run openVPN args: \(arguments)")
-        
-//        let outputPipe = Pipe()
-//        MoonbounceHelper.connectTask.standardOutput = outputPipe
-//        let errorPipe = Pipe()
-//        MoonbounceHelper.connectTask.standardError = errorPipe
-        
-        //self.addOutputObserver(process: MoonbounceHelper.connectTask, outputPipe: Pipe())
-        
+
         //Go ahead and launch the process/task
         MoonbounceHelper.connectTask.launch()
-        
-        //MoonbounceHelper.connectTask.waitUntilExit()
-        
-//        let outData = outputPipe.fileHandleForReading.readDataToEndOfFile()
-//        if let outString = String(data: outData, encoding: .utf8)
-//        {
-//            print(outString)
-//            self.writeToLog(logDirectory: logDirectory, content: outString)
-//        }
-//        
-//        let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
-//        if let errorString = String(data: errorData, encoding: .utf8)
-//        {
-//            if errorString != ""
-//            {
-//                print(errorString)
-//                self.writeToLog(logDirectory: logDirectory, content: "Error: \(errorString)")
-//            }
-//        }
-//        
-//        let status = MoonbounceHelper.connectTask.terminationStatus
-//        self.writeToLog(logDirectory: logDirectory, content: "Run Open VPN Termination Status: \(status)")
         
         //This may be a lie :(
         return true

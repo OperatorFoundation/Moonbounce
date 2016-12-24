@@ -19,7 +19,8 @@ class MoonbounceViewController: NSViewController
     @IBOutlet weak var laserLeadingConstraint: NSLayoutConstraint!
     
     dynamic var runningScript = false
-    static var openVPN = OpenVPN()
+    static var shiftedOpenVpnController = ShapeshiftedOpenVpnController()
+    static var terraformController = TerraformController()
     
     //Advanced Mode Outlets
     @IBOutlet weak var advancedModeHeightConstraint: NSLayoutConstraint!
@@ -31,6 +32,9 @@ class MoonbounceViewController: NSViewController
     
     let proximaNARegular = "Proxima Nova Alt Regular"
     let advancedMenuHeight: CGFloat = 250.0
+    
+    //MARK: TESTING
+    let ptServerIP = "159.203.188.42"
     
     //MARK: View Life Cycle
     
@@ -95,6 +99,17 @@ class MoonbounceViewController: NSViewController
         }
     }
     
+    @IBAction func launchServer(_ sender: NSButton)
+    {
+        MoonbounceViewController.terraformController.launchTerraformServer
+        {
+            (launched) in
+            
+            print("Launch server task exited.")
+        }
+    }
+    
+    
     //MARK: OVPN
     func connect()
     {
@@ -110,25 +125,25 @@ class MoonbounceViewController: NSViewController
                                            NSFontAttributeName: connectButtonFont]
             self.toggleConnectionButton.attributedTitle = NSAttributedString(string: "Disconnect", attributes: connectButtonAttributes)
         }
-        
-        MoonbounceViewController.openVPN.start(completion:
+
+        MoonbounceViewController.shiftedOpenVpnController.start(ptServerIP: self.ptServerIP, completion:
         {
-            (connected) in
-            
-            //Go back to the main thread
-            DispatchQueue.main.async(execute:
-            {
-                //You can safely do UI stuff here
-                //Verify that connection was succesful and update accordingly
-                self.runningScript = false
-                self.showStatus()
-            })
+                (didLaunch) in
+                
+                //Go back to the main thread
+                DispatchQueue.main.async(execute:
+                {
+                        //You can safely do UI stuff here
+                        //Verify that connection was succesful and update accordingly
+                        self.runningScript = false
+                        self.showStatus()
+                })
         })
     }
     
     func disconnect()
     {
-        MoonbounceViewController.openVPN.stop(completion:
+        MoonbounceViewController.shiftedOpenVpnController.stop(completion:
         {
             (stopped) in
             //
