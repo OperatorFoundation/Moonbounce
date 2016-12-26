@@ -23,7 +23,6 @@ class HelperAppInstaller: NSObject
     //SMJobBless:  Apple's recommended way of running privileged helper
     static func blessHelper(label:String) -> Bool
     {
-        //TODO: Check to see if a queue directory exists or create it for start and stop files
         /*The launchd daemon starts your job whenever the given directories are non-empty, and it keeps your job running as long as those directories are not empty*/
         if let bundleID: String = Bundle.main.bundleIdentifier
         {
@@ -48,18 +47,6 @@ class HelperAppInstaller: NSObject
                 {
                     // Handle the error.
                     print(theError)
-                }
-                
-                //Application Queue Directory
-                let queueDirectoryPath = directoryPath.appendingPathComponent("moonbounceqdir", isDirectory: true)
-                
-                do
-                {
-                    try fileManager.createDirectory(at: queueDirectoryPath, withIntermediateDirectories: true, attributes: nil)
-                }
-                catch let queueDirError
-                {
-                    print(queueDirError)
                 }
             }
         }

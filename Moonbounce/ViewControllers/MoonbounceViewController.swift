@@ -70,7 +70,6 @@ class MoonbounceViewController: NSViewController
     
     func connectionStatusChanged(notification: Notification)
     {
-        print("CONNECTION STATUS CHANGED NOTIFICATION")
         showStatus()
     }
     

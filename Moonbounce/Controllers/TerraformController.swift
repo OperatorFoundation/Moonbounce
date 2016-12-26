@@ -14,7 +14,8 @@ class TerraformController: NSObject
     
     func launchTerraformServer(completion:@escaping (_ completion:Bool) -> Void)
     {
-        guard let path = Bundle.main.path(forResource: "LaunchTerraformScript", ofType: "sh")
+        let bundle = Bundle.main
+        guard let path = bundle.path(forResource: "LaunchTerraformScript", ofType: "sh")
         else
         {
             print("Unable to launch Terraform server. Could not find the script.")
@@ -25,7 +26,32 @@ class TerraformController: NSObject
         {
             (didLaunch) in
             
-            completion(didLaunch)
+            if didLaunch
+            {
+                //Get the file that has the server IP
+                if let appDirectory = getApplicationDirectory()?.appendingPathComponent("serverIP", isDirectory: false)
+                {
+                    let filePath = appDirectory.path
+                    
+                    do
+                    {
+                        let ip = try String(contentsOfFile: filePath, encoding: String.Encoding.ascii)
+                        ptServerIP = ip
+                        print("Server IP is: \(ip)")
+                    }
+                    catch
+                    {
+                        print("Unable to locate the server IP.")
+                        completion(false)
+                    }
+                }
+                
+                completion(true)
+            }
+            else
+            {
+                completion(false)
+            }
         }
     }
     
