@@ -12,7 +12,7 @@ class MoonbounceViewController: NSViewController
 {
     @IBOutlet weak var statusLabel: NSTextField!
     @IBOutlet weak var advancedModeButton: NSButton!
-    @IBOutlet weak var toggleConnectionButton: NSButton!
+    @IBOutlet weak var toggleConnectionButton: CustomButton!
     @IBOutlet weak var backgroundImageView: NSImageView!
     @IBOutlet weak var titleLabel: NSTextField!
     @IBOutlet weak var laserImageView: NSImageView!
@@ -24,18 +24,10 @@ class MoonbounceViewController: NSViewController
     
     //Advanced Mode Outlets
     @IBOutlet weak var advancedModeHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var ipAddressField: NSTextField!
-    @IBOutlet weak var portField: NSTextField!
-    @IBOutlet weak var tpParametersField: NSTextField!
-    @IBOutlet weak var tpTypeSelectionButton: NSPopUpButton!
-    @IBOutlet var outputView: NSTextView!
     
     let proximaNARegular = "Proxima Nova Alt Regular"
-    let advancedMenuHeight: CGFloat = 250.0
-    
-    //MARK: TESTING
-    let ptServerIP = "159.203.188.42"
-    
+    let advancedMenuHeight: CGFloat = 150.0
+        
     //MARK: View Life Cycle
     
     override func viewDidLoad()
@@ -59,6 +51,8 @@ class MoonbounceViewController: NSViewController
         //NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: kOutputTextNotification), object: nil, queue: nil, using: showProcessOutputInTextView)
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: kConnectionStatusNotification), object: nil, queue: nil, using: connectionStatusChanged)
+        
+        updateStatusUI(connected: false, statusDescription: "Not Connected")
     }
     
     override func viewWillAppear()
@@ -76,13 +70,30 @@ class MoonbounceViewController: NSViewController
     //MARK: Action!
     @IBAction func toggleConnection(_ sender: NSButton)
     {
-        if isConnected
+        switch isConnected.state
         {
-            self.disconnect()
-        }
-        else
-        {
-            self.connect()
+            case .start:
+                switch isConnected.stage
+                {
+                case .start:
+                    self.connect()
+                default:
+                    print("Error: Connected state of Start but Stage is \(isConnected.stage)")
+                }
+            case .trying:
+                switch isConnected.stage
+                {
+                    case .start:
+                        //Should Not Happen
+                        print("Error: Connected state of Trying but Stage is Start")
+                    default:
+                        //Terminate Dispatcher Task & Kill OpenVPN & Management
+                        disconnect()
+                }
+            case .success:
+                disconnect()
+            case .failed:
+                connect()
         }
     }
     
@@ -96,6 +107,11 @@ class MoonbounceViewController: NSViewController
         {
             showMenu(sender: sender)
         }
+    }
+    
+    @IBAction func addFileClicked(_ sender: CustomButton)
+    {
+        sender.title = "Add Files"
     }
     
     @IBAction func launchServer(_ sender: NSButton)
@@ -112,31 +128,25 @@ class MoonbounceViewController: NSViewController
     //MARK: OVPN
     func connect()
     {
-        outputView.string = ""
         runBackgroundAnimation()
-        statusLabel.stringValue = "Connecting"
+        isConnected = ConnectState(state: .start, stage: .start)
         runningScript = true
         
         //Update button name
-        if let connectButtonFont = NSFont(name: self.proximaNARegular, size: 13)
-        {
-            let connectButtonAttributes = [NSForegroundColorAttributeName: NSColor.white,
-                                           NSFontAttributeName: connectButtonFont]
-            self.toggleConnectionButton.attributedTitle = NSAttributedString(string: "Disconnect", attributes: connectButtonAttributes)
-        }
+        self.toggleConnectionButton.title = "Disconnect"
 
-        MoonbounceViewController.shiftedOpenVpnController.start(ptServerIP: self.ptServerIP, completion:
+        MoonbounceViewController.shiftedOpenVpnController.start(completion:
         {
-                (didLaunch) in
-                
-                //Go back to the main thread
-                DispatchQueue.main.async(execute:
-                {
-                        //You can safely do UI stuff here
-                        //Verify that connection was succesful and update accordingly
-                        self.runningScript = false
-                        self.showStatus()
-                })
+            (didLaunch) in
+            
+            //Go back to the main thread
+            DispatchQueue.main.async(execute:
+            {
+                //You can safely do UI stuff here
+                //Verify that connection was succesful and update accordingly
+                self.runningScript = false
+                self.showStatus()
+            })
         })
     }
     
@@ -173,13 +183,61 @@ class MoonbounceViewController: NSViewController
     
     func showStatus()
     {
-        if isConnected
+        switch isConnected.state
         {
-            showConnectedStatus()
-        }
-        else
-        {
-            showDisconnectedStatus()
+        case .start:
+            switch isConnected.stage
+            {
+            case .start:
+                self.updateStatusUI(connected: false, statusDescription: "Not Connected")
+            default:
+                print("Error: Connected state of Start but Stage is \(isConnected.stage)")
+            }
+        case .trying:
+            switch isConnected.stage
+            {
+                case .start:
+                    //Should Not Happen
+                    print("Error: Connected state of Trying but Stage is Start")
+                case .dispatcher:
+                    self.updateStatusUI(connected: true, statusDescription: "Starting Dispatcher")
+                case .openVpn:
+                    self.updateStatusUI(connected: true, statusDescription: "Launching OpenVPN")
+                case .management:
+                    self.updateStatusUI(connected: true, statusDescription: "Connecting to the Management Server")
+                case .statusCodes:
+                    self.updateStatusUI(connected: true, statusDescription: "Getting OpenVPN Status")
+            }
+        case .success:
+            switch isConnected.stage
+            {
+            case .start:
+                //Should Not Happen
+                print("Error: Connected state of Success but Stage is Start")
+            case .dispatcher:
+                self.updateStatusUI(connected: true, statusDescription: "Started Dispatcher")
+            case .openVpn:
+                self.updateStatusUI(connected: true, statusDescription: "Launched OpenVPN")
+            case .management:
+                self.updateStatusUI(connected: true, statusDescription: "Connected to the Management Server")
+            case .statusCodes:
+                self.updateStatusUI(connected: true, statusDescription: "Connected")
+            }
+        case .failed:
+            switch isConnected.stage
+            {
+            case .start:
+                //Should Not Happen
+                print("Error: Connected state of Failed but Stage is Start")
+            case .dispatcher:
+                self.updateStatusUI(connected: false, statusDescription: "Failed to start Dispatcher")
+            case .openVpn:
+                self.updateStatusUI(connected: false, statusDescription: "Failed to launch OpenVPN")
+            case .management:
+                self.updateStatusUI(connected: false, statusDescription: "Failed to Connect to the Management Server")
+            case .statusCodes:
+                self.updateStatusUI(connected: false, statusDescription: "Failed to connect  to OpenVPN")
+            }
         }
     }
     
@@ -196,12 +254,6 @@ class MoonbounceViewController: NSViewController
         
         //Connection Button and label Styling
         showStatus()
-        
-        //Connect Button Border
-        toggleConnectionButton.layer?.backgroundColor = .clear
-        toggleConnectionButton.layer?.borderColor = .white
-        toggleConnectionButton.layer?.borderWidth = 2
-        toggleConnectionButton.layer?.cornerRadius = 10
         
         //Advanced Mode Button
         if let menuButtonFont = NSFont(name: proximaNARegular, size: 18)
@@ -245,7 +297,8 @@ class MoonbounceViewController: NSViewController
             },
             completionHandler:
             {
-                if self.runningScript == true
+                if isConnected.state == .trying
+                //if self.runningScript == true
                 {
                     self.runBackgroundAnimation()
                 }
@@ -253,34 +306,19 @@ class MoonbounceViewController: NSViewController
         })
     }
     
-    func showConnectedStatus()
+    func updateStatusUI(connected: Bool, statusDescription: String)
     {
         //Update Connection Status Label
-        self.statusLabel.stringValue = "Connected"
+        self.statusLabel.stringValue = statusDescription
         
-        //Update button name
-        if let connectButtonFont = NSFont(name: self.proximaNARegular, size: 13)
+        if connected
         {
-            let connectButtonAttributes = [NSForegroundColorAttributeName: NSColor.white,
-                                           NSFontAttributeName: connectButtonFont]
-            self.toggleConnectionButton.attributedTitle = NSAttributedString(string: "Disconnect", attributes: connectButtonAttributes)
+            //Update button name
+            self.toggleConnectionButton.title = "Disconnect"
         }
-        
-        //Stop BG Animation
-        self.runningScript = false
-    }
-    
-    func showDisconnectedStatus()
-    {
-        //Update Connection Status Label
-        self.statusLabel.stringValue = "Disconnected"
-        
-        //Update button name
-        if let connectButtonFont = NSFont(name: self.proximaNARegular, size: 13)
+        else
         {
-            let connectButtonAttributes = [NSForegroundColorAttributeName: NSColor.white,
-                                           NSFontAttributeName: connectButtonFont]
-            self.toggleConnectionButton.attributedTitle = NSAttributedString(string: "Connect", attributes: connectButtonAttributes)
+            self.toggleConnectionButton.title = "Connect"
         }
         
         //Stop BG Animation

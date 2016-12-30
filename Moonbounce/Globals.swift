@@ -11,14 +11,43 @@ import Foundation
 var helperClient:MoonbounceHelperProtocol?
 let kOutputTextNotification: CFString = "OutputFromBashNotification" as CFString
 let kConnectionStatusNotification = "ConnectionStatusChnaged"
-var ptServerIP = "159.203.188.42"
-var isConnected = false
+var ptServerIP = ""
+var isConnected = ConnectState(state: .start, stage: .start)
 {
     didSet
     {
         print("Changed Global var for connection status: \(isConnected)")
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kConnectionStatusNotification), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kConnectionStatusNotification), object: isConnected)
     }
+}
+
+struct ConnectState
+{
+    var state: State = .start
+    var stage: Stage = .start
+    
+    init(state: State, stage: Stage)
+    {
+        self.state = state
+        self.stage = stage
+    }
+}
+
+enum State
+{
+    case start
+    case trying
+    case success
+    case failed
+}
+
+enum Stage
+{
+    case start
+    case dispatcher
+    case openVpn
+    case management
+    case statusCodes
 }
 
 func getApplicationDirectory() -> (URL)?

@@ -22,6 +22,8 @@ public class OpenVPN: NSObject
     
     public override init()
     {
+        isConnected = ConnectState(state: .trying, stage: .openVpn)
+        
         if let openVpnPath = Bundle.main.path(forResource: "openvpn", ofType: nil)
         {
             pathToOpenVPNExecutable = openVpnPath
@@ -29,6 +31,7 @@ public class OpenVPN: NSObject
         else
         {
             print("Could not find openVPN executable. wtf D:")
+            isConnected = ConnectState(state: .failed, stage: .openVpn)
             pathToOpenVPNExecutable = ""
         }
 
@@ -65,14 +68,14 @@ public class OpenVPN: NSObject
         {
             helper.startOpenVPN(openVPNFilePath: pathToOpenVPNExecutable, configFilePath: directory, configFileName: configFileName)
                         
-            print("startOpenVPN was called.")
-            
+            isConnected = ConnectState(state: .success, stage: .openVpn)
             connectToManagement()
             completion(true)
         }
         else
         {
              completion(false)
+            isConnected = ConnectState(state: .failed, stage: .openVpn)
         }
     }
     
@@ -81,7 +84,6 @@ public class OpenVPN: NSObject
         if let helper = helperClient
         {
             helper.stopOpenVPN()
-            print("STOP openVPN Called")
             completion(true)
         }
         else
@@ -90,7 +92,8 @@ public class OpenVPN: NSObject
         }
         
         disconnectFromManagement()
-        isConnected = false
+        isConnected.stage = .start
+        isConnected.state = .start
     }
     
     func getApplicationDirectory() -> (URL)?
@@ -130,17 +133,26 @@ public class OpenVPN: NSObject
     
     func connectToManagement()
     {
+        isConnected = ConnectState(state: .trying, stage: .management)
+        
         let taskQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
         taskQueue.async
         {
-            switch self.client.connect(timeout: 10)
+            var connectedToManagment = false
+            
+            while !connectedToManagment
             {
-                case .success:
-                    print("Connected to management server! 🌈")
-                case .failure(let connectError):
-                    print("Failed to connect to management server. 🥀")
-                    print("Connection failure: \(connectError)")
-                    return
+                switch self.client.connect(timeout: 10)
+                {
+                    case .success:
+                        print("Connected to management server! 🌈")
+                        connectedToManagment = true
+                    case .failure(let connectError):
+                        print("Failed to connect to management server. 🥀")
+                        print("Connection failure: \(connectError)")
+                }
+                
+                sleep(1)
             }
             
             let requestString = "state\nstate on\n"
@@ -150,8 +162,9 @@ public class OpenVPN: NSObject
                 switch self.client.send(data: requestData)
                 {
                     case .success:
-                        print("Successfully sent request for 'State' to management server.")
+                        isConnected = ConnectState(state: .success, stage: .management)
                     case .failure(let requestError):
+                        isConnected = ConnectState(state: .failed, stage: .management)
                         print("Management Request Failed: \(requestError)")
                         return
                 }
@@ -180,20 +193,21 @@ public class OpenVPN: NSObject
                                 let arrayOfComponents = firstLine.components(separatedBy: ",")
                                 let statusString = arrayOfComponents[1]
                                 print("Status: \(statusString)")
+                                isConnected.stage = .statusCodes
                                 
                                 switch statusString
                                 {
-                                case "CONNECTED":
-                                    //Woohoo we connected, update the UI or some shit
-                                    print("Success response received from management")
-                                    isConnected = true
-                                case "EXITING":
-                                    //Closed OpenVPN Connection
-                                    isConnected = false
-                                    print("Exiting response received from management")
-                                default:
-                                    isConnected = false
-                                    print("Error: Unknown connection status: \(statusString)")
+                                    case "CONNECTED", "TCP_CONNECT":
+                                        //Woohoo we connected, update the UI or some shit
+                                        isConnected.state = .success
+                                    case "RECONNECTING", "WAIT", "RECONNECTING":
+                                        isConnected.state = .trying
+                                    case "EXITING":
+                                        //Closed OpenVPN Connection
+                                        isConnected.state = .start
+                                        isConnected.stage = .start
+                                    default:
+                                        print("\nError: Unknown connection status: \(statusString)\n")
                                 }
                             }
                         }

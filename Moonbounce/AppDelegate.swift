@@ -89,6 +89,28 @@ class AppDelegate: NSObject, NSApplicationDelegate
                 }
             }
         }
+        
+        checkForServerIP()
+    }
+    
+    func checkForServerIP()
+    {
+        //Get the file that has the server IP
+        if let appDirectory = getApplicationDirectory()?.appendingPathComponent("serverIP", isDirectory: false)
+        {
+            let filePath = appDirectory.path
+            
+            do
+            {
+                let ip = try String(contentsOfFile: filePath, encoding: String.Encoding.ascii)
+                ptServerIP = ip
+                print("Server IP is: \(ip)")
+            }
+            catch
+            {
+                print("Unable to locate the server IP.")
+            }
+        }
     }
     
     func showPopover(sender: AnyObject?)

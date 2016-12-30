@@ -35,9 +35,6 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
         // Resume the listener. At this point, NSXPCListener will take over the execution of this service, managing its lifetime as needed.
         self.listener.resume()
         
-        //TODO: TESTING ONLY
-        //self.startOpenVPN(openVPNFilePath: "/Users/Lita/Library/Developer/Xcode/DerivedData/Moonbounce-aosqeamddmsgekczgdbfntvzubaw/Build/Products/Debug/Moonbounce.app/Contents/Resources/openvpn", configFilePath: "/Users/Lita/Library/Application Support/org.OperatorFoundation.MoonbounceHelperTool/", configFileName: "DO.ovpn")
-        
         // Run the run loop forever.
         writeToLog(logDirectory: logDirectory, content: "^^^^^^We are about to RunLoop this thing up in here^^^^^^")
         RunLoop.current.run()

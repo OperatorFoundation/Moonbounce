@@ -12,13 +12,12 @@ class ShapeshiftedOpenVpnController: NSObject
 {
     static var openVPN = OpenVPN()
     
-    public func start(ptServerIP: String, completion:@escaping (_ launched:Bool) -> Void)
+    public func start(completion:@escaping (_ launched:Bool) -> Void)
     {
-        ShapeshifterDispatcherController.sharedInstance.launchShapeshifterDispatcherClient(ptServerIP: ptServerIP)
+        ShapeshifterDispatcherController.sharedInstance.launchShapeshifterDispatcherClient()
         
         ShapeshiftedOpenVpnController.openVPN.start
         {
-            
             (didConnect) in
             
             print("OpenVPN connect process did complete: \(didConnect)")
@@ -27,9 +26,9 @@ class ShapeshiftedOpenVpnController: NSObject
     
     public func stop(completion:(_ stopped:Bool) -> Void)
     {
+        ShapeshifterDispatcherController.sharedInstance.stopShapeshifterDispatcherClient()
         ShapeshiftedOpenVpnController.openVPN.stop
         {
-            
             (didStop) in
             
             print("OpenVPN did stop: \(didStop)")

@@ -14,10 +14,12 @@ class ShapeshifterDispatcherController: NSObject
     let ptServerPort = "1234"
     static let sharedInstance = ShapeshifterDispatcherController()
     
-    func launchShapeshifterDispatcherClient(ptServerIP: String)
+    func launchShapeshifterDispatcherClient()
     {
-        if let arguments = shapeShifterDispatcherArguments(ptServerIP: ptServerIP)
-        {            
+        if let arguments = shapeShifterDispatcherArguments()
+        {
+            print("LaunchShapeShifterDispatcher Args:\n \(arguments)")
+            
             if launchTask == nil
             {
                 //Creates a new Process and assigns it to the launchTask property.
@@ -40,7 +42,16 @@ class ShapeshifterDispatcherController: NSObject
         }
     }
     
-    func shapeShifterDispatcherArguments(ptServerIP: String) -> [String]?
+    func stopShapeshifterDispatcherClient()
+    {
+        if launchTask != nil
+        {
+            launchTask?.terminate()
+            launchTask = nil
+        }
+    }
+    
+    func shapeShifterDispatcherArguments() -> [String]?
     {
         if let stateDirectory = createTransportStateDirectory()
         {
