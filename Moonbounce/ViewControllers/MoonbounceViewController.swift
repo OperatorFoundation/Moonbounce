@@ -17,6 +17,7 @@ class MoonbounceViewController: NSViewController
     @IBOutlet weak var titleLabel: NSTextField!
     @IBOutlet weak var laserImageView: NSImageView!
     @IBOutlet weak var laserLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var serverProgressBar: NSProgressIndicator!
     
     dynamic var runningScript = false
     static var shiftedOpenVpnController = ShapeshiftedOpenVpnController()
@@ -39,12 +40,12 @@ class MoonbounceViewController: NSViewController
         CFNotificationCenterAddObserver(CFNotificationCenterGetDistributedCenter(), nil,
         {
             (_, observer, notificationName, object, userInfo) in
-            //
+            
             if let observer = observer, let userInfo = userInfo
             {
                 //Extract pointer to 'self' from void pointer
-                let mySelf = Unmanaged<MoonbounceViewController>.fromOpaque(observer).takeUnretainedValue()
-                mySelf.showProcessOutputInTextView(userInfo: userInfo)
+                //let mySelf = Unmanaged<MoonbounceViewController>.fromOpaque(observer).takeUnretainedValue()
+                print("Output from Helper App: \(userInfo)")
             }
             
         }, kOutputTextNotification, nil, CFNotificationSuspensionBehavior.deliverImmediately)
@@ -111,19 +112,69 @@ class MoonbounceViewController: NSViewController
     
     @IBAction func addFileClicked(_ sender: CustomButton)
     {
-        sender.title = "Add Files"
+        let openDialog = NSOpenPanel()
+        openDialog.title = "Select Your Server Config Directory"
+        openDialog.canChooseDirectories = true
+        openDialog.canChooseFiles = false
+        openDialog.allowsMultipleSelection = false
+        //openDialog.allowedFileTypes = ["css","html","pdf","png"]
+
+        openDialog.beginSheetModal(for: self.view.window!)
+        {
+            (response) in
+            
+            guard response == NSFileHandlingPanelOKButton
+                else { return }
+            
+            let fileManager = FileManager.default
+            
+            if let chosenPath = openDialog.url?.path
+            {
+                let chosenPathFileOrFolderName = fileManager.displayName(atPath: chosenPath)
+                let newDirectoryForFiles = configFilesDirectory.appending("/User/\(chosenPathFileOrFolderName)")
+                print("Found Files at: \(chosenPath)")
+                //TODO: Verify and Save Config Files
+                
+                //Verify Files
+                
+                //Save to Correct Directory
+                do
+                {
+                    try fileManager.copyItem(atPath: chosenPath, toPath: newDirectoryForFiles)
+                }
+                catch let error
+                {
+                    print("Unable to copy config files at: \(chosenPath), to: \(newDirectoryForFiles)\nError: \(error)")
+                }
+            }
+        }  
     }
     
     @IBAction func launchServer(_ sender: NSButton)
     {
+        sender.isEnabled = false
+        serverProgressBar.startAnimation(self)
+        
         MoonbounceViewController.terraformController.launchTerraformServer
         {
             (launched) in
+            
+            self.serverProgressBar.stopAnimation(self)
+            sender.isEnabled = true
             
             print("Launch server task exited.")
         }
     }
     
+    @IBAction func killServer(_ sender: NSButton)
+    {
+        MoonbounceViewController.terraformController.destroyTerraformServer
+        {
+            (destroyed) in
+            
+            print("Destroy server task exited.")
+        }
+    }
     
     //MARK: OVPN
     func connect()
@@ -135,7 +186,8 @@ class MoonbounceViewController: NSViewController
         //Update button name
         self.toggleConnectionButton.title = "Disconnect"
 
-        MoonbounceViewController.shiftedOpenVpnController.start(completion:
+        //TODO: Config File Path Based on User Input
+        MoonbounceViewController.shiftedOpenVpnController.start(configFilePath: terraformConfigDirectory, completion:
         {
             (didLaunch) in
             
@@ -159,26 +211,6 @@ class MoonbounceViewController: NSViewController
         })
         
         self.runningScript = false
-    }
-    
-    //Dev purposes - Show output from command line task
-    func showProcessOutputInTextView(userInfo: CFDictionary) -> Void
-    {
-//        guard let userInfo = notification.userInfo, let outputString = userInfo[outputStringKey] as? String
-//        else
-//        {
-//            print("No userInfo found in notification")
-//            return
-//        }
-        
-        print(userInfo)
-//        let previousOutput = self.outputView.string ?? ""
-//        let nextOutput = previousOutput + "\n" + outputString
-//        self.outputView.string = nextOutput
-//        
-//        //Scroll the textview so that newest lines are visible
-//        let range = NSRange(location: nextOutput.characters.count, length: 0)
-//        self.outputView.scrollRangeToVisible(range)
     }
     
     func showStatus()
@@ -266,6 +298,9 @@ class MoonbounceViewController: NSViewController
         
         //Advanced Mode Box
         advancedModeHeightConstraint.constant = 0
+        
+        //Progress Indicator for Server Launch
+        serverProgressBar.controlTint = .clearControlTint
     }
     
     func showMenu(sender: AnyObject?)

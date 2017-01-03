@@ -14,7 +14,6 @@ let statusBarAlternateIcon = "iconWhite"
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate
 {
-
     @IBOutlet weak var window: NSWindow!
 
     let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
@@ -60,19 +59,6 @@ class AppDelegate: NSObject, NSApplicationDelegate
             }
         })
         
-        //Send NSLog output into a log file
-        var paths: Array = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let documentsDirectory: String = paths[0]
-        let logPath: String = documentsDirectory.appending("/moonbounceConsole.log")
-        
-        if (isatty(STDERR_FILENO) == 0)
-        {
-            freopen(logPath, "a+", stderr)
-            freopen(logPath, "a+", stdin)
-            freopen(logPath, "a+", stdout)
-        }
-        print(logPath)
-        
         //Cocoa normally keeps you from launching more than one instance at a time, but sometimes it happens anyway
         if let bundleID = Bundle.main.bundleIdentifier
         {
@@ -90,25 +76,88 @@ class AppDelegate: NSObject, NSApplicationDelegate
             }
         }
         
+        //Check for config directories, if they don't exist, create them
+        createServerConfigDirectories()
+        
         checkForServerIP()
     }
     
     func checkForServerIP()
     {
         //Get the file that has the server IP
-        if let appDirectory = getApplicationDirectory()?.appendingPathComponent("serverIP", isDirectory: false)
+        if terraformConfigDirectory != ""
         {
-            let filePath = appDirectory.path
+            //TODO: This will need to point to something different based on what config files are being used
+            let ipFileDirectory = terraformConfigDirectory.appending("/serverIP")
             
             do
             {
-                let ip = try String(contentsOfFile: filePath, encoding: String.Encoding.ascii)
+                let ip = try String(contentsOfFile: ipFileDirectory, encoding: String.Encoding.ascii)
                 ptServerIP = ip
                 print("Server IP is: \(ip)")
             }
             catch
             {
-                print("Unable to locate the server IP.")
+                print("Unable to locate the server IP at: \(ipFileDirectory).")
+            }
+        }
+    }
+    
+    func createServerConfigDirectories()
+    {
+        let fileManager = FileManager.default
+        let appSupportDirectory = fileManager.urls(for: FileManager.SearchPathDirectory.applicationSupportDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
+        if appSupportDirectory.count > 0
+        {
+            if let bundleID: String = Bundle.main.bundleIdentifier
+            {
+                // Append the bundle ID to the URL for the
+                // Application Support directory
+                let directoryPath = appSupportDirectory[0].appendingPathComponent(bundleID)
+                appDirectory = directoryPath.path
+
+                //Server Config Files Directory
+                let configFilesPath = directoryPath.appendingPathComponent("ConfigFiles", isDirectory: true)
+                
+                //Imported Config Files
+                //The DO is a sub directory reserved for the Terraform Server
+                let importedConfigPath = configFilesPath.appendingPathComponent("Imported/DO", isDirectory: true)
+                terraformConfigDirectory = importedConfigPath.path
+                
+                // If the directory does not exist, this method creates it.
+                // This method is only available in OS X v10.7 and iOS 5.0 or later.
+                do
+                {
+                    try fileManager.createDirectory(at: importedConfigPath, withIntermediateDirectories: true, attributes: nil)
+                }
+                catch let importedConfigError
+                {
+                    print(importedConfigError)
+                }
+                
+                //Default Config
+                let defaultConfigPath = configFilesPath.appendingPathComponent("Default", isDirectory: true)
+                do
+                {
+                    try fileManager.createDirectory(at: defaultConfigPath, withIntermediateDirectories: true, attributes: nil)
+                }
+                catch let defaultConfigError
+                {
+                    print(defaultConfigError)
+                }
+                
+                //User Config
+                let userConfigPath = configFilesPath.appendingPathComponent("User", isDirectory: true)
+                do
+                {
+                    try fileManager.createDirectory(at: userConfigPath, withIntermediateDirectories: true, attributes: nil)
+                }
+                catch let userConfigError
+                {
+                    print(userConfigError)
+                }
+                
+                configFilesDirectory = configFilesPath.path
             }
         }
     }

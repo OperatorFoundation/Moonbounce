@@ -28,20 +28,21 @@ class TerraformController: NSObject
             
             if didLaunch
             {
+                //TODO: This will need to point to something different based on what config files are being used
                 //Get the file that has the server IP
-                if let appDirectory = getApplicationDirectory()?.appendingPathComponent("serverIP", isDirectory: false)
+                if terraformConfigDirectory != ""
                 {
-                    let filePath = appDirectory.path
+                    let ipFileDirectory = terraformConfigDirectory.appending("/serverIP")
                     
                     do
                     {
-                        let ip = try String(contentsOfFile: filePath, encoding: String.Encoding.ascii)
+                        let ip = try String(contentsOfFile: ipFileDirectory, encoding: String.Encoding.ascii)
                         ptServerIP = ip
                         print("Server IP is: \(ip)")
                     }
                     catch
                     {
-                        print("Unable to locate the server IP.")
+                        print("Unable to locate the server IP at: \(ipFileDirectory))")
                         completion(false)
                     }
                 }
@@ -63,11 +64,14 @@ class TerraformController: NSObject
             return
         }
         
-        if terraformTask.isRunning
+        if terraformTask != nil
         {
-            terraformTask.terminate()
+            if terraformTask.isRunning
+            {
+                terraformTask.terminate()
+            }
         }
-        
+
         runTerraformScript(path: path, arguments: nil)
         {
             (didDestroy) in

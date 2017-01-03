@@ -17,7 +17,6 @@ public class OpenVPN: NSObject
     public var configFileName = "DO.ovpn"
     
     private var pathToOpenVPNExecutable:String
-    private var directory:String = ""
     let client = TCPClient(address: "127.0.0.1", port: 13374)
     
     public override init()
@@ -36,11 +35,6 @@ public class OpenVPN: NSObject
         }
 
         super.init()
-        
-        if let pathToConfig = getApplicationDirectory()
-        {
-            directory = pathToConfig.path
-        }
         
         //Add listener for app termination so that openVPN connection can be killed
         NotificationCenter.default.addObserver(forName: Notification.Name.NSApplicationWillTerminate, object: nil, queue: nil, using:
@@ -62,11 +56,11 @@ public class OpenVPN: NSObject
         })
     }
     
-    public func start(completion:@escaping (_ launched:Bool) -> Void)
+    public func start(configFilePath: String, completion:@escaping (_ launched:Bool) -> Void)
     {
         if let helper = helperClient
         {
-            helper.startOpenVPN(openVPNFilePath: pathToOpenVPNExecutable, configFilePath: directory, configFileName: configFileName)
+            helper.startOpenVPN(openVPNFilePath: pathToOpenVPNExecutable, configFilePath: configFilePath, configFileName: configFileName)
                         
             isConnected = ConnectState(state: .success, stage: .openVpn)
             connectToManagement()
@@ -96,41 +90,6 @@ public class OpenVPN: NSObject
         isConnected.state = .start
     }
     
-    func getApplicationDirectory() -> (URL)?
-    {
-        if let bundleID: String = Bundle.main.bundleIdentifier
-        {
-            let fileManager = FileManager.default
-            
-            // Find the application support directory in the home directory.
-            let appSupportDirectory = fileManager.urls(for: FileManager.SearchPathDirectory.applicationSupportDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
-            if appSupportDirectory.count > 0
-            {
-                // Append the bundle ID to the URL for the
-                // Application Support directory
-                let directoryPath = appSupportDirectory[0].appendingPathComponent(bundleID)
-                
-                // If the directory does not exist, this method creates it.
-                // This method is only available in OS X v10.7 and iOS 5.0 or later.
-                
-                do
-                {
-                    try fileManager.createDirectory(at: directoryPath, withIntermediateDirectories: true, attributes: nil)
-                }
-                catch let theError
-                {
-                    // Handle the error.
-                    print(theError)
-                    return nil;
-                }
-                
-                return directoryPath
-            }
-        }
-        
-        return nil
-    }
-    
     func connectToManagement()
     {
         isConnected = ConnectState(state: .trying, stage: .management)
@@ -139,8 +98,9 @@ public class OpenVPN: NSObject
         taskQueue.async
         {
             var connectedToManagment = false
+            var failureCount = 0
             
-            while !connectedToManagment
+            while !connectedToManagment && failureCount < 20
             {
                 switch self.client.connect(timeout: 10)
                 {
@@ -149,7 +109,8 @@ public class OpenVPN: NSObject
                         connectedToManagment = true
                     case .failure(let connectError):
                         print("Failed to connect to management server. 🥀")
-                        print("Connection failure: \(connectError)")
+                        failureCount += 1
+                        print("Connection failure: \(connectError)\nFailures: \(failureCount)")
                 }
                 
                 sleep(1)

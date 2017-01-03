@@ -12,11 +12,11 @@ class ShapeshiftedOpenVpnController: NSObject
 {
     static var openVPN = OpenVPN()
     
-    public func start(completion:@escaping (_ launched:Bool) -> Void)
+    public func start(configFilePath: String, completion:@escaping (_ launched:Bool) -> Void)
     {
         ShapeshifterDispatcherController.sharedInstance.launchShapeshifterDispatcherClient()
         
-        ShapeshiftedOpenVpnController.openVPN.start
+        ShapeshiftedOpenVpnController.openVPN.start(configFilePath: configFilePath)
         {
             (didConnect) in
             
