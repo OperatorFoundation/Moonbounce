@@ -11,6 +11,8 @@ import Cocoa
 class TerraformController: NSObject
 {
     var terraformTask: Process!
+    let outputPipe = Pipe()
+    let ipFilePath = terraformConfigDirectory.appending("/serverIP")
     
     func launchTerraformServer(completion:@escaping (_ completion:Bool) -> Void)
     {
@@ -28,21 +30,18 @@ class TerraformController: NSObject
             
             if didLaunch
             {
-                //TODO: This will need to point to something different based on what config files are being used
                 //Get the file that has the server IP
                 if terraformConfigDirectory != ""
                 {
-                    let ipFileDirectory = terraformConfigDirectory.appending("/serverIP")
-                    
                     do
                     {
-                        let ip = try String(contentsOfFile: ipFileDirectory, encoding: String.Encoding.ascii)
+                        let ip = try String(contentsOfFile: self.ipFilePath, encoding: String.Encoding.ascii)
                         ptServerIP = ip
                         print("Server IP is: \(ip)")
                     }
                     catch
                     {
-                        print("Unable to locate the server IP at: \(ipFileDirectory))")
+                        print("Unable to locate the server IP at: \(self.ipFilePath))")
                         completion(false)
                     }
                 }
@@ -76,6 +75,18 @@ class TerraformController: NSObject
         {
             (didDestroy) in
             
+            //Remove IP File as we check for this to verify if ther is a live server
+            ptServerIP = ""
+            let fileManager = FileManager.default
+            do
+            {
+                try fileManager.removeItem(atPath: self.ipFilePath)
+            }
+            catch let error as NSError
+            {
+                print("Error deleting IP file: \(error.debugDescription)")
+            }
+            
             completion(didDestroy)
         }
     }
@@ -101,10 +112,81 @@ class TerraformController: NSObject
                     completion(true)
                 })
             }
+
             self.terraformTask.launch()
+        }
+    }
+    
+    func captureStandardOutput(_ task: Process)
+    {
+        //outputPipe = Pipe()
+        task.standardOutput = outputPipe
+        
+        //Waiting for output on a background thread
+        outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+        
+        //Whenever data is available, waitForDataInBackgroundAndNotify notifies you by calling the block of code you register with NSNotificationCenter 
+        //to handle NSFileHandleDataAvailableNotification.
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: outputPipe.fileHandleForReading.availableData, queue: nil)
+        {
+            (notification) in
             
-            //tells the Process object to block any further activity on the current (background) thread until the task is complete.
-            self.terraformTask.waitUntilExit()
+            let output = self.outputPipe.fileHandleForReading.availableData
+            let outputString = String(data: output, encoding: String.Encoding.utf8)
+            
+            DispatchQueue.main.async(execute:
+            {
+                print("\nTerraform Standard Output:\n \(outputString)\n")
+            })
+        }
+        
+        self.outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+    }
+    
+    func createVarsFile(token: String)
+    {
+        let bundle = Bundle.main
+        guard let path = bundle.path(forResource: "vars", ofType: nil)
+            else
+        {
+            print("Unable to copy vars template, template could not be found in the app bundle.")
+            return
+        }
+        
+        do
+        {
+            //TODO: replace this with the directory we wil be installing this on
+            let shapeshifterServerVarsPath = "/Volumes/extDrive/Code/shapeshifter-server/vars"
+            try FileManager.default.copyItem(atPath: path, toPath: shapeshifterServerVarsPath)
+            
+            //If we successfully copied over a vars template, append the user token and config directory lines
+            if FileManager.default.fileExists(atPath: shapeshifterServerVarsPath)
+            {
+                let tokenString = "export TF_VAR_do_token=\"\(token)\""
+                let directoryString = "export TF_VAR_config_dir=\"\(terraformConfigDirectory)\""
+                let stringToAppend = "\(tokenString)\n\(directoryString)"
+                if let dataToAppend =  stringToAppend.data(using: String.Encoding.ascii)
+                {
+                    if let varsFileHandle = FileHandle(forWritingAtPath: shapeshifterServerVarsPath)
+                    {
+                        varsFileHandle.seekToEndOfFile()
+                        varsFileHandle.write(dataToAppend)
+                        varsFileHandle.closeFile()
+                    }
+                    else
+                    {
+                        print("Can't open file handle for updating vars file.")
+                    }
+                }
+                else
+                {
+                    print("Unable to convert new vars lines to data to append")
+                }
+            }
+        }
+        catch
+        {
+            print("Unable to copy vars template to shapeshifter server directory:\n \(error)")
         }
     }
     

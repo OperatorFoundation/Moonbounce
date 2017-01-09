@@ -17,17 +17,27 @@ class MoonbounceViewController: NSViewController
     @IBOutlet weak var titleLabel: NSTextField!
     @IBOutlet weak var laserImageView: NSImageView!
     @IBOutlet weak var laserLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var serverProgressBar: NSProgressIndicator!
-    
+
     dynamic var runningScript = false
     static var shiftedOpenVpnController = ShapeshiftedOpenVpnController()
     static var terraformController = TerraformController()
     
     //Advanced Mode Outlets
     @IBOutlet weak var advancedModeHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var serverSelectButton: NSPopUpButton!
+    @IBOutlet weak var serverProgressBar: NSProgressIndicator!
+    @IBOutlet weak var accountTokenBox: NSBox!
+    @IBOutlet weak var accountTokenTextField: NSTextField!
     
     let proximaNARegular = "Proxima Nova Alt Regular"
     let advancedMenuHeight: CGFloat = 150.0
+    
+    enum ServerName: String
+    {
+        case defaultServer = "Default Server"
+        case userServer = "User Server"
+        case importedServer = "Imported Server"
+    }
         
     //MARK: View Life Cycle
     
@@ -36,7 +46,6 @@ class MoonbounceViewController: NSViewController
         super.viewDidLoad()
 
         //Listen for Bash output from Helper App
-
         CFNotificationCenterAddObserver(CFNotificationCenterGetDistributedCenter(), nil,
         {
             (_, observer, notificationName, object, userInfo) in
@@ -45,7 +54,7 @@ class MoonbounceViewController: NSViewController
             {
                 //Extract pointer to 'self' from void pointer
                 //let mySelf = Unmanaged<MoonbounceViewController>.fromOpaque(observer).takeUnretainedValue()
-                print("Output from Helper App: \(userInfo)")
+                print("\nOutput from Helper App: \(userInfo)\n")
             }
             
         }, kOutputTextNotification, nil, CFNotificationSuspensionBehavior.deliverImmediately)
@@ -54,6 +63,7 @@ class MoonbounceViewController: NSViewController
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: kConnectionStatusNotification), object: nil, queue: nil, using: connectionStatusChanged)
         
         updateStatusUI(connected: false, statusDescription: "Not Connected")
+        populateServerSelectButton()
     }
     
     override func viewWillAppear()
@@ -119,62 +129,100 @@ class MoonbounceViewController: NSViewController
         openDialog.allowsMultipleSelection = false
         //openDialog.allowedFileTypes = ["css","html","pdf","png"]
 
-        openDialog.beginSheetModal(for: self.view.window!)
+        if let presentingWindow = self.view.window
         {
-            (response) in
-            
-            guard response == NSFileHandlingPanelOKButton
-                else { return }
-            
-            let fileManager = FileManager.default
-            
-            if let chosenPath = openDialog.url?.path
+            openDialog.beginSheetModal(for: presentingWindow)
             {
-                let chosenPathFileOrFolderName = fileManager.displayName(atPath: chosenPath)
-                let newDirectoryForFiles = configFilesDirectory.appending("/User/\(chosenPathFileOrFolderName)")
-                print("Found Files at: \(chosenPath)")
-                //TODO: Verify and Save Config Files
+                (response) in
                 
-                //Verify Files
+                guard response == NSFileHandlingPanelOKButton
+                    else { return }
                 
-                //Save to Correct Directory
-                do
+                let fileManager = FileManager.default
+                
+                if let chosenPath = openDialog.url?.path
                 {
-                    try fileManager.copyItem(atPath: chosenPath, toPath: newDirectoryForFiles)
-                }
-                catch let error
-                {
-                    print("Unable to copy config files at: \(chosenPath), to: \(newDirectoryForFiles)\nError: \(error)")
+                    let chosenPathFileOrFolderName = fileManager.displayName(atPath: chosenPath)
+                    let newDirectoryForFiles = configFilesDirectory.appending("/Imported/\(chosenPathFileOrFolderName)")
+                    print("Found Files at: \(chosenPath)")
+                    //TODO: Verify and Save Config Files
+                    
+                    //Verify Files
+                    
+                    //Save to Correct Directory
+                    do
+                    {
+                        try fileManager.copyItem(atPath: chosenPath, toPath: newDirectoryForFiles)
+                    }
+                    catch let error
+                    {
+                        print("Unable to copy config files at: \(chosenPath), to: \(newDirectoryForFiles)\nError: \(error)")
+                    }
                 }
             }
-        }  
+        }
     }
     
     @IBAction func launchServer(_ sender: NSButton)
     {
-        sender.isEnabled = false
-        serverProgressBar.startAnimation(self)
-        
-        MoonbounceViewController.terraformController.launchTerraformServer
+        if hasDoToken
         {
-            (launched) in
+            sender.isEnabled = false
+            toggleConnectionButton.isEnabled = false
+            serverProgressBar.startAnimation(self)
             
-            self.serverProgressBar.stopAnimation(self)
-            sender.isEnabled = true
-            
-            print("Launch server task exited.")
+            MoonbounceViewController.terraformController.launchTerraformServer
+            {
+                (launched) in
+                
+                sender.isEnabled = true
+                self.toggleConnectionButton.isEnabled = true
+                self.serverProgressBar.stopAnimation(self)
+                self.populateServerSelectButton()
+                
+                print("Launch server task exited.")
+            }
         }
+        else
+        {
+            //Show Token Input Field
+            self.accountTokenBox.isHidden = false
+        }
+
     }
     
     @IBAction func killServer(_ sender: NSButton)
     {
+        sender.isEnabled = false
+        toggleConnectionButton.isEnabled = false
+        serverProgressBar.startAnimation(self)
+        
         MoonbounceViewController.terraformController.destroyTerraformServer
         {
             (destroyed) in
             
+            sender.isEnabled = true
+            self.toggleConnectionButton.isEnabled = true
+            self.serverProgressBar.stopAnimation(self)
+            self.populateServerSelectButton()
+            
             print("Destroy server task exited.")
         }
     }
+    
+    @IBAction func closeTokenWindow(_ sender: NSButton)
+    {
+        self.accountTokenBox.isHidden = true
+    }
+    
+    @IBAction func accountTokenEntered(_ sender: NSTextField)
+    {
+        
+        //TODO: Sanity checks for input are needed here
+        accountTokenBox.isHidden = true
+        MoonbounceViewController.terraformController.createVarsFile(token: sender.stringValue)
+    }
+    
     
     //MARK: OVPN
     func connect()
@@ -270,6 +318,22 @@ class MoonbounceViewController: NSViewController
             case .statusCodes:
                 self.updateStatusUI(connected: false, statusDescription: "Failed to connect  to OpenVPN")
             }
+        }
+    }
+    
+    func populateServerSelectButton()
+    {
+        serverSelectButton.removeAllItems()
+        serverSelectButton.addItem(withTitle: ServerName.defaultServer.rawValue)
+        
+        if ptServerIP != ""
+        {
+            serverSelectButton.addItem(withTitle: ServerName.userServer.rawValue)
+            serverSelectButton.selectItem(withTitle: ServerName.userServer.rawValue)
+        }
+        else
+        {
+            serverSelectButton.selectItem(withTitle: ServerName.defaultServer.rawValue)
         }
     }
     

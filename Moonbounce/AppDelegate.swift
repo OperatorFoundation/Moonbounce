@@ -78,7 +78,6 @@ class AppDelegate: NSObject, NSApplicationDelegate
         
         //Check for config directories, if they don't exist, create them
         createServerConfigDirectories()
-        
         checkForServerIP()
     }
     
@@ -121,8 +120,7 @@ class AppDelegate: NSObject, NSApplicationDelegate
                 
                 //Imported Config Files
                 //The DO is a sub directory reserved for the Terraform Server
-                let importedConfigPath = configFilesPath.appendingPathComponent("Imported/DO", isDirectory: true)
-                terraformConfigDirectory = importedConfigPath.path
+                let importedConfigPath = configFilesPath.appendingPathComponent("Imported", isDirectory: true)
                 
                 // If the directory does not exist, this method creates it.
                 // This method is only available in OS X v10.7 and iOS 5.0 or later.
@@ -147,7 +145,8 @@ class AppDelegate: NSObject, NSApplicationDelegate
                 }
                 
                 //User Config
-                let userConfigPath = configFilesPath.appendingPathComponent("User", isDirectory: true)
+                let userConfigPath = configFilesPath.appendingPathComponent("User/DO", isDirectory: true)
+                terraformConfigDirectory = userConfigPath.path
                 do
                 {
                     try fileManager.createDirectory(at: userConfigPath, withIntermediateDirectories: true, attributes: nil)

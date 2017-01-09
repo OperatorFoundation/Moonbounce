@@ -100,7 +100,7 @@ public class OpenVPN: NSObject
             var connectedToManagment = false
             var failureCount = 0
             
-            while !connectedToManagment && failureCount < 20
+            while !connectedToManagment && failureCount < 20 && isConnected.state == .trying && isConnected.stage == .management
             {
                 switch self.client.connect(timeout: 10)
                 {

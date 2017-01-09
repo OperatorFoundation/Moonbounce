@@ -1,4 +1,3 @@
 export TF_VAR_pubkey=$HOME/.ssh/id_ecdsa.pub
 export TF_VAR_privkey=$HOME/.ssh/id_ecdsa
 export TF_VAR_ssh_fingerprint=`ssh-keygen -E md5 -lf ~/.ssh/id_ecdsa.pub | awk '{print substr($2, 5)}'`
-export TF_VAR_config_dir="$HOME/Library/Application Support/org.operatorfoundation.Moonbounce/ConfigFiles/Imported/DO"
