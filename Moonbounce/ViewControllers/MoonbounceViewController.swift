@@ -29,6 +29,9 @@ class MoonbounceViewController: NSViewController
     @IBOutlet weak var accountTokenBox: NSBox!
     @IBOutlet weak var accountTokenTextField: NSTextField!
     
+    //accountTokenBox.hidden is bound to this var
+    dynamic var hasDoToken = false
+    
     let proximaNARegular = "Proxima Nova Alt Regular"
     let advancedMenuHeight: CGFloat = 150.0
     
@@ -120,6 +123,18 @@ class MoonbounceViewController: NSViewController
         }
     }
     
+    @IBAction func serverSelectionChanged(_ sender: NSPopUpButton)
+    {
+        if let selectedItemTitle = sender.selectedItem?.title
+        {
+            setSelectedServer(title: selectedItemTitle)
+        }
+        else
+        {
+            print("Unable to understand server selection, we could not get an item title from the popup button.")
+        }
+    }
+    
     @IBAction func addFileClicked(_ sender: CustomButton)
     {
         let openDialog = NSOpenPanel()
@@ -186,7 +201,7 @@ class MoonbounceViewController: NSViewController
         else
         {
             //Show Token Input Field
-            self.accountTokenBox.isHidden = false
+            //self.accountTokenBox.isHidden = false
         }
 
     }
@@ -217,16 +232,27 @@ class MoonbounceViewController: NSViewController
     
     @IBAction func accountTokenEntered(_ sender: NSTextField)
     {
-        
         //TODO: Sanity checks for input are needed here
-        accountTokenBox.isHidden = true
-        MoonbounceViewController.terraformController.createVarsFile(token: sender.stringValue)
+        let newToken = sender.stringValue
+        if newToken == ""
+        {
+            print("User entered an empty string for DO token")
+            return
+        }
+        else
+        {
+            print("New user token: \(newToken)")
+            UserDefaults.standard.set(sender.stringValue, forKey: userTokenKey)
+            hasDoToken = true
+            //accountTokenBox.isHidden = true
+            MoonbounceViewController.terraformController.createVarsFile(token: sender.stringValue)
+        }
     }
-    
     
     //MARK: OVPN
     func connect()
     {
+        serverSelectButton.isEnabled = false
         runBackgroundAnimation()
         isConnected = ConnectState(state: .start, stage: .start)
         runningScript = true
@@ -235,7 +261,7 @@ class MoonbounceViewController: NSViewController
         self.toggleConnectionButton.title = "Disconnect"
 
         //TODO: Config File Path Based on User Input
-        MoonbounceViewController.shiftedOpenVpnController.start(configFilePath: terraformConfigDirectory, completion:
+        MoonbounceViewController.shiftedOpenVpnController.start(configFilePath: currentConfigDirectory, completion:
         {
             (didLaunch) in
             
@@ -245,9 +271,49 @@ class MoonbounceViewController: NSViewController
                 //You can safely do UI stuff here
                 //Verify that connection was succesful and update accordingly
                 self.runningScript = false
+                self.serverSelectButton.isEnabled = true
                 self.showStatus()
             })
         })
+    }
+    
+    func setSelectedServer(title: String)
+    {
+        switch title
+        {
+            case ServerName.defaultServer.rawValue:
+                currentConfigDirectory = defaultConfigDirectory
+            case ServerName.userServer.rawValue:
+                currentConfigDirectory = userConfigDirectory
+            case ServerName.importedServer.rawValue:
+                currentConfigDirectory = importedConfigDirectory
+            default:
+                print("User made a server selection that we just don't understand: \(title)")
+                return
+        }
+    
+        checkForServerIP()
+    }
+    
+    func checkForServerIP()
+    {
+        //Get the file that has the server IP
+        if currentConfigDirectory != ""
+        {
+            //TODO: This will need to point to something different based on what config files are being used
+            let ipFileDirectory = currentConfigDirectory.appending("/" + ipFileName)
+            
+            do
+            {
+                let ip = try String(contentsOfFile: ipFileDirectory, encoding: String.Encoding.ascii)
+                currentServerIP = ip
+                print("Current Server IP is: \(ip)")
+            }
+            catch
+            {
+                print("Unable to locate the server IP at: \(ipFileDirectory).")
+            }
+        }
     }
     
     func disconnect()
@@ -326,14 +392,16 @@ class MoonbounceViewController: NSViewController
         serverSelectButton.removeAllItems()
         serverSelectButton.addItem(withTitle: ServerName.defaultServer.rawValue)
         
-        if ptServerIP != ""
+        if userServerIP == ""
         {
-            serverSelectButton.addItem(withTitle: ServerName.userServer.rawValue)
-            serverSelectButton.selectItem(withTitle: ServerName.userServer.rawValue)
+            serverSelectButton.selectItem(withTitle: ServerName.defaultServer.rawValue)
+            setSelectedServer(title: ServerName.defaultServer.rawValue)
         }
         else
         {
-            serverSelectButton.selectItem(withTitle: ServerName.defaultServer.rawValue)
+            serverSelectButton.addItem(withTitle: ServerName.userServer.rawValue)
+            serverSelectButton.selectItem(withTitle: ServerName.userServer.rawValue)
+            setSelectedServer(title: ServerName.userServer.rawValue)
         }
     }
     
@@ -365,6 +433,27 @@ class MoonbounceViewController: NSViewController
         
         //Progress Indicator for Server Launch
         serverProgressBar.controlTint = .clearControlTint
+        
+        //Has the user entered their Digital Ocean Token?
+        if let userToken = UserDefaults.standard.object(forKey: userTokenKey) as! String?
+        {
+            if userToken == ""
+            {
+                hasDoToken = false
+            }
+            else
+            {
+                hasDoToken = true
+                print("******Found a token in user defaults!")
+            }
+        }
+        else
+        {
+            hasDoToken = false
+        }
+        
+        //Hide the account token input box if we already have a token saved
+        //accountTokenBox.isHidden = !hasDoToken
     }
     
     func showMenu(sender: AnyObject?)

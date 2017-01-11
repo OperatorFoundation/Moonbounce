@@ -12,13 +12,14 @@ let statusBarIcon = "icon"
 let statusBarAlternateIcon = "iconWhite"
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate
+class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
 {
     @IBOutlet weak var window: NSWindow!
 
     let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
     let popover = NSPopover()
     let menu = NSMenu()
+    let fileManager = FileManager.default
     
     var eventMonitor: EventMonitor?
 
@@ -77,6 +78,7 @@ class AppDelegate: NSObject, NSApplicationDelegate
         }
         
         //Check for config directories, if they don't exist, create them
+        fileManager.delegate = self
         createServerConfigDirectories()
         checkForServerIP()
     }
@@ -84,27 +86,56 @@ class AppDelegate: NSObject, NSApplicationDelegate
     func checkForServerIP()
     {
         //Get the file that has the server IP
-        if terraformConfigDirectory != ""
+        if userConfigDirectory != ""
         {
-            //TODO: This will need to point to something different based on what config files are being used
-            let ipFileDirectory = terraformConfigDirectory.appending("/serverIP")
+            let ipFileDirectory = userConfigDirectory.appending("/" + ipFileName)
             
             do
             {
                 let ip = try String(contentsOfFile: ipFileDirectory, encoding: String.Encoding.ascii)
-                ptServerIP = ip
-                print("Server IP is: \(ip)")
+                userServerIP = ip
+                print("User Server IP is: \(ip)")
             }
             catch
             {
                 print("Unable to locate the server IP at: \(ipFileDirectory).")
             }
         }
+        else if defaultConfigDirectory != ""
+        {
+            let ipFileDirectory = defaultConfigDirectory.appending("/" + ipFileName)
+            
+            do
+            {
+                let ip = try String(contentsOfFile: ipFileDirectory, encoding: String.Encoding.ascii)
+                userServerIP = ip
+                print("Default Server IP is: \(ip)")
+            }
+            catch
+            {
+                print("Unable to locate the default server IP at: \(ipFileDirectory).")
+            }
+        }
+        else
+        {
+            print("Unable to find and config directories.")
+        }
+    }
+    
+    func fileManager(_ fileManager: FileManager, shouldProceedAfterError error: Error, copyingItemAtPath srcPath: String, toPath dstPath: String) -> Bool
+    {
+        let copyError = error as NSError
+
+        if copyError.code == NSFileWriteFileExistsError
+        {
+            return true
+        }
+        
+        return false
     }
     
     func createServerConfigDirectories()
     {
-        let fileManager = FileManager.default
         let appSupportDirectory = fileManager.urls(for: FileManager.SearchPathDirectory.applicationSupportDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
         if appSupportDirectory.count > 0
         {
@@ -119,8 +150,7 @@ class AppDelegate: NSObject, NSApplicationDelegate
                 let configFilesPath = directoryPath.appendingPathComponent("ConfigFiles", isDirectory: true)
                 
                 //Imported Config Files
-                //The DO is a sub directory reserved for the Terraform Server
-                let importedConfigPath = configFilesPath.appendingPathComponent("Imported", isDirectory: true)
+                let importedConfigPath = configFilesPath.appendingPathComponent(importedDirectoryName, isDirectory: true)
                 
                 // If the directory does not exist, this method creates it.
                 // This method is only available in OS X v10.7 and iOS 5.0 or later.
@@ -134,19 +164,28 @@ class AppDelegate: NSObject, NSApplicationDelegate
                 }
                 
                 //Default Config
-                let defaultConfigPath = configFilesPath.appendingPathComponent("Default", isDirectory: true)
+                let defaultConfigPath = configFilesPath.appendingPathComponent(defaultDirectoryName
+                , isDirectory: true)
+                defaultConfigDirectory = defaultConfigPath.path
+                guard let resourcePath = Bundle.main.path(forResource: defaultDirectoryName, ofType: nil)
+                else
+                {
+                    print("Unable to find Default Config files.")
+                    return
+                }
+                
                 do
                 {
-                    try fileManager.createDirectory(at: defaultConfigPath, withIntermediateDirectories: true, attributes: nil)
+                    try FileManager.default.copyItem(atPath: resourcePath, toPath: defaultConfigPath.path)
                 }
-                catch let defaultConfigError
+                catch
                 {
-                    print(defaultConfigError)
+                    print("Unable to copy default config files: \(error.localizedDescription)")
                 }
                 
                 //User Config
-                let userConfigPath = configFilesPath.appendingPathComponent("User/DO", isDirectory: true)
-                terraformConfigDirectory = userConfigPath.path
+                let userConfigPath = configFilesPath.appendingPathComponent(userDirectoryName + "/DO", isDirectory: true)
+                userConfigDirectory = userConfigPath.path
                 do
                 {
                     try fileManager.createDirectory(at: userConfigPath, withIntermediateDirectories: true, attributes: nil)

@@ -61,6 +61,9 @@ public class OpenVPN: NSObject
         if let helper = helperClient
         {
             helper.startOpenVPN(openVPNFilePath: pathToOpenVPNExecutable, configFilePath: configFilePath, configFileName: configFileName)
+            
+            print("Config File Path: \(configFilePath)")
+            print("Config File Name: \(configFileName)")
                         
             isConnected = ConnectState(state: .success, stage: .openVpn)
             connectToManagement()

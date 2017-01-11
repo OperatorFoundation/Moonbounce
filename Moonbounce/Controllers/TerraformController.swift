@@ -12,7 +12,7 @@ class TerraformController: NSObject
 {
     var terraformTask: Process!
     let outputPipe = Pipe()
-    let ipFilePath = terraformConfigDirectory.appending("/serverIP")
+    let ipFilePath = userConfigDirectory.appending("/serverIP")
     
     func launchTerraformServer(completion:@escaping (_ completion:Bool) -> Void)
     {
@@ -31,17 +31,17 @@ class TerraformController: NSObject
             if didLaunch
             {
                 //Get the file that has the server IP
-                if terraformConfigDirectory != ""
+                if userConfigDirectory != ""
                 {
                     do
                     {
                         let ip = try String(contentsOfFile: self.ipFilePath, encoding: String.Encoding.ascii)
-                        ptServerIP = ip
-                        print("Server IP is: \(ip)")
+                        userServerIP = ip
+                        print("User Server IP is: \(ip)")
                     }
                     catch
                     {
-                        print("Unable to locate the server IP at: \(self.ipFilePath))")
+                        print("Unable to locate the user server IP at: \(self.ipFilePath))")
                         completion(false)
                     }
                 }
@@ -76,7 +76,7 @@ class TerraformController: NSObject
             (didDestroy) in
             
             //Remove IP File as we check for this to verify if ther is a live server
-            ptServerIP = ""
+            userServerIP = ""
             let fileManager = FileManager.default
             do
             {
@@ -163,7 +163,7 @@ class TerraformController: NSObject
             if FileManager.default.fileExists(atPath: shapeshifterServerVarsPath)
             {
                 let tokenString = "export TF_VAR_do_token=\"\(token)\""
-                let directoryString = "export TF_VAR_config_dir=\"\(terraformConfigDirectory)\""
+                let directoryString = "export TF_VAR_config_dir=\"\(userConfigDirectory)\""
                 let stringToAppend = "\(tokenString)\n\(directoryString)"
                 if let dataToAppend =  stringToAppend.data(using: String.Encoding.ascii)
                 {

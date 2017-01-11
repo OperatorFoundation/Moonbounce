@@ -39,7 +39,7 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="background" id="ax9-GS-5Vs"/>
                 </imageView>
                 <imageView translatesAutoresizingMaskIntoConstraints="NO" id="Eoy-Bt-WyB">
-                    <rect key="frame" x="70" y="251" width="34" height="10"/>
+                    <rect key="frame" x="70" y="250" width="34" height="10"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="laser" id="yCl-cc-num"/>
                 </imageView>
                 <imageView translatesAutoresizingMaskIntoConstraints="NO" id="Hrb-VL-FIy" userLabel="Foreground Image View">
@@ -143,11 +143,6 @@
                         <action selector="toggleConnection:" target="-2" id="gdh-oJ-CMW"/>
                     </connections>
                 </button>
-                <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="71n-b2-iRw">
-                    <rect key="frame" x="243" y="251" width="34" height="10"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="laser" id="2K9-Cn-fwP"/>
-                </imageView>
                 <box boxType="custom" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="wx1-Qv-rfn" userLabel="Advanced Mode Box">
                     <rect key="frame" x="0.0" y="0.0" width="437" height="149"/>
                     <view key="contentView" wantsLayer="YES" id="Fln-xu-uld">
@@ -204,6 +199,9 @@
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
+                                <connections>
+                                    <action selector="serverSelectionChanged:" target="-2" id="1Px-8f-vdQ"/>
+                                </connections>
                             </popUpButton>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="55v-2e-jP8" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
                                 <rect key="frame" x="12" y="13" width="86" height="19"/>
@@ -336,6 +334,9 @@
                                     </subviews>
                                 </view>
                                 <color key="fillColor" red="0.0040241265669465065" green="0.086827389895915985" blue="0.21149039268493652" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <binding destination="-2" name="hidden" keyPath="self.hasDoToken" id="lP6-5s-zj8"/>
+                                </connections>
                             </box>
                         </subviews>
                         <constraints>

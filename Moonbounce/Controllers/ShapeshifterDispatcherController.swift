@@ -77,7 +77,7 @@ class ShapeshifterDispatcherController: NSObject
             
             //IP and Port for our PT Server
             processArguments.append("-target")
-            processArguments.append("\(ptServerIP):\(ptServerPort)")
+            processArguments.append("\(currentServerIP):\(ptServerPort)")
             
             //TODO Listen on a port for OpenVPN Client
             
