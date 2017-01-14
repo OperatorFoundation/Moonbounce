@@ -157,10 +157,27 @@ class TerraformController: NSObject
         {
             //TODO: replace this with the directory we wil be installing this on
             let shapeshifterServerVarsPath = "/Volumes/extDrive/Code/shapeshifter-server/vars"
-            try FileManager.default.copyItem(atPath: path, toPath: shapeshifterServerVarsPath)
+            
+            let fileManager = FileManager.default
+            //If a previous vars file is already here, delete it so we can have the new token
+            if fileManager.fileExists(atPath: shapeshifterServerVarsPath)
+            {
+                do
+                {
+                    try fileManager.removeItem(atPath: shapeshifterServerVarsPath)
+                }
+                catch
+                {
+                    print("Vars file already exists at path:\n\(shapeshifterServerVarsPath)")
+                    print("Unable to delete existing vars file:\n\(error.localizedDescription)")
+                }
+            }
+            
+            //Copy over the vars template
+            try fileManager.copyItem(atPath: path, toPath: shapeshifterServerVarsPath)
             
             //If we successfully copied over a vars template, append the user token and config directory lines
-            if FileManager.default.fileExists(atPath: shapeshifterServerVarsPath)
+            if fileManager.fileExists(atPath: shapeshifterServerVarsPath)
             {
                 let tokenString = "export TF_VAR_do_token=\"\(token)\""
                 let directoryString = "export TF_VAR_config_dir=\"\(userConfigDirectory)\""

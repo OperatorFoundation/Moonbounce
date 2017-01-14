@@ -28,6 +28,7 @@ class MoonbounceViewController: NSViewController
     @IBOutlet weak var serverProgressBar: NSProgressIndicator!
     @IBOutlet weak var accountTokenBox: NSBox!
     @IBOutlet weak var accountTokenTextField: NSTextField!
+    @IBOutlet weak var launchServerButton: CustomButton!
     
     //accountTokenBox.hidden is bound to this var
     dynamic var hasDoToken = false
@@ -47,21 +48,6 @@ class MoonbounceViewController: NSViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
-        //Listen for Bash output from Helper App
-        CFNotificationCenterAddObserver(CFNotificationCenterGetDistributedCenter(), nil,
-        {
-            (_, observer, notificationName, object, userInfo) in
-            
-            if let observer = observer, let userInfo = userInfo
-            {
-                //Extract pointer to 'self' from void pointer
-                //let mySelf = Unmanaged<MoonbounceViewController>.fromOpaque(observer).takeUnretainedValue()
-                print("\nOutput from Helper App: \(userInfo)\n")
-            }
-            
-        }, kOutputTextNotification, nil, CFNotificationSuspensionBehavior.deliverImmediately)
-        //NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: kOutputTextNotification), object: nil, queue: nil, using: showProcessOutputInTextView)
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: kConnectionStatusNotification), object: nil, queue: nil, using: connectionStatusChanged)
         
@@ -200,16 +186,15 @@ class MoonbounceViewController: NSViewController
         }
         else
         {
-            //Show Token Input Field
-            //self.accountTokenBox.isHidden = false
+            accountTokenBox.isHidden = false
         }
-
     }
     
     @IBAction func killServer(_ sender: NSButton)
     {
         sender.isEnabled = false
         toggleConnectionButton.isEnabled = false
+        launchServerButton.isEnabled = false
         serverProgressBar.startAnimation(self)
         
         MoonbounceViewController.terraformController.destroyTerraformServer
@@ -218,6 +203,7 @@ class MoonbounceViewController: NSViewController
             
             sender.isEnabled = true
             self.toggleConnectionButton.isEnabled = true
+            self.launchServerButton.isEnabled = true
             self.serverProgressBar.stopAnimation(self)
             self.populateServerSelectButton()
             
@@ -244,10 +230,15 @@ class MoonbounceViewController: NSViewController
             print("New user token: \(newToken)")
             UserDefaults.standard.set(sender.stringValue, forKey: userTokenKey)
             hasDoToken = true
-            //accountTokenBox.isHidden = true
             MoonbounceViewController.terraformController.createVarsFile(token: sender.stringValue)
         }
     }
+    
+    @IBAction func editToken(_ sender: NSButton)
+    {
+        accountTokenBox.isHidden = false
+    }
+    
     
     //MARK: OVPN
     func connect()
@@ -451,9 +442,6 @@ class MoonbounceViewController: NSViewController
         {
             hasDoToken = false
         }
-        
-        //Hide the account token input box if we already have a token saved
-        //accountTokenBox.isHidden = !hasDoToken
     }
     
     func showMenu(sender: AnyObject?)

@@ -16,6 +16,7 @@
                 <outlet property="backgroundImageView" destination="Y4N-Sp-Fsi" id="RhO-jJ-p7a"/>
                 <outlet property="laserImageView" destination="Eoy-Bt-WyB" id="yjC-K5-qM2"/>
                 <outlet property="laserLeadingConstraint" destination="eHT-ZT-lUB" id="XYP-2o-P1m"/>
+                <outlet property="launchServerButton" destination="xg9-Jf-dld" id="ffb-70-CXy"/>
                 <outlet property="serverProgressBar" destination="vyQ-8c-VaX" id="TwJ-uU-xZp"/>
                 <outlet property="serverSelectButton" destination="f1r-CW-cav" id="m2e-js-Pff"/>
                 <outlet property="statusLabel" destination="k4n-CL-bsI" id="0dG-oZ-Tcv"/>
@@ -39,7 +40,7 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="background" id="ax9-GS-5Vs"/>
                 </imageView>
                 <imageView translatesAutoresizingMaskIntoConstraints="NO" id="Eoy-Bt-WyB">
-                    <rect key="frame" x="70" y="250" width="34" height="10"/>
+                    <rect key="frame" x="70" y="251" width="34" height="10"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="laser" id="yCl-cc-num"/>
                 </imageView>
                 <imageView translatesAutoresizingMaskIntoConstraints="NO" id="Hrb-VL-FIy" userLabel="Foreground Image View">
@@ -260,7 +261,7 @@
                             </imageView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MjW-wy-YNA" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
                                 <rect key="frame" x="408" y="50" width="21" height="19"/>
-                                <buttonCell key="cell" type="roundRect" title="?" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qoW-z2-r53">
+                                <buttonCell key="cell" type="roundRect" title="x" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qoW-z2-r53">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="cellTitle"/>
                                 </buttonCell>
@@ -275,6 +276,9 @@
                                         <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="editToken:" target="-2" id="j6j-aa-EOb"/>
+                                </connections>
                             </button>
                             <progressIndicator wantsLayer="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="vyQ-8c-VaX">
                                 <rect key="frame" x="12" y="31" width="367" height="20"/>

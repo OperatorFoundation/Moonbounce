@@ -9,7 +9,6 @@
 import Foundation
 
 var helperClient:MoonbounceHelperProtocol?
-let kOutputTextNotification: CFString = "OutputFromBashNotification" as CFString
 let kConnectionStatusNotification = "ConnectionStatusChanged"
 let kServerIPAvailableNotification = "PTServerIPAvailable"
 let userTokenKey = "UserDoToken"
