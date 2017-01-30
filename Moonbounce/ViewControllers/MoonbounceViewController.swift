@@ -166,8 +166,11 @@ class MoonbounceViewController: NSViewController
     
     @IBAction func launchServer(_ sender: NSButton)
     {
-        if hasDoToken
+        if let userToken = UserDefaults.standard.object(forKey: userTokenKey) as? String
         {
+            
+            MoonbounceViewController.terraformController.createVarsFile(token: userToken)
+            
             sender.isEnabled = false
             toggleConnectionButton.isEnabled = false
             serverProgressBar.startAnimation(self)
