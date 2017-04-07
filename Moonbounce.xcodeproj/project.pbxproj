@@ -37,6 +37,8 @@
 		B44390591DC00EA000389352 /* PopoverContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44390581DC00EA000389352 /* PopoverContentView.swift */; };
 		B494F9251DF89B290094838F /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4672B8961DF60498008134E5 /* Globals.swift */; };
 		B49A4BE91DF71E8700643247 /* shapeshifter-dispatcher in Resources */ = {isa = PBXBuildFile; fileRef = B49A4BE81DF71E8700643247 /* shapeshifter-dispatcher */; };
+		B4CD38BC1E95CD83007EB586 /* moonGIF.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4CD38BA1E95CD83007EB586 /* moonGIF.gif */; };
+		B4CD38BD1E95CD83007EB586 /* moonGIF@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4CD38BB1E95CD83007EB586 /* moonGIF@2x.gif */; };
 		B4EF3E5D1E15C12700A5DDBD /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EF3E5C1E15C12700A5DDBD /* CustomButton.swift */; };
 		B4EF3E5F1E1715D700A5DDBD /* CustomPopUpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EF3E5E1E1715D700A5DDBD /* CustomPopUpButton.swift */; };
 /* End PBXBuildFile section */
@@ -117,6 +119,8 @@
 		B442B6071DEF8FD9001E433D /* MoonbounceHelperTool-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MoonbounceHelperTool-Info.plist"; sourceTree = "<group>"; };
 		B44390581DC00EA000389352 /* PopoverContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopoverContentView.swift; path = Helpers/PopoverContentView.swift; sourceTree = "<group>"; };
 		B49A4BE81DF71E8700643247 /* shapeshifter-dispatcher */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "shapeshifter-dispatcher"; sourceTree = "<group>"; };
+		B4CD38BA1E95CD83007EB586 /* moonGIF.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = moonGIF.gif; sourceTree = "<group>"; };
+		B4CD38BB1E95CD83007EB586 /* moonGIF@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "moonGIF@2x.gif"; sourceTree = "<group>"; };
 		B4EF3E5C1E15C12700A5DDBD /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomButton.swift; path = Helpers/CustomButton.swift; sourceTree = "<group>"; };
 		B4EF3E5E1E1715D700A5DDBD /* CustomPopUpButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPopUpButton.swift; path = Helpers/CustomPopUpButton.swift; sourceTree = "<group>"; };
 		E3EF67AE557941F6B7BF027C /* Pods-Moonbounce.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moonbounce.release.xcconfig"; path = "Pods/Target Support Files/Pods-Moonbounce/Pods-Moonbounce.release.xcconfig"; sourceTree = "<group>"; };
@@ -191,6 +195,8 @@
 				467CB5B61DBEB6E90086E341 /* AppDelegate.swift */,
 				4672B8961DF60498008134E5 /* Globals.swift */,
 				467CB5B81DBEB6E90086E341 /* Assets.xcassets */,
+				B4CD38BA1E95CD83007EB586 /* moonGIF.gif */,
+				B4CD38BB1E95CD83007EB586 /* moonGIF@2x.gif */,
 				467CB5BA1DBEB6E90086E341 /* MainMenu.xib */,
 				467CB5BD1DBEB6E90086E341 /* Info.plist */,
 			);
@@ -366,6 +372,8 @@
 				4672B89B1DF61005008134E5 /* openvpn in Resources */,
 				46C28E361E0DBA2F0024A61F /* DestroyTerraform.sh in Resources */,
 				46EA2C7D1E241BB70069E5DE /* Default in Resources */,
+				B4CD38BC1E95CD83007EB586 /* moonGIF.gif in Resources */,
+				B4CD38BD1E95CD83007EB586 /* moonGIF@2x.gif in Resources */,
 				467CB5C61DBEB8CF0086E341 /* MoonbounceViewController.xib in Resources */,
 				B49A4BE91DF71E8700643247 /* shapeshifter-dispatcher in Resources */,
 				467CB5B91DBEB6E90086E341 /* Assets.xcassets in Resources */,

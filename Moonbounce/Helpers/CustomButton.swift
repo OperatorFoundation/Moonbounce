@@ -19,7 +19,7 @@ import Cocoa
         }
     }
     
-    @IBInspectable var borderColor: NSColor = .white
+    @IBInspectable var borderColor: NSColor = mbWhite
     {
         didSet
         {
@@ -44,7 +44,7 @@ import Cocoa
         }
     }
     
-    @IBInspectable var titleColor: NSColor = .white
+    @IBInspectable var titleColor: NSColor = mbWhite
     {
         didSet
         {
@@ -52,8 +52,17 @@ import Cocoa
         }
     }
     
+    @IBInspectable var halfBorder: Bool = false
+    {
+        didSet
+        {
+            //
+        }
+    }
+    
+    //TODO: These have not yet been implemented
     @IBInspectable var bgColorHover: NSColor = .clear
-    @IBInspectable var titleColorHover: NSColor = .blue
+    @IBInspectable var titleColorHover: NSColor = mbPink
     
     //A little prep work to make sure everything is in order
     
@@ -79,6 +88,35 @@ import Cocoa
         layer?.borderColor = borderColor.cgColor
         layer?.borderWidth = borderWidth
         layer?.cornerRadius = cornerRadius
+    }
+    
+    override func draw(_ dirtyRect: NSRect)
+    {
+        super.draw(dirtyRect)
+        
+        if halfBorder
+        {
+            let path = NSBezierPath()
+            
+            //Start drawing from upper left corner.
+            path.move(to: NSMakePoint(NSMinX(self.bounds), NSMinY(self.bounds)))
+            
+            //Draw top border and top-right rounded corner.
+            let topRightCorner = NSMakePoint(NSMinX(self.bounds), NSMinY(self.bounds))
+            path.line(to: NSMakePoint(NSMaxX(self.bounds) - self.cornerRadius, NSMinY(self.bounds)))
+            path.curve(to: NSMakePoint(NSMaxX(self.bounds), NSMinY(self.bounds) + cornerRadius), controlPoint1: topRightCorner, controlPoint2: topRightCorner)
+            
+            //Draw right border bottom border, and left border.
+            path.line(to: NSMakePoint(NSMaxX(self.bounds), NSMaxY(self.bounds)))
+            path.line(to: NSMakePoint(NSMinX(self.bounds), NSMaxY(self.bounds)))
+            path.line(to: NSMakePoint(NSMinX(self.bounds), NSMinY(self.bounds)))
+            
+            //Fill path.
+            borderColor.setFill()
+            path.fill()
+            
+            self.cornerRadius = 0
+        }
     }
     
     override var title: String

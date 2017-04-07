@@ -136,7 +136,7 @@ class TerraformController: NSObject
             
             DispatchQueue.main.async(execute:
             {
-                print("\nTerraform Standard Output:\n \(outputString)\n")
+                print("\nTerraform Standard Output:\n \(String(describing: outputString))\n")
             })
         }
         

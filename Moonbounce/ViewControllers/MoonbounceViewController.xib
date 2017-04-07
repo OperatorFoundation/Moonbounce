@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12118"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,15 +12,16 @@
                 <outlet property="accountTokenBox" destination="6MA-RR-NPb" id="yr0-Ta-XPp"/>
                 <outlet property="accountTokenTextField" destination="0o9-u3-aeC" id="tCN-Jm-u6T"/>
                 <outlet property="advancedModeButton" destination="6ga-6e-hhM" id="NsN-Ab-pLU"/>
-                <outlet property="advancedModeHeightConstraint" destination="hBl-LL-ks5" id="dZa-ba-pe0"/>
+                <outlet property="advancedModeHeightConstraint" destination="pMe-HP-Xzp" id="NDm-aY-ddl"/>
                 <outlet property="backgroundImageView" destination="Y4N-Sp-Fsi" id="RhO-jJ-p7a"/>
+                <outlet property="cancelLaunchButton" destination="owa-4z-BTf" id="n3a-yo-sUz"/>
                 <outlet property="laserImageView" destination="Eoy-Bt-WyB" id="yjC-K5-qM2"/>
                 <outlet property="laserLeadingConstraint" destination="eHT-ZT-lUB" id="XYP-2o-P1m"/>
                 <outlet property="launchServerButton" destination="xg9-Jf-dld" id="ffb-70-CXy"/>
                 <outlet property="serverProgressBar" destination="vyQ-8c-VaX" id="TwJ-uU-xZp"/>
-                <outlet property="serverSelectButton" destination="f1r-CW-cav" id="m2e-js-Pff"/>
+                <outlet property="serverSelectButton" destination="IlK-KZ-Hx3" id="aD0-OI-fz3"/>
+                <outlet property="serverStatusLabel" destination="K04-Kv-gvR" id="1jR-48-rXO"/>
                 <outlet property="statusLabel" destination="k4n-CL-bsI" id="0dG-oZ-Tcv"/>
-                <outlet property="titleLabel" destination="UU5-SZ-9qF" id="FSA-CS-UB9"/>
                 <outlet property="toggleConnectionButton" destination="GYv-NE-gSi" id="ew7-Ln-1TT"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -28,44 +29,36 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY" customClass="PopoverContentView" customModule="Moonbounce" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="437" height="414"/>
+            <rect key="frame" x="0.0" y="0.0" width="439" height="442"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y4N-Sp-Fsi">
-                    <rect key="frame" x="0.0" y="149" width="437" height="265"/>
+                    <rect key="frame" x="0.0" y="177" width="439" height="265"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="265" id="NPV-Nh-jrj"/>
-                        <constraint firstAttribute="width" constant="437" id="tx8-uX-llh"/>
+                        <constraint firstAttribute="width" constant="439" id="tx8-uX-llh"/>
                     </constraints>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="background" id="ax9-GS-5Vs"/>
                 </imageView>
                 <imageView translatesAutoresizingMaskIntoConstraints="NO" id="Eoy-Bt-WyB">
-                    <rect key="frame" x="70" y="251" width="34" height="10"/>
+                    <rect key="frame" x="70" y="278" width="34" height="10"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="laser" id="yCl-cc-num"/>
                 </imageView>
                 <imageView translatesAutoresizingMaskIntoConstraints="NO" id="Hrb-VL-FIy" userLabel="Foreground Image View">
-                    <rect key="frame" x="0.0" y="149" width="77" height="265"/>
+                    <rect key="frame" x="0.0" y="177" width="77" height="265"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyUpOrDown" image="earth" id="KH9-HX-Tyd"/>
                 </imageView>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UU5-SZ-9qF">
-                    <rect key="frame" x="6" y="354" width="425" height="60"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="MOONBOUNCE VPN" id="aOk-AD-ElI">
-                        <font key="font" size="40" name="ProximaNovaA-Regular"/>
-                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
                 <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Hft-nv-oOO" userLabel="Status Box">
-                    <rect key="frame" x="0.0" y="309" width="437" height="45"/>
+                    <rect key="frame" x="0.0" y="346" width="439" height="44"/>
                     <view key="contentView" id="6FC-29-6od">
-                        <rect key="frame" x="0.0" y="0.0" width="437" height="45"/>
+                        <rect key="frame" x="0.0" y="0.0" width="439" height="44"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="k4n-CL-bsI">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k4n-CL-bsI">
                                 <rect key="frame" x="6" y="10" width="114" height="25"/>
                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" alignment="left" title="   Disconnected" id="MV2-pK-okZ">
                                     <font key="font" size="16" name="ProximaNovaA-Regular"/>
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="0.96862745098039216" green="0.97254901960784312" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </textFieldCell>
                             </textField>
@@ -76,20 +69,20 @@
                         </constraints>
                     </view>
                     <constraints>
-                        <constraint firstAttribute="height" constant="45" id="EFC-FJ-Ll2"/>
-                        <constraint firstAttribute="width" constant="437" id="vXO-9M-dpP"/>
+                        <constraint firstAttribute="height" constant="44" id="EFC-FJ-Ll2"/>
+                        <constraint firstAttribute="width" constant="439" id="vXO-9M-dpP"/>
                     </constraints>
                     <color key="borderColor" red="0.0078431372550000003" green="0.050980392159999999" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="fillColor" red="0.0090922506607774203" green="0.064969147205918037" blue="0.16026583710407238" alpha="0.70156249999999998" colorSpace="calibratedRGB"/>
+                    <color key="fillColor" red="0.0" green="0.062745098039215685" blue="0.16470588235294117" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
-                <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="WfD-uA-X5V" userLabel="Advanced Mode Box">
-                    <rect key="frame" x="0.0" y="149" width="437" height="45"/>
+                <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="WfD-uA-X5V" userLabel="Advanced Mode toggle Box">
+                    <rect key="frame" x="0.0" y="176" width="439" height="44"/>
                     <view key="contentView" id="N7k-7l-cvA">
-                        <rect key="frame" x="0.0" y="0.0" width="437" height="45"/>
+                        <rect key="frame" x="0.0" y="0.0" width="439" height="44"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6ga-6e-hhM" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
-                                <rect key="frame" x="268" y="-1" width="169" height="46"/>
+                                <rect key="frame" x="270" y="0.0" width="169" height="43"/>
                                 <buttonCell key="cell" type="roundRect" title="Advanced Mode" bezelStyle="roundedRect" image="arrow" imagePosition="right" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dpu-Zd-6ds">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="18" name="ProximaNovaA-Regular"/>
@@ -111,157 +104,279 @@
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="6ga-6e-hhM" secondAttribute="bottom" id="BiX-vg-Zrh"/>
                             <constraint firstAttribute="trailing" secondItem="6ga-6e-hhM" secondAttribute="trailing" id="gqV-fx-7my"/>
-                            <constraint firstItem="6ga-6e-hhM" firstAttribute="top" secondItem="N7k-7l-cvA" secondAttribute="top" id="kcJ-Gf-Pbf"/>
+                            <constraint firstItem="6ga-6e-hhM" firstAttribute="centerY" secondItem="N7k-7l-cvA" secondAttribute="centerY" id="odI-uq-k2G"/>
                         </constraints>
                     </view>
                     <constraints>
-                        <constraint firstAttribute="height" constant="45" id="Haq-g7-j2A"/>
+                        <constraint firstAttribute="height" constant="44" id="Haq-g7-j2A"/>
                     </constraints>
-                    <color key="borderColor" red="0.0078431372550000003" green="0.050980392159999999" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="fillColor" red="0.0090922506609999992" green="0.064969147209999994" blue="0.1602658371" alpha="0.70156249999999998" colorSpace="calibratedRGB"/>
+                    <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="fillColor" red="0.0" green="0.062745098039215685" blue="0.16470588235294117" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
-                <imageView translatesAutoresizingMaskIntoConstraints="NO" id="DGO-At-ee4">
-                    <rect key="frame" x="75" y="244" width="38" height="24"/>
+                <imageView translatesAutoresizingMaskIntoConstraints="NO" id="DGO-At-ee4" userLabel="Laser Image View">
+                    <rect key="frame" x="75" y="272" width="38" height="24"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="lcanon" id="sfC-XW-LIR"/>
                 </imageView>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GYv-NE-gSi" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
-                    <rect key="frame" x="8" y="250" width="66" height="19"/>
-                    <buttonCell key="cell" type="roundRect" title="Connect" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="U3h-Gj-uoC">
+                    <rect key="frame" x="4" y="274" width="73" height="19"/>
+                    <buttonCell key="cell" type="roundRect" title="Disconnect" bezelStyle="roundedRect" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="U3h-Gj-uoC">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="14" name="ProximaNovaA-Regular"/>
+                        <font key="font" size="12" name="ProximaNovaA-Regular"/>
                     </buttonCell>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
-                            <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="value" red="0.91764705879999997" green="0.55294117649999996" blue="0.72549019609999998" alpha="1" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                            <real key="value" value="1.5"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" red="0.91764705882352937" green="0.55294117647058827" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="toggleConnection:" target="-2" id="gdh-oJ-CMW"/>
                     </connections>
                 </button>
+                <imageView translatesAutoresizingMaskIntoConstraints="NO" id="Kv1-5T-yvs" userLabel="Title Image View">
+                    <rect key="frame" x="21" y="404" width="397" height="14"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" image="moonBounceTitle" id="tXl-7R-rJt"/>
+                </imageView>
                 <box boxType="custom" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="wx1-Qv-rfn" userLabel="Advanced Mode Box">
-                    <rect key="frame" x="0.0" y="0.0" width="437" height="149"/>
+                    <rect key="frame" x="0.0" y="0.0" width="439" height="176"/>
                     <view key="contentView" wantsLayer="YES" id="Fln-xu-uld">
-                        <rect key="frame" x="0.0" y="0.0" width="437" height="149"/>
+                        <rect key="frame" x="0.0" y="0.0" width="439" height="176"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xg9-Jf-dld" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
-                                <rect key="frame" x="12" y="50" width="122" height="19"/>
-                                <buttonCell key="cell" type="roundRect" title="Launch Server" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yxI-uK-AfJ">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="17" name="ProximaNovaA-Regular"/>
-                                </buttonCell>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
-                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1.5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="launchServer:" target="-2" id="GgG-fg-gOr"/>
-                                </connections>
-                            </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kfx-3G-5ai" userLabel="Pluggable Transport Text Field">
-                                <rect key="frame" x="95" y="79" width="178" height="21"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Add Moonbounce VPN Files" id="QB1-B2-yia">
-                                    <font key="font" size="14" name="ProximaNovaA-Regular"/>
-                                    <color key="textColor" red="0.098212845620000003" green="0.1448170245" blue="0.39066010709999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qgh-0T-rx6" userLabel="Pluggable Transport Text Field">
-                                <rect key="frame" x="10" y="107" width="88" height="25"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Connect To:" id="R9H-PP-zDC">
-                                    <font key="font" size="16" name="ProximaNovaA-Regular"/>
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f1r-CW-cav">
-                                <rect key="frame" x="102" y="102" width="64" height="26"/>
-                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" arrowPosition="noArrow" selectedItem="LZ4-82-1fw" id="456-N8-ce2">
-                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="UNE-q3-mox">
-                                        <items>
-                                            <menuItem title="Item 1" state="on" id="LZ4-82-1fw"/>
-                                            <menuItem title="Item 2" id="uab-xe-xz3"/>
-                                            <menuItem title="Item 3" id="gh5-9A-Cgt"/>
-                                        </items>
-                                    </menu>
-                                </popUpButtonCell>
-                                <connections>
-                                    <action selector="serverSelectionChanged:" target="-2" id="1Px-8f-vdQ"/>
-                                </connections>
-                            </popUpButton>
+                            <box boxType="custom" borderType="line" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="xbE-G4-Xj2" userLabel="Connect Box">
+                                <rect key="frame" x="0.0" y="132" width="439" height="44"/>
+                                <view key="contentView" id="wmh-Ji-l89">
+                                    <rect key="frame" x="1" y="1" width="437" height="42"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qgh-0T-rx6" userLabel="Server Select Label">
+                                            <rect key="frame" x="14" y="9" width="88" height="25"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Connect To:" id="R9H-PP-zDC">
+                                                <font key="font" size="16" name="ProximaNovaA-Regular"/>
+                                                <color key="textColor" red="0.96862745098039216" green="0.97254901960784312" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IlK-KZ-Hx3">
+                                            <rect key="frame" x="106" y="8" width="76" height="26"/>
+                                            <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="7mO-1k-hhb" id="bzg-0p-Yb5">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" id="DWX-sK-Rv4">
+                                                    <items>
+                                                        <menuItem title="Item 1" state="on" id="7mO-1k-hhb"/>
+                                                        <menuItem title="Item 2" id="QoW-ZW-h5E"/>
+                                                        <menuItem title="Item 3" id="kez-rG-E9s"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                        </popUpButton>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="qgh-0T-rx6" firstAttribute="centerY" secondItem="wmh-Ji-l89" secondAttribute="centerY" id="3AZ-DY-fx7"/>
+                                        <constraint firstItem="IlK-KZ-Hx3" firstAttribute="leading" secondItem="qgh-0T-rx6" secondAttribute="trailing" constant="8" id="FDH-0u-uBP"/>
+                                        <constraint firstItem="IlK-KZ-Hx3" firstAttribute="centerY" secondItem="qgh-0T-rx6" secondAttribute="centerY" id="ORH-ge-dxM"/>
+                                        <constraint firstItem="qgh-0T-rx6" firstAttribute="leading" secondItem="wmh-Ji-l89" secondAttribute="leading" constant="16" id="mit-53-Oly"/>
+                                    </constraints>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="4aJ-da-p14"/>
+                                </constraints>
+                                <color key="borderColor" red="0.0078431372550000003" green="0.050980392159999999" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="fillColor" red="0.0" green="0.062745098040000002" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
+                            </box>
+                            <box boxType="custom" borderType="line" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="t3l-VY-xE2" userLabel="Add File Box">
+                                <rect key="frame" x="0.0" y="89" width="439" height="44"/>
+                                <view key="contentView" id="Wkc-B3-g3E">
+                                    <rect key="frame" x="1" y="1" width="437" height="42"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uqx-S8-1Gh" userLabel="Add File Button" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
+                                            <rect key="frame" x="16" y="11" width="77" height="19"/>
+                                            <buttonCell key="cell" type="roundRect" title="Add File" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NlE-gS-T4H">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" size="17" name="ProximaNovaA-Regular"/>
+                                            </buttonCell>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="halfBorder" value="NO"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="addFileClicked:" target="-2" id="8pB-nt-ci3"/>
+                                            </connections>
+                                        </button>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kfx-3G-5ai" userLabel="Files Label">
+                                            <rect key="frame" x="99" y="10" width="178" height="21"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Add Moonbounce VPN Files" id="QB1-B2-yia">
+                                                <font key="font" size="14" name="ProximaNovaA-Regular"/>
+                                                <color key="textColor" red="0.16078431372549018" green="0.20000000000000001" blue="0.4823529411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="kfx-3G-5ai" firstAttribute="leading" secondItem="uqx-S8-1Gh" secondAttribute="trailing" constant="8" id="NeG-1i-cG3"/>
+                                        <constraint firstItem="uqx-S8-1Gh" firstAttribute="leading" secondItem="Wkc-B3-g3E" secondAttribute="leading" constant="16" id="W67-3U-9YR"/>
+                                        <constraint firstItem="kfx-3G-5ai" firstAttribute="centerY" secondItem="uqx-S8-1Gh" secondAttribute="centerY" id="rhr-Su-6c5"/>
+                                        <constraint firstItem="uqx-S8-1Gh" firstAttribute="centerY" secondItem="Wkc-B3-g3E" secondAttribute="centerY" id="xCV-YR-MA2"/>
+                                    </constraints>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="cqQ-rV-8Uq"/>
+                                </constraints>
+                                <color key="borderColor" red="0.0078431372550000003" green="0.050980392159999999" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="fillColor" red="0.0" green="0.062745098040000002" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
+                            </box>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="55v-2e-jP8" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
-                                <rect key="frame" x="12" y="13" width="86" height="19"/>
+                                <rect key="frame" x="16" y="13" width="86" height="21"/>
                                 <buttonCell key="cell" type="roundRect" title="Kill Server" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ndI-uw-dTL">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="16" name="ProximaNovaA-Regular"/>
                                 </buttonCell>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
-                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1.5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="killServer:" target="-2" id="wVA-vR-E8X"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uqx-S8-1Gh" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
-                                <rect key="frame" x="12" y="80" width="77" height="19"/>
-                                <buttonCell key="cell" type="roundRect" title="Add File" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NlE-gS-T4H">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="17" name="ProximaNovaA-Regular"/>
-                                </buttonCell>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1.5"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="addFileClicked:" target="-2" id="8pB-nt-ci3"/>
-                                </connections>
-                            </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K04-Kv-gvR" userLabel="Pluggable Transport Text Field">
-                                <rect key="frame" x="140" y="49" width="241" height="21"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Launch Your Own Moonbounce Server" id="2tc-Xp-vXH">
-                                    <font key="font" size="14" name="ProximaNovaA-Regular"/>
-                                    <color key="textColor" red="0.098212845623493195" green="0.14481702446937561" blue="0.39066010713577271" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <imageView translatesAutoresizingMaskIntoConstraints="NO" id="8DS-Xb-al8">
-                                <rect key="frame" x="411" y="47" width="8" height="8"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="buttonLeft" id="1Hq-2b-zLk"/>
-                            </imageView>
-                            <imageView translatesAutoresizingMaskIntoConstraints="NO" id="9n3-LY-Ye9">
-                                <rect key="frame" x="418" y="47" width="8" height="8"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="buttonRight" id="1Lx-GK-ZuD"/>
-                            </imageView>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MjW-wy-YNA" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
-                                <rect key="frame" x="408" y="50" width="21" height="19"/>
-                                <buttonCell key="cell" type="roundRect" title="x" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qoW-z2-r53">
+                            <box boxType="custom" borderType="line" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="wbw-fc-TB9" userLabel="Server Box">
+                                <rect key="frame" x="0.0" y="46" width="439" height="44"/>
+                                <view key="contentView" id="ely-i5-jhh">
+                                    <rect key="frame" x="1" y="1" width="437" height="42"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K04-Kv-gvR" userLabel="Server Status Field">
+                                            <rect key="frame" x="144" y="10" width="241" height="21"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Launch Your Own Moonbounce Server" id="2tc-Xp-vXH">
+                                                <font key="font" size="14" name="ProximaNovaA-Regular"/>
+                                                <color key="textColor" red="0.16078431369999999" green="0.20000000000000001" blue="0.4823529412" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xg9-Jf-dld" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
+                                            <rect key="frame" x="16" y="11" width="122" height="19"/>
+                                            <buttonCell key="cell" type="roundRect" title="Launch Server" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yxI-uK-AfJ">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" size="17" name="ProximaNovaA-Regular"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="toggleServerStatus:" target="-2" id="3oT-NA-PUn"/>
+                                            </connections>
+                                        </button>
+                                        <progressIndicator wantsLayer="YES" ambiguous="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="vyQ-8c-VaX">
+                                            <rect key="frame" x="20" y="-5" width="396" height="20"/>
+                                            <contentFilters>
+                                                <ciFilter name="CIHueAdjust">
+                                                    <configuration>
+                                                        <real key="inputAngle" value="1.7"/>
+                                                        <null key="inputImage"/>
+                                                    </configuration>
+                                                </ciFilter>
+                                                <ciFilter name="CIVibrance">
+                                                    <configuration>
+                                                        <real key="inputAmount" value="0.29999999999999999"/>
+                                                        <null key="inputImage"/>
+                                                    </configuration>
+                                                </ciFilter>
+                                                <ciFilter name="CIColorControls">
+                                                    <configuration>
+                                                        <real key="inputBrightness" value="0.0"/>
+                                                        <real key="inputContrast" value="1"/>
+                                                        <null key="inputImage"/>
+                                                        <real key="inputSaturation" value="1"/>
+                                                    </configuration>
+                                                </ciFilter>
+                                            </contentFilters>
+                                        </progressIndicator>
+                                        <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="owa-4z-BTf" userLabel="Cancel Server Launch Button" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
+                                            <rect key="frame" x="375" y="11" width="58" height="19"/>
+                                            <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LpO-2H-GuV">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" size="14" name="ProximaNovaA-Regular"/>
+                                                <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="cancelLaunch:" target="-2" id="Zit-LC-OEw"/>
+                                            </connections>
+                                        </button>
+                                        <box boxType="custom" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="6MA-RR-NPb">
+                                            <rect key="frame" x="0.0" y="-2" width="437" height="44"/>
+                                            <view key="contentView" id="Ljf-C3-yom">
+                                                <rect key="frame" x="1" y="1" width="435" height="42"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0o9-u3-aeC">
+                                                        <rect key="frame" x="16" y="7" width="372" height="28"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Paste Your Account Token Here" drawsBackground="YES" id="ymg-jc-HUB">
+                                                            <font key="font" size="15" name="ProximaNovaA-Regular"/>
+                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                        <connections>
+                                                            <action selector="accountTokenEntered:" target="-2" id="Wh8-LK-ov2"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="t1S-HJ-Y4d" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
+                                                        <rect key="frame" x="391" y="11" width="24" height="19"/>
+                                                        <buttonCell key="cell" type="roundRect" title="X" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FIk-Gn-l8o">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system" size="14"/>
+                                                        </buttonCell>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="0.0"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="closeTokenWindow:" target="-2" id="jCB-12-xHE"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="0o9-u3-aeC" firstAttribute="centerY" secondItem="Ljf-C3-yom" secondAttribute="centerY" id="LpX-gb-56k"/>
+                                                    <constraint firstItem="0o9-u3-aeC" firstAttribute="leading" secondItem="Ljf-C3-yom" secondAttribute="leading" constant="16" id="NLi-xV-zlN"/>
+                                                    <constraint firstItem="t1S-HJ-Y4d" firstAttribute="centerY" secondItem="0o9-u3-aeC" secondAttribute="centerY" id="fqL-8d-t40"/>
+                                                    <constraint firstAttribute="trailing" secondItem="t1S-HJ-Y4d" secondAttribute="trailing" constant="20" id="kSG-jo-eFK"/>
+                                                    <constraint firstItem="t1S-HJ-Y4d" firstAttribute="leading" secondItem="0o9-u3-aeC" secondAttribute="trailing" constant="3" id="sEF-8s-fHg"/>
+                                                </constraints>
+                                            </view>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="44" id="RGl-oY-7Tr"/>
+                                            </constraints>
+                                            <color key="fillColor" red="0.0040241265669465065" green="0.086827389895915985" blue="0.21149039268493652" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <binding destination="-2" name="hidden" keyPath="self.hasDoToken" id="lP6-5s-zj8"/>
+                                            </connections>
+                                        </box>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="vyQ-8c-VaX" firstAttribute="top" secondItem="xg9-Jf-dld" secondAttribute="bottom" constant="-2" id="0EI-Q1-SKn"/>
+                                        <constraint firstItem="vyQ-8c-VaX" firstAttribute="leading" secondItem="ely-i5-jhh" secondAttribute="leading" constant="16" id="0xg-bF-kAa"/>
+                                        <constraint firstAttribute="trailing" secondItem="owa-4z-BTf" secondAttribute="trailing" constant="4" id="FHy-0O-Nwv"/>
+                                        <constraint firstAttribute="trailing" secondItem="6MA-RR-NPb" secondAttribute="trailing" id="ItO-mC-M5v"/>
+                                        <constraint firstItem="owa-4z-BTf" firstAttribute="centerY" secondItem="K04-Kv-gvR" secondAttribute="centerY" id="NGF-oL-ull"/>
+                                        <constraint firstItem="K04-Kv-gvR" firstAttribute="leading" secondItem="xg9-Jf-dld" secondAttribute="trailing" constant="8" id="Ose-5r-yct"/>
+                                        <constraint firstItem="xg9-Jf-dld" firstAttribute="centerY" secondItem="ely-i5-jhh" secondAttribute="centerY" id="Ra6-YC-kaY"/>
+                                        <constraint firstItem="6MA-RR-NPb" firstAttribute="top" secondItem="ely-i5-jhh" secondAttribute="top" id="Vgw-Ld-ZfR"/>
+                                        <constraint firstItem="K04-Kv-gvR" firstAttribute="centerY" secondItem="xg9-Jf-dld" secondAttribute="centerY" id="Xoo-89-0ud"/>
+                                        <constraint firstItem="6MA-RR-NPb" firstAttribute="leading" secondItem="ely-i5-jhh" secondAttribute="leading" id="fL3-rb-8BJ"/>
+                                        <constraint firstItem="xg9-Jf-dld" firstAttribute="leading" secondItem="ely-i5-jhh" secondAttribute="leading" constant="16" id="k05-IF-geU"/>
+                                    </constraints>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="d55-Vo-jk4"/>
+                                </constraints>
+                                <color key="borderColor" red="0.0078431372550000003" green="0.050980392159999999" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="fillColor" red="0.0" green="0.062745098040000002" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
+                            </box>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MjW-wy-YNA" userLabel="edit token button" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
+                                <rect key="frame" x="110" y="14" width="71" height="19"/>
+                                <buttonCell key="cell" type="roundRect" title="edit token" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qoW-z2-r53">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="cellTitle"/>
                                 </buttonCell>
@@ -280,138 +395,73 @@
                                     <action selector="editToken:" target="-2" id="j6j-aa-EOb"/>
                                 </connections>
                             </button>
-                            <progressIndicator wantsLayer="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="vyQ-8c-VaX">
-                                <rect key="frame" x="12" y="31" width="367" height="20"/>
-                                <contentFilters>
-                                    <ciFilter name="CIHueAdjust">
-                                        <configuration>
-                                            <real key="inputAngle" value="1.7"/>
-                                            <null key="inputImage"/>
-                                        </configuration>
-                                    </ciFilter>
-                                    <ciFilter name="CIVibrance">
-                                        <configuration>
-                                            <real key="inputAmount" value="-0.29999999999999999"/>
-                                            <null key="inputImage"/>
-                                        </configuration>
-                                    </ciFilter>
-                                </contentFilters>
-                            </progressIndicator>
-                            <box fixedFrame="YES" boxType="custom" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="6MA-RR-NPb">
-                                <rect key="frame" x="0.0" y="36" width="437" height="39"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <view key="contentView" ambiguous="YES" id="Ljf-C3-yom">
-                                    <rect key="frame" x="1" y="1" width="435" height="37"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0o9-u3-aeC">
-                                            <rect key="frame" x="8" y="8" width="391" height="22"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" placeholderString="Paste Your Account Token Here" drawsBackground="YES" id="ymg-jc-HUB">
-                                                <font key="font" size="15" name="ProximaNovaA-Regular"/>
-                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </textFieldCell>
-                                            <connections>
-                                                <action selector="accountTokenEntered:" target="-2" id="Wh8-LK-ov2"/>
-                                            </connections>
-                                        </textField>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t1S-HJ-Y4d" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
-                                            <rect key="frame" x="405" y="9" width="24" height="19"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="roundRect" title="X" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FIk-Gn-l8o">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system" size="14"/>
-                                            </buttonCell>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                    <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                    <real key="value" value="0.0"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="closeTokenWindow:" target="-2" id="jCB-12-xHE"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                </view>
-                                <color key="fillColor" red="0.0040241265669465065" green="0.086827389895915985" blue="0.21149039268493652" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <binding destination="-2" name="hidden" keyPath="self.hasDoToken" id="lP6-5s-zj8"/>
-                                </connections>
-                            </box>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="9n3-LY-Ye9" secondAttribute="trailing" constant="11" id="4Mv-3t-LcL"/>
-                            <constraint firstItem="uqx-S8-1Gh" firstAttribute="leading" secondItem="Fln-xu-uld" secondAttribute="leading" constant="12" id="5P4-1p-Gem"/>
-                            <constraint firstItem="xg9-Jf-dld" firstAttribute="leading" secondItem="Fln-xu-uld" secondAttribute="leading" constant="12" id="7NJ-Tt-107"/>
-                            <constraint firstItem="vyQ-8c-VaX" firstAttribute="trailing" secondItem="K04-Kv-gvR" secondAttribute="trailing" id="9CF-yx-iYr"/>
-                            <constraint firstItem="kfx-3G-5ai" firstAttribute="centerY" secondItem="uqx-S8-1Gh" secondAttribute="centerY" id="DSo-Eq-jeQ"/>
-                            <constraint firstItem="9n3-LY-Ye9" firstAttribute="leading" secondItem="8DS-Xb-al8" secondAttribute="trailing" constant="-1" id="Dnd-xb-Ojd"/>
-                            <constraint firstItem="vyQ-8c-VaX" firstAttribute="top" secondItem="xg9-Jf-dld" secondAttribute="bottom" constant="1" id="FdV-gy-K3n"/>
-                            <constraint firstItem="xg9-Jf-dld" firstAttribute="top" secondItem="kfx-3G-5ai" secondAttribute="bottom" constant="10" id="NZb-FE-CW5"/>
-                            <constraint firstAttribute="trailing" secondItem="MjW-wy-YNA" secondAttribute="trailing" constant="8" id="PoO-3s-TV3"/>
-                            <constraint firstItem="9n3-LY-Ye9" firstAttribute="top" secondItem="MjW-wy-YNA" secondAttribute="bottom" constant="-4" id="UG3-qn-Y5R"/>
-                            <constraint firstItem="55v-2e-jP8" firstAttribute="leading" secondItem="Fln-xu-uld" secondAttribute="leading" constant="12" id="Yqf-vq-SEC"/>
-                            <constraint firstItem="qgh-0T-rx6" firstAttribute="leading" secondItem="Fln-xu-uld" secondAttribute="leading" constant="12" id="dPK-jO-GQZ"/>
-                            <constraint firstItem="f1r-CW-cav" firstAttribute="leading" secondItem="qgh-0T-rx6" secondAttribute="trailing" constant="8" id="fhm-ph-vPl"/>
-                            <constraint firstItem="uqx-S8-1Gh" firstAttribute="top" secondItem="qgh-0T-rx6" secondAttribute="bottom" constant="8" id="gU9-vA-iBY"/>
-                            <constraint firstItem="vyQ-8c-VaX" firstAttribute="leading" secondItem="Fln-xu-uld" secondAttribute="leading" constant="12" id="jnc-rt-5cG"/>
-                            <constraint firstItem="MjW-wy-YNA" firstAttribute="centerY" secondItem="K04-Kv-gvR" secondAttribute="centerY" id="pxa-Xl-SyM"/>
-                            <constraint firstItem="f1r-CW-cav" firstAttribute="centerY" secondItem="qgh-0T-rx6" secondAttribute="centerY" constant="4" id="r2o-sn-LPY"/>
-                            <constraint firstItem="55v-2e-jP8" firstAttribute="top" secondItem="vyQ-8c-VaX" secondAttribute="bottom" id="rMU-dx-14Q"/>
-                            <constraint firstItem="8DS-Xb-al8" firstAttribute="top" secondItem="MjW-wy-YNA" secondAttribute="bottom" constant="-4" id="s1p-jY-mCo"/>
-                            <constraint firstItem="K04-Kv-gvR" firstAttribute="centerY" secondItem="xg9-Jf-dld" secondAttribute="centerY" id="s9w-tx-2tK"/>
-                            <constraint firstItem="kfx-3G-5ai" firstAttribute="leading" secondItem="uqx-S8-1Gh" secondAttribute="trailing" constant="8" id="sPa-UI-avM"/>
-                            <constraint firstItem="K04-Kv-gvR" firstAttribute="leading" secondItem="xg9-Jf-dld" secondAttribute="trailing" constant="8" id="uGR-40-kUl"/>
-                            <constraint firstItem="qgh-0T-rx6" firstAttribute="top" secondItem="Fln-xu-uld" secondAttribute="top" constant="17" id="yeR-SG-KKl"/>
+                            <constraint firstItem="t3l-VY-xE2" firstAttribute="leading" secondItem="Fln-xu-uld" secondAttribute="leading" id="043-F2-2SE"/>
+                            <constraint firstItem="xbE-G4-Xj2" firstAttribute="top" secondItem="Fln-xu-uld" secondAttribute="top" id="BUR-T1-37q"/>
+                            <constraint firstAttribute="trailing" secondItem="wbw-fc-TB9" secondAttribute="trailing" id="BVL-nP-WZg"/>
+                            <constraint firstItem="55v-2e-jP8" firstAttribute="leading" secondItem="Fln-xu-uld" secondAttribute="leading" constant="16" id="Gy9-Nj-IBo"/>
+                            <constraint firstItem="t3l-VY-xE2" firstAttribute="top" secondItem="wmh-Ji-l89" secondAttribute="bottom" id="NUc-UX-9SX"/>
+                            <constraint firstAttribute="trailing" secondItem="t3l-VY-xE2" secondAttribute="trailing" id="TQy-rc-WZ1"/>
+                            <constraint firstAttribute="trailing" secondItem="xbE-G4-Xj2" secondAttribute="trailing" id="Xqf-iW-D8P"/>
+                            <constraint firstItem="MjW-wy-YNA" firstAttribute="centerY" secondItem="55v-2e-jP8" secondAttribute="centerY" id="YCX-xE-kwt"/>
+                            <constraint firstItem="wbw-fc-TB9" firstAttribute="top" secondItem="Wkc-B3-g3E" secondAttribute="bottom" id="ZIb-Ty-y9w"/>
+                            <constraint firstItem="MjW-wy-YNA" firstAttribute="leading" secondItem="55v-2e-jP8" secondAttribute="trailing" constant="8" id="eSb-We-PYu"/>
+                            <constraint firstItem="xbE-G4-Xj2" firstAttribute="leading" secondItem="Fln-xu-uld" secondAttribute="leading" id="ep3-fR-I3N"/>
+                            <constraint firstAttribute="bottom" secondItem="55v-2e-jP8" secondAttribute="bottom" constant="14" id="gPw-Hv-Md8"/>
+                            <constraint firstItem="wbw-fc-TB9" firstAttribute="leading" secondItem="Fln-xu-uld" secondAttribute="leading" id="jyl-w5-c8m"/>
+                            <constraint firstItem="55v-2e-jP8" firstAttribute="top" secondItem="wbw-fc-TB9" secondAttribute="bottom" constant="12" id="zvg-1x-dh8"/>
                         </constraints>
                     </view>
                     <constraints>
-                        <constraint firstAttribute="height" constant="149" id="hBl-LL-ks5"/>
+                        <constraint firstAttribute="height" constant="176" id="pMe-HP-Xzp"/>
                     </constraints>
-                    <color key="fillColor" red="0.0090922506609999992" green="0.064969147209999994" blue="0.1602658371" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="fillColor" red="0.0" green="0.062745098039215685" blue="0.16470588235294117" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
+                <imageView focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="7RO-1w-OS5">
+                    <rect key="frame" x="367" y="263" width="42" height="42"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" focusRingType="none" alignment="left" animates="YES" image="moonGIF" id="l9M-cu-8Od"/>
+                </imageView>
             </subviews>
             <constraints>
                 <constraint firstItem="DGO-At-ee4" firstAttribute="centerY" secondItem="Hrb-VL-FIy" secondAttribute="centerY" constant="25.5" id="0HL-e6-C1N"/>
-                <constraint firstItem="UU5-SZ-9qF" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="1jh-HU-6ED"/>
                 <constraint firstItem="Hft-nv-oOO" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="1yV-0z-2oh"/>
-                <constraint firstItem="Hft-nv-oOO" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="60" id="7FR-M0-74o"/>
-                <constraint firstItem="GYv-NE-gSi" firstAttribute="top" secondItem="6FC-29-6od" secondAttribute="bottom" constant="40" id="7fa-Dq-hGh"/>
+                <constraint firstItem="Hft-nv-oOO" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="52" id="7FR-M0-74o"/>
+                <constraint firstItem="WfD-uA-X5V" firstAttribute="top" secondItem="6FC-29-6od" secondAttribute="bottom" constant="126" id="AD1-VA-EV4"/>
+                <constraint firstItem="7RO-1w-OS5" firstAttribute="centerY" secondItem="DGO-At-ee4" secondAttribute="centerY" id="B2b-CA-kuj"/>
+                <constraint firstItem="Kv1-5T-yvs" firstAttribute="centerX" secondItem="Y4N-Sp-Fsi" secondAttribute="centerX" id="BbO-ar-wyi"/>
                 <constraint firstItem="Y4N-Sp-Fsi" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="DfM-T2-Oxz"/>
                 <constraint firstItem="wx1-Qv-rfn" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="FaE-wl-4Zy"/>
                 <constraint firstAttribute="trailing" secondItem="Hft-nv-oOO" secondAttribute="trailing" id="Jih-WO-siu"/>
-                <constraint firstItem="GYv-NE-gSi" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="8" id="KJr-gs-5sz"/>
+                <constraint firstItem="GYv-NE-gSi" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="4" id="KJr-gs-5sz"/>
                 <constraint firstAttribute="trailing" secondItem="WfD-uA-X5V" secondAttribute="trailing" id="LQI-vn-Jhb"/>
-                <constraint firstItem="UU5-SZ-9qF" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="8" id="Lsd-Et-N1z"/>
                 <constraint firstItem="Hrb-VL-FIy" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="MFP-iN-E2r"/>
                 <constraint firstItem="WfD-uA-X5V" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="ORT-UM-V6o"/>
                 <constraint firstAttribute="bottom" secondItem="wx1-Qv-rfn" secondAttribute="bottom" id="P8u-W5-Mvq"/>
                 <constraint firstItem="Hrb-VL-FIy" firstAttribute="bottom" secondItem="Y4N-Sp-Fsi" secondAttribute="bottom" id="Ss6-oz-JY4"/>
-                <constraint firstAttribute="trailing" secondItem="UU5-SZ-9qF" secondAttribute="trailing" constant="8" id="Tbh-Rg-lgc"/>
                 <constraint firstItem="Eoy-Bt-WyB" firstAttribute="centerY" secondItem="DGO-At-ee4" secondAttribute="centerY" constant="0.5" id="Uou-dJ-1ji"/>
+                <constraint firstItem="Kv1-5T-yvs" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="24" id="W31-9K-g8L"/>
+                <constraint firstItem="7RO-1w-OS5" firstAttribute="leading" secondItem="DGO-At-ee4" secondAttribute="trailing" constant="254" id="XAf-cr-6DT"/>
                 <constraint firstItem="DGO-At-ee4" firstAttribute="leading" secondItem="Hrb-VL-FIy" secondAttribute="trailing" constant="-2" id="YAK-1u-TKj"/>
-                <constraint firstItem="wx1-Qv-rfn" firstAttribute="top" secondItem="WfD-uA-X5V" secondAttribute="bottom" id="ZXr-ne-kYh"/>
                 <constraint firstItem="Hrb-VL-FIy" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="aPa-Gw-6nk"/>
                 <constraint firstAttribute="trailing" secondItem="wx1-Qv-rfn" secondAttribute="trailing" id="bcy-WG-llu"/>
                 <constraint firstItem="6ga-6e-hhM" firstAttribute="bottom" secondItem="Y4N-Sp-Fsi" secondAttribute="bottom" id="cUt-yy-QgA"/>
                 <constraint firstItem="Eoy-Bt-WyB" firstAttribute="leading" secondItem="DGO-At-ee4" secondAttribute="leading" constant="-5" id="eHT-ZT-lUB"/>
                 <constraint firstAttribute="trailing" secondItem="Y4N-Sp-Fsi" secondAttribute="trailing" id="mnL-d7-dCN"/>
+                <constraint firstItem="GYv-NE-gSi" firstAttribute="centerY" secondItem="DGO-At-ee4" secondAttribute="centerY" id="sIs-IQ-xax"/>
+                <constraint firstItem="wx1-Qv-rfn" firstAttribute="top" secondItem="N7k-7l-cvA" secondAttribute="bottom" id="ubM-H5-XSi"/>
                 <constraint firstItem="Y4N-Sp-Fsi" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="uhu-qN-Rqj"/>
             </constraints>
-            <point key="canvasLocation" x="133.5" y="121"/>
+            <point key="canvasLocation" x="119" y="118"/>
         </customView>
     </objects>
     <resources>
         <image name="arrow" width="18" height="10"/>
         <image name="background" width="439" height="265"/>
-        <image name="buttonLeft" width="8" height="8"/>
-        <image name="buttonRight" width="8" height="8"/>
         <image name="earth" width="77" height="265"/>
         <image name="laser" width="34" height="10"/>
         <image name="lcanon" width="38" height="24"/>
+        <image name="moonBounceTitle" width="397" height="14"/>
+        <image name="moonGIF" width="42" height="42"/>
     </resources>
 </document>

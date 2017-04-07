@@ -14,7 +14,6 @@ class MoonbounceViewController: NSViewController
     @IBOutlet weak var advancedModeButton: NSButton!
     @IBOutlet weak var toggleConnectionButton: CustomButton!
     @IBOutlet weak var backgroundImageView: NSImageView!
-    @IBOutlet weak var titleLabel: NSTextField!
     @IBOutlet weak var laserImageView: NSImageView!
     @IBOutlet weak var laserLeadingConstraint: NSLayoutConstraint!
 
@@ -29,12 +28,17 @@ class MoonbounceViewController: NSViewController
     @IBOutlet weak var accountTokenBox: NSBox!
     @IBOutlet weak var accountTokenTextField: NSTextField!
     @IBOutlet weak var launchServerButton: CustomButton!
+    @IBOutlet weak var serverStatusLabel: NSTextField!
+    @IBOutlet weak var cancelLaunchButton: CustomButton!
     
     //accountTokenBox.hidden is bound to this var
     dynamic var hasDoToken = false
     
     let proximaNARegular = "Proxima Nova Alt Regular"
-    let advancedMenuHeight: CGFloat = 150.0
+    let advancedMenuHeight: CGFloat = 176.0
+    
+    var userServerIsConnected = false
+    var launching = false
     
     enum ServerName: String
     {
@@ -53,6 +57,7 @@ class MoonbounceViewController: NSViewController
         
         updateStatusUI(connected: false, statusDescription: "Not Connected")
         populateServerSelectButton()
+        styleTokenTextField()
     }
     
     override func viewWillAppear()
@@ -164,16 +169,31 @@ class MoonbounceViewController: NSViewController
         }
     }
     
-    @IBAction func launchServer(_ sender: NSButton)
+    @IBAction func toggleServerStatus(_ sender: NSButton)
+    {
+        if userServerIsConnected
+        {
+            killServer(sender)
+        }
+        else
+        {
+            launchServer(sender)
+        }
+    }
+    
+    func launchServer(_ sender: NSButton)
     {
         if let userToken = UserDefaults.standard.object(forKey: userTokenKey) as? String
         {
-            
             MoonbounceViewController.terraformController.createVarsFile(token: userToken)
             
             sender.isEnabled = false
             toggleConnectionButton.isEnabled = false
             serverProgressBar.startAnimation(self)
+            cancelLaunchButton.isHidden = false
+            serverStatusLabel.stringValue = "Launching"
+            launching = true
+            animateLaunchingLabel()
             
             MoonbounceViewController.terraformController.launchTerraformServer
             {
@@ -183,14 +203,22 @@ class MoonbounceViewController: NSViewController
                 self.toggleConnectionButton.isEnabled = true
                 self.serverProgressBar.stopAnimation(self)
                 self.populateServerSelectButton()
+                self.showUserServerStatus()
                 
                 print("Launch server task exited.")
+                self.cancelLaunchButton.isHidden = true
+                self.launching = false
             }
         }
         else
         {
             accountTokenBox.isHidden = false
         }
+    }
+    
+    @IBAction func cancelLaunch(_ sender: NSButton)
+    {
+        killServer(sender)
     }
     
     @IBAction func killServer(_ sender: NSButton)
@@ -209,7 +237,7 @@ class MoonbounceViewController: NSViewController
             self.launchServerButton.isEnabled = true
             self.serverProgressBar.stopAnimation(self)
             self.populateServerSelectButton()
-            
+            self.showUserServerStatus()
             print("Destroy server task exited.")
         }
     }
@@ -301,6 +329,7 @@ class MoonbounceViewController: NSViewController
             {
                 let ip = try String(contentsOfFile: ipFileDirectory, encoding: String.Encoding.ascii)
                 currentServerIP = ip
+                
                 print("Current Server IP is: \(ip)")
             }
             catch
@@ -321,6 +350,7 @@ class MoonbounceViewController: NSViewController
         self.runningScript = false
     }
     
+    //MARK: UI Helpers
     func showStatus()
     {
         switch isConnected.state
@@ -384,34 +414,55 @@ class MoonbounceViewController: NSViewController
     func populateServerSelectButton()
     {
         serverSelectButton.removeAllItems()
+        
+        //Default server should always be an option as we provide this.
         serverSelectButton.addItem(withTitle: ServerName.defaultServer.rawValue)
         
+        //If we can find a user server IP then the user's server should also be listed.
+        //TODO: Check server status
         if userServerIP == ""
         {
+            userServerIsConnected = false
             serverSelectButton.selectItem(withTitle: ServerName.defaultServer.rawValue)
             setSelectedServer(title: ServerName.defaultServer.rawValue)
         }
         else
         {
+            userServerIsConnected = true
             serverSelectButton.addItem(withTitle: ServerName.userServer.rawValue)
             serverSelectButton.selectItem(withTitle: ServerName.userServer.rawValue)
             setSelectedServer(title: ServerName.userServer.rawValue)
         }
     }
     
-    //MARK: UI Helpers
+    func showUserServerStatus()
+    {
+        if userServerIsConnected
+        {
+            launchServerButton.title = "Shut Down Server"
+            serverStatusLabel.stringValue = "Your server is currently running."
+        }
+        else
+        {
+            launchServerButton.title = "Launch Server"
+            
+            if launching
+            {
+                serverStatusLabel.stringValue = "Launching"
+            }
+            else
+            {
+                serverStatusLabel.stringValue = "Launch your own Moonbounce server."
+            }
+        }
+    }
+
     func styleViews()
     {
-        //Title Label Styling
-        if let titleFont = NSFont(name: proximaNARegular, size: 34)
-        {
-            let titleLabelAttributes = [NSKernAttributeName: 7.8,
-                                        NSFontAttributeName: titleFont] as [String : Any]
-            titleLabel.attributedStringValue = NSAttributedString(string: "MOONBOUNCE VPN", attributes: titleLabelAttributes)
-        }
-        
         //Connection Button and label Styling
         showStatus()
+        
+        showUserServerStatus()
         
         //Advanced Mode Button
         if let menuButtonFont = NSFont(name: proximaNARegular, size: 18)
@@ -445,6 +496,18 @@ class MoonbounceViewController: NSViewController
         {
             hasDoToken = false
         }
+    }
+    
+    func styleTokenTextField()
+    {
+        accountTokenTextField.wantsLayer = true
+        let textFieldLayer = CALayer()
+        accountTokenTextField.layer = textFieldLayer
+        accountTokenTextField.backgroundColor = mbWhite
+        accountTokenTextField.layer?.backgroundColor = mbWhite.cgColor
+        accountTokenTextField.layer?.borderColor = (NSColor.clear).cgColor
+        accountTokenTextField.layer?.borderWidth = 1
+        accountTokenTextField.layer?.cornerRadius = 5
     }
     
     func showMenu(sender: AnyObject?)
@@ -502,6 +565,23 @@ class MoonbounceViewController: NSViewController
         
         //Stop BG Animation
         self.runningScript = false
+    }
+    
+    func animateLaunchingLabel()
+    {
+        if launching
+        {
+            if serverStatusLabel.stringValue == "Launching..."
+            {
+                serverStatusLabel.stringValue = "Launching"
+            }
+            else
+            {
+                serverStatusLabel.stringValue = "\(serverStatusLabel.stringValue)."
+            }
+            
+            perform(#selector(animateLaunchingLabel), with: nil, afterDelay: 1)
+        }
     }
     
 }

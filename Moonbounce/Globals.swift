@@ -6,7 +6,12 @@
 //  Copyright © 2016 operatorfoundation.org. All rights reserved.
 //
 
-import Foundation
+import Cocoa
+
+let mbPink = NSColor(red:0.92, green:0.55, blue:0.73, alpha:1.0)
+let mbDarkBlue = NSColor(red:0.00, green:0.06, blue:0.16, alpha:1.0)
+let mbBlue = NSColor(red:0.16, green:0.20, blue:0.48, alpha:1.0)
+let mbWhite = NSColor(red:0.97, green:0.97, blue:0.98, alpha:1.0)
 
 var helperClient:MoonbounceHelperProtocol?
 let kConnectionStatusNotification = "ConnectionStatusChanged"
@@ -16,6 +21,8 @@ let userDirectoryName = "User"
 let importedDirectoryName = "Imported"
 let defaultDirectoryName = "Default"
 let ipFileName = "serverIP"
+
+
 var appDirectory = ""
 var configFilesDirectory = ""
 
