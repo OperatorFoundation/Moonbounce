@@ -11,8 +11,9 @@
             <connections>
                 <outlet property="accountTokenBox" destination="6MA-RR-NPb" id="yr0-Ta-XPp"/>
                 <outlet property="accountTokenTextField" destination="0o9-u3-aeC" id="tCN-Jm-u6T"/>
+                <outlet property="advModeBottomConstraint" destination="P8u-W5-Mvq" id="pSc-0u-rZV"/>
+                <outlet property="advancedModeBottomConstraint" destination="P8u-W5-Mvq" id="alI-c1-cUd"/>
                 <outlet property="advancedModeButton" destination="6ga-6e-hhM" id="NsN-Ab-pLU"/>
-                <outlet property="advancedModeHeightConstraint" destination="pMe-HP-Xzp" id="NDm-aY-ddl"/>
                 <outlet property="backgroundImageView" destination="Y4N-Sp-Fsi" id="RhO-jJ-p7a"/>
                 <outlet property="cancelLaunchButton" destination="owa-4z-BTf" id="n3a-yo-sUz"/>
                 <outlet property="laserImageView" destination="Eoy-Bt-WyB" id="yjC-K5-qM2"/>
@@ -41,7 +42,7 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="background" id="ax9-GS-5Vs"/>
                 </imageView>
                 <imageView translatesAutoresizingMaskIntoConstraints="NO" id="Eoy-Bt-WyB">
-                    <rect key="frame" x="70" y="278" width="34" height="10"/>
+                    <rect key="frame" x="70" y="279" width="34" height="10"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="laser" id="yCl-cc-num"/>
                 </imageView>
                 <imageView translatesAutoresizingMaskIntoConstraints="NO" id="Hrb-VL-FIy" userLabel="Foreground Image View">
@@ -183,7 +184,7 @@
                                     </constraints>
                                 </view>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="4aJ-da-p14"/>
+                                    <constraint firstAttribute="height" priority="750" constant="44" id="4aJ-da-p14"/>
                                 </constraints>
                                 <color key="borderColor" red="0.0078431372550000003" green="0.050980392159999999" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="fillColor" red="0.0" green="0.062745098040000002" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
@@ -224,12 +225,12 @@
                                     </constraints>
                                 </view>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="cqQ-rV-8Uq"/>
+                                    <constraint firstAttribute="height" priority="750" constant="44" id="cqQ-rV-8Uq"/>
                                 </constraints>
                                 <color key="borderColor" red="0.0078431372550000003" green="0.050980392159999999" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="fillColor" red="0.0" green="0.062745098040000002" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
                             </box>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="55v-2e-jP8" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
+                            <button verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="55v-2e-jP8" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
                                 <rect key="frame" x="16" y="13" width="86" height="21"/>
                                 <buttonCell key="cell" type="roundRect" title="Kill Server" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ndI-uw-dTL">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -263,8 +264,8 @@
                                                 <action selector="toggleServerStatus:" target="-2" id="3oT-NA-PUn"/>
                                             </connections>
                                         </button>
-                                        <progressIndicator wantsLayer="YES" ambiguous="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="vyQ-8c-VaX">
-                                            <rect key="frame" x="20" y="-5" width="396" height="20"/>
+                                        <progressIndicator wantsLayer="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="vyQ-8c-VaX">
+                                            <rect key="frame" x="16" y="-5" width="405" height="20"/>
                                             <contentFilters>
                                                 <ciFilter name="CIHueAdjust">
                                                     <configuration>
@@ -346,7 +347,7 @@ Gw
                                                 </constraints>
                                             </view>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="44" id="RGl-oY-7Tr"/>
+                                                <constraint firstAttribute="height" priority="750" constant="44" id="RGl-oY-7Tr"/>
                                             </constraints>
                                             <color key="fillColor" red="0.0040241265669465065" green="0.086827389895915985" blue="0.21149039268493652" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
@@ -366,10 +367,11 @@ Gw
                                         <constraint firstItem="K04-Kv-gvR" firstAttribute="centerY" secondItem="xg9-Jf-dld" secondAttribute="centerY" id="Xoo-89-0ud"/>
                                         <constraint firstItem="6MA-RR-NPb" firstAttribute="leading" secondItem="ely-i5-jhh" secondAttribute="leading" id="fL3-rb-8BJ"/>
                                         <constraint firstItem="xg9-Jf-dld" firstAttribute="leading" secondItem="ely-i5-jhh" secondAttribute="leading" constant="16" id="k05-IF-geU"/>
+                                        <constraint firstAttribute="trailing" secondItem="vyQ-8c-VaX" secondAttribute="trailing" constant="16" id="zz9-qB-k5K"/>
                                     </constraints>
                                 </view>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="d55-Vo-jk4"/>
+                                    <constraint firstAttribute="height" priority="750" constant="44" id="d55-Vo-jk4"/>
                                 </constraints>
                                 <color key="borderColor" red="0.0078431372550000003" green="0.050980392159999999" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="fillColor" red="0.0" green="0.062745098040000002" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
@@ -413,9 +415,6 @@ Gw
                             <constraint firstItem="55v-2e-jP8" firstAttribute="top" secondItem="wbw-fc-TB9" secondAttribute="bottom" constant="12" id="zvg-1x-dh8"/>
                         </constraints>
                     </view>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="176" id="pMe-HP-Xzp"/>
-                    </constraints>
                     <color key="fillColor" red="0.0" green="0.062745098039215685" blue="0.16470588235294117" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
                 <imageView focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="7RO-1w-OS5">
@@ -448,11 +447,12 @@ Gw
                 <constraint firstItem="6ga-6e-hhM" firstAttribute="bottom" secondItem="Y4N-Sp-Fsi" secondAttribute="bottom" id="cUt-yy-QgA"/>
                 <constraint firstItem="Eoy-Bt-WyB" firstAttribute="leading" secondItem="DGO-At-ee4" secondAttribute="leading" constant="-5" id="eHT-ZT-lUB"/>
                 <constraint firstAttribute="trailing" secondItem="Y4N-Sp-Fsi" secondAttribute="trailing" id="mnL-d7-dCN"/>
+                <constraint firstItem="wx1-Qv-rfn" firstAttribute="bottom" secondItem="N7k-7l-cvA" secondAttribute="bottom" constant="176" id="o2h-9b-JKm"/>
                 <constraint firstItem="GYv-NE-gSi" firstAttribute="centerY" secondItem="DGO-At-ee4" secondAttribute="centerY" id="sIs-IQ-xax"/>
                 <constraint firstItem="wx1-Qv-rfn" firstAttribute="top" secondItem="N7k-7l-cvA" secondAttribute="bottom" id="ubM-H5-XSi"/>
                 <constraint firstItem="Y4N-Sp-Fsi" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="uhu-qN-Rqj"/>
             </constraints>
-            <point key="canvasLocation" x="119" y="118"/>
+            <point key="canvasLocation" x="118.5" y="118"/>
         </customView>
     </objects>
     <resources>

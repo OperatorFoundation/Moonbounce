@@ -126,13 +126,21 @@ import Cocoa
             self.attributedTitle = getAttributedTitle()
         }
     }
-    
+        
     func getAttributedTitle() -> NSAttributedString
     {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         
-        let buttonAttributes: [String: AnyObject] = [NSForegroundColorAttributeName: titleColor,
+        var currentTitleColor = titleColor
+        
+        if self.isEnabled == false
+        {
+            currentTitleColor = mbBlue
+        }
+        
+        
+        let buttonAttributes: [String: AnyObject] = [NSForegroundColorAttributeName: currentTitleColor,
                                                      NSFontAttributeName: self.font!,
                                                      NSParagraphStyleAttributeName: paragraphStyle]
         let attributedTitle = NSAttributedString(string: self.title, attributes: buttonAttributes)

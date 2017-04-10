@@ -22,7 +22,7 @@ class MoonbounceViewController: NSViewController
     static var terraformController = TerraformController()
     
     //Advanced Mode Outlets
-    @IBOutlet weak var advancedModeHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var advModeBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var serverSelectButton: NSPopUpButton!
     @IBOutlet weak var serverProgressBar: NSProgressIndicator!
     @IBOutlet weak var accountTokenBox: NSBox!
@@ -104,7 +104,7 @@ class MoonbounceViewController: NSViewController
     
     @IBAction func showAdvancedMode(_ sender: AnyObject)
     {
-        if advancedModeHeightConstraint.constant > 0
+        if advModeBottomConstraint.constant > 0
         {
             closeMenu(sender: sender)
         }
@@ -474,7 +474,7 @@ class MoonbounceViewController: NSViewController
         advancedModeButton.layer?.backgroundColor = .clear
         
         //Advanced Mode Box
-        advancedModeHeightConstraint.constant = 0
+        advModeBottomConstraint.constant = 0
         
         //Progress Indicator for Server Launch
         serverProgressBar.controlTint = .clearControlTint
@@ -512,12 +512,12 @@ class MoonbounceViewController: NSViewController
     
     func showMenu(sender: AnyObject?)
     {
-        advancedModeHeightConstraint.constant = advancedMenuHeight
+        advModeBottomConstraint.constant = advancedMenuHeight
     }
     
     func closeMenu(sender: AnyObject?)
     {
-        advancedModeHeightConstraint.constant = 0
+        advModeBottomConstraint.constant = 0
     }
     
     func runBackgroundAnimation()

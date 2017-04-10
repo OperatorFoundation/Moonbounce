@@ -171,7 +171,7 @@ public class OpenVPN: NSObject
                                         isConnected.state = .start
                                         isConnected.stage = .start
                                     default:
-                                        print("\nError: Unknown connection status: \(statusString)\n")
+                                        continue
                                 }
                             }
                         }
