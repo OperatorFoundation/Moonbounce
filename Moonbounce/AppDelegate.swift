@@ -32,7 +32,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
         }
         else
         {
-            print("MoonbounceHelperTool installed on application startup.")
             helperClient = HelperAppController.connectToXPCService()
         }
         

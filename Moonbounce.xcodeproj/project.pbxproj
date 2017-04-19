@@ -35,12 +35,13 @@
 		B442B5B61DEE5AAB001E433D /* OpenVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = B442B5B51DEE5AAB001E433D /* OpenVPN.swift */; };
 		B442B6021DEF8F82001E433D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = B442B6011DEF8F82001E433D /* main.swift */; };
 		B44390591DC00EA000389352 /* PopoverContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44390581DC00EA000389352 /* PopoverContentView.swift */; };
+		B4634E331EA15AF40069C1DE /* KeychainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4634E321EA15AF40069C1DE /* KeychainController.swift */; };
 		B494F9251DF89B290094838F /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4672B8961DF60498008134E5 /* Globals.swift */; };
 		B49A4BE91DF71E8700643247 /* shapeshifter-dispatcher in Resources */ = {isa = PBXBuildFile; fileRef = B49A4BE81DF71E8700643247 /* shapeshifter-dispatcher */; };
+		B4CAAA191EA80C3100FDF219 /* terraform in Resources */ = {isa = PBXBuildFile; fileRef = B4CAAA181EA80C3100FDF219 /* terraform */; };
 		B4CD38BC1E95CD83007EB586 /* moonGIF.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4CD38BA1E95CD83007EB586 /* moonGIF.gif */; };
 		B4CD38BD1E95CD83007EB586 /* moonGIF@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4CD38BB1E95CD83007EB586 /* moonGIF@2x.gif */; };
 		B4EF3E5D1E15C12700A5DDBD /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EF3E5C1E15C12700A5DDBD /* CustomButton.swift */; };
-		B4EF3E5F1E1715D700A5DDBD /* CustomPopUpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EF3E5E1E1715D700A5DDBD /* CustomPopUpButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,11 +119,12 @@
 		B442B6061DEF8FBF001E433D /* MoonbounceHelperTool-Launchd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MoonbounceHelperTool-Launchd.plist"; sourceTree = "<group>"; };
 		B442B6071DEF8FD9001E433D /* MoonbounceHelperTool-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MoonbounceHelperTool-Info.plist"; sourceTree = "<group>"; };
 		B44390581DC00EA000389352 /* PopoverContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopoverContentView.swift; path = Helpers/PopoverContentView.swift; sourceTree = "<group>"; };
+		B4634E321EA15AF40069C1DE /* KeychainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainController.swift; path = Controllers/KeychainController.swift; sourceTree = "<group>"; };
 		B49A4BE81DF71E8700643247 /* shapeshifter-dispatcher */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "shapeshifter-dispatcher"; sourceTree = "<group>"; };
+		B4CAAA181EA80C3100FDF219 /* terraform */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = terraform; sourceTree = "<group>"; };
 		B4CD38BA1E95CD83007EB586 /* moonGIF.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = moonGIF.gif; sourceTree = "<group>"; };
 		B4CD38BB1E95CD83007EB586 /* moonGIF@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "moonGIF@2x.gif"; sourceTree = "<group>"; };
 		B4EF3E5C1E15C12700A5DDBD /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomButton.swift; path = Helpers/CustomButton.swift; sourceTree = "<group>"; };
-		B4EF3E5E1E1715D700A5DDBD /* CustomPopUpButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPopUpButton.swift; path = Helpers/CustomPopUpButton.swift; sourceTree = "<group>"; };
 		E3EF67AE557941F6B7BF027C /* Pods-Moonbounce.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moonbounce.release.xcconfig"; path = "Pods/Target Support Files/Pods-Moonbounce/Pods-Moonbounce.release.xcconfig"; sourceTree = "<group>"; };
 		E8AEB23FF0A27A86253088F5 /* Pods-Moonbounce.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moonbounce.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Moonbounce/Pods-Moonbounce.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -219,12 +221,12 @@
 				468D4CA91E11986F00BD80C4 /* vars */,
 				463C25CD1DDA51D600EA282B /* openvpn */,
 				B49A4BE81DF71E8700643247 /* shapeshifter-dispatcher */,
+				B4CAAA181EA80C3100FDF219 /* terraform */,
 				467CB5C81DBEB9730086E341 /* EventMonitor.swift */,
 				B44390581DC00EA000389352 /* PopoverContentView.swift */,
 				4643055E1E0B2FDF00B1DB78 /* LaunchTerraformScript.sh */,
 				464305601E0B31F400B1DB78 /* DestroyTerraform.sh */,
 				B4EF3E5C1E15C12700A5DDBD /* CustomButton.swift */,
-				B4EF3E5E1E1715D700A5DDBD /* CustomPopUpButton.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -250,6 +252,7 @@
 				4643055A1E0B088700B1DB78 /* ShapeshifterDispatcherController.swift */,
 				4643055C1E0B1EBA00B1DB78 /* ShapeshiftedOpenVpnController.swift */,
 				464305611E0B369700B1DB78 /* TerraformController.swift */,
+				B4634E321EA15AF40069C1DE /* KeychainController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 				467CB5B91DBEB6E90086E341 /* Assets.xcassets in Resources */,
 				467CB5BC1DBEB6E90086E341 /* MainMenu.xib in Resources */,
 				4643055F1E0B2FDF00B1DB78 /* LaunchTerraformScript.sh in Resources */,
+				B4CAAA191EA80C3100FDF219 /* terraform in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,7 +452,7 @@
 				467CB5C91DBEB9730086E341 /* EventMonitor.swift in Sources */,
 				467CB5B71DBEB6E90086E341 /* AppDelegate.swift in Sources */,
 				B442B5B61DEE5AAB001E433D /* OpenVPN.swift in Sources */,
-				B4EF3E5F1E1715D700A5DDBD /* CustomPopUpButton.swift in Sources */,
+				B4634E331EA15AF40069C1DE /* KeychainController.swift in Sources */,
 				467CB5C51DBEB8CF0086E341 /* MoonbounceViewController.swift in Sources */,
 				4672B8971DF60498008134E5 /* Globals.swift in Sources */,
 			);

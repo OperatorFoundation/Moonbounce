@@ -96,26 +96,35 @@ import Cocoa
         
         if halfBorder
         {
+            //Ignore the other settings
+            cornerRadius = 0
+            borderWidth = 0
+            borderColor = .clear
+            
+            //Draw the half border
+            let cornerRad: CGFloat = 10
+            let lineWidth: CGFloat = 2
+            
             let path = NSBezierPath()
+            path.lineWidth = lineWidth
+            path.lineCapStyle = NSLineCapStyle.squareLineCapStyle
             
-            //Start drawing from upper left corner.
-            path.move(to: NSMakePoint(NSMinX(self.bounds), NSMinY(self.bounds)))
+            let bottomLeft = NSMakePoint(NSMinX(bounds) + lineWidth + cornerRad, NSMaxY(bounds) - 1)
+            let bottomLeftCorner = NSMakePoint(NSMinX(bounds) + lineWidth + 2, NSMaxY(bounds) - 3)
+            let bottomRight = NSMakePoint(NSMaxX(bounds) - lineWidth - cornerRad, NSMaxY(bounds) - 1)
+            let bottomRightCorner = NSMakePoint(NSMaxX(bounds) - 2 - lineWidth, NSMaxY(bounds) - 3)
+            let halfUpOnLeft = NSMakePoint(NSMinX(bounds) + lineWidth, NSMaxY(bounds)/2)
+            let halfUpOnRight = NSMakePoint(NSMaxX(bounds) - lineWidth, NSMaxY(bounds)/2)
             
-            //Draw top border and top-right rounded corner.
-            let topRightCorner = NSMakePoint(NSMinX(self.bounds), NSMinY(self.bounds))
-            path.line(to: NSMakePoint(NSMaxX(self.bounds) - self.cornerRadius, NSMinY(self.bounds)))
-            path.curve(to: NSMakePoint(NSMaxX(self.bounds), NSMinY(self.bounds) + cornerRadius), controlPoint1: topRightCorner, controlPoint2: topRightCorner)
+            path.move(to: halfUpOnLeft)
+            path.line(to: NSMakePoint(NSMinX(bounds) + lineWidth, (NSMaxY(bounds)/2) + 1))
+            path.curve(to: bottomLeft, controlPoint1: bottomLeftCorner, controlPoint2: bottomLeftCorner)
+            path.line(to: bottomRight)
+            path.curve(to: NSMakePoint(NSMaxX(bounds) - lineWidth, (NSMaxY(bounds)/2) + 1), controlPoint1: bottomRightCorner, controlPoint2: bottomRightCorner)
+            path.line(to: halfUpOnRight)
             
-            //Draw right border bottom border, and left border.
-            path.line(to: NSMakePoint(NSMaxX(self.bounds), NSMaxY(self.bounds)))
-            path.line(to: NSMakePoint(NSMinX(self.bounds), NSMaxY(self.bounds)))
-            path.line(to: NSMakePoint(NSMinX(self.bounds), NSMinY(self.bounds)))
-            
-            //Fill path.
-            borderColor.setFill()
-            path.fill()
-            
-            self.cornerRadius = 0
+            mbWhite.setStroke()
+            path.stroke()
         }
     }
     
@@ -126,24 +135,44 @@ import Cocoa
             self.attributedTitle = getAttributedTitle()
         }
     }
+    
+    override var isEnabled: Bool
+    {
+        didSet
+        {
+            if isEnabled
+            {
+                self.attributedTitle = getAttributedTitle()
+            }
+            else
+            {
+                self.attributedTitle = getDisabledAttributedTitle()
+            }
+        }
+    }
         
     func getAttributedTitle() -> NSAttributedString
     {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
-        
-        var currentTitleColor = titleColor
-        
-        if self.isEnabled == false
-        {
-            currentTitleColor = mbBlue
-        }
-        
-        
-        let buttonAttributes: [String: AnyObject] = [NSForegroundColorAttributeName: currentTitleColor,
+
+        let buttonAttributes: [String: AnyObject] = [NSForegroundColorAttributeName: titleColor,
                                                      NSFontAttributeName: self.font!,
                                                      NSParagraphStyleAttributeName: paragraphStyle]
         let attributedTitle = NSAttributedString(string: self.title, attributes: buttonAttributes)
+        return attributedTitle
+    }
+    
+    func getDisabledAttributedTitle() -> NSAttributedString
+    {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        
+        let buttonAttributes: [String: AnyObject] = [NSForegroundColorAttributeName: NSColor.white,
+                                                     NSFontAttributeName: self.font!,
+                                                     NSParagraphStyleAttributeName: paragraphStyle]
+        let attributedTitle = NSAttributedString(string: self.title, attributes: buttonAttributes)
+        
         return attributedTitle
     }
     

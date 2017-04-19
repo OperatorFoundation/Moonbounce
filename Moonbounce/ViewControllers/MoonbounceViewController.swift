@@ -22,7 +22,7 @@ class MoonbounceViewController: NSViewController
     static var terraformController = TerraformController()
     
     //Advanced Mode Outlets
-    @IBOutlet weak var advModeBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var advModeHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var serverSelectButton: NSPopUpButton!
     @IBOutlet weak var serverProgressBar: NSProgressIndicator!
     @IBOutlet weak var accountTokenBox: NSBox!
@@ -30,6 +30,7 @@ class MoonbounceViewController: NSViewController
     @IBOutlet weak var launchServerButton: CustomButton!
     @IBOutlet weak var serverStatusLabel: NSTextField!
     @IBOutlet weak var cancelLaunchButton: CustomButton!
+    @IBOutlet weak var launchServerButtonCell: NSButtonCell!
     
     //accountTokenBox.hidden is bound to this var
     dynamic var hasDoToken = false
@@ -55,6 +56,7 @@ class MoonbounceViewController: NSViewController
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: kConnectionStatusNotification), object: nil, queue: nil, using: connectionStatusChanged)
         
+        serverProgressBar.usesThreadedAnimation = true
         updateStatusUI(connected: false, statusDescription: "Not Connected")
         populateServerSelectButton()
         styleTokenTextField()
@@ -104,7 +106,7 @@ class MoonbounceViewController: NSViewController
     
     @IBAction func showAdvancedMode(_ sender: AnyObject)
     {
-        if advModeBottomConstraint.constant > 0
+        if advModeHeightConstraint.constant > 0
         {
             closeMenu(sender: sender)
         }
@@ -183,13 +185,14 @@ class MoonbounceViewController: NSViewController
     
     func launchServer(_ sender: NSButton)
     {
-        if let userToken = UserDefaults.standard.object(forKey: userTokenKey) as? String
+        //if let userToken = UserDefaults.standard.object(forKey: userTokenKey) as? String
+        if let userToken = KeychainController.loadToken()
         {
             MoonbounceViewController.terraformController.createVarsFile(token: userToken)
             
             sender.isEnabled = false
             toggleConnectionButton.isEnabled = false
-            serverProgressBar.startAnimation(self)
+            startIncrementingProgress(by: 0.3)
             cancelLaunchButton.isHidden = false
             serverStatusLabel.stringValue = "Launching"
             launching = true
@@ -201,7 +204,7 @@ class MoonbounceViewController: NSViewController
                 
                 sender.isEnabled = true
                 self.toggleConnectionButton.isEnabled = true
-                self.serverProgressBar.stopAnimation(self)
+                self.stopIncrementingProgress()
                 self.populateServerSelectButton()
                 self.showUserServerStatus()
                 
@@ -216,6 +219,31 @@ class MoonbounceViewController: NSViewController
         }
     }
     
+    func startIncrementingProgress(by amount: Double)
+    {
+        serverProgressBar.doubleValue = 0.0
+        serverProgressBar.isHidden = false
+        _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block:
+        { (progressTimer) in
+            
+            if self.serverProgressBar.doubleValue < 90.0
+            {
+                self.serverProgressBar.increment(by: amount)
+            }
+            else
+            {
+                progressTimer.invalidate()
+            }
+        })
+    }
+
+    func stopIncrementingProgress()
+    {
+        serverProgressBar.doubleValue = 100
+        sleep(1)
+        serverProgressBar.isHidden = true
+    }
+    
     @IBAction func cancelLaunch(_ sender: NSButton)
     {
         killServer(sender)
@@ -226,7 +254,7 @@ class MoonbounceViewController: NSViewController
         sender.isEnabled = false
         toggleConnectionButton.isEnabled = false
         launchServerButton.isEnabled = false
-        serverProgressBar.startAnimation(self)
+        startIncrementingProgress(by: 2.0)
         
         MoonbounceViewController.terraformController.destroyTerraformServer
         {
@@ -235,7 +263,7 @@ class MoonbounceViewController: NSViewController
             sender.isEnabled = true
             self.toggleConnectionButton.isEnabled = true
             self.launchServerButton.isEnabled = true
-            self.serverProgressBar.stopAnimation(self)
+            self.stopIncrementingProgress()
             self.populateServerSelectButton()
             self.showUserServerStatus()
             print("Destroy server task exited.")
@@ -259,7 +287,8 @@ class MoonbounceViewController: NSViewController
         else
         {
             print("New user token: \(newToken)")
-            UserDefaults.standard.set(sender.stringValue, forKey: userTokenKey)
+            KeychainController.saveToken(token: sender.stringValue)
+            //UserDefaults.standard.set(sender.stringValue, forKey: userTokenKey)
             hasDoToken = true
             MoonbounceViewController.terraformController.createVarsFile(token: sender.stringValue)
         }
@@ -345,9 +374,11 @@ class MoonbounceViewController: NSViewController
         {
             (stopped) in
             //
+            
         })
         
         self.runningScript = false
+        self.serverSelectButton.isEnabled = true
     }
     
     //MARK: UI Helpers
@@ -474,13 +505,11 @@ class MoonbounceViewController: NSViewController
         advancedModeButton.layer?.backgroundColor = .clear
         
         //Advanced Mode Box
-        advModeBottomConstraint.constant = 0
-        
-        //Progress Indicator for Server Launch
-        serverProgressBar.controlTint = .clearControlTint
+        advModeHeightConstraint.constant = 0
         
         //Has the user entered their Digital Ocean Token?
-        if let userToken = UserDefaults.standard.object(forKey: userTokenKey) as! String?
+        //if let userToken = UserDefaults.standard.object(forKey: userTokenKey) as! String?
+        if let userToken = KeychainController.loadToken()
         {
             if userToken == ""
             {
@@ -489,7 +518,8 @@ class MoonbounceViewController: NSViewController
             else
             {
                 hasDoToken = true
-                print("******Found a token in user defaults!")
+                accountTokenTextField.stringValue = userToken
+                print("******Found a token in keychain!")
             }
         }
         else
@@ -512,12 +542,12 @@ class MoonbounceViewController: NSViewController
     
     func showMenu(sender: AnyObject?)
     {
-        advModeBottomConstraint.constant = advancedMenuHeight
+        advModeHeightConstraint.constant = advancedMenuHeight
     }
     
     func closeMenu(sender: AnyObject?)
     {
-        advModeBottomConstraint.constant = 0
+        advModeHeightConstraint.constant = 0
     }
     
     func runBackgroundAnimation()
