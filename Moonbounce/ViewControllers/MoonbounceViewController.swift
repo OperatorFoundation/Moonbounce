@@ -31,6 +31,7 @@ class MoonbounceViewController: NSViewController
     @IBOutlet weak var serverStatusLabel: NSTextField!
     @IBOutlet weak var cancelLaunchButton: CustomButton!
     @IBOutlet weak var launchServerButtonCell: NSButtonCell!
+    @IBOutlet weak var shareServerButton: NSButton!
     
     //accountTokenBox.hidden is bound to this var
     dynamic var hasDoToken = false
@@ -47,7 +48,7 @@ class MoonbounceViewController: NSViewController
         case userServer = "User Server"
         case importedServer = "Imported Server"
     }
-        
+    
     //MARK: View Life Cycle
     
     override func viewDidLoad()
@@ -120,7 +121,24 @@ class MoonbounceViewController: NSViewController
     {
         if let selectedItemTitle = sender.selectedItem?.title
         {
-            setSelectedServer(title: selectedItemTitle)
+            //Don't make our default server available to share
+            if selectedItemTitle == ServerName.defaultServer.rawValue
+            {
+                shareServerButton.isEnabled = false
+            }
+            else
+            {
+                shareServerButton.isEnabled = true
+            }
+            
+            if let menuItem =  sender.menu?.item(withTitle: selectedItemTitle)
+            {
+                if let configPath = menuItem.representedObject as? String
+                {
+                    setSelectedServer(atPath: configPath)
+                    print("Setting selected server \(selectedItemTitle), with path:\n\(configPath)")
+                }
+            }
         }
         else
         {
@@ -128,6 +146,7 @@ class MoonbounceViewController: NSViewController
         }
     }
     
+    //This allows the user to upload their own config files
     @IBAction func addFileClicked(_ sender: CustomButton)
     {
         let openDialog = NSOpenPanel()
@@ -153,22 +172,100 @@ class MoonbounceViewController: NSViewController
                     let chosenPathFileOrFolderName = fileManager.displayName(atPath: chosenPath)
                     let newDirectoryForFiles = configFilesDirectory.appending("/Imported/\(chosenPathFileOrFolderName)")
                     print("Found Files at: \(chosenPath)")
-                    //TODO: Verify and Save Config Files
                     
-                    //Verify Files
+                    //Verify  that each of the following files are present as all config files are neccessary for successful connection:
+                    let file1 = "ca.crt"
+                    let file2 = "client1.crt"
+                    let file3 = "client1.key"
+                    let file4 = "DO.ovpn"
+                    let file5 = "server.crt"
+                    let file6 = "serverIP"
+                    let file7 = "ta.key"
                     
-                    //Save to Correct Directory
                     do
                     {
-                        try fileManager.copyItem(atPath: chosenPath, toPath: newDirectoryForFiles)
+                        if let fileEnumerator = fileManager.enumerator(at: openDialog.url!, includingPropertiesForKeys: [.nameKey], options: [.skipsHiddenFiles], errorHandler:
+                            {
+                                (url, error) -> Bool in
+                                
+                                print("File enumerator error at \(url.path): \(error.localizedDescription)")
+                                return true
+                            })
+                        {
+                            var fileNames = [String]()
+                            for case let fileURL as URL in fileEnumerator
+                            {
+                                
+                                let fileName = try fileURL.resourceValues(forKeys: Set([.nameKey]))
+                                if fileName.name != nil
+                                {
+                                    fileNames.append(fileName.name!)
+                                }
+                            }
+                            
+                            //If all required files are present save this as a new config directory
+                            if fileNames.contains(file1) && fileNames.contains(file2) && fileNames.contains(file3) && fileNames.contains(file4) && fileNames.contains(file5) && fileNames.contains(file6) && fileNames.contains(file7)
+                            {
+                                //Save to Correct Directory
+                                do
+                                {
+                                    try fileManager.copyItem(atPath: chosenPath, toPath: newDirectoryForFiles)
+                                    
+                                    //Make sure to update our server select button so the user can see their new server options.
+                                    self.populateServerSelectButton()
+                                }
+                                catch let error
+                                {
+                                    print("Unable to copy config files at: \(chosenPath), to: \(newDirectoryForFiles)\nError: \(error)")
+                                }
+                            }
+                            else
+                            {
+                                print("Did not save user selected config directory as it did not contain all of the necessary files.")
+                            }
+                            
+                        }
                     }
-                    catch let error
+                    catch
                     {
-                        print("Unable to copy config files at: \(chosenPath), to: \(newDirectoryForFiles)\nError: \(error)")
+                        print("Error getting filenames from selected directory.", error)
                     }
                 }
             }
         }
+    }
+    @IBAction func shareServerClick(_ sender: NSButton)
+    {
+        sender.isEnabled = false
+        serverSelectButton.isEnabled = false
+        
+        let exportDialogue = NSSavePanel()
+        exportDialogue.title = "Where would you like to save your server config information?"
+        
+        if let presentingWindow = self.view.window
+        {
+            exportDialogue.beginSheetModal(for: presentingWindow, completionHandler:
+            {
+                (response) in
+                
+                guard response == NSFileHandlingPanelOKButton
+                    else
+                {
+                    sender.isEnabled = true
+                    self.serverSelectButton.isEnabled = true
+                    return
+                }
+                
+                sender.isEnabled = true
+                self.serverSelectButton.isEnabled = true
+            })
+        }
+        else
+        {
+            sender.isEnabled = true
+            serverSelectButton.isEnabled = true
+        }
+        
     }
     
     @IBAction func toggleServerStatus(_ sender: NSButton)
@@ -254,7 +351,7 @@ class MoonbounceViewController: NSViewController
         sender.isEnabled = false
         toggleConnectionButton.isEnabled = false
         launchServerButton.isEnabled = false
-        startIncrementingProgress(by: 2.0)
+        startIncrementingProgress(by: 3.0)
         
         MoonbounceViewController.terraformController.destroyTerraformServer
         {
@@ -328,21 +425,9 @@ class MoonbounceViewController: NSViewController
         })
     }
     
-    func setSelectedServer(title: String)
+    func setSelectedServer(atPath configPath: String)
     {
-        switch title
-        {
-            case ServerName.defaultServer.rawValue:
-                currentConfigDirectory = defaultConfigDirectory
-            case ServerName.userServer.rawValue:
-                currentConfigDirectory = userConfigDirectory
-            case ServerName.importedServer.rawValue:
-                currentConfigDirectory = importedConfigDirectory
-            default:
-                print("User made a server selection that we just don't understand: \(title)")
-                return
-        }
-    
+        currentConfigDirectory = configPath
         checkForServerIP()
     }
     
@@ -447,22 +532,67 @@ class MoonbounceViewController: NSViewController
         serverSelectButton.removeAllItems()
         
         //Default server should always be an option as we provide this.
-        serverSelectButton.addItem(withTitle: ServerName.defaultServer.rawValue)
-        
-        //If we can find a user server IP then the user's server should also be listed.
-        //TODO: Check server status
+        let defaultMenuItem = NSMenuItem(title: ServerName.defaultServer.rawValue, action: nil, keyEquivalent: "")
+        defaultMenuItem.representedObject = defaultConfigDirectory
+        serverSelectButton.menu?.addItem(defaultMenuItem)
+
+        //We base availability of a given server on whether a file with the IP address exists.
         if userServerIP == ""
         {
             userServerIsConnected = false
             serverSelectButton.selectItem(withTitle: ServerName.defaultServer.rawValue)
-            setSelectedServer(title: ServerName.defaultServer.rawValue)
+            
+            //Set our server as default if user server is not available.
+            setSelectedServer(atPath: defaultConfigDirectory)
+            
+            //Don't make our default server available to share
+            shareServerButton.isEnabled = false
         }
         else
         {
+            //If we can find a user server IP then the user's server should also be listed.
             userServerIsConnected = true
             serverSelectButton.addItem(withTitle: ServerName.userServer.rawValue)
+            let menuItem = NSMenuItem(title: ServerName.userServer.rawValue, action: nil, keyEquivalent: "")
+            menuItem.representedObject = userConfigDirectory
+            serverSelectButton.menu?.addItem(menuItem)
             serverSelectButton.selectItem(withTitle: ServerName.userServer.rawValue)
-            setSelectedServer(title: ServerName.userServer.rawValue)
+            
+            //The user's server is default when available
+            setSelectedServer(atPath: userConfigDirectory)
+        }
+        
+        //Check to see if we have an Imported Config Files Directory Path
+        if importedConfigDirectory != ""
+        {
+            //Check for sub-directories in the Imported folder
+            let importDirectoryURL = URL(fileURLWithPath: importedConfigDirectory)
+            let subDirectories = (try? FileManager.default.contentsOfDirectory(at: importDirectoryURL, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles]).filter{ $0.hasDirectoryPath }) ?? [URL]()
+            
+            if !subDirectories.isEmpty
+            {
+                //Make a new menu item for our pop-up button for every config directory in the imported folder.
+                for configDirectory in subDirectories
+                {
+                    let ipFilePath = configDirectory.path.appending("/serverIP")
+                    do
+                    {
+                        //Make sure the ip file is there before we bother to add it to the list
+                        _ = try String(contentsOfFile: ipFilePath, encoding: String.Encoding.ascii)
+                        
+                        //Adding the new server info to our server select button.
+                        let menuItem = NSMenuItem(title: configDirectory.lastPathComponent, action: nil, keyEquivalent: "")
+                        menuItem.representedObject = configDirectory.path
+                        serverSelectButton.menu?.addItem(menuItem)
+                    }
+                    catch
+                    {
+                        print("Unable to locate the imported server IP at: \(ipFilePath).\nServer will not be added to the list of possible servers.)")
+                    }
+                }
+                
+            }
+
         }
     }
     

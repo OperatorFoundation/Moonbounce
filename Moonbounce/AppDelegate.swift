@@ -150,6 +150,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
                 
                 //Imported Config Files
                 let importedConfigPath = configFilesPath.appendingPathComponent(importedDirectoryName, isDirectory: true)
+                importedConfigDirectory = importedConfigPath.path
                 
                 // If the directory does not exist, this method creates it.
                 // This method is only available in OS X v10.7 and iOS 5.0 or later.
@@ -161,6 +162,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
                 {
                     print(importedConfigError)
                 }
+                
+                //User Config
+                let userConfigPath = configFilesPath.appendingPathComponent(userDirectoryName + "/DO", isDirectory: true)
+                userConfigDirectory = userConfigPath.path
+                do
+                {
+                    try fileManager.createDirectory(at: userConfigPath, withIntermediateDirectories: true, attributes: nil)
+                }
+                catch let userConfigError
+                {
+                    print(userConfigError)
+                }
+                
+                configFilesDirectory = configFilesPath.path
                 
                 //Default Config
                 let defaultConfigPath = configFilesPath.appendingPathComponent(defaultDirectoryName
@@ -181,20 +196,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
                 {
                     print("Unable to copy default config files: \(error.localizedDescription)")
                 }
-                
-                //User Config
-                let userConfigPath = configFilesPath.appendingPathComponent(userDirectoryName + "/DO", isDirectory: true)
-                userConfigDirectory = userConfigPath.path
-                do
-                {
-                    try fileManager.createDirectory(at: userConfigPath, withIntermediateDirectories: true, attributes: nil)
-                }
-                catch let userConfigError
-                {
-                    print(userConfigError)
-                }
-                
-                configFilesDirectory = configFilesPath.path
             }
         }
     }

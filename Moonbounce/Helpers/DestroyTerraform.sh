@@ -5,15 +5,13 @@
 #
 #  Created by Adelita Schule on 12/21/16.
 #  Copyright © 2016 operatorfoundation.org. All rights reserved.
-echo "******Set Terraform Path"
-PATH=$PATH:/usr/local/go/bin:/Applications
 
 echo "******Changing Directory"
-cd /Volumes/extDrive/Code/shapeshifter-server
+cd $2
 
 echo "*******Source Vars"
 source ./vars
 
 echo "*******Destroying Server"
-terraform destroy -force
+$1 destroy -force
 

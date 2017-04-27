@@ -136,21 +136,26 @@ import Cocoa
         }
     }
     
-    override var isEnabled: Bool
-    {
-        didSet
-        {
-            if isEnabled
-            {
-                self.attributedTitle = getAttributedTitle()
-            }
-            else
-            {
-                self.attributedTitle = getDisabledAttributedTitle()
-            }
-        }
-    }
-        
+//    override var isEnabled: Bool
+//    {
+//        didSet
+//        {
+//            if isEnabled
+//            {
+//                self.attributedTitle = getAttributedTitle()
+//            }
+//            else
+//            {
+//                self.attributedTitle = getDisabledAttributedTitle()
+//            }
+//        }
+//    }
+    
+//    override func updateLayer() {
+//        <#code#>
+//    }
+    
+    
     func getAttributedTitle() -> NSAttributedString
     {
         let paragraphStyle = NSMutableParagraphStyle()
@@ -163,17 +168,17 @@ import Cocoa
         return attributedTitle
     }
     
-    func getDisabledAttributedTitle() -> NSAttributedString
-    {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .center
-        
-        let buttonAttributes: [String: AnyObject] = [NSForegroundColorAttributeName: NSColor.white,
-                                                     NSFontAttributeName: self.font!,
-                                                     NSParagraphStyleAttributeName: paragraphStyle]
-        let attributedTitle = NSAttributedString(string: self.title, attributes: buttonAttributes)
-        
-        return attributedTitle
-    }
+//    func getDisabledAttributedTitle() -> NSAttributedString
+//    {
+//        let paragraphStyle = NSMutableParagraphStyle()
+//        paragraphStyle.alignment = .center
+//        
+//        let buttonAttributes: [String: AnyObject] = [NSForegroundColorAttributeName: NSColor.white,
+//                                                     NSFontAttributeName: self.font!,
+//                                                     NSParagraphStyleAttributeName: paragraphStyle]
+//        let attributedTitle = NSAttributedString(string: self.title, attributes: buttonAttributes)
+//        
+//        return attributedTitle
+//    }
     
 }

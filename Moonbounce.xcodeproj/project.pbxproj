@@ -28,6 +28,7 @@
 		467CB5C91DBEB9730086E341 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467CB5C81DBEB9730086E341 /* EventMonitor.swift */; };
 		468D4CAA1E11986F00BD80C4 /* vars in Resources */ = {isa = PBXBuildFile; fileRef = 468D4CA91E11986F00BD80C4 /* vars */; };
 		46C28E361E0DBA2F0024A61F /* DestroyTerraform.sh in Resources */ = {isa = PBXBuildFile; fileRef = 464305601E0B31F400B1DB78 /* DestroyTerraform.sh */; };
+		46C6190C1EAE6BF500514816 /* shapeshifter-server in Resources */ = {isa = PBXBuildFile; fileRef = 46C6190B1EAE6BF500514816 /* shapeshifter-server */; };
 		46EA2C7D1E241BB70069E5DE /* Default in Resources */ = {isa = PBXBuildFile; fileRef = 46EA2C7C1E241BB70069E5DE /* Default */; };
 		B41FE0261DF10A1900E02D17 /* org.OperatorFoundation.MoonbounceHelperTool in CopyFiles */ = {isa = PBXBuildFile; fileRef = B442B5FF1DEF8F82001E433D /* org.OperatorFoundation.MoonbounceHelperTool */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		B41FE02A1DF24BE900E02D17 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B41FE0291DF24BE900E02D17 /* Security.framework */; };
@@ -109,6 +110,7 @@
 		467CB5C41DBEB8CF0086E341 /* MoonbounceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MoonbounceViewController.xib; path = ViewControllers/MoonbounceViewController.xib; sourceTree = "<group>"; };
 		467CB5C81DBEB9730086E341 /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventMonitor.swift; path = Helpers/EventMonitor.swift; sourceTree = "<group>"; };
 		468D4CA91E11986F00BD80C4 /* vars */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vars; sourceTree = "<group>"; };
+		46C6190B1EAE6BF500514816 /* shapeshifter-server */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "shapeshifter-server"; sourceTree = "<group>"; };
 		46EA2C7C1E241BB70069E5DE /* Default */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Default; sourceTree = "<group>"; };
 		8F3E75C00756DFE009D5BB62 /* Pods_Moonbounce.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moonbounce.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B41FE0291DF24BE900E02D17 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -222,6 +224,7 @@
 				463C25CD1DDA51D600EA282B /* openvpn */,
 				B49A4BE81DF71E8700643247 /* shapeshifter-dispatcher */,
 				B4CAAA181EA80C3100FDF219 /* terraform */,
+				46C6190B1EAE6BF500514816 /* shapeshifter-server */,
 				467CB5C81DBEB9730086E341 /* EventMonitor.swift */,
 				B44390581DC00EA000389352 /* PopoverContentView.swift */,
 				4643055E1E0B2FDF00B1DB78 /* LaunchTerraformScript.sh */,
@@ -382,6 +385,7 @@
 				467CB5B91DBEB6E90086E341 /* Assets.xcassets in Resources */,
 				467CB5BC1DBEB6E90086E341 /* MainMenu.xib in Resources */,
 				4643055F1E0B2FDF00B1DB78 /* LaunchTerraformScript.sh in Resources */,
+				46C6190C1EAE6BF500514816 /* shapeshifter-server in Resources */,
 				B4CAAA191EA80C3100FDF219 /* terraform in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -17,6 +17,14 @@ class TerraformController: NSObject
     func launchTerraformServer(completion:@escaping (_ completion:Bool) -> Void)
     {
         let bundle = Bundle.main
+        
+        guard let terrPath = bundle.path(forResource: "terraform", ofType: nil)
+        else
+        {
+            print("Unable to launch terraform server. Could not find terraform executable.")
+            return
+        }
+        
         guard let path = bundle.path(forResource: "LaunchTerraformScript", ofType: "sh")
         else
         {
@@ -24,7 +32,14 @@ class TerraformController: NSObject
             return
         }
         
-        runTerraformScript(path: path, arguments: nil)
+        guard let shapeshifterServerPath = Bundle.main.path(forResource: "shapeshifter-server", ofType: nil)
+            else
+        {
+            print("Unable to launch terraform server. Could not find shapeshifter server executable.")
+            return
+        }
+        
+        runTerraformScript(path: path, arguments: [terrPath, shapeshifterServerPath])
         {
             (didLaunch) in
             
@@ -63,6 +78,20 @@ class TerraformController: NSObject
             return
         }
         
+        guard let terrPath = Bundle.main.path(forResource: "terraform", ofType: nil)
+            else
+        {
+            print("Unable to launch terraform server. Could not find terraform executable.")
+            return
+        }
+        
+        guard let shapeshifterServerPath  = Bundle.main.path(forResource: "shapeshifter-server", ofType: nil)
+            else
+        {
+            print("Unable to launch terraform server. Could not find shapeshifter server executable.")
+            return
+        }
+        
         if terraformTask != nil
         {
             if terraformTask.isRunning
@@ -70,24 +99,31 @@ class TerraformController: NSObject
                 terraformTask.terminate()
             }
         }
-
-        runTerraformScript(path: path, arguments: nil)
+        
+        //Running the destroy terraform script. Kill the server!
+        runTerraformScript(path: path, arguments: [terrPath, shapeshifterServerPath])
         {
             (didDestroy) in
             
-            //Remove IP File as we check for this to verify if ther is a live server
-            userServerIP = ""
-            let fileManager = FileManager.default
-            do
+            //Let's do this a second time to be sure.
+            self.runTerraformScript(path: path, arguments: [terrPath, shapeshifterServerPath], completion:
             {
-                try fileManager.removeItem(atPath: self.ipFilePath)
-            }
-            catch let error as NSError
-            {
-                print("Error deleting IP file: \(error.debugDescription)")
-            }
-            
-            completion(didDestroy)
+                (didDestroy) in
+                
+                //Remove IP File as we check for this to verify if there is a live server available.
+                userServerIP = ""
+                let fileManager = FileManager.default
+                do
+                {
+                    try fileManager.removeItem(atPath: self.ipFilePath)
+                }
+                catch let error as NSError
+                {
+                    print("Error deleting IP file: \(error.debugDescription)")
+                }
+                
+                completion(didDestroy)
+            })
         }
     }
     
@@ -98,6 +134,7 @@ class TerraformController: NSObject
         {
             self.terraformTask = Process()
             self.terraformTask.launchPath = path
+            self.terraformTask.arguments = arguments
             self.terraformTask.terminationHandler =
             {
                  (task) in
@@ -119,7 +156,6 @@ class TerraformController: NSObject
     
     func captureStandardOutput(_ task: Process)
     {
-        //outputPipe = Pipe()
         task.standardOutput = outputPipe
         
         //Waiting for output on a background thread
