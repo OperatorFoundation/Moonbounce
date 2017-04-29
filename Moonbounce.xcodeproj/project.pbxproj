@@ -33,6 +33,8 @@
 		B41FE0261DF10A1900E02D17 /* org.OperatorFoundation.MoonbounceHelperTool in CopyFiles */ = {isa = PBXBuildFile; fileRef = B442B5FF1DEF8F82001E433D /* org.OperatorFoundation.MoonbounceHelperTool */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		B41FE02A1DF24BE900E02D17 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B41FE0291DF24BE900E02D17 /* Security.framework */; };
 		B41FE02C1DF24BF500E02D17 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */; };
+		B437C1101EB42E89003F0439 /* moon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B437C10F1EB42E89003F0439 /* moon@2x.png */; };
+		B437C1121EB42E9D003F0439 /* moon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B437C1111EB42E9D003F0439 /* moon@2x.png */; };
 		B442B5B61DEE5AAB001E433D /* OpenVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = B442B5B51DEE5AAB001E433D /* OpenVPN.swift */; };
 		B442B6021DEF8F82001E433D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = B442B6011DEF8F82001E433D /* main.swift */; };
 		B44390591DC00EA000389352 /* PopoverContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44390581DC00EA000389352 /* PopoverContentView.swift */; };
@@ -115,6 +117,8 @@
 		8F3E75C00756DFE009D5BB62 /* Pods_Moonbounce.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moonbounce.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B41FE0291DF24BE900E02D17 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+		B437C10F1EB42E89003F0439 /* moon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moon@2x.png"; sourceTree = "<group>"; };
+		B437C1111EB42E9D003F0439 /* moon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moon@2x.png"; sourceTree = "<group>"; };
 		B442B5B51DEE5AAB001E433D /* OpenVPN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenVPN.swift; sourceTree = "<group>"; };
 		B442B5FF1DEF8F82001E433D /* org.OperatorFoundation.MoonbounceHelperTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = org.OperatorFoundation.MoonbounceHelperTool; sourceTree = BUILT_PRODUCTS_DIR; };
 		B442B6011DEF8F82001E433D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -171,6 +175,7 @@
 		467CB5AA1DBEB6E90086E341 = {
 			isa = PBXGroup;
 			children = (
+				B437C10F1EB42E89003F0439 /* moon@2x.png */,
 				467CB5B51DBEB6E90086E341 /* Moonbounce */,
 				46329B1D1DF5F06F00868D10 /* MoonbounceHelperProtocol */,
 				B442B6001DEF8F82001E433D /* MoonbounceHelperTool */,
@@ -199,6 +204,7 @@
 				467CB5B61DBEB6E90086E341 /* AppDelegate.swift */,
 				4672B8961DF60498008134E5 /* Globals.swift */,
 				467CB5B81DBEB6E90086E341 /* Assets.xcassets */,
+				B437C1111EB42E9D003F0439 /* moon@2x.png */,
 				B4CD38BA1E95CD83007EB586 /* moonGIF.gif */,
 				B4CD38BB1E95CD83007EB586 /* moonGIF@2x.gif */,
 				467CB5BA1DBEB6E90086E341 /* MainMenu.xib */,
@@ -375,12 +381,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				468D4CAA1E11986F00BD80C4 /* vars in Resources */,
+				B437C1121EB42E9D003F0439 /* moon@2x.png in Resources */,
 				4672B89B1DF61005008134E5 /* openvpn in Resources */,
 				46C28E361E0DBA2F0024A61F /* DestroyTerraform.sh in Resources */,
 				46EA2C7D1E241BB70069E5DE /* Default in Resources */,
 				B4CD38BC1E95CD83007EB586 /* moonGIF.gif in Resources */,
 				B4CD38BD1E95CD83007EB586 /* moonGIF@2x.gif in Resources */,
 				467CB5C61DBEB8CF0086E341 /* MoonbounceViewController.xib in Resources */,
+				B437C1101EB42E89003F0439 /* moon@2x.png in Resources */,
 				B49A4BE91DF71E8700643247 /* shapeshifter-dispatcher in Resources */,
 				467CB5B91DBEB6E90086E341 /* Assets.xcassets in Resources */,
 				467CB5BC1DBEB6E90086E341 /* MainMenu.xib in Resources */,

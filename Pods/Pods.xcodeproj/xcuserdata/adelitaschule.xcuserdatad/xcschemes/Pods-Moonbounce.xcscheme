@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "72CE0FD89CC663CC437D42573289A73B"
+               BlueprintIdentifier = "6A349434C28B1F4E088ADED7D1AA66FD"
                BuildableName = "Pods_Moonbounce.framework"
                BlueprintName = "Pods-Moonbounce"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "72CE0FD89CC663CC437D42573289A73B"
+            BlueprintIdentifier = "6A349434C28B1F4E088ADED7D1AA66FD"
             BuildableName = "Pods_Moonbounce.framework"
             BlueprintName = "Pods-Moonbounce"
             ReferencedContainer = "container:Pods.xcodeproj">

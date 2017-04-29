@@ -4,6 +4,17 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeIconFile</key>
+			<string></string>
+			<key>CFBundleTypeName</key>
+			<string></string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
+	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIconFile</key>
@@ -35,5 +46,35 @@
 		<key>org.OperatorFoundation.MoonbounceHelperTool</key>
 		<string>identifier "org.OperatorFoundation.MoonbounceHelperTool" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: Adelita Schule (MZ3MR7KVAN)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
 	</dict>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.archive</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Server Config Files For Moonbounce</string>
+			<key>UTTypeIconFile</key>
+			<string>moon@2x</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.OperatorFoundation.Moonbounce.config</string>
+			<key>UTTypeTagSpecification</key>
+			<dict/>
+		</dict>
+	</array>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array/>
+			<key>UTTypeDescription</key>
+			<string></string>
+			<key>UTTypeIdentifier</key>
+			<string></string>
+			<key>UTTypeTagSpecification</key>
+			<dict/>
+		</dict>
+	</array>
 </dict>
 </plist>

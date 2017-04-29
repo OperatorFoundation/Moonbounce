@@ -8,4 +8,7 @@ target 'Moonbounce' do
 pod 'SwiftPluto', :path => '/Volumes/extDrive/Code/pods/SwiftPluto'
 pod 'SwiftSocket'
 
+source 'https://github.com/CocoaPods/Specs.git'
+pod 'Zip', '~> 0.7'
+
 end

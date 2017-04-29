@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Zip
 
 class MoonbounceViewController: NSViewController
 {
@@ -124,11 +125,11 @@ class MoonbounceViewController: NSViewController
             //Don't make our default server available to share
             if selectedItemTitle == ServerName.defaultServer.rawValue
             {
-                shareServerButton.isEnabled = false
+                shareServerButton.isHidden = true
             }
             else
             {
-                shareServerButton.isEnabled = true
+                shareServerButton.isHidden = false
             }
             
             if let menuItem =  sender.menu?.item(withTitle: selectedItemTitle)
@@ -150,11 +151,11 @@ class MoonbounceViewController: NSViewController
     @IBAction func addFileClicked(_ sender: CustomButton)
     {
         let openDialog = NSOpenPanel()
-        openDialog.title = "Select Your Server Config Directory"
-        openDialog.canChooseDirectories = true
-        openDialog.canChooseFiles = false
+        openDialog.title = "Select Your Server Config File"
+        openDialog.canChooseDirectories = false
+        openDialog.canChooseFiles = true
         openDialog.allowsMultipleSelection = false
-        //openDialog.allowedFileTypes = ["css","html","pdf","png"]
+        openDialog.allowedFileTypes = ["zip"]
 
         if let presentingWindow = self.view.window
         {
@@ -164,108 +165,191 @@ class MoonbounceViewController: NSViewController
                 
                 guard response == NSFileHandlingPanelOKButton
                     else { return }
-                
+
                 let fileManager = FileManager.default
-                
-                if let chosenPath = openDialog.url?.path
+                if let chosenDirectory = openDialog.url
                 {
-                    let chosenPathFileOrFolderName = fileManager.displayName(atPath: chosenPath)
-                    let newDirectoryForFiles = configFilesDirectory.appending("/Imported/\(chosenPathFileOrFolderName)")
-                    print("Found Files at: \(chosenPath)")
-                    
-                    //Verify  that each of the following files are present as all config files are neccessary for successful connection:
-                    let file1 = "ca.crt"
-                    let file2 = "client1.crt"
-                    let file3 = "client1.key"
-                    let file4 = "DO.ovpn"
-                    let file5 = "server.crt"
-                    let file6 = "serverIP"
-                    let file7 = "ta.key"
-                    
+                    let chosenPathFileName = chosenDirectory.deletingPathExtension().lastPathComponent
+                    let newDirectoryForFiles = configFilesDirectory.appending("/Imported/\(chosenPathFileName)")
                     do
                     {
-                        if let fileEnumerator = fileManager.enumerator(at: openDialog.url!, includingPropertiesForKeys: [.nameKey], options: [.skipsHiddenFiles], errorHandler:
-                            {
-                                (url, error) -> Bool in
-                                
-                                print("File enumerator error at \(url.path): \(error.localizedDescription)")
-                                return true
-                            })
+                        //Unzip the selected file
+                        try Zip.unzipFile(chosenDirectory, destination: URL(fileURLWithPath: importedConfigDirectory), overwrite: true, password: nil, progress:
                         {
-                            var fileNames = [String]()
-                            for case let fileURL as URL in fileEnumerator
-                            {
-                                
-                                let fileName = try fileURL.resourceValues(forKeys: Set([.nameKey]))
-                                if fileName.name != nil
-                                {
-                                    fileNames.append(fileName.name!)
-                                }
-                            }
+                            (progress) in
                             
-                            //If all required files are present save this as a new config directory
-                            if fileNames.contains(file1) && fileNames.contains(file2) && fileNames.contains(file3) && fileNames.contains(file4) && fileNames.contains(file5) && fileNames.contains(file6) && fileNames.contains(file7)
+                            print(progress)
+                        })
+                        
+                        //Verify  that each of the following files are present as all config files are neccessary for successful connection:
+                        let file1 = "ca.crt"
+                        let file2 = "client1.crt"
+                        let file3 = "client1.key"
+                        let file4 = "DO.ovpn"
+                        let file5 = "server.crt"
+                        let file6 = "serverIP"
+                        let file7 = "ta.key"
+                        
+                        do
+                        {
+                            if let fileEnumerator = fileManager.enumerator(at: URL(fileURLWithPath: newDirectoryForFiles), includingPropertiesForKeys: [.nameKey], options: [.skipsHiddenFiles], errorHandler:
                             {
-                                //Save to Correct Directory
-                                do
-                                {
-                                    try fileManager.copyItem(atPath: chosenPath, toPath: newDirectoryForFiles)
+                                    (url, error) -> Bool in
                                     
-                                    //Make sure to update our server select button so the user can see their new server options.
+                                    print("File enumerator error at \(newDirectoryForFiles): \(error.localizedDescription)")
+                                    return true
+                            })
+                            {
+                                var fileNames = [String]()
+                                for case let fileURL as URL in fileEnumerator
+                                {
+                                    
+                                    let fileName = try fileURL.resourceValues(forKeys: Set([.nameKey]))
+                                    if fileName.name != nil
+                                    {
+                                        fileNames.append(fileName.name!)
+                                    }
+                                }
+                                
+                                //If all required files are present refresh server select button
+                                if fileNames.contains(file1) && fileNames.contains(file2) && fileNames.contains(file3) && fileNames.contains(file4) && fileNames.contains(file5) && fileNames.contains(file6) && fileNames.contains(file7)
+                                {
+                                    //Correct files are in place.
                                     self.populateServerSelectButton()
                                 }
-                                catch let error
+                                else
                                 {
-                                    print("Unable to copy config files at: \(chosenPath), to: \(newDirectoryForFiles)\nError: \(error)")
+                                    ///TODO: The correct files were somehow missing, alert user that the server information was invalid.
+                                    print("Did not save user selected config directory as it did not contain all of the necessary files.")
                                 }
+                                
                             }
-                            else
-                            {
-                                print("Did not save user selected config directory as it did not contain all of the necessary files.")
-                            }
-                            
+                        }
+                        catch
+                        {
+                            print("Error getting filenames from selected directory.", error)
                         }
                     }
                     catch
                     {
-                        print("Error getting filenames from selected directory.", error)
+                        print("Unable to unzip file at path: \(chosenDirectory)")
                     }
+                    
+//                    //Verify  that each of the following files are present as all config files are neccessary for successful connection:
+//                    let file1 = "ca.crt"
+//                    let file2 = "client1.crt"
+//                    let file3 = "client1.key"
+//                    let file4 = "DO.ovpn"
+//                    let file5 = "server.crt"
+//                    let file6 = "serverIP"
+//                    let file7 = "ta.key"
+//                    
+//                    do
+//                    {
+//                        if let fileEnumerator = fileManager.enumerator(at: openDialog.url!, includingPropertiesForKeys: [.nameKey], options: [.skipsHiddenFiles], errorHandler:
+//                            {
+//                                (url, error) -> Bool in
+//                                
+//                                print("File enumerator error at \(url.path): \(error.localizedDescription)")
+//                                return true
+//                            })
+//                        {
+//                            var fileNames = [String]()
+//                            for case let fileURL as URL in fileEnumerator
+//                            {
+//                                
+//                                let fileName = try fileURL.resourceValues(forKeys: Set([.nameKey]))
+//                                if fileName.name != nil
+//                                {
+//                                    fileNames.append(fileName.name!)
+//                                }
+//                            }
+//                            
+//                            //If all required files are present save this as a new config directory
+//                            if fileNames.contains(file1) && fileNames.contains(file2) && fileNames.contains(file3) && fileNames.contains(file4) && fileNames.contains(file5) && fileNames.contains(file6) && fileNames.contains(file7)
+//                            {
+//                                //Save to Correct Directory
+//                                do
+//                                {
+//                                    try fileManager.copyItem(atPath: chosenPath, toPath: newDirectoryForFiles)
+//                                    
+//                                    //Make sure to update our server select button so the user can see their new server options.
+//                                    self.populateServerSelectButton()
+//                                }
+//                                catch let error
+//                                {
+//                                    print("Unable to copy config files at: \(chosenPath), to: \(newDirectoryForFiles)\nError: \(error)")
+//                                }
+//                            }
+//                            else
+//                            {
+//                                print("Did not save user selected config directory as it did not contain all of the necessary files.")
+//                            }
+//                            
+//                        }
+//                    }
+//                    catch
+//                    {
+//                        print("Error getting filenames from selected directory.", error)
+//                    }
                 }
             }
         }
     }
+    
+    //Button that allows users to save the current config directory to a directory of their choice in order to share it.
     @IBAction func shareServerClick(_ sender: NSButton)
     {
-        sender.isEnabled = false
-        serverSelectButton.isEnabled = false
-        
-        let exportDialogue = NSSavePanel()
-        exportDialogue.title = "Where would you like to save your server config information?"
-        
-        if let presentingWindow = self.view.window
+        //make sure we have a config directory, and that it is not the default server config directory
+        if currentConfigDirectory != "" && currentConfigDirectory != defaultConfigDirectory
         {
-            exportDialogue.beginSheetModal(for: presentingWindow, completionHandler:
+            sender.isEnabled = false
+            serverSelectButton.isEnabled = false
+            
+            //Setting up the save panel.
+            let exportDialogue = NSSavePanel()
+            let serverName = URL(fileURLWithPath: currentConfigDirectory).lastPathComponent
+            exportDialogue.message = "Where would you like to save your server config information?"
+            exportDialogue.nameFieldStringValue = serverName
+            exportDialogue.allowedFileTypes = ["zip"]
+            
+            if let presentingWindow = self.view.window
             {
-                (response) in
-                
-                guard response == NSFileHandlingPanelOKButton
-                    else
+                exportDialogue.beginSheetModal(for: presentingWindow, completionHandler:
                 {
+                    (response) in
+                    
+                    if response == NSFileHandlingPanelOKButton
+                    {
+                        if let saveToURL = exportDialogue.url
+                        {
+                            //Zip the files and save to the selected directory.
+                            do
+                            {
+                                try Zip.zipFiles(paths: [URL(fileURLWithPath: currentConfigDirectory)], zipFilePath: saveToURL, password: nil, progress:
+                                {
+                                    (progress) in
+                                    
+                                    print(progress)
+                                })
+                            }
+                            catch
+                            {
+                                print("Unable to zip config directory for export!")
+                            }
+                        }
+                    }
+                    
                     sender.isEnabled = true
                     self.serverSelectButton.isEnabled = true
-                    return
-                }
-                
+                })
+            }
+            else
+            {
                 sender.isEnabled = true
-                self.serverSelectButton.isEnabled = true
-            })
+                serverSelectButton.isEnabled = true
+            }
         }
-        else
-        {
-            sender.isEnabled = true
-            serverSelectButton.isEnabled = true
-        }
-        
     }
     
     @IBAction func toggleServerStatus(_ sender: NSButton)
@@ -546,7 +630,7 @@ class MoonbounceViewController: NSViewController
             setSelectedServer(atPath: defaultConfigDirectory)
             
             //Don't make our default server available to share
-            shareServerButton.isEnabled = false
+            shareServerButton.isHidden = true
         }
         else
         {
@@ -557,6 +641,8 @@ class MoonbounceViewController: NSViewController
             menuItem.representedObject = userConfigDirectory
             serverSelectButton.menu?.addItem(menuItem)
             serverSelectButton.selectItem(withTitle: ServerName.userServer.rawValue)
+            
+            shareServerButton.isHidden = false
             
             //The user's server is default when available
             setSelectedServer(atPath: userConfigDirectory)
