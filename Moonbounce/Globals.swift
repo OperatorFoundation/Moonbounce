@@ -21,6 +21,7 @@ let userDirectoryName = "User"
 let importedDirectoryName = "Imported"
 let defaultDirectoryName = "Default"
 let ipFileName = "serverIP"
+let obfs4OptionsFileName = "obfs4.json"
 
 
 var appDirectory = ""

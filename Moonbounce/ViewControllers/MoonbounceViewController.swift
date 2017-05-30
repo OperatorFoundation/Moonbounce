@@ -9,7 +9,7 @@
 import Cocoa
 import Zip
 
-class MoonbounceViewController: NSViewController
+class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 {
     @IBOutlet weak var statusLabel: NSTextField!
     @IBOutlet weak var advancedModeButton: NSButton!
@@ -57,7 +57,7 @@ class MoonbounceViewController: NSViewController
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: kConnectionStatusNotification), object: nil, queue: nil, using: connectionStatusChanged)
-        
+        //self.view.wantsLayer = true
         serverProgressBar.usesThreadedAnimation = true
         updateStatusUI(connected: false, statusDescription: "Not Connected")
         populateServerSelectButton()
@@ -305,50 +305,31 @@ class MoonbounceViewController: NSViewController
         {
             sender.isEnabled = false
             serverSelectButton.isEnabled = false
-            
-            //Setting up the save panel.
-            let exportDialogue = NSSavePanel()
+
             let serverName = URL(fileURLWithPath: currentConfigDirectory).lastPathComponent
-            exportDialogue.message = "Where would you like to save your server config information?"
-            exportDialogue.nameFieldStringValue = serverName
-            exportDialogue.allowedFileTypes = ["zip"]
-            
-            if let presentingWindow = self.view.window
+            let zipPath = appDirectory.appending("/\(serverName).zip")
+            //Zip the files and save to the temp directory.
+            do
             {
-                exportDialogue.beginSheetModal(for: presentingWindow, completionHandler:
+                try Zip.zipFiles(paths: [URL(fileURLWithPath: currentConfigDirectory)], zipFilePath: URL(fileURLWithPath: zipPath), password: nil, progress:
                 {
-                    (response) in
+                    (progress) in
                     
-                    if response == NSFileHandlingPanelOKButton
-                    {
-                        if let saveToURL = exportDialogue.url
-                        {
-                            //Zip the files and save to the selected directory.
-                            do
-                            {
-                                try Zip.zipFiles(paths: [URL(fileURLWithPath: currentConfigDirectory)], zipFilePath: saveToURL, password: nil, progress:
-                                {
-                                    (progress) in
-                                    
-                                    print(progress)
-                                })
-                            }
-                            catch
-                            {
-                                print("Unable to zip config directory for export!")
-                            }
-                        }
-                    }
-                    
-                    sender.isEnabled = true
-                    self.serverSelectButton.isEnabled = true
+                    print(progress)
                 })
+                
+                //Set up a sharing services picker
+                let sharePicker = NSSharingServicePicker.init(items: [URL(fileURLWithPath: zipPath)])
+                sharePicker.delegate = self
+                sharePicker.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxY)
             }
-            else
+            catch
             {
-                sender.isEnabled = true
-                serverSelectButton.isEnabled = true
+                print("Unable to zip config directory for export!")
             }
+            
+            sender.isEnabled = true
+            serverSelectButton.isEnabled = true
         }
     }
     

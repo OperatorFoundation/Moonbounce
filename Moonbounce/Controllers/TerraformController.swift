@@ -192,8 +192,13 @@ class TerraformController: NSObject
         do
         {
             //TODO: replace this with the directory we wil be installing this on
-            let shapeshifterServerVarsPath = "/Volumes/extDrive/Code/shapeshifter-server/vars"
-            
+            guard let shapeshifterServerPath = bundle.path(forResource: "shapeshifter-server", ofType: nil)
+            else
+            {
+                print("Unable to copy vars template as the shapeshifter server directory could not be found.")
+                return
+            }
+            let shapeshifterServerVarsPath = shapeshifterServerPath.appending("/vars")
             let fileManager = FileManager.default
             //If a previous vars file is already here, delete it so we can have the new token
             if fileManager.fileExists(atPath: shapeshifterServerVarsPath)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
@@ -57,8 +57,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k4n-CL-bsI">
-                                <rect key="frame" x="6" y="10" width="114" height="25"/>
-                                <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" alignment="left" title="   Disconnected" id="MV2-pK-okZ">
+                                <rect key="frame" x="19" y="9" width="101" height="25"/>
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" alignment="left" title="Disconnected" id="MV2-pK-okZ">
                                     <font key="font" size="16" name="ProximaNovaA-Regular"/>
                                     <color key="textColor" red="0.96862745098039216" green="0.97254901960784312" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -66,8 +66,7 @@
                             </textField>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="k4n-CL-bsI" firstAttribute="centerY" secondItem="6FC-29-6od" secondAttribute="centerY" id="4wy-iw-NA5"/>
-                            <constraint firstItem="k4n-CL-bsI" firstAttribute="leading" secondItem="6FC-29-6od" secondAttribute="leading" constant="8" id="I9m-R1-Gk5"/>
+                            <constraint firstItem="k4n-CL-bsI" firstAttribute="centerY" secondItem="6FC-29-6od" secondAttribute="centerY" id="W9t-c5-hM1"/>
                         </constraints>
                     </view>
                     <constraints>
@@ -144,7 +143,7 @@
                 </imageView>
                 <box boxType="custom" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="wx1-Qv-rfn" userLabel="Advanced Mode Box">
                     <rect key="frame" x="0.0" y="0.0" width="439" height="175"/>
-                    <view key="contentView" wantsLayer="YES" id="Fln-xu-uld">
+                    <view key="contentView" wantsLayer="YES" appearanceType="aqua" id="Fln-xu-uld">
                         <rect key="frame" x="0.0" y="0.0" width="439" height="175"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -180,12 +179,20 @@
                                             </connections>
                                         </popUpButton>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dtL-4f-K0Y">
-                                            <rect key="frame" x="394" y="8" width="33" height="25"/>
+                                            <rect key="frame" x="394" y="9" width="33" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSShareTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="3Es-lB-aN0">
+                                            <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="buttonKey" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="3Es-lB-aN0">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="cellTitle"/>
                                             </buttonCell>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <action selector="shareServerClick:" target="-2" id="vMa-wL-khV"/>
                                             </connections>
@@ -260,14 +267,6 @@
                                     <rect key="frame" x="1" y="1" width="437" height="42"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K04-Kv-gvR" userLabel="Server Status Field">
-                                            <rect key="frame" x="138" y="11" width="241" height="21"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Launch Your Own Moonbounce Server" id="2tc-Xp-vXH">
-                                                <font key="font" size="14" name="ProximaNovaA-Regular"/>
-                                                <color key="textColor" red="0.63941168617806543" green="0.49871700153727133" blue="0.79499363732822048" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xg9-Jf-dld" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
                                             <rect key="frame" x="16" y="11" width="116" height="19"/>
                                             <buttonCell key="cell" type="roundRect" title="Launch Server" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yxI-uK-AfJ">
@@ -281,8 +280,40 @@
                                                 <action selector="toggleServerStatus:" target="-2" id="3oT-NA-PUn"/>
                                             </connections>
                                         </button>
+                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MjW-wy-YNA" userLabel="edit token button">
+                                            <rect key="frame" x="136" y="11" width="20" height="19"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="20" id="pru-ij-tbp"/>
+                                            </constraints>
+                                            <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="buttonKey" imagePosition="overlaps" alignment="center" imageScaling="axesIndependently" inset="2" id="qoW-z2-r53">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="cellTitle"/>
+                                            </buttonCell>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                    <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="editToken:" target="-2" id="j6j-aa-EOb"/>
+                                            </connections>
+                                        </button>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K04-Kv-gvR" userLabel="Server Status Field">
+                                            <rect key="frame" x="158" y="11" width="241" height="21"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Launch Your Own Moonbounce Server" id="2tc-Xp-vXH">
+                                                <font key="font" size="14" name="ProximaNovaA-Regular"/>
+                                                <color key="textColor" red="0.63941168617806543" green="0.49871700153727133" blue="0.79499363732822048" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
                                         <progressIndicator wantsLayer="YES" maxValue="100" displayedWhenStopped="NO" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="vyQ-8c-VaX">
-                                            <rect key="frame" x="16" y="-5" width="405" height="20"/>
+                                            <rect key="frame" x="16" y="-5" width="116" height="20"/>
                                             <contentFilters>
                                                 <ciFilter name="CIHueAdjust">
                                                     <configuration>
@@ -299,7 +330,7 @@
                                             </contentFilters>
                                         </progressIndicator>
                                         <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="owa-4z-BTf" userLabel="Cancel Server Launch Button" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
-                                            <rect key="frame" x="375" y="12" width="58" height="19"/>
+                                            <rect key="frame" x="375" y="11" width="58" height="19"/>
                                             <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LpO-2H-GuV">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" size="14" name="ProximaNovaA-Regular"/>
@@ -368,41 +399,22 @@ Gw
                                         <constraint firstItem="vyQ-8c-VaX" firstAttribute="leading" secondItem="ely-i5-jhh" secondAttribute="leading" constant="16" id="0xg-bF-kAa"/>
                                         <constraint firstAttribute="trailing" secondItem="owa-4z-BTf" secondAttribute="trailing" constant="4" id="FHy-0O-Nwv"/>
                                         <constraint firstAttribute="trailing" secondItem="6MA-RR-NPb" secondAttribute="trailing" id="ItO-mC-M5v"/>
+                                        <constraint firstItem="MjW-wy-YNA" firstAttribute="centerY" secondItem="xg9-Jf-dld" secondAttribute="centerY" id="J4T-gM-P6M"/>
                                         <constraint firstItem="owa-4z-BTf" firstAttribute="centerY" secondItem="K04-Kv-gvR" secondAttribute="centerY" id="NGF-oL-ull"/>
-                                        <constraint firstItem="K04-Kv-gvR" firstAttribute="leading" secondItem="xg9-Jf-dld" secondAttribute="trailing" constant="8" id="Ose-5r-yct"/>
                                         <constraint firstItem="xg9-Jf-dld" firstAttribute="centerY" secondItem="ely-i5-jhh" secondAttribute="centerY" id="Ra6-YC-kaY"/>
                                         <constraint firstItem="6MA-RR-NPb" firstAttribute="top" secondItem="ely-i5-jhh" secondAttribute="top" id="Vgw-Ld-ZfR"/>
                                         <constraint firstItem="K04-Kv-gvR" firstAttribute="centerY" secondItem="xg9-Jf-dld" secondAttribute="centerY" id="Xoo-89-0ud"/>
+                                        <constraint firstItem="MjW-wy-YNA" firstAttribute="trailing" secondItem="K04-Kv-gvR" secondAttribute="leading" constant="-4" id="dV0-AP-kxv"/>
                                         <constraint firstItem="6MA-RR-NPb" firstAttribute="leading" secondItem="ely-i5-jhh" secondAttribute="leading" id="fL3-rb-8BJ"/>
                                         <constraint firstItem="xg9-Jf-dld" firstAttribute="leading" secondItem="ely-i5-jhh" secondAttribute="leading" constant="16" id="k05-IF-geU"/>
-                                        <constraint firstAttribute="trailing" secondItem="vyQ-8c-VaX" secondAttribute="trailing" constant="16" id="zz9-qB-k5K"/>
+                                        <constraint firstItem="MjW-wy-YNA" firstAttribute="leading" secondItem="xg9-Jf-dld" secondAttribute="trailing" constant="4" id="pYy-xS-Kog"/>
+                                        <constraint firstItem="vyQ-8c-VaX" firstAttribute="width" secondItem="xg9-Jf-dld" secondAttribute="width" id="vYl-Ec-EAs"/>
                                     </constraints>
                                 </view>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="750" constant="44" id="d55-Vo-jk4"/>
                                 </constraints>
                             </box>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MjW-wy-YNA" userLabel="edit token button" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
-                                <rect key="frame" x="110" y="14" width="71" height="19"/>
-                                <buttonCell key="cell" type="roundRect" title="edit token" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qoW-z2-r53">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="cellTitle"/>
-                                </buttonCell>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
-                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="editToken:" target="-2" id="j6j-aa-EOb"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="t3l-VY-xE2" firstAttribute="leading" secondItem="Fln-xu-uld" secondAttribute="leading" id="043-F2-2SE"/>
@@ -412,9 +424,7 @@ Gw
                             <constraint firstItem="t3l-VY-xE2" firstAttribute="top" secondItem="wmh-Ji-l89" secondAttribute="bottom" id="NUc-UX-9SX"/>
                             <constraint firstAttribute="trailing" secondItem="t3l-VY-xE2" secondAttribute="trailing" id="TQy-rc-WZ1"/>
                             <constraint firstAttribute="trailing" secondItem="xbE-G4-Xj2" secondAttribute="trailing" id="Xqf-iW-D8P"/>
-                            <constraint firstItem="MjW-wy-YNA" firstAttribute="centerY" secondItem="55v-2e-jP8" secondAttribute="centerY" id="YCX-xE-kwt"/>
                             <constraint firstItem="wbw-fc-TB9" firstAttribute="top" secondItem="Wkc-B3-g3E" secondAttribute="bottom" id="ZIb-Ty-y9w"/>
-                            <constraint firstItem="MjW-wy-YNA" firstAttribute="leading" secondItem="55v-2e-jP8" secondAttribute="trailing" constant="8" id="eSb-We-PYu"/>
                             <constraint firstItem="xbE-G4-Xj2" firstAttribute="leading" secondItem="Fln-xu-uld" secondAttribute="leading" id="ep3-fR-I3N"/>
                             <constraint firstAttribute="bottom" secondItem="55v-2e-jP8" secondAttribute="bottom" priority="250" constant="14" id="gPw-Hv-Md8"/>
                             <constraint firstItem="wbw-fc-TB9" firstAttribute="leading" secondItem="Fln-xu-uld" secondAttribute="leading" id="jyl-w5-c8m"/>
@@ -424,18 +434,14 @@ Gw
                     <constraints>
                         <constraint firstAttribute="height" constant="175" id="M1o-Ug-dOB"/>
                     </constraints>
+                    <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </box>
-                <imageView focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="7RO-1w-OS5">
-                    <rect key="frame" x="367" y="262" width="42" height="42"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" focusRingType="none" alignment="left" animates="YES" image="moonGIF" id="l9M-cu-8Od"/>
-                </imageView>
             </subviews>
             <constraints>
                 <constraint firstItem="DGO-At-ee4" firstAttribute="centerY" secondItem="Hrb-VL-FIy" secondAttribute="centerY" constant="25.5" id="0HL-e6-C1N"/>
                 <constraint firstItem="Hft-nv-oOO" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="1yV-0z-2oh"/>
                 <constraint firstItem="Hft-nv-oOO" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="52" id="7FR-M0-74o"/>
                 <constraint firstItem="WfD-uA-X5V" firstAttribute="top" secondItem="6FC-29-6od" secondAttribute="bottom" constant="126" id="AD1-VA-EV4"/>
-                <constraint firstItem="7RO-1w-OS5" firstAttribute="centerY" secondItem="DGO-At-ee4" secondAttribute="centerY" id="B2b-CA-kuj"/>
                 <constraint firstItem="Kv1-5T-yvs" firstAttribute="centerX" secondItem="Y4N-Sp-Fsi" secondAttribute="centerX" id="BbO-ar-wyi"/>
                 <constraint firstItem="Y4N-Sp-Fsi" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="DfM-T2-Oxz"/>
                 <constraint firstItem="wx1-Qv-rfn" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="FaE-wl-4Zy"/>
@@ -448,7 +454,6 @@ Gw
                 <constraint firstItem="Hrb-VL-FIy" firstAttribute="bottom" secondItem="Y4N-Sp-Fsi" secondAttribute="bottom" id="Ss6-oz-JY4"/>
                 <constraint firstItem="Eoy-Bt-WyB" firstAttribute="centerY" secondItem="DGO-At-ee4" secondAttribute="centerY" constant="0.5" id="Uou-dJ-1ji"/>
                 <constraint firstItem="Kv1-5T-yvs" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="24" id="W31-9K-g8L"/>
-                <constraint firstItem="7RO-1w-OS5" firstAttribute="leading" secondItem="DGO-At-ee4" secondAttribute="trailing" constant="254" id="XAf-cr-6DT"/>
                 <constraint firstItem="DGO-At-ee4" firstAttribute="leading" secondItem="Hrb-VL-FIy" secondAttribute="trailing" constant="-2" id="YAK-1u-TKj"/>
                 <constraint firstItem="Hrb-VL-FIy" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="aPa-Gw-6nk"/>
                 <constraint firstAttribute="trailing" secondItem="wx1-Qv-rfn" secondAttribute="trailing" id="bcy-WG-llu"/>
@@ -458,18 +463,18 @@ Gw
                 <constraint firstItem="GYv-NE-gSi" firstAttribute="centerY" secondItem="DGO-At-ee4" secondAttribute="centerY" id="sIs-IQ-xax"/>
                 <constraint firstItem="wx1-Qv-rfn" firstAttribute="top" secondItem="N7k-7l-cvA" secondAttribute="bottom" id="ubM-H5-XSi"/>
                 <constraint firstItem="Y4N-Sp-Fsi" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="uhu-qN-Rqj"/>
+                <constraint firstItem="k4n-CL-bsI" firstAttribute="leading" secondItem="Kv1-5T-yvs" secondAttribute="leading" id="vWN-O6-I5c"/>
             </constraints>
             <point key="canvasLocation" x="118.5" y="117.5"/>
         </customView>
     </objects>
     <resources>
-        <image name="NSShareTemplate" width="11" height="16"/>
         <image name="arrow" width="18" height="10"/>
         <image name="background" width="439" height="265"/>
+        <image name="buttonKey" width="16" height="16"/>
         <image name="earth" width="77" height="265"/>
         <image name="laser" width="34" height="10"/>
         <image name="lcanon" width="38" height="24"/>
         <image name="moonBounceTitle" width="397" height="14"/>
-        <image name="moonGIF" width="42" height="42"/>
     </resources>
 </document>

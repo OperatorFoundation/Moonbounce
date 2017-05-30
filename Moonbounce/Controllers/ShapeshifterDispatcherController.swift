@@ -18,7 +18,7 @@ class ShapeshifterDispatcherController: NSObject
     {
         if let arguments = shapeShifterDispatcherArguments()
         {
-            print("LaunchShapeShifterDispatcher Args:\n \(arguments)")
+            print("👀 LaunchShapeShifterDispatcher Args:\n \(arguments) 👀")
             
             if launchTask == nil
             {
@@ -53,32 +53,52 @@ class ShapeshifterDispatcherController: NSObject
     
     func shapeShifterDispatcherArguments() -> [String]?
     {
-        if let stateDirectory = createTransportStateDirectory()
+        if let stateDirectory = createTransportStateDirectory(), let obfs4Options = getObfs4Options()
         {
             //List of arguments for Process/Task
             var processArguments: [String] = []
             
-            //Puts Dispatcher in client mode.
-            processArguments.append("-client")
             //TransparentTCP is our proxy mode.
             processArguments.append("-transparent")
             
-            //We are using Pluggable Transports version 2.0
-            processArguments.append("-ptversion")
-            processArguments.append("2")
+            //Puts Dispatcher in client mode.
+            processArguments.append("-client")
+
+            //IP and Port for our PT Server
+            processArguments.append("-target")
+            processArguments.append("\(currentServerIP):\(ptServerPort)")
             
             //Here is our list of transports (more than one would launch multiple proxies)
             processArguments.append("-transports")
-            processArguments.append("obfs2")
+            processArguments.append("obfs4")
+            
+            /// -bindaddr string
+            //Specify the bind address for transparent server
+            processArguments.append("-bindaddr")
+            processArguments.append("obfs4-127.0.0.1:1234")
+            
+            //Paramaters needed by the specific transport being used (obfs4)
+            processArguments.append("-options")
+            processArguments.append(obfs4Options)
             
             //Creates a directory if it doesn't already exist for transports to save needed files
             processArguments.append("-state")
             processArguments.append(stateDirectory)
             
-            //IP and Port for our PT Server
-            processArguments.append("-target")
-            processArguments.append("\(currentServerIP):\(ptServerPort)")
+            /// -logLevel string
+            //Log level (ERROR/WARN/INFO/DEBUG) (default "ERROR")
+            processArguments.append("-logLevel")
+            processArguments.append("DEBUG")
             
+            //Log to TOR_PT_STATE_LOCATION/dispatcher.log
+            processArguments.append("-enableLogging")
+            
+            /// -ptversion string
+            //Specify the Pluggable Transport protocol version to use
+            //We are using Pluggable Transports version 2.0
+            processArguments.append("-ptversion")
+            processArguments.append("2")
+
             //TODO Listen on a port for OpenVPN Client
             
             return processArguments
@@ -88,6 +108,33 @@ class ShapeshifterDispatcherController: NSObject
             return nil
         }
         
+    }
+    
+    func getObfs4Options() -> String?
+    {
+        //Get the file that has the current servers obfs4 options
+        if currentConfigDirectory != ""
+        {
+            let optionsPath = currentConfigDirectory.appending("/" + obfs4OptionsFileName)
+            
+            do
+            {
+                let obfs4OptionsData = try Data(contentsOf: URL(fileURLWithPath: optionsPath, isDirectory: false), options: .uncached)
+                let obfs4Options = String(data: obfs4OptionsData, encoding: String.Encoding.ascii)
+                print("✅ Found obfs4 options.")
+                return obfs4Options
+            }
+            catch
+            {
+                print("⁉️ Unable to locate the needed obfs4 options ⁉️.")
+                return nil
+            }
+        }
+        else
+        {
+            print("⁉️ We do not know which config directory to look at in order to get our obfs4 details ⁉️")
+            return nil
+        }
     }
     
     func createTransportStateDirectory() ->String?
