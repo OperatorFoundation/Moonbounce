@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -178,10 +178,10 @@
                                                 <action selector="serverSelectionChanged:" target="-2" id="QAg-r0-9i7"/>
                                             </connections>
                                         </popUpButton>
-                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dtL-4f-K0Y">
-                                            <rect key="frame" x="394" y="9" width="33" height="18"/>
+                                        <button toolTip="Share Your Server!" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dtL-4f-K0Y">
+                                            <rect key="frame" x="394" y="9" width="33" height="19"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="buttonKey" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="3Es-lB-aN0">
+                                            <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="share" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="3Es-lB-aN0">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="cellTitle"/>
                                             </buttonCell>
@@ -476,5 +476,6 @@ Gw
         <image name="laser" width="34" height="10"/>
         <image name="lcanon" width="38" height="24"/>
         <image name="moonBounceTitle" width="397" height="14"/>
+        <image name="share" width="18" height="18"/>
     </resources>
 </document>

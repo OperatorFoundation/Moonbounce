@@ -24,6 +24,7 @@ class ShapeshiftedOpenVpnController: NSObject
         }
     }
     
+    ///Disconnects shShifter Client and OpenVPN
     public func stop(completion:(_ stopped:Bool) -> Void)
     {
         ShapeshifterDispatcherController.sharedInstance.stopShapeshifterDispatcherClient()

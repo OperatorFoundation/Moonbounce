@@ -234,64 +234,6 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                     {
                         print("Unable to unzip file at path: \(chosenDirectory)")
                     }
-                    
-//                    //Verify  that each of the following files are present as all config files are neccessary for successful connection:
-//                    let file1 = "ca.crt"
-//                    let file2 = "client1.crt"
-//                    let file3 = "client1.key"
-//                    let file4 = "DO.ovpn"
-//                    let file5 = "server.crt"
-//                    let file6 = "serverIP"
-//                    let file7 = "ta.key"
-//                    
-//                    do
-//                    {
-//                        if let fileEnumerator = fileManager.enumerator(at: openDialog.url!, includingPropertiesForKeys: [.nameKey], options: [.skipsHiddenFiles], errorHandler:
-//                            {
-//                                (url, error) -> Bool in
-//                                
-//                                print("File enumerator error at \(url.path): \(error.localizedDescription)")
-//                                return true
-//                            })
-//                        {
-//                            var fileNames = [String]()
-//                            for case let fileURL as URL in fileEnumerator
-//                            {
-//                                
-//                                let fileName = try fileURL.resourceValues(forKeys: Set([.nameKey]))
-//                                if fileName.name != nil
-//                                {
-//                                    fileNames.append(fileName.name!)
-//                                }
-//                            }
-//                            
-//                            //If all required files are present save this as a new config directory
-//                            if fileNames.contains(file1) && fileNames.contains(file2) && fileNames.contains(file3) && fileNames.contains(file4) && fileNames.contains(file5) && fileNames.contains(file6) && fileNames.contains(file7)
-//                            {
-//                                //Save to Correct Directory
-//                                do
-//                                {
-//                                    try fileManager.copyItem(atPath: chosenPath, toPath: newDirectoryForFiles)
-//                                    
-//                                    //Make sure to update our server select button so the user can see their new server options.
-//                                    self.populateServerSelectButton()
-//                                }
-//                                catch let error
-//                                {
-//                                    print("Unable to copy config files at: \(chosenPath), to: \(newDirectoryForFiles)\nError: \(error)")
-//                                }
-//                            }
-//                            else
-//                            {
-//                                print("Did not save user selected config directory as it did not contain all of the necessary files.")
-//                            }
-//                            
-//                        }
-//                    }
-//                    catch
-//                    {
-//                        print("Error getting filenames from selected directory.", error)
-//                    }
                 }
             }
         }
@@ -347,7 +289,6 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     
     func launchServer(_ sender: NSButton)
     {
-        //if let userToken = UserDefaults.standard.object(forKey: userTokenKey) as? String
         if let userToken = KeychainController.loadToken()
         {
             MoonbounceViewController.terraformController.createVarsFile(token: userToken)
@@ -450,7 +391,6 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         {
             print("New user token: \(newToken)")
             KeychainController.saveToken(token: sender.stringValue)
-            //UserDefaults.standard.set(sender.stringValue, forKey: userTokenKey)
             hasDoToken = true
             MoonbounceViewController.terraformController.createVarsFile(token: sender.stringValue)
         }

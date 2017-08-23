@@ -12,5 +12,3 @@ import ServiceManagement
 NSLog( "Launching Moonbounce Helper...")
 let helperTool = MoonbounceHelper()
 helperTool.run()
-//helperTool.startOpenVPN(openVPNFilePath: "/Users/adelitaschule/Library/Developer/Xcode/DerivedData/Moonbounce-aosqeamddmsgekczgdbfntvzubaw/Build/Products/Debug/Moonbounce.app/Contents/Resources/openvpn", kextFilePath: "/Users/adelitaschule/Library/Developer/Xcode/DerivedData/Moonbounce-aosqeamddmsgekczgdbfntvzubaw/Build/Products/Debug/Moonbounce.app/Contents/Resources/tun-signed.kext", configFileName: "config.ovpn")
-

@@ -33,7 +33,7 @@ class TerraformController: NSObject
         }
         
         guard let shapeshifterServerPath = Bundle.main.path(forResource: "shapeshifter-server", ofType: nil)
-            else
+        else
         {
             print("Unable to launch terraform server. Could not find shapeshifter server executable.")
             return
@@ -56,7 +56,8 @@ class TerraformController: NSObject
                     }
                     catch
                     {
-                        print("Unable to locate the user server IP at: \(self.ipFilePath))")
+                        print("Unable to locate the new user server IP at: \(self.ipFilePath))")
+                        print("Perhaps we were unable to launch a new DO server.")
                         completion(false)
                     }
                 }
@@ -137,7 +138,7 @@ class TerraformController: NSObject
             self.terraformTask.arguments = arguments
             self.terraformTask.terminationHandler =
             {
-                 (task) in
+                (task) in
                 
                 //Main Thread Stuff Here If Needed
                 DispatchQueue.main.async(execute:
@@ -150,6 +151,7 @@ class TerraformController: NSObject
                 })
             }
 
+            //self.captureStandardOutput(self.terraformTask)
             self.terraformTask.launch()
         }
     }
@@ -200,6 +202,7 @@ class TerraformController: NSObject
             }
             let shapeshifterServerVarsPath = shapeshifterServerPath.appending("/vars")
             let fileManager = FileManager.default
+            
             //If a previous vars file is already here, delete it so we can have the new token
             if fileManager.fileExists(atPath: shapeshifterServerVarsPath)
             {

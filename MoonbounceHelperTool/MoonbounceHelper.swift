@@ -29,24 +29,22 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
     func run()
     {
         // Tell the XPC listener to start processing requests.
-        let logDirectory = "/Users/Lita/Library/Application Support/org.OperatorFoundation.MoonbounceHelperTool/"
-        writeToLog(logDirectory: logDirectory, content: "*****Run Was Called******")
+        writeToLog(logDirectory: appDirectory, content: "*****Run Was Called******")
         
         // Resume the listener. At this point, NSXPCListener will take over the execution of this service, managing its lifetime as needed.
         self.listener.resume()
         
         // Run the run loop forever.
-        writeToLog(logDirectory: logDirectory, content: "^^^^^^We are about to RunLoop this thing up in here^^^^^^")
+        writeToLog(logDirectory: appDirectory, content: "^^^^^^We are about to RunLoop this thing up in here^^^^^^")
         RunLoop.current.run()
-        writeToLog(logDirectory: logDirectory, content: "<<<<<<<Our RunLoop is over, it was good while it lasted.>>>>>>>>")
+        writeToLog(logDirectory: appDirectory, content: "<<<<<<<Our RunLoop is over, it was good while it lasted.>>>>>>>>")
     }
     
     // Called by our XPC listener when a new connection comes in.  We configure the connection
     // with our protocol and ourselves as the main object.
     func listener(_ listener:NSXPCListener, shouldAcceptNewConnection newConnection: NSXPCConnection) -> Bool
     {
-        let logDirectory = "/Users/Lita/Library/Application Support/org.OperatorFoundation.MoonbounceHelperTool/"
-        writeToLog(logDirectory: logDirectory, content: "****New Incoming Connection****")
+        writeToLog(logDirectory: appDirectory, content: "****New Incoming Connection****")
         
         print("new incoming connection")
         
@@ -59,20 +57,18 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
     
     func startOpenVPN(openVPNFilePath: String, configFilePath: String, configFileName: String)
     {
-        let logDirectory = "/Users/Lita/Library/Application Support/org.OperatorFoundation.MoonbounceHelperTool/"
-        writeToLog(logDirectory: logDirectory, content: "******* STARTOPENVPN CALLED *******")
+        writeToLog(logDirectory: appDirectory, content: "******* STARTOPENVPN CALLED *******")
         //Arguments
         let openVpnArguments = connectToOpenVPNArguments(directory: configFilePath, configFileName: configFileName)
         
         _ = runOpenVpnScript(openVPNFilePath, logDirectory: configFilePath, arguments: openVpnArguments)
         
-        writeToLog(logDirectory: logDirectory, content: "START OPEN VPN END OF FUNCTION")
+        writeToLog(logDirectory: appDirectory, content: "START OPEN VPN END OF FUNCTION")
     }
     
     func stopOpenVPN()
     {
-        let logDirectory = "/Users/Lita/Library/Application Support/org.OperatorFoundation.MoonbounceHelperTool/"
-        writeToLog(logDirectory: logDirectory, content: "******* STOP OpenVpn CALLED *******")
+        writeToLog(logDirectory: appDirectory, content: "******* STOP OpenVpn CALLED *******")
         
         //Disconnect OpenVPN
         if MoonbounceHelper.connectTask != nil
@@ -91,7 +87,7 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
         
         //Specify the log file path
         processArguments.append("--log")
-        processArguments.append("/Users/Lita/Library/Application Support/org.OperatorFoundation.MoonbounceHelperTool/openVPNLog.txt")
+        processArguments.append("\(appDirectory)/openVPNLog.txt")
         
         //Verbosity of Output
         processArguments.append("--verb")
@@ -116,8 +112,7 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
     
     private func runOpenVpnScript(_ path: String, logDirectory: String, arguments: [String]) -> Bool
     {
-        let directory = "/Users/Lita/Library/Application Support/org.OperatorFoundation.MoonbounceHelperTool/"
-        writeToLog(logDirectory: directory, content: "Helper func: runOpenVpnScript")
+        writeToLog(logDirectory: appDirectory, content: "Helper func: runOpenVpnScript")
         
         //Creates a new Process and assigns it to the connectTask property.
         MoonbounceHelper.connectTask = Process()
