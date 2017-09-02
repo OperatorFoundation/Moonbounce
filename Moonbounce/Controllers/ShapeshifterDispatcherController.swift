@@ -120,9 +120,17 @@ class ShapeshifterDispatcherController: NSObject
             do
             {
                 let obfs4OptionsData = try Data(contentsOf: URL(fileURLWithPath: optionsPath, isDirectory: false), options: .uncached)
-                let obfs4Options = String(data: obfs4OptionsData, encoding: String.Encoding.ascii)
-                print("✅ Found obfs4 options.")
-                return obfs4Options
+                if let untrimmedOptions = String(data: obfs4OptionsData, encoding: String.Encoding.ascii)
+                {
+                    let obfs4Options = untrimmedOptions.trimmingCharacters(in: .whitespacesAndNewlines)
+                        print("✅ Found obfs4 options.")
+                    return obfs4Options
+                }
+                else
+                {
+                    return nil
+                }
+                
             }
             catch
             {

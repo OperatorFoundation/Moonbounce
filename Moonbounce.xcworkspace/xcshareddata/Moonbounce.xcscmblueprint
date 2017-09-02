@@ -12,7 +12,7 @@
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "8CC76ABAF63947AEF797E90F48E68BBA4DC36F3A" : "Moonbounce\/",
     "84D8D5AE829AE242A05688517C543D4E72CFDB39" : "pods\/SwiftPluto\/",
-    "AFF3D398993C2F23D5DAA6F8096E5F40E53176E6" : "Moonbounce\/Moonbounce\/shapeshifter-server\/"
+    "AFF3D398993C2F23D5DAA6F8096E5F40E53176E6" : "Moonbounce\/Moonbounce\/Helpers\/shapeshifter-server\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Moonbounce",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,

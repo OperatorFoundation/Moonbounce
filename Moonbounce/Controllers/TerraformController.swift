@@ -193,7 +193,6 @@ class TerraformController: NSObject
         
         do
         {
-            //TODO: replace this with the directory we wil be installing this on
             guard let shapeshifterServerPath = bundle.path(forResource: "shapeshifter-server", ofType: nil)
             else
             {

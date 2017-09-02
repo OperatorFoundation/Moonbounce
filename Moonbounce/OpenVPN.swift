@@ -161,10 +161,10 @@ public class OpenVPN: NSObject
                                 
                                 switch statusString
                                 {
-                                    case "CONNECTED", "TCP_CONNECT":
+                                    case "CONNECTED":
                                         //Woohoo we connected, update the UI
                                         isConnected.state = .success
-                                    case "RECONNECTING", "WAIT", "RECONNECTING":
+                                    case "RECONNECTING", "WAIT", "RECONNECTING", "TCP_CONNECT":
                                         isConnected.state = .trying
                                     case "EXITING":
                                         //Closed OpenVPN Connection

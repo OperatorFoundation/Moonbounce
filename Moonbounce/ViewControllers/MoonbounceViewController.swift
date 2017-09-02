@@ -56,8 +56,10 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: kConnectionStatusNotification), object: nil, queue: nil, using: connectionStatusChanged)
-        //self.view.wantsLayer = true
+        let nc = NotificationCenter.default
+        nc.addObserver(forName: NSNotification.Name(rawValue: kConnectionStatusNotification), object: nil, queue: nil, using: connectionStatusChanged)
+        nc.addObserver(forName: NSNotification.Name(rawValue: kNewServerAddedNotification), object: nil, queue: nil, using: newServerAdded)
+        
         serverProgressBar.usesThreadedAnimation = true
         updateStatusUI(connected: false, statusDescription: "Not Connected")
         populateServerSelectButton()
@@ -74,6 +76,11 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     func connectionStatusChanged(notification: Notification)
     {
         showStatus()
+    }
+    
+    func newServerAdded(notification: Notification)
+    {
+        populateServerSelectButton()
     }
     
     //MARK: Action!
@@ -152,10 +159,11 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     {
         let openDialog = NSOpenPanel()
         openDialog.title = "Select Your Server Config File"
+        openDialog.prompt = "Select"
         openDialog.canChooseDirectories = false
         openDialog.canChooseFiles = true
         openDialog.allowsMultipleSelection = false
-        openDialog.allowedFileTypes = ["zip"]
+        openDialog.allowedFileTypes = ["moonbounce", "MOONBOUNCE"]
 
         if let presentingWindow = self.view.window
         {
@@ -166,75 +174,12 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 guard response == NSFileHandlingPanelOKButton
                     else { return }
 
-                let fileManager = FileManager.default
                 if let chosenDirectory = openDialog.url
                 {
-                    let chosenPathFileName = chosenDirectory.deletingPathExtension().lastPathComponent
-                    let newDirectoryForFiles = configFilesDirectory.appending("/Imported/\(chosenPathFileName)")
-                    do
-                    {
-                        //Unzip the selected file
-                        try Zip.unzipFile(chosenDirectory, destination: URL(fileURLWithPath: importedConfigDirectory), overwrite: true, password: nil, progress:
-                        {
-                            (progress) in
-                            
-                            print(progress)
-                        })
-                        
-                        //Verify  that each of the following files are present as all config files are neccessary for successful connection:
-                        let file1 = "ca.crt"
-                        let file2 = "client1.crt"
-                        let file3 = "client1.key"
-                        let file4 = "DO.ovpn"
-                        let file5 = "server.crt"
-                        let file6 = "serverIP"
-                        let file7 = "ta.key"
-                        
-                        do
-                        {
-                            if let fileEnumerator = fileManager.enumerator(at: URL(fileURLWithPath: newDirectoryForFiles), includingPropertiesForKeys: [.nameKey], options: [.skipsHiddenFiles], errorHandler:
-                            {
-                                    (url, error) -> Bool in
-                                    
-                                    print("File enumerator error at \(newDirectoryForFiles): \(error.localizedDescription)")
-                                    return true
-                            })
-                            {
-                                var fileNames = [String]()
-                                for case let fileURL as URL in fileEnumerator
-                                {
-                                    
-                                    let fileName = try fileURL.resourceValues(forKeys: Set([.nameKey]))
-                                    if fileName.name != nil
-                                    {
-                                        fileNames.append(fileName.name!)
-                                    }
-                                }
-                                
-                                //If all required files are present refresh server select button
-                                if fileNames.contains(file1) && fileNames.contains(file2) && fileNames.contains(file3) && fileNames.contains(file4) && fileNames.contains(file5) && fileNames.contains(file6) && fileNames.contains(file7)
-                                {
-                                    //Correct files are in place.
-                                    self.populateServerSelectButton()
-                                }
-                                else
-                                {
-                                    ///TODO: The correct files were somehow missing, alert user that the server information was invalid.
-                                    print("Did not save user selected config directory as it did not contain all of the necessary files.")
-                                }
-                                
-                            }
-                        }
-                        catch
-                        {
-                            print("Error getting filenames from selected directory.", error)
-                        }
-                    }
-                    catch
-                    {
-                        print("Unable to unzip file at path: \(chosenDirectory)")
-                    }
+                    ServerController.sharedInstance.addServer(withConfigFileURL: chosenDirectory, presentInWindow: presentingWindow)
                 }
+                
+                self.populateServerSelectButton()
             }
         }
     }
@@ -245,34 +190,62 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         //make sure we have a config directory, and that it is not the default server config directory
         if currentConfigDirectory != "" && currentConfigDirectory != defaultConfigDirectory
         {
-            sender.isEnabled = false
-            serverSelectButton.isEnabled = false
-
-            let serverName = URL(fileURLWithPath: currentConfigDirectory).lastPathComponent
-            let zipPath = appDirectory.appending("/\(serverName).zip")
-            //Zip the files and save to the temp directory.
-            do
+            if let presentingWindow = self.view.window
             {
-                try Zip.zipFiles(paths: [URL(fileURLWithPath: currentConfigDirectory)], zipFilePath: URL(fileURLWithPath: zipPath), password: nil, progress:
-                {
-                    (progress) in
-                    
-                    print(progress)
-                })
+                sender.isEnabled = false
+                serverSelectButton.isEnabled = false
                 
-                //Set up a sharing services picker
-                let sharePicker = NSSharingServicePicker.init(items: [URL(fileURLWithPath: zipPath)])
-                sharePicker.delegate = self
-                sharePicker.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxY)
+                let currentServerName = URL(fileURLWithPath: currentConfigDirectory).lastPathComponent
+                var serverName = currentServerName
+                
+                let alert = ServerController.sharedInstance.createServerNameAlert(defaultName: currentServerName)
+                alert.beginSheetModal(for: presentingWindow, completionHandler:
+                {
+                    (response) in
+                    
+                    if response == NSAlertFirstButtonReturn, let textField = alert.accessoryView as? NSTextField
+                    {
+                        serverName = textField.stringValue
+                    }
+                    
+                    let zipPath = appDirectory.appending("/\(serverName).\(moonbounceExtension)")
+                    
+                    //Zip the files and save to the temp directory.
+                    do
+                    {
+                        try Zip.zipFiles(paths: [URL(fileURLWithPath: currentConfigDirectory)], zipFilePath: URL(fileURLWithPath: zipPath), password: nil, progress:
+                        {
+                            (progress) in
+                            
+                            print(progress)
+                        })
+                        
+                        //Set up a sharing services picker
+                        let sharePicker = NSSharingServicePicker.init(items: [URL(fileURLWithPath: zipPath)])
+                        
+                        sharePicker.delegate = self
+                        sharePicker.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxY)
+                    }
+                    catch
+                    {
+                        print("Unable to zip config directory for export!")
+                    }
+                    
+                    sender.isEnabled = true
+                    self.serverSelectButton.isEnabled = true
+                })
             }
-            catch
-            {
-                print("Unable to zip config directory for export!")
-            }
-            
-            sender.isEnabled = true
-            serverSelectButton.isEnabled = true
         }
+    }
+    
+    func sharingServicePicker(_ sharingServicePicker: NSSharingServicePicker, sharingServicesForItems items: [Any], proposedSharingServices proposedServices: [NSSharingService]) -> [NSSharingService]
+    {
+//        if proposedServices.contains(NSSharingService(named: NSSharingServiceName))
+//        {
+//            
+//        }
+        print("Share services: \(proposedServices)")
+        return proposedServices
     }
     
     @IBAction func toggleServerStatus(_ sender: NSButton)
@@ -597,9 +570,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                         print("Unable to locate the imported server IP at: \(ipFilePath).\nServer will not be added to the list of possible servers.)")
                     }
                 }
-                
             }
-
         }
     }
     
@@ -749,6 +720,15 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             
             perform(#selector(animateLaunchingLabel), with: nil, afterDelay: 1)
         }
+    }
+    
+    //Helper for showing an alert.
+    func showAlert(_ message: String)
+    {
+        let alert = NSAlert()
+        alert.messageText = message
+        alert.addButton(withTitle: "OK")
+        alert.runModal()
     }
     
 }

@@ -1,0 +1,3 @@
+[submodule "Moonbounce/Helpers/shapeshifter-server"]
+	path = Moonbounce/Helpers/shapeshifter-server
+	url = https://github.com/OperatorFoundation/shapeshifter-server.git

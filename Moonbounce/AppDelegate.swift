@@ -82,6 +82,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
         checkForServerIP()
     }
     
+    func application(_ sender: NSApplication, openFile filename: String) -> Bool
+    {
+        print("Attempted to open a file: \(filename)")
+        ServerController.sharedInstance.addServer(withConfigFilePath: filename)
+        
+        return true
+    }
+        
     func checkForServerIP()
     {
         //Get the file that has the server IP
@@ -121,18 +129,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
         }
     }
     
-    func fileManager(_ fileManager: FileManager, shouldProceedAfterError error: Error, copyingItemAtPath srcPath: String, toPath dstPath: String) -> Bool
-    {
-        let copyError = error as NSError
-
-        if copyError.code == NSFileWriteFileExistsError
-        {
-            return true
-        }
-        
-        return false
-    }
-    
     func createServerConfigDirectories()
     {
         let appSupportDirectory = fileManager.urls(for: FileManager.SearchPathDirectory.applicationSupportDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
@@ -158,9 +154,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
                 {
                     try fileManager.createDirectory(at: importedConfigPath, withIntermediateDirectories: true, attributes: nil)
                 }
-                catch let importedConfigError
+                catch //let importedConfigError
                 {
-                    print(importedConfigError)
+                    //print(importedConfigError)
                 }
                 
                 //User Config
@@ -170,9 +166,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
                 {
                     try fileManager.createDirectory(at: userConfigPath, withIntermediateDirectories: true, attributes: nil)
                 }
-                catch let userConfigError
+                catch
                 {
-                    print(userConfigError)
+                    //print(userConfigError)
                 }
                 
                 configFilesDirectory = configFilesPath.path
@@ -188,9 +184,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
                     return
                 }
                 
+                //We overwrite the default directory every time, in case this information has been updated.
+                if fileManager.fileExists(atPath: defaultConfigDirectory)
+                {
+                    do
+                    {
+                        try fileManager.removeItem(atPath: defaultConfigDirectory)
+                    }
+                    catch
+                    {
+                        print("Attempted to delete existing default config directory, but got an error: \(error.localizedDescription)")
+                    }
+                }
+                
                 do
                 {
-                    try FileManager.default.copyItem(atPath: resourcePath, toPath: defaultConfigPath.path)
+                    try fileManager.copyItem(atPath: resourcePath, toPath: defaultConfigDirectory)
                 }
                 catch
                 {

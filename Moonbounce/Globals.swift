@@ -16,12 +16,15 @@ let mbWhite = NSColor(red:0.97, green:0.97, blue:0.98, alpha:1.0)
 var helperClient:MoonbounceHelperProtocol?
 let kConnectionStatusNotification = "ConnectionStatusChanged"
 let kServerIPAvailableNotification = "PTServerIPAvailable"
+let kNewServerAddedNotification = "NewServerHasBeenAdded"
 let userTokenKey = "UserDoToken"
 let userDirectoryName = "User"
 let importedDirectoryName = "Imported"
 let defaultDirectoryName = "Default"
 let ipFileName = "serverIP"
 let obfs4OptionsFileName = "obfs4.json"
+
+let moonbounceExtension = "moonbounce"
 
 
 var appDirectory = ""
