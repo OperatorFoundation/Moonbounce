@@ -31,10 +31,9 @@ class ShapeshiftedOpenVpnController: NSObject
         ShapeshiftedOpenVpnController.openVPN.stop
         {
             (didStop) in
-            
+
             print("OpenVPN did stop: \(didStop)")
         }
     }
-    
     
 }

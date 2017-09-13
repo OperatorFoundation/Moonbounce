@@ -15,10 +15,11 @@
 		4643055D1E0B1EBA00B1DB78 /* ShapeshiftedOpenVpnController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4643055C1E0B1EBA00B1DB78 /* ShapeshiftedOpenVpnController.swift */; };
 		4643055F1E0B2FDF00B1DB78 /* LaunchTerraformScript.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4643055E1E0B2FDF00B1DB78 /* LaunchTerraformScript.sh */; };
 		464305621E0B369700B1DB78 /* TerraformController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464305611E0B369700B1DB78 /* TerraformController.swift */; };
+		465A81261F684AB900951BE9 /* fixInternet.sh in Resources */ = {isa = PBXBuildFile; fileRef = 465A81251F684AB900951BE9 /* fixInternet.sh */; };
+		465A81291F684DC500951BE9 /* KillAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465A81271F684BAE00951BE9 /* KillAll.swift */; };
 		465C4AAE1F4DF55400C15F50 /* shapeshifter-server in Resources */ = {isa = PBXBuildFile; fileRef = 465C4AAD1F4DF55400C15F50 /* shapeshifter-server */; };
 		465C4AB01F4DF9F500C15F50 /* terraform in Resources */ = {isa = PBXBuildFile; fileRef = 465C4AAF1F4DF9F500C15F50 /* terraform */; };
 		465DAAF81DECDF1800151738 /* HelperAppInstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465DAAF71DECDF1800151738 /* HelperAppInstaller.swift */; };
-		465F18F11DDA684600C8F1B8 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465F18F01DDA684600C8F1B8 /* NetworkExtension.framework */; };
 		4672B8921DF5F9B4008134E5 /* MoonbounceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46329B201DF5F5BB00868D10 /* MoonbounceHelper.swift */; };
 		4672B8931DF5F9BF008134E5 /* MoonbounceHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46329B1E1DF5F09400868D10 /* MoonbounceHelperProtocol.swift */; };
 		4672B8951DF5FE91008134E5 /* HelperAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4672B8941DF5FE91008134E5 /* HelperAppController.swift */; };
@@ -36,8 +37,6 @@
 		B41FE0261DF10A1900E02D17 /* org.OperatorFoundation.MoonbounceHelperTool in CopyFiles */ = {isa = PBXBuildFile; fileRef = B442B5FF1DEF8F82001E433D /* org.OperatorFoundation.MoonbounceHelperTool */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		B41FE02A1DF24BE900E02D17 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B41FE0291DF24BE900E02D17 /* Security.framework */; };
 		B41FE02C1DF24BF500E02D17 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */; };
-		B437C1101EB42E89003F0439 /* moon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B437C10F1EB42E89003F0439 /* moon@2x.png */; };
-		B437C1121EB42E9D003F0439 /* moon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B437C1111EB42E9D003F0439 /* moon@2x.png */; };
 		B442B5B61DEE5AAB001E433D /* OpenVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = B442B5B51DEE5AAB001E433D /* OpenVPN.swift */; };
 		B442B6021DEF8F82001E433D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = B442B6011DEF8F82001E433D /* main.swift */; };
 		B44390591DC00EA000389352 /* PopoverContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44390581DC00EA000389352 /* PopoverContentView.swift */; };
@@ -99,10 +98,11 @@
 		4643055E1E0B2FDF00B1DB78 /* LaunchTerraformScript.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = LaunchTerraformScript.sh; path = Helpers/LaunchTerraformScript.sh; sourceTree = "<group>"; };
 		464305601E0B31F400B1DB78 /* DestroyTerraform.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = DestroyTerraform.sh; path = Helpers/DestroyTerraform.sh; sourceTree = "<group>"; };
 		464305611E0B369700B1DB78 /* TerraformController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TerraformController.swift; path = Controllers/TerraformController.swift; sourceTree = "<group>"; };
+		465A81251F684AB900951BE9 /* fixInternet.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = fixInternet.sh; sourceTree = "<group>"; };
+		465A81271F684BAE00951BE9 /* KillAll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KillAll.swift; sourceTree = "<group>"; };
 		465C4AAD1F4DF55400C15F50 /* shapeshifter-server */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "shapeshifter-server"; path = "Helpers/shapeshifter-server"; sourceTree = "<group>"; };
 		465C4AAF1F4DF9F500C15F50 /* terraform */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = terraform; sourceTree = "<group>"; };
 		465DAAF71DECDF1800151738 /* HelperAppInstaller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HelperAppInstaller.swift; path = Controllers/HelperAppInstaller.swift; sourceTree = "<group>"; };
-		465F18F01DDA684600C8F1B8 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		465F18F21DDA684600C8F1B8 /* Moonbounce.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Moonbounce.entitlements; sourceTree = "<group>"; };
 		4672B8941DF5FE91008134E5 /* HelperAppController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HelperAppController.swift; path = Controllers/HelperAppController.swift; sourceTree = "<group>"; };
 		4672B8961DF60498008134E5 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
@@ -119,8 +119,6 @@
 		8F3E75C00756DFE009D5BB62 /* Pods_Moonbounce.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moonbounce.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B41FE0291DF24BE900E02D17 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
-		B437C10F1EB42E89003F0439 /* moon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moon@2x.png"; sourceTree = "<group>"; };
-		B437C1111EB42E9D003F0439 /* moon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moon@2x.png"; sourceTree = "<group>"; };
 		B442B5B51DEE5AAB001E433D /* OpenVPN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenVPN.swift; sourceTree = "<group>"; };
 		B442B5FF1DEF8F82001E433D /* org.OperatorFoundation.MoonbounceHelperTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = org.OperatorFoundation.MoonbounceHelperTool; sourceTree = BUILT_PRODUCTS_DIR; };
 		B442B6011DEF8F82001E433D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -141,7 +139,6 @@
 				B41FE02C1DF24BF500E02D17 /* ServiceManagement.framework in Frameworks */,
 				B41FE02A1DF24BE900E02D17 /* Security.framework in Frameworks */,
 				062452B39A60BE294A84A0BB /* Pods_Moonbounce.framework in Frameworks */,
-				465F18F11DDA684600C8F1B8 /* NetworkExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,7 +170,6 @@
 		467CB5AA1DBEB6E90086E341 = {
 			isa = PBXGroup;
 			children = (
-				B437C10F1EB42E89003F0439 /* moon@2x.png */,
 				467CB5B51DBEB6E90086E341 /* Moonbounce */,
 				46329B1D1DF5F06F00868D10 /* MoonbounceHelperProtocol */,
 				B442B6001DEF8F82001E433D /* MoonbounceHelperTool */,
@@ -202,7 +198,6 @@
 				467CB5B61DBEB6E90086E341 /* AppDelegate.swift */,
 				4672B8961DF60498008134E5 /* Globals.swift */,
 				467CB5B81DBEB6E90086E341 /* Assets.xcassets */,
-				B437C1111EB42E9D003F0439 /* moon@2x.png */,
 				467CB5BA1DBEB6E90086E341 /* MainMenu.xib */,
 				467CB5BD1DBEB6E90086E341 /* Info.plist */,
 			);
@@ -243,7 +238,9 @@
 				B442B6061DEF8FBF001E433D /* MoonbounceHelperTool-Launchd.plist */,
 				B442B6071DEF8FD9001E433D /* MoonbounceHelperTool-Info.plist */,
 				46329B201DF5F5BB00868D10 /* MoonbounceHelper.swift */,
+				465A81271F684BAE00951BE9 /* KillAll.swift */,
 				B442B6011DEF8F82001E433D /* main.swift */,
+				465A81251F684AB900951BE9 /* fixInternet.sh */,
 			);
 			path = MoonbounceHelperTool;
 			sourceTree = "<group>";
@@ -277,7 +274,6 @@
 			children = (
 				B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */,
 				B41FE0291DF24BE900E02D17 /* Security.framework */,
-				465F18F01DDA684600C8F1B8 /* NetworkExtension.framework */,
 				8F3E75C00756DFE009D5BB62 /* Pods_Moonbounce.framework */,
 			);
 			name = Frameworks;
@@ -339,17 +335,17 @@
 					467CB5B21DBEB6E90086E341 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 67Y4NSLDQ3;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.VPNLite = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
 					B442B5FE1DEF8F82001E433D = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = 67Y4NSLDQ3;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -378,14 +374,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				468D4CAA1E11986F00BD80C4 /* vars in Resources */,
-				B437C1121EB42E9D003F0439 /* moon@2x.png in Resources */,
 				4672B89B1DF61005008134E5 /* openvpn in Resources */,
 				46C28E361E0DBA2F0024A61F /* DestroyTerraform.sh in Resources */,
 				46EA2C7D1E241BB70069E5DE /* Default in Resources */,
 				465C4AAE1F4DF55400C15F50 /* shapeshifter-server in Resources */,
 				467CB5C61DBEB8CF0086E341 /* MoonbounceViewController.xib in Resources */,
-				B437C1101EB42E89003F0439 /* moon@2x.png in Resources */,
 				467CB5B91DBEB6E90086E341 /* Assets.xcassets in Resources */,
+				465A81261F684AB900951BE9 /* fixInternet.sh in Resources */,
 				465C4AB01F4DF9F500C15F50 /* terraform in Resources */,
 				4639DFEE1F4DD5DF00E32467 /* shapeshifter-dispatcher in Resources */,
 				467CB5BC1DBEB6E90086E341 /* MainMenu.xib in Resources */,
@@ -470,6 +465,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				465A81291F684DC500951BE9 /* KillAll.swift in Sources */,
 				B494F9251DF89B290094838F /* Globals.swift in Sources */,
 				4672B8931DF5F9BF008134E5 /* MoonbounceHelperProtocol.swift in Sources */,
 				4672B8921DF5F9B4008134E5 /* MoonbounceHelper.swift in Sources */,
@@ -597,14 +593,15 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Moonbounce/Moonbounce.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
 				INFOPLIST_FILE = Moonbounce/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.OperatorFoundation.Moonbounce;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -615,14 +612,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Moonbounce/Moonbounce.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
 				INFOPLIST_FILE = Moonbounce/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.OperatorFoundation.Moonbounce;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -630,7 +627,7 @@
 		B442B6041DEF8F82001E433D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
 				INFOPLIST_FILE = "$(SRCROOT)/MoonbounceHelperTool/MoonbounceHelperTool-Info.plist";
 				OTHER_LDFLAGS = (
@@ -645,6 +642,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.OperatorFoundation.MoonbounceHelperTool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -652,7 +650,7 @@
 		B442B6051DEF8F82001E433D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
 				INFOPLIST_FILE = "$(SRCROOT)/MoonbounceHelperTool/MoonbounceHelperTool-Info.plist";
 				OTHER_LDFLAGS = (
@@ -667,6 +665,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.OperatorFoundation.MoonbounceHelperTool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

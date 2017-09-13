@@ -268,7 +268,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             
             sender.isEnabled = false
             toggleConnectionButton.isEnabled = false
-            startIncrementingProgress(by: 0.3)
+            startIncrementingProgress(by: 0.5)
             cancelLaunchButton.isHidden = false
             serverStatusLabel.stringValue = "Launching"
             launching = true
@@ -530,7 +530,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         {
             //If we can find a user server IP then the user's server should also be listed.
             userServerIsConnected = true
-            serverSelectButton.addItem(withTitle: ServerName.userServer.rawValue)
+            //serverSelectButton.addItem(withTitle: ServerName.userServer.rawValue)
             let menuItem = NSMenuItem(title: ServerName.userServer.rawValue, action: nil, keyEquivalent: "")
             menuItem.representedObject = userConfigDirectory
             serverSelectButton.menu?.addItem(menuItem)

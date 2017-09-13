@@ -14,6 +14,7 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
     var verbosity = 3
     
     let logPath = NSHomeDirectory()+"/Documents/debug.log"
+    let fixInternetPath = "Helpers/fixInternet.sh"
     
     fileprivate var listener:NSXPCListener
     fileprivate let kHelperToolMachServiceName = "org.OperatorFoundation.MoonbounceHelperTool"
@@ -75,6 +76,9 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
         {
             MoonbounceHelper.connectTask!.terminate()
         }
+        
+        fixTheInternet()
+        killAll(processToKill: "openvpn")
     }
     
     private func connectToOpenVPNArguments(directory: String, configFileName: String) -> [String]
@@ -152,6 +156,15 @@ class MoonbounceHelper: NSObject, MoonbounceHelperProtocol, NSXPCListenerDelegat
                 print("Error writing to file \(logFilePath)")
             }
         }
+    }
+    
+    func fixTheInternet()
+    {
+        let fixTask = Process()
+        fixTask.launchPath = fixInternetPath
+        fixTask.launch()
+        print("Attempted to fix the internet!")
+        fixTask.waitUntilExit()
     }
 
 }
