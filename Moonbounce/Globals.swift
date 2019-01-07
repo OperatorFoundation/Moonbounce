@@ -13,7 +13,6 @@ let mbDarkBlue = NSColor(red:0.00, green:0.06, blue:0.16, alpha:1.0)
 let mbBlue = NSColor(red:0.16, green:0.20, blue:0.48, alpha:1.0)
 let mbWhite = NSColor(red:0.97, green:0.97, blue:0.98, alpha:1.0)
 
-var helperClient:MoonbounceHelperProtocol?
 let kConnectionStatusNotification = "ConnectionStatusChanged"
 let kServerIPAvailableNotification = "PTServerIPAvailable"
 let kNewServerAddedNotification = "NewServerHasBeenAdded"

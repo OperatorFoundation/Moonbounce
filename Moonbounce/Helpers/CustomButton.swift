@@ -107,7 +107,7 @@ import Cocoa
             
             let path = NSBezierPath()
             path.lineWidth = lineWidth
-            path.lineCapStyle = NSLineCapStyle.squareLineCapStyle
+            path.lineCapStyle = NSBezierPath.LineCapStyle.square
             
             let bottomLeft = NSMakePoint(NSMinX(bounds) + lineWidth + cornerRad, NSMaxY(bounds) - 1)
             let bottomLeftCorner = NSMakePoint(NSMinX(bounds) + lineWidth + 2, NSMaxY(bounds) - 3)
@@ -141,9 +141,9 @@ import Cocoa
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
 
-        let buttonAttributes: [String: AnyObject] = [NSForegroundColorAttributeName: titleColor,
-                                                     NSFontAttributeName: self.font!,
-                                                     NSParagraphStyleAttributeName: paragraphStyle]
+        let buttonAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key(rawValue: NSAttributedString.Key.foregroundColor.rawValue): titleColor,
+                                                               NSAttributedString.Key(rawValue: NSAttributedString.Key.font.rawValue): self.font!,
+                                                               NSAttributedString.Key(rawValue: NSAttributedString.Key.paragraphStyle.rawValue): paragraphStyle]
         let attributedTitle = NSAttributedString(string: self.title, attributes: buttonAttributes)
         return attributedTitle
     }

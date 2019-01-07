@@ -1,2 +1,61 @@
 
-Moonbounce.xcworkspace/xcuserdata/Lita.xcuserdatad/UserInterfaceState.xcuserstate
+
+# Created by https://www.gitignore.io/api/go,xcode
+# Edit at https://www.gitignore.io/?templates=go,xcode
+
+### Go ###
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+### Go Patch ###
+/vendor/
+/Godeps/
+
+### Xcode ###
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+## User settings
+xcuserdata/
+
+## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
+*.xcscmblueprint
+*.xccheckout
+
+## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
+build/
+DerivedData/
+*.moved-aside
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+wireguard-go-bridge/.tmp
+wireguard-go-bridge/out
+wireguard-go-bridge/src
+wireguard-go-bridge/Pro
+
+### Xcode Patch ###
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata
+/*.gcno
+**/xcshareddata/WorkspaceSettings.xcsettings
+
+# End of https://www.gitignore.io/api/go,xcode

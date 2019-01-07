@@ -16,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
 {
     @IBOutlet weak var window: NSWindow!
 
-    let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
+    let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     let popover = NSPopover()
     let menu = NSMenu()
     let fileManager = FileManager.default
@@ -25,16 +25,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
 
     func applicationDidFinishLaunching(_ aNotification: Notification)
     {
-        //Install God-Mode Helper
-        if !HelperAppInstaller.blessHelper(label: "org.OperatorFoundation.MoonbounceHelperTool")
-        {
-            print("Could not install MoonbounceHelperTool")
-        }
-        else
-        {
-            helperClient = HelperAppController.connectToXPCService()
-        }
-        
         //Set up the status bar item/button
         if let moonbounceButton = statusItem.button
         {
@@ -52,7 +42,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
         popover.contentViewController = MoonbounceViewController(nibName: "MoonbounceViewController", bundle: nil)
 
         //If user clicks away close the popover (get outta the way)
-        eventMonitor = EventMonitor(mask: [.leftMouseDown, .rightMouseDown], handler: { (event) in
+        eventMonitor = EventMonitor(mask: .leftMouseDown, handler: { (event) in
             if self.popover.isShown
             {
                 self.closePopover(sender: event)
@@ -68,7 +58,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
                 let apps = NSRunningApplication.runningApplications(withBundleIdentifier: bundleID)
                 for app in apps
                 {
-                    if app != NSRunningApplication.current()
+                    if app != NSRunningApplication.current
                     {
                         app.activate(options: [])
                     }
@@ -237,15 +227,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
         }
     }
     
-    func statusBarIconClicked(sender: NSStatusBarButton)
+    @objc func statusBarIconClicked(sender: NSStatusBarButton)
     {
         if let event = NSApp.currentEvent
         {
-            if event.type == NSEventType.rightMouseUp
+            if event.type == NSEvent.EventType.rightMouseUp
             {
                 closePopover(sender: nil)
                 statusItem.menu = menu
-                statusItem.popUpMenu(menu)
+                //statusItem.popUpMenu(menu)
+                
                 // This is critical, otherwise clicks won't be processed again
                 statusItem.menu = nil
             }
@@ -256,18 +247,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
         }
     }
     
-    func quitMoonbounce(sender: AnyObject?)
+    @objc func quitMoonbounce(sender: AnyObject?)
     {
-        NSApplication.shared().terminate(sender)
+        NSApplication.shared.terminate(sender)
     }
     
     func applicationWillTerminate(_ aNotification: Notification)
     {
-        // Attempt to disconnect when the app is closed
-        ShapeshiftedOpenVpnController().stop
-        { (disconnected) in
-            //
-        }
+        //TODO: Attempt to disconnect when the app is closed
+
     }
 
 

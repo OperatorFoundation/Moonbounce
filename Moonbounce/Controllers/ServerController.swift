@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-import Zip
+import ZIPFoundation
 
 class ServerController: NSObject
 {
@@ -31,16 +31,16 @@ class ServerController: NSObject
         do
         {
             //Make sure zip recognizes our custom file extension
-            Zip.addCustomFileExtension(moonbounceExtension)
-            Zip.addCustomFileExtension("MOONBOUNCE")
+//            Zip.addCustomFileExtension(moonbounceExtension)
+//            Zip.addCustomFileExtension("MOONBOUNCE")
             
             //Unzip the selected file
-            try Zip.unzipFile(configURL, destination: URL(fileURLWithPath: importedConfigDirectory), overwrite: true, password: nil, progress:
-            {
-                (progress) in
-                
-                print(progress)
-            })
+//            try Zip.unzipFile(configURL, destination: URL(fileURLWithPath: importedConfigDirectory), overwrite: true, password: nil, progress:
+//            {
+//                (progress) in
+//                
+//                print(progress)
+//            })
             
             print("Unzipped to :\(importedConfigDirectory)")
             let defaultName = configURL.deletingPathExtension().lastPathComponent
@@ -52,8 +52,8 @@ class ServerController: NSObject
                 
                 if currentWindow == nil
                 {
-                    let response: NSModalResponse = alert.runModal()
-                    if response == NSAlertFirstButtonReturn
+                    let response: NSApplication.ModalResponse = alert.runModal()
+                    if response == NSApplication.ModalResponse.alertFirstButtonReturn
                     {
                         if let textField = alert.accessoryView as? NSTextField
                         {
@@ -81,7 +81,7 @@ class ServerController: NSObject
                     alert.beginSheetModal(for: currentWindow!, completionHandler:
                     { (response) in
                         
-                        if response == NSAlertFirstButtonReturn, let textField = alert.accessoryView as? NSTextField
+                        if response == NSApplication.ModalResponse.alertFirstButtonReturn, let textField = alert.accessoryView as? NSTextField
                         {
                             let selectedName = textField.stringValue
                             if selectedName != ""

@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-import Zip
+//import Zip
 
 class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 {
@@ -18,8 +18,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     @IBOutlet weak var laserImageView: NSImageView!
     @IBOutlet weak var laserLeadingConstraint: NSLayoutConstraint!
 
-    dynamic var runningScript = false
-    static var shiftedOpenVpnController = ShapeshiftedOpenVpnController()
+    @objc dynamic var runningScript = false
     static var terraformController = TerraformController()
     
     //Advanced Mode Outlets
@@ -35,7 +34,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     @IBOutlet weak var shareServerButton: NSButton!
     
     //accountTokenBox.hidden is bound to this var
-    dynamic var hasDoToken = false
+    @objc dynamic var hasDoToken = false
     
     let proximaNARegular = "Proxima Nova Alt Regular"
     let advancedMenuHeight: CGFloat = 176.0
@@ -171,7 +170,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             {
                 (response) in
                 
-                guard response == NSFileHandlingPanelOKButton
+                guard response == NSApplication.ModalResponse.OK
                     else { return }
 
                 if let chosenDirectory = openDialog.url
@@ -203,33 +202,33 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 {
                     (response) in
                     
-                    if response == NSAlertFirstButtonReturn, let textField = alert.accessoryView as? NSTextField
+                    if response == NSApplication.ModalResponse.alertFirstButtonReturn, let textField = alert.accessoryView as? NSTextField
                     {
                         serverName = textField.stringValue
                     }
                     
-                    let zipPath = appDirectory.appending("/\(serverName).\(moonbounceExtension)")
+//                    let zipPath = appDirectory.appending("/\(serverName).\(moonbounceExtension)")
                     
-                    //Zip the files and save to the temp directory.
-                    do
-                    {
-                        try Zip.zipFiles(paths: [URL(fileURLWithPath: currentConfigDirectory)], zipFilePath: URL(fileURLWithPath: zipPath), password: nil, progress:
-                        {
-                            (progress) in
-                            
-                            print(progress)
-                        })
-                        
-                        //Set up a sharing services picker
-                        let sharePicker = NSSharingServicePicker.init(items: [URL(fileURLWithPath: zipPath)])
-                        
-                        sharePicker.delegate = self
-                        sharePicker.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxY)
-                    }
-                    catch
-                    {
-                        print("Unable to zip config directory for export!")
-                    }
+//                    //Zip the files and save to the temp directory.
+//                    do
+//                    {
+//                        try Zip.zipFiles(paths: [URL(fileURLWithPath: currentConfigDirectory)], zipFilePath: URL(fileURLWithPath: zipPath), password: nil, progress:
+//                        {
+//                            (progress) in
+//
+//                            print(progress)
+//                        })
+//
+//                        //Set up a sharing services picker
+//                        let sharePicker = NSSharingServicePicker.init(items: [URL(fileURLWithPath: zipPath)])
+//
+//                        sharePicker.delegate = self
+//                        sharePicker.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxY)
+//                    }
+//                    catch
+//                    {
+//                        print("Unable to zip config directory for export!")
+//                    }
                     
                     sender.isEnabled = true
                     self.serverSelectButton.isEnabled = true
@@ -387,20 +386,20 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         self.toggleConnectionButton.title = "Disconnect"
 
         //TODO: Config File Path Based on User Input
-        MoonbounceViewController.shiftedOpenVpnController.start(configFilePath: currentConfigDirectory, completion:
-        {
-            (didLaunch) in
-            
-            //Go back to the main thread
-            DispatchQueue.main.async(execute:
-            {
-                //You can safely do UI stuff here
-                //Verify that connection was succesful and update accordingly
-                self.runningScript = false
-                self.serverSelectButton.isEnabled = true
-                self.showStatus()
-            })
-        })
+//        MoonbounceViewController.shiftedOpenVpnController.start(configFilePath: currentConfigDirectory, completion:
+//        {
+//            (didLaunch) in
+//
+//            //Go back to the main thread
+//            DispatchQueue.main.async(execute:
+//            {
+//                //You can safely do UI stuff here
+//                //Verify that connection was succesful and update accordingly
+//                self.runningScript = false
+//                self.serverSelectButton.isEnabled = true
+//                self.showStatus()
+//            })
+//        })
     }
     
     func setSelectedServer(atPath configPath: String)
@@ -433,12 +432,12 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     
     func disconnect()
     {
-        MoonbounceViewController.shiftedOpenVpnController.stop(completion:
-        {
-            (stopped) in
-            //
-            
-        })
+//        MoonbounceViewController.shiftedOpenVpnController.stop(completion:
+//        {
+//            (stopped) in
+//            //
+//
+//        })
         
         self.runningScript = false
         self.serverSelectButton.isEnabled = true
@@ -606,8 +605,8 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         //Advanced Mode Button
         if let menuButtonFont = NSFont(name: proximaNARegular, size: 18)
         {
-            let menuButtonAttributes = [NSForegroundColorAttributeName: NSColor.white,
-                                        NSFontAttributeName: menuButtonFont]
+            let menuButtonAttributes = [NSAttributedString.Key.foregroundColor: NSColor.white,
+                                        NSAttributedString.Key.font: menuButtonFont]
             advancedModeButton.attributedTitle = NSAttributedString(string: "Advanced Mode", attributes: menuButtonAttributes)
         }
         advancedModeButton.layer?.backgroundColor = .clear
@@ -705,7 +704,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         self.runningScript = false
     }
     
-    func animateLaunchingLabel()
+    @objc func animateLaunchingLabel()
     {
         if launching
         {
