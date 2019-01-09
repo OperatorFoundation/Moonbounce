@@ -7,9 +7,11 @@
 //
 
 import Cocoa
-//import Zip
+import Replicant
+import ReplicantSwift
+import Network
 
-class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
+class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate, TunnelsManagerActivationDelegate
 {
     @IBOutlet weak var statusLabel: NSTextField!
     @IBOutlet weak var advancedModeButton: NSButton!
@@ -39,6 +41,8 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     let proximaNARegular = "Proxima Nova Alt Regular"
     let advancedMenuHeight: CGFloat = 176.0
     
+    var onTunnelsManagerReady: ((TunnelsManager) -> Void)?
+    var tunnelsManager: TunnelsManager? = nil
     var userServerIsConnected = false
     var launching = false
     
@@ -63,6 +67,31 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         updateStatusUI(connected: false, statusDescription: "Not Connected")
         populateServerSelectButton()
         styleTokenTextField()
+        
+        // Create the tunnels manager, and when it's ready, inform tunnelsListVC
+        TunnelsManager.create
+        {
+            [weak self] result in
+            
+            guard let self = self else { return }
+            
+            if let error = result.error
+            {
+                //FIXME: Show error alert
+                print("\nError creating tunnel manager: \(error)\n")
+                //ErrorPresenter.showErrorAlert(error: error, from: self)
+                return
+            }
+            
+            let tunnelsManager: TunnelsManager = result.value!
+            
+            self.tunnelsManager = tunnelsManager
+            
+            tunnelsManager.activationDelegate = self
+            
+            self.onTunnelsManagerReady?(tunnelsManager)
+            self.onTunnelsManagerReady = nil
+        }
     }
     
     override func viewWillAppear()
@@ -374,7 +403,40 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     }
     
     
-    //MARK: OVPN
+    //MARK: WireGuard
+    
+    func tunnelActivationAttemptFailed(tunnel: TunnelContainer, error: TunnelsManagerActivationAttemptError)
+    {
+        print("\nTunnel Activation Attempt Failed: \(error)\n")
+        self.runningScript = false
+        self.serverSelectButton.isEnabled = true
+        self.showStatus()
+    }
+    
+    func tunnelActivationAttemptSucceeded(tunnel: TunnelContainer)
+    {
+        print("\nTunnel Activation Attempt Succeeded\n")
+        self.runningScript = false
+        self.serverSelectButton.isEnabled = true
+        self.showStatus()
+    }
+    
+    func tunnelActivationFailed(tunnel: TunnelContainer, error: TunnelsManagerActivationError)
+    {
+        print("\nTunnel Activation Failed: \(error)\n")
+        self.runningScript = false
+        self.serverSelectButton.isEnabled = true
+        self.showStatus()
+    }
+    
+    func tunnelActivationSucceeded(tunnel: TunnelContainer)
+    {
+        print("\nTunnel Activation Succeeded\n")
+        self.runningScript = false
+        self.serverSelectButton.isEnabled = true
+        self.showStatus()
+    }
+    
     func connect()
     {
         serverSelectButton.isEnabled = false
@@ -385,7 +447,47 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         //Update button name
         self.toggleConnectionButton.title = "Disconnect"
 
+        
+        
+        /// WireGuard Tunnel Manager
+        guard let tunnel = tunnelsManager?.tunnel(at: 0)
+        else
+        {
+            print("Unable to find a tunnel to start.")
+            return
+        }
+        tunnelsManager?.startActivation(of: tunnel)
+        
+        /// Replicant
+        
         //TODO: Config File Path Based on User Input
+        guard let replicantConfig = ReplicantConfig(withConfigAtPath: currentConfigDirectory)
+        else
+        {
+            print("\nUnable to parse Replicant config file.\n")
+            return
+        }
+        
+        //TODO: Replicant Server IP & Port
+
+        guard let replicantPort = NWEndpoint.Port(rawValue: 51820)
+        else
+        {
+            print("\nUnable to generate port for replicant connection.\n")
+            return
+        }
+        
+        let replicantServerIP = NWEndpoint.Host(currentServerIP)
+        
+        let replicantConnectionFactory = ReplicantConnectionFactory(host: replicantServerIP, port: replicantPort, config: replicantConfig)
+        guard let replicantConnection = replicantConnectionFactory.connect(using: .tcp)
+        else
+        {
+            print("Unable to establish a Replicant connection.")
+            return
+        }
+        
+        
 //        MoonbounceViewController.shiftedOpenVpnController.start(configFilePath: currentConfigDirectory, completion:
 //        {
 //            (didLaunch) in
@@ -439,6 +541,14 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 //
 //        })
         
+        guard let tunnel = tunnelsManager?.tunnel(at: 0)
+            else
+        {
+            print("Unable to find a tunnel to stop.")
+            return
+        }
+        
+        tunnelsManager?.startDeactivation(of: tunnel)
         self.runningScript = false
         self.serverSelectButton.isEnabled = true
     }
