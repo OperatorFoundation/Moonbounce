@@ -3,6 +3,8 @@
 # Created by https://www.gitignore.io/api/go,xcode
 # Edit at https://www.gitignore.io/?templates=go,xcode
 
+*.conf
+
 ### Go ###
 # Binaries for programs and plugins
 *.exe

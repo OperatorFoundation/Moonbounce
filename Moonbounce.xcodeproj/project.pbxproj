@@ -12,6 +12,7 @@
 		4643055F1E0B2FDF00B1DB78 /* LaunchTerraformScript.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4643055E1E0B2FDF00B1DB78 /* LaunchTerraformScript.sh */; };
 		464305621E0B369700B1DB78 /* TerraformController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464305611E0B369700B1DB78 /* TerraformController.swift */; };
 		464DA8D621E6A149003460D0 /* ReplicantSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4678C2E621DEDE6600492768 /* ReplicantSwift.framework */; };
+		464DA95B21E80E80003460D0 /* MoonbounceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DA95A21E80E80003460D0 /* MoonbounceTests.swift */; };
 		465C4AAE1F4DF55400C15F50 /* shapeshifter-server in Resources */ = {isa = PBXBuildFile; fileRef = 465C4AAD1F4DF55400C15F50 /* shapeshifter-server */; };
 		4672B8971DF60498008134E5 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4672B8961DF60498008134E5 /* Globals.swift */; };
 		4678C2FD21DFF5EC00492768 /* DNSResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4678C2FB21DFF5EB00492768 /* DNSResolver.swift */; };
@@ -54,6 +55,8 @@
 		467CB5C61DBEB8CF0086E341 /* MoonbounceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 467CB5C41DBEB8CF0086E341 /* MoonbounceViewController.xib */; };
 		467CB5C91DBEB9730086E341 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467CB5C81DBEB9730086E341 /* EventMonitor.swift */; };
 		468D4CAA1E11986F00BD80C4 /* vars in Resources */ = {isa = PBXBuildFile; fileRef = 468D4CA91E11986F00BD80C4 /* vars */; };
+		468F589021E914E800E84ED8 /* utun9.conf in Resources */ = {isa = PBXBuildFile; fileRef = 468F587F21E914E800E84ED8 /* utun9.conf */; };
+		468F589121E94ADC00E84ED8 /* utun9.conf in Resources */ = {isa = PBXBuildFile; fileRef = 468F587F21E914E800E84ED8 /* utun9.conf */; };
 		469B0A4021DC1F5A003FC2BC /* terraform in Resources */ = {isa = PBXBuildFile; fileRef = 469B0A3F21DC1F5A003FC2BC /* terraform */; };
 		469B0A6921DC3653003FC2BC /* ZIPFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469B0A6821DC3653003FC2BC /* ZIPFoundation.framework */; };
 		469B0A7B21DEA5AB003FC2BC /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469B0A7A21DEA5AB003FC2BC /* PacketTunnelProvider.swift */; };
@@ -79,6 +82,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		464DA95D21E80E80003460D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 467CB5AB1DBEB6E90086E341 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 467CB5B21DBEB6E90086E341;
+			remoteInfo = Moonbounce;
+		};
 		4678C2E321DEDE6600492768 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 469B0A4E21DC32C7003FC2BC /* MoonbounceDependencies.xcodeproj */;
@@ -183,6 +193,9 @@
 		4643055E1E0B2FDF00B1DB78 /* LaunchTerraformScript.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = LaunchTerraformScript.sh; path = Helpers/LaunchTerraformScript.sh; sourceTree = "<group>"; };
 		464305601E0B31F400B1DB78 /* DestroyTerraform.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = DestroyTerraform.sh; path = Helpers/DestroyTerraform.sh; sourceTree = "<group>"; };
 		464305611E0B369700B1DB78 /* TerraformController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TerraformController.swift; path = Controllers/TerraformController.swift; sourceTree = "<group>"; };
+		464DA95821E80E80003460D0 /* MoonbounceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoonbounceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		464DA95A21E80E80003460D0 /* MoonbounceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonbounceTests.swift; sourceTree = "<group>"; };
+		464DA95C21E80E80003460D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		465C4AAD1F4DF55400C15F50 /* shapeshifter-server */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "shapeshifter-server"; path = "Helpers/shapeshifter-server"; sourceTree = "<group>"; };
 		465F18F21DDA684600C8F1B8 /* Moonbounce.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Moonbounce.entitlements; sourceTree = "<group>"; };
 		4672B8961DF60498008134E5 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
@@ -218,6 +231,7 @@
 		467CB5C41DBEB8CF0086E341 /* MoonbounceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MoonbounceViewController.xib; path = ViewControllers/MoonbounceViewController.xib; sourceTree = "<group>"; };
 		467CB5C81DBEB9730086E341 /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventMonitor.swift; path = Helpers/EventMonitor.swift; sourceTree = "<group>"; };
 		468D4CA91E11986F00BD80C4 /* vars */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vars; sourceTree = "<group>"; };
+		468F587F21E914E800E84ED8 /* utun9.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = utun9.conf; sourceTree = "<group>"; };
 		469B0A3F21DC1F5A003FC2BC /* terraform */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = terraform; sourceTree = "<group>"; };
 		469B0A4E21DC32C7003FC2BC /* MoonbounceDependencies.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MoonbounceDependencies.xcodeproj; path = MoonbounceDependencies/MoonbounceDependencies.xcodeproj; sourceTree = "<group>"; };
 		469B0A7821DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MoonbounceNetworkExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -242,6 +256,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		464DA95521E80E80003460D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		467CB5B01DBEB6E90086E341 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -268,6 +289,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		464DA95921E80E80003460D0 /* MoonbounceTests */ = {
+			isa = PBXGroup;
+			children = (
+				468F587F21E914E800E84ED8 /* utun9.conf */,
+				464DA95A21E80E80003460D0 /* MoonbounceTests.swift */,
+				464DA95C21E80E80003460D0 /* Info.plist */,
+			);
+			path = MoonbounceTests;
+			sourceTree = "<group>";
+		};
 		4678C30221DFF70700492768 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -325,6 +356,7 @@
 				4678C33021E00DBC00492768 /* WireGuard */,
 				467CB5B51DBEB6E90086E341 /* Moonbounce */,
 				469B0A7921DEA5AB003FC2BC /* MoonbounceNetworkExtension */,
+				464DA95921E80E80003460D0 /* MoonbounceTests */,
 				467CB5B41DBEB6E90086E341 /* Products */,
 				D1943F52C69C7904415E81F0 /* Frameworks */,
 				469B0A4E21DC32C7003FC2BC /* MoonbounceDependencies.xcodeproj */,
@@ -336,6 +368,7 @@
 			children = (
 				467CB5B31DBEB6E90086E341 /* Moonbounce.app */,
 				469B0A7821DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex */,
+				464DA95821E80E80003460D0 /* MoonbounceTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -466,6 +499,24 @@
 /* End PBXLegacyTarget section */
 
 /* Begin PBXNativeTarget section */
+		464DA95721E80E80003460D0 /* MoonbounceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 464DA97121E80E80003460D0 /* Build configuration list for PBXNativeTarget "MoonbounceTests" */;
+			buildPhases = (
+				464DA95421E80E80003460D0 /* Sources */,
+				464DA95521E80E80003460D0 /* Frameworks */,
+				464DA95621E80E80003460D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				464DA95E21E80E80003460D0 /* PBXTargetDependency */,
+			);
+			name = MoonbounceTests;
+			productName = MoonbounceTests;
+			productReference = 464DA95821E80E80003460D0 /* MoonbounceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		467CB5B21DBEB6E90086E341 /* Moonbounce */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 467CB5C01DBEB6E90086E341 /* Build configuration list for PBXNativeTarget "Moonbounce" */;
@@ -515,6 +566,12 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = operatorfoundation.org;
 				TargetAttributes = {
+					464DA95721E80E80003460D0 = {
+						CreatedOnToolsVersion = 10.1;
+						DevelopmentTeam = 67Y4NSLDQ3;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 467CB5B21DBEB6E90086E341;
+					};
 					4678C34A21E0158200492768 = {
 						CreatedOnToolsVersion = 10.1;
 						DevelopmentTeam = 67Y4NSLDQ3;
@@ -584,6 +641,7 @@
 				467CB5B21DBEB6E90086E341 /* Moonbounce */,
 				469B0A7721DEA5AB003FC2BC /* MoonbounceNetworkExtension */,
 				4678C34A21E0158200492768 /* WireGuardGoBridge */,
+				464DA95721E80E80003460D0 /* MoonbounceTests */,
 			);
 		};
 /* End PBXProject section */
@@ -648,10 +706,19 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		464DA95621E80E80003460D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				468F589021E914E800E84ED8 /* utun9.conf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		467CB5B11DBEB6E90086E341 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				468F589121E94ADC00E84ED8 /* utun9.conf in Resources */,
 				468D4CAA1E11986F00BD80C4 /* vars in Resources */,
 				469B0A4021DC1F5A003FC2BC /* terraform in Resources */,
 				46C28E361E0DBA2F0024A61F /* DestroyTerraform.sh in Resources */,
@@ -695,6 +762,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		464DA95421E80E80003460D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				464DA95B21E80E80003460D0 /* MoonbounceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		467CB5AF1DBEB6E90086E341 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -762,6 +837,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		464DA95E21E80E80003460D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 467CB5B21DBEB6E90086E341 /* Moonbounce */;
+			targetProxy = 464DA95D21E80E80003460D0 /* PBXContainerItemProxy */;
+		};
 		469B0A7F21DEA5AB003FC2BC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 469B0A7721DEA5AB003FC2BC /* MoonbounceNetworkExtension */;
@@ -781,6 +861,53 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		464DA95F21E80E80003460D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MoonbounceTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.operatorFoundation.MoonbounceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Moonbounce.app/Contents/MacOS/Moonbounce";
+			};
+			name = Debug;
+		};
+		464DA96021E80E80003460D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MoonbounceTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.operatorFoundation.MoonbounceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Moonbounce.app/Contents/MacOS/Moonbounce";
+			};
+			name = Release;
+		};
 		4678C34C21E0158200492768 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1048,6 +1175,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		464DA97121E80E80003460D0 /* Build configuration list for PBXNativeTarget "MoonbounceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				464DA95F21E80E80003460D0 /* Debug */,
+				464DA96021E80E80003460D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4678C34B21E0158200492768 /* Build configuration list for PBXLegacyTarget "WireGuardGoBridge" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

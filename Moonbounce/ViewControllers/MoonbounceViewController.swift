@@ -236,28 +236,24 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                         serverName = textField.stringValue
                     }
                     
-//                    let zipPath = appDirectory.appending("/\(serverName).\(moonbounceExtension)")
+                    let zipPath = appDirectory.appending("/\(serverName).\(moonbounceExtension)")
+                    let fileManager = FileManager()
                     
-//                    //Zip the files and save to the temp directory.
-//                    do
-//                    {
-//                        try Zip.zipFiles(paths: [URL(fileURLWithPath: currentConfigDirectory)], zipFilePath: URL(fileURLWithPath: zipPath), password: nil, progress:
-//                        {
-//                            (progress) in
-//
-//                            print(progress)
-//                        })
-//
-//                        //Set up a sharing services picker
-//                        let sharePicker = NSSharingServicePicker.init(items: [URL(fileURLWithPath: zipPath)])
-//
-//                        sharePicker.delegate = self
-//                        sharePicker.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxY)
-//                    }
-//                    catch
-//                    {
-//                        print("Unable to zip config directory for export!")
-//                    }
+                    //Zip the files and save to the temp directory.
+                    do
+                    {
+                        try fileManager.zipItem(at: URL(fileURLWithPath: currentConfigDirectory), to: URL(fileURLWithPath: zipPath))
+
+                        //Set up a sharing services picker
+                        let sharePicker = NSSharingServicePicker.init(items: [URL(fileURLWithPath: zipPath)])
+
+                        sharePicker.delegate = self
+                        sharePicker.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxY)
+                    }
+                    catch
+                    {
+                        print("\nUnable to zip config directory for export!\n")
+                    }
                     
                     sender.isEnabled = true
                     self.serverSelectButton.isEnabled = true

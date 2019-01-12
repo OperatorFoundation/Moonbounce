@@ -1,3 +1,5 @@
+import ReplicantSwift
+import Replicant
 import XCTest
 @testable import MoonbounceDependencies
 

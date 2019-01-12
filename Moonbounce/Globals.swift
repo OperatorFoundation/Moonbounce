@@ -22,13 +22,10 @@ let importedDirectoryName = "Imported"
 let defaultDirectoryName = "Default"
 let ipFileName = "serverIP"
 let obfs4OptionsFileName = "obfs4.json"
-
 let moonbounceExtension = "moonbounce"
-
 
 var appDirectory = ""
 var configFilesDirectory = ""
-
 var defaultConfigDirectory = ""
 var importedConfigDirectory = ""
 var userConfigDirectory = ""

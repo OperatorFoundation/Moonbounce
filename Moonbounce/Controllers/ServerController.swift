@@ -34,13 +34,17 @@ class ServerController: NSObject
 //            Zip.addCustomFileExtension(moonbounceExtension)
 //            Zip.addCustomFileExtension("MOONBOUNCE")
             
+            let fileManager = FileManager()
             //Unzip the selected file
-//            try Zip.unzipFile(configURL, destination: URL(fileURLWithPath: importedConfigDirectory), overwrite: true, password: nil, progress:
-//            {
-//                (progress) in
-//                
-//                print(progress)
-//            })
+            
+            do
+            {
+                try fileManager.unzipItem(at: configURL, to: URL(fileURLWithPath: importedConfigDirectory))
+            }
+            catch (let error)
+            {
+                print("\nFailed to unzip config files: \(error)\n")
+            }
             
             print("Unzipped to :\(importedConfigDirectory)")
             let defaultName = configURL.deletingPathExtension().lastPathComponent
@@ -127,13 +131,9 @@ class ServerController: NSObject
             })
             {
                 //Verify  that each of the following files are present as all config files are neccessary for successful connection:
-                let file1 = "ca.crt"
-                let file2 = "client1.crt"
-                let file3 = "client1.key"
-                let file4 = "DO.ovpn"
-                let file5 = "server.crt"
-                let file6 = "serverIP"
-                let file7 = "ta.key"
+                let file1 = "replicant.config"
+                let file2 = "wireguard.config"
+                let file3 = "serverIP"
                 
                 var fileNames = [String]()
                 for case let fileURL as URL in fileEnumerator
@@ -146,7 +146,7 @@ class ServerController: NSObject
                 }
                 
                 //If all required files are present refresh server select button
-                if fileNames.contains(file1) && fileNames.contains(file2) && fileNames.contains(file3) && fileNames.contains(file4) && fileNames.contains(file5) && fileNames.contains(file6) && fileNames.contains(file7)
+                if fileNames.contains(file1) && fileNames.contains(file2) && fileNames.contains(file3)
                 {
                     return true
                 }
