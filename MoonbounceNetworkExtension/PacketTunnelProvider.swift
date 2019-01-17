@@ -41,21 +41,32 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         wg_log(.info, message: "Starting tunnel from the " + (activationAttemptId == nil ? "OS directly, rather than the app" : "app"))
         
         let endpoints = tunnelConfiguration.peers.map { $0.endpoint }
-        guard let resolvedEndpoints = DNSResolver.resolveSync(endpoints: endpoints) else {
+        guard let resolvedEndpoints = DNSResolver.resolveSync(endpoints: endpoints)
+        else
+        {
             errorNotifier.notify(PacketTunnelProviderError.dnsResolutionFailure)
             startTunnelCompletionHandler(PacketTunnelProviderError.dnsResolutionFailure)
             return
         }
+        
         assert(endpoints.count == resolvedEndpoints.count)
+       
+        // TODO: Initialize Replicant Here
         
         packetTunnelSettingsGenerator = PacketTunnelSettingsGenerator(tunnelConfiguration: tunnelConfiguration, resolvedEndpoints: resolvedEndpoints)
         
-        setTunnelNetworkSettings(packetTunnelSettingsGenerator!.generateNetworkSettings()) { error in
-            if let error = error {
+        setTunnelNetworkSettings(packetTunnelSettingsGenerator!.generateNetworkSettings())
+        {
+            error in
+            
+            if let error = error
+            {
                 wg_log(.error, message: "Starting tunnel failed with setTunnelNetworkSettings returning \(error.localizedDescription)")
                 errorNotifier.notify(PacketTunnelProviderError.couldNotSetNetworkSettings)
                 startTunnelCompletionHandler(PacketTunnelProviderError.couldNotSetNetworkSettings)
-            } else {
+            }
+            else
+            {
                 self.networkMonitor = NWPathMonitor()
                 self.networkMonitor!.pathUpdateHandler = self.pathUpdate
                 self.networkMonitor!.start(queue: DispatchQueue(label: "NetworkMonitor"))
@@ -67,6 +78,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
                     startTunnelCompletionHandler(PacketTunnelProviderError.couldNotDetermineFileDescriptor)
                     return
                 }
+                
                 var ifnameSize = socklen_t(IFNAMSIZ)
                 let ifnamePtr = UnsafeMutablePointer<CChar>.allocate(capacity: Int(ifnameSize))
                 ifnamePtr.initialize(repeating: 0, count: Int(ifnameSize))

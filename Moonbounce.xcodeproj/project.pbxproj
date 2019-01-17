@@ -73,6 +73,7 @@
 		46C6E51521E5747B008D383B /* MoonbounceStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E51421E5747B008D383B /* MoonbounceStrings.swift */; };
 		46C6E51721E67486008D383B /* Datable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469B0A8E21DEA5AB003FC2BC /* Datable.framework */; };
 		46C6E51821E67491008D383B /* Replicant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4678C2E421DEDE6600492768 /* Replicant.framework */; };
+		46C7F4CB21ED354B007434DD /* ReplicantClientConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C7F4CA21ED354B007434DD /* ReplicantClientConfig.swift */; };
 		46EA2C7D1E241BB70069E5DE /* Default in Resources */ = {isa = PBXBuildFile; fileRef = 46EA2C7C1E241BB70069E5DE /* Default */; };
 		B41FE02A1DF24BE900E02D17 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B41FE0291DF24BE900E02D17 /* Security.framework */; };
 		B41FE02C1DF24BF500E02D17 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */; };
@@ -247,6 +248,7 @@
 		46C6E51021E57313008D383B /* WireGuardResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WireGuardResult.swift; sourceTree = "<group>"; };
 		46C6E51121E57313008D383B /* WireGuardAppError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WireGuardAppError.swift; sourceTree = "<group>"; };
 		46C6E51421E5747B008D383B /* MoonbounceStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonbounceStrings.swift; sourceTree = "<group>"; };
+		46C7F4CA21ED354B007434DD /* ReplicantClientConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplicantClientConfig.swift; sourceTree = "<group>"; };
 		46EA2C7C1E241BB70069E5DE /* Default */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Default; sourceTree = "<group>"; };
 		B41FE0291DF24BE900E02D17 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
@@ -376,6 +378,7 @@
 		467CB5B51DBEB6E90086E341 /* Moonbounce */ = {
 			isa = PBXGroup;
 			children = (
+				46C7F4B921ED3523007434DD /* Models */,
 				465F18F21DDA684600C8F1B8 /* Moonbounce.entitlements */,
 				B4646E481DCBA937007C3EFA /* Controllers */,
 				467CB5C71DBEB8DE0086E341 /* ViewControllers */,
@@ -455,6 +458,14 @@
 				46C6E50921E57098008D383B /* TunnelStatus.swift */,
 			);
 			path = Tunnel;
+			sourceTree = "<group>";
+		};
+		46C7F4B921ED3523007434DD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				46C7F4CA21ED354B007434DD /* ReplicantClientConfig.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		B4646E481DCBA937007C3EFA /* Controllers */ = {
@@ -807,6 +818,7 @@
 				4678C31621E0087C00492768 /* Endpoint.swift in Sources */,
 				4672B8971DF60498008134E5 /* Globals.swift in Sources */,
 				46C6E50E21E57098008D383B /* TunnelStatus.swift in Sources */,
+				46C7F4CB21ED354B007434DD /* ReplicantClientConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

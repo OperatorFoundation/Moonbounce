@@ -443,8 +443,6 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         //Update button name
         self.toggleConnectionButton.title = "Disconnect"
 
-        
-        
         /// WireGuard Tunnel Manager
         guard let tunnel = tunnelsManager?.tunnel(at: 0)
         else

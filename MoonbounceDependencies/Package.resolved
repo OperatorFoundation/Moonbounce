@@ -105,8 +105,8 @@
         "repositoryURL": "https://github.com/OperatorFoundation/Shapeshifter-Swift-Transports",
         "state": {
           "branch": null,
-          "revision": "d472504bf02440fcd15d74e500cbc0444712c10f",
-          "version": "0.3.10"
+          "revision": "5c903510eff931d392ed01d7a770cef218f2ed13",
+          "version": "0.3.11"
         }
       },
       {

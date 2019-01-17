@@ -35,7 +35,10 @@ class TunnelsManager {
         #if targetEnvironment(simulator)
         completionHandler(.success(TunnelsManager(tunnelProviders: MockTunnels.createMockTunnels())))
         #else
-        NETunnelProviderManager.loadAllFromPreferences { managers, error in
+        NETunnelProviderManager.loadAllFromPreferences
+        {
+            managers, error in
+            
             if let error = error {
                 wg_log(.error, message: "Failed to load tunnel provider managers: \(error)")
                 completionHandler(.failure(TunnelsManagerError.systemErrorOnListingTunnels(systemError: error)))
@@ -398,36 +401,53 @@ class TunnelContainer: NSObject {
 
         status = .activating // Ensure that no other tunnel can attempt activation until this tunnel is done trying
 
-        guard tunnelProvider.isEnabled else {
+        guard tunnelProvider.isEnabled
+        else
+        {
             // In case the tunnel had gotten disabled, re-enable and save it,
             // then call this function again.
             wg_log(.debug, staticMessage: "startActivation: Tunnel is disabled. Re-enabling and saving")
             tunnelProvider.isEnabled = true
-            tunnelProvider.saveToPreferences { [weak self] error in
+            tunnelProvider.saveToPreferences
+            {
+                [weak self] error in
+                
                 guard let self = self else { return }
-                if error != nil {
+                
+                if error != nil
+                {
                     wg_log(.error, message: "Error saving tunnel after re-enabling: \(error!)")
                     activationDelegate?.tunnelActivationAttemptFailed(tunnel: self, error: .failedWhileSaving(systemError: error!))
                     return
                 }
+                
                 wg_log(.debug, staticMessage: "startActivation: Tunnel saved after re-enabling, invoking startActivation")
                 self.startActivation(recursionCount: recursionCount + 1, lastError: NEVPNError(NEVPNError.configurationUnknown), activationDelegate: activationDelegate)
             }
+            
             return
         }
 
         // Start the tunnel
-        do {
+        do
+        {
             wg_log(.debug, staticMessage: "startActivation: Starting tunnel")
             isAttemptingActivation = true
             let activationAttemptId = UUID().uuidString
             self.activationAttemptId = activationAttemptId
+            
+            //TODO: Needs to pass configs to the Network Extension
             try (tunnelProvider.connection as? NETunnelProviderSession)?.startTunnel(options: ["activationAttemptId": activationAttemptId])
+            
             wg_log(.debug, staticMessage: "startActivation: Success")
             activationDelegate?.tunnelActivationAttemptSucceeded(tunnel: self)
-        } catch let error {
+        }
+        catch let error
+        {
             isAttemptingActivation = false
-            guard let systemError = error as? NEVPNError else {
+            guard let systemError = error as? NEVPNError
+            else
+            {
                 wg_log(.error, message: "Failed to activate tunnel: Error: \(error)")
                 status = .inactive
                 activationDelegate?.tunnelActivationAttemptFailed(tunnel: self, error: .failedWhileStarting(systemError: error))

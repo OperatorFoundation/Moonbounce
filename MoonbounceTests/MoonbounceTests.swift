@@ -7,11 +7,13 @@
 //
 
 import XCTest
+import Network
 import ReplicantSwift
 import Replicant
 import Datable
 import INI
 import ZIPFoundation
+@testable import Moonbounce
 
 class MoonbounceTests: XCTestCase {
 
@@ -25,15 +27,50 @@ class MoonbounceTests: XCTestCase {
 
     func testCreateConfigs()
     {
-        guard let testConfigDirectoryURL = getApplicationDirectory()
+        let fileManager = FileManager.default
+        guard let applicationDirectoryURL = getApplicationDirectory()
         else
         {
             XCTFail()
             return
         }
         
+        let moonbounceConfigDirectory = applicationDirectoryURL.appendingPathComponent("MoonbounceConfigs", isDirectory: true)
+        
+        do
+        {
+            try fileManager.createDirectory(at: moonbounceConfigDirectory, withIntermediateDirectories: true, attributes: nil)
+        }
+        catch (let error)
+        {
+            print("\nEncountered an error attempting to create our application support directory: \(error)\n")
+            XCTFail()
+            return
+        }
+        
+        let testConfigDirectoryURL = applicationDirectoryURL.appendingPathComponent("TestConfigFiles", isDirectory: true)
+        
+        do
+        {
+            try fileManager.createDirectory(at: testConfigDirectoryURL, withIntermediateDirectories: true, attributes: nil)
+        }
+        catch (let error)
+        {
+            print("\nEncountered an error attempting to create our application support directory: \(error)\n")
+            XCTFail()
+            return
+        }
+        
         // Replicant Config
         guard createReplicantConfig(inDirectory: testConfigDirectoryURL)
+        else
+        {
+            XCTFail()
+            return
+        }
+        
+        // Replicant Client Config
+        guard createReplicantClientConfig(inDirectory: testConfigDirectoryURL)
         else
         {
             XCTFail()
@@ -48,8 +85,7 @@ class MoonbounceTests: XCTestCase {
             return
         }
         
-        let zipPath = testConfigDirectoryURL.appendingPathComponent("defaultTestConfig.moonbounce")
-        let fileManager = FileManager()
+        let zipPath = moonbounceConfigDirectory.appendingPathComponent("defaultTestConfig.moonbounce")
         
         // Check if an old config already exists and delete it so we can save the new one.
         if fileManager.fileExists(atPath: zipPath.path)
@@ -111,6 +147,40 @@ class MoonbounceTests: XCTestCase {
         // Save JSON to the destination directory
         let fileManager = FileManager.default
         let fileName = "replicant.config"
+        let path = destDirectory.appendingPathComponent(fileName).path
+        let configCreated = fileManager.createFile(atPath: path, contents: jsonData, attributes: nil)
+        
+        if configCreated
+        {
+            return true
+        }
+        else
+        {
+            print("\nUnable to create file at path: \(path)\n")
+            return false
+        }
+    }
+    
+    func createReplicantClientConfig(inDirectory destDirectory: URL) -> Bool
+    {
+        guard let port = NWEndpoint.Port(rawValue: 3006)
+        else
+        {
+            return false
+        }
+        
+        let clientConfig = ReplicantClientConfig(withPort: port, andIP: "165.337.74.150")
+        
+        guard let jsonData = clientConfig.createJSON()
+        else
+        {
+            print("\nUnable to create JSON from client config.\n")
+            return false
+        }
+        
+        // Save JSON to the destination directory
+        let fileManager = FileManager.default
+        let fileName = "replicantClient.config"
         let path = destDirectory.appendingPathComponent(fileName).path
         let configCreated = fileManager.createFile(atPath: path, contents: jsonData, attributes: nil)
         
@@ -206,8 +276,6 @@ class MoonbounceTests: XCTestCase {
     
     func getApplicationDirectory() -> URL?
     {
-        let directoryName = "org.OperatorFoundation.Moonbounce.MacOS"
-        
         let fileManager = FileManager.default
         var directoryPath: URL
         
@@ -223,10 +291,7 @@ class MoonbounceTests: XCTestCase {
         }
         
         print("\nAppSupport Directory: \(appSupportDir)\n")
-        
-        // Append the bundle ID to the URL for the
-        // Application Support directory
-        directoryPath = appSupportDir[0].appendingPathComponent("\(directoryName)/testConfig")
+        directoryPath = appSupportDir[0]
         
         // If the directory does not exist, this method creates it.
         // This method is only available in macOS 10.7 and iOS 5.0 or later.
