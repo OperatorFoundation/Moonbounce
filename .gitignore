@@ -47,10 +47,6 @@ DerivedData/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-wireguard-go-bridge/.tmp
-wireguard-go-bridge/out
-wireguard-go-bridge/src
-wireguard-go-bridge/Pro
 
 ### Xcode Patch ###
 *.xcodeproj/*
@@ -61,3 +57,4 @@ wireguard-go-bridge/Pro
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.gitignore.io/api/go,xcode
+Moonbounce/terraform

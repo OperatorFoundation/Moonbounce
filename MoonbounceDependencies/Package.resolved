@@ -96,8 +96,8 @@
         "repositoryURL": "https://github.com/OperatorFoundation/ReplicantSwift.git",
         "state": {
           "branch": null,
-          "revision": "df962ef4cf526a0dc2bd268ec770462a44c94e46",
-          "version": "0.2.0"
+          "revision": "bd3cbb245a38e1dd44970ef2e675619b48e8cf04",
+          "version": "0.2.1"
         }
       },
       {
@@ -150,8 +150,8 @@
         "repositoryURL": "https://github.com/weichsel/ZIPFoundation",
         "state": {
           "branch": null,
-          "revision": "b5c53bef2deb7b20659b03b1223f0942599e5c41",
-          "version": "0.9.6"
+          "revision": "d9bb1c47984baa035e3960338551d9b0b7128e79",
+          "version": "0.9.8"
         }
       }
     ]

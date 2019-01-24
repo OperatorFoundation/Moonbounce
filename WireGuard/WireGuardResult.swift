@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright © 2018 WireGuard LLC. All Rights Reserved.
 
-enum WireGuardResult<T> {
+enum WireGuardResult<T>
+{
     case success(_ value: T)
     case failure(_ error: WireGuardAppError)
 
@@ -12,8 +13,10 @@ enum WireGuardResult<T> {
         }
     }
 
-    var error: WireGuardAppError? {
-        switch self {
+    var error: WireGuardAppError?
+    {
+        switch self
+        {
         case .success: return nil
         case .failure(let error): return error
         }

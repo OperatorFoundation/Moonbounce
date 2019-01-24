@@ -16,6 +16,7 @@ let alertTunnelAlreadyExistsWithThatNameTitle = "Tunnel Name Unavailable"
 let alertTunnelAlreadyExistsWithThatNameMessage = "There is already a tunnel with this name. Please choose a different name."
 
 let alertSystemErrorOnListingTunnelsTitle = "Unable to List Tunnels"
+let alertErrorOnListingTunnelsMessage = "Unable to list tunnels, no tunnel information was found."
 let alertSystemErrorOnAddTunnelTitle = "Unable to Add Tunnel"
 let alertSystemErrorOnModifyTunnelTitle = "Unable to Modify Tunnel"
 let alertSystemErrorOnRemoveTunnelTitle = "Unable to Remove Tunnel"

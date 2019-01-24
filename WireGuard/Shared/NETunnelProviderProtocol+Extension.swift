@@ -2,6 +2,8 @@
 // Copyright © 2018 WireGuard LLC. All Rights Reserved.
 
 import NetworkExtension
+import Replicant
+import ReplicantSwift
 
 enum PacketTunnelProviderError: String, Error
 {
@@ -17,7 +19,8 @@ extension NETunnelProviderProtocol
 
     enum Keys: String
     {
-        case wgQuickConfig = "WgQuickConfig"
+        case clientConfigKey = "ClientConfiguration"
+        case replicantConfigKey = "ReplicantConfiguration"
     }
 
     convenience init?(tunnelConfiguration: TunnelConfiguration)
@@ -26,23 +29,36 @@ extension NETunnelProviderProtocol
 
         let appId = Bundle.main.bundleIdentifier!
         providerBundleIdentifier = "\(appId).network-extension"
-        providerConfiguration = [Keys.wgQuickConfig.rawValue: tunnelConfiguration.asWgQuickConfig()]
-
-        let endpoints = tunnelConfiguration.peers.compactMap { $0.endpoint }
-        if endpoints.count == 1 {
-            serverAddress = endpoints[0].stringRepresentation
-        } else if endpoints.isEmpty {
-            serverAddress = "Unspecified"
-        } else {
-            serverAddress = "Multiple endpoints"
+        
+        if let replicantConfig = tunnelConfiguration.replicantConfiguration
+        {
+            providerConfiguration = [Keys.clientConfigKey.rawValue: tunnelConfiguration.clientConfig, Keys.replicantConfigKey.rawValue: replicantConfig]
         }
+        else
+        {
+            providerConfiguration = [Keys.clientConfigKey.rawValue: tunnelConfiguration.clientConfig]
+        }
+        
+        serverAddress = "\(tunnelConfiguration.clientConfig.host)"
     }
 
     func asTunnelConfiguration(called name: String? = nil) -> TunnelConfiguration?
     {
-        migrateConfigurationIfNeeded()
-        guard let serializedConfig = providerConfiguration?[Keys.wgQuickConfig.rawValue] as? String else { return nil }
-        return try? TunnelConfiguration(fromWgQuickConfig: serializedConfig, called: name)
+        guard let clientConfig = providerConfiguration?[Keys.clientConfigKey.rawValue] as? ClientConfig
+        else
+        {
+            print("\nUnable to create tunnel configuration: client configuration is invalid or missing.\n")
+            return nil
+        }
+        
+        if let replicantConfig = providerConfiguration?[Keys.replicantConfigKey.rawValue] as? ReplicantConfig
+        {
+            return TunnelConfiguration(name: name, clientConfig: clientConfig, replicantConfig: replicantConfig)
+        }
+        else
+        {
+            return TunnelConfiguration(name: name, clientConfig: clientConfig)
+        }
     }
 
 }

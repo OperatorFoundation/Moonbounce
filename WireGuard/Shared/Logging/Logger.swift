@@ -4,8 +4,10 @@
 import Foundation
 import os.log
 
-public class Logger {
-    enum LoggerError: Error {
+public class Logger
+{
+    enum LoggerError: Error
+    {
         case openFailure
     }
 
@@ -13,20 +15,24 @@ public class Logger {
 
     var log: OpaquePointer
 
-    init(withFilePath filePath: String) throws {
+    init(withFilePath filePath: String) throws
+    {
         guard let log = open_log(filePath) else { throw LoggerError.openFailure }
         self.log = log
     }
 
-    deinit {
+    deinit
+    {
         close_log(self.log)
     }
 
-    func log(message: String) {
+    func log(message: String)
+    {
         write_msg_to_log(log, message.trimmingCharacters(in: .newlines))
     }
 
-    func writeLog(called ourTag: String, mergedWith otherLogFile: String, called otherTag: String, to targetFile: String) -> Bool {
+    func writeLog(called ourTag: String, mergedWith otherLogFile: String, called otherTag: String, to targetFile: String) -> Bool
+    {
         guard let other = open_log(otherLogFile) else { return false }
         let ret = write_logs_to_file(targetFile, log, ourTag, other, otherTag)
         close_log(other)
@@ -51,18 +57,19 @@ public class Logger {
         if let appBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
             appVersion += " (\(appBuild))"
         }
-        let goBackendVersion = WIREGUARD_GO_VERSION
-        Logger.global?.log(message: "App version: \(appVersion); Go backend version: \(goBackendVersion)")
 
+        Logger.global?.log(message: "App version: \(appVersion)")
     }
 }
 
-func wg_log(_ type: OSLogType, staticMessage msg: StaticString) {
+func wg_log(_ type: OSLogType, staticMessage msg: StaticString)
+{
     os_log(msg, log: OSLog.default, type: type)
     Logger.global?.log(message: "\(msg)")
 }
 
-func wg_log(_ type: OSLogType, message msg: String) {
+func wg_log(_ type: OSLogType, message msg: String)
+{
     os_log("%{public}s", log: OSLog.default, type: type, msg)
     Logger.global?.log(message: msg)
 }

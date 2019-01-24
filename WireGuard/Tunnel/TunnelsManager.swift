@@ -5,21 +5,24 @@ import Foundation
 import NetworkExtension
 import os.log
 
-protocol TunnelsManagerListDelegate: class {
+protocol TunnelsManagerListDelegate: class
+{
     func tunnelAdded(at index: Int)
     func tunnelModified(at index: Int)
     func tunnelMoved(from oldIndex: Int, to newIndex: Int)
     func tunnelRemoved(at index: Int)
 }
 
-protocol TunnelsManagerActivationDelegate: class {
+protocol TunnelsManagerActivationDelegate: class
+{
     func tunnelActivationAttemptFailed(tunnel: TunnelContainer, error: TunnelsManagerActivationAttemptError) // startTunnel wasn't called or failed
     func tunnelActivationAttemptSucceeded(tunnel: TunnelContainer) // startTunnel succeeded
     func tunnelActivationFailed(tunnel: TunnelContainer, error: TunnelsManagerActivationError) // status didn't change to connected
     func tunnelActivationSucceeded(tunnel: TunnelContainer) // status changed to connected
 }
 
-class TunnelsManager {
+class TunnelsManager
+{
     private var tunnels: [TunnelContainer]
     weak var tunnelsListDelegate: TunnelsManagerListDelegate?
     weak var activationDelegate: TunnelsManagerActivationDelegate?
@@ -31,47 +34,61 @@ class TunnelsManager {
         startObservingTunnelStatuses()
     }
 
-    static func create(completionHandler: @escaping (WireGuardResult<TunnelsManager>) -> Void) {
+    static func create(completionHandler: @escaping (WireGuardResult<TunnelsManager>) -> Void)
+    {
         #if targetEnvironment(simulator)
         completionHandler(.success(TunnelsManager(tunnelProviders: MockTunnels.createMockTunnels())))
         #else
+        
+        // TODO:
         NETunnelProviderManager.loadAllFromPreferences
         {
             managers, error in
             
-            if let error = error {
+            if let error = error
+            {
                 wg_log(.error, message: "Failed to load tunnel provider managers: \(error)")
                 completionHandler(.failure(TunnelsManagerError.systemErrorOnListingTunnels(systemError: error)))
                 return
             }
-
-            let tunnelManagers = managers ?? []
-            tunnelManagers.forEach { tunnelManager in
-                if (tunnelManager.protocolConfiguration as? NETunnelProviderProtocol)?.migrateConfigurationIfNeeded() == true {
-                    tunnelManager.saveToPreferences { _ in }
-                }
+            
+            guard let tunnelManagers = managers
+            else
+            {
+                completionHandler(.failure(TunnelsManagerError.errorOnListingTunnels))
+                return
             }
+
             completionHandler(.success(TunnelsManager(tunnelProviders: tunnelManagers)))
         }
         #endif
     }
 
-    func reload(completionHandler: @escaping (Bool) -> Void) {
+    func reload(completionHandler: @escaping (Bool) -> Void)
+    {
         #if targetEnvironment(simulator)
         completionHandler(false)
         #else
-        NETunnelProviderManager.loadAllFromPreferences { managers, _ in
-            guard let managers = managers else {
+        NETunnelProviderManager.loadAllFromPreferences
+        {
+            managers, _ in
+            
+            guard let managers = managers
+            else
+            {
                 completionHandler(false)
                 return
             }
 
             let newTunnels = managers.map { TunnelContainer(tunnel: $0) }.sorted { $0.name < $1.name }
             let hasChanges = self.tunnels.map { $0.tunnelConfiguration } != newTunnels.map { $0.tunnelConfiguration }
-            if hasChanges {
+            if hasChanges
+            {
                 self.tunnels = newTunnels
                 completionHandler(true)
-            } else {
+            }
+            else
+            {
                 completionHandler(false)
             }
         }
@@ -333,20 +350,24 @@ private func lastErrorTextFromNetworkExtension(for tunnel: TunnelContainer) -> (
     return ("alertTunnelActivationFailureTitle", "alertTunnelActivationFailureMessage")
 }
 
-class TunnelContainer: NSObject {
+class TunnelContainer: NSObject
+{
     @objc dynamic var name: String
     @objc dynamic var status: TunnelStatus
-
     @objc dynamic var isActivateOnDemandEnabled: Bool
 
-    var isAttemptingActivation = false {
-        didSet {
-            if isAttemptingActivation {
+    var isAttemptingActivation = false
+    {
+        didSet
+        {
+            if isAttemptingActivation
+            {
                 self.activationTimer?.invalidate()
                 let activationTimer = Timer(timeInterval: 5 /* seconds */, repeats: true) { [weak self] _ in
                     guard let self = self else { return }
                     wg_log(.debug, message: "Status update notification timeout for tunnel '\(self.name)'. Tunnel status is now '\(self.tunnelProvider.connection.status)'.")
-                    switch self.tunnelProvider.connection.status {
+                    switch self.tunnelProvider.connection.status
+                    {
                     case .connected, .disconnected, .invalid:
                         self.activationTimer?.invalidate()
                         self.activationTimer = nil

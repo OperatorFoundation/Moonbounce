@@ -3,20 +3,26 @@
 
 import NetworkExtension
 
-enum TunnelsManagerError: WireGuardAppError {
+enum TunnelsManagerError: WireGuardAppError
+{
     case tunnelNameEmpty
     case tunnelAlreadyExistsWithThatName
     case systemErrorOnListingTunnels(systemError: Error)
+    case errorOnListingTunnels
     case systemErrorOnAddTunnel(systemError: Error)
     case systemErrorOnModifyTunnel(systemError: Error)
     case systemErrorOnRemoveTunnel(systemError: Error)
 
-    var alertText: AlertText {
-        switch self {
+    var alertText: AlertText
+    {
+        switch self
+        {
         case .tunnelNameEmpty:
             return (alertTunnelNameEmptyTitle, alertTunnelNameEmptyMessage)
         case .tunnelAlreadyExistsWithThatName:
             return (alertTunnelAlreadyExistsWithThatNameTitle, alertTunnelAlreadyExistsWithThatNameMessage)
+        case .errorOnListingTunnels:
+            return (alertSystemErrorOnListingTunnelsTitle, alertErrorOnListingTunnelsMessage)
         case .systemErrorOnListingTunnels(let systemError):
             return (alertSystemErrorOnListingTunnelsTitle, systemError.localizedUIString)
         case .systemErrorOnAddTunnel(let systemError):
