@@ -12,7 +12,9 @@ class TerraformController: NSObject
 {
     var terraformTask: Process!
     let outputPipe = Pipe()
-    let ipFilePath = userConfigDirectory.appending("/serverIP")
+    
+    // TODO: We used to create and destroy an ipFile, terraform needs to create a client config file instead
+    let clientConfigURL = userConfigDirectory.appendingPathComponent(clientConfigFileName, isDirectory: false)
     
     func launchTerraformServer(completion:@escaping (_ completion:Bool) -> Void)
     {
@@ -45,28 +47,20 @@ class TerraformController: NSObject
             
             if didLaunch
             {
-                //Get the file that has the server IP
-                if userConfigDirectory != ""
+                // Get client config from user config directory
+                
+                
+                guard let clientConfig = ClientConfig(withConfigAtPath: self.clientConfigURL.path)
+                else
                 {
-                    do
-                    {
-                        let ip = try String(contentsOfFile: self.ipFilePath, encoding: String.Encoding.ascii)
-                        userServerIP = ip
-                        print("User Server IP is: \(ip)")
-                    }
-                    catch
-                    {
-                        print("Unable to locate the new user server IP at: \(self.ipFilePath))")
-                        print("Perhaps we were unable to launch a new DO server.")
-                        completion(false)
-                    }
+                    print("Unable to locate the new user server IP at: \(self.clientConfigURL))")
+                    print("Perhaps we were unable to launch a new DO server.")
+                    completion(false)
+                    return
                 }
                 
+                userHost = clientConfig.host
                 completion(true)
-            }
-            else
-            {
-                completion(false)
             }
         }
     }
@@ -112,11 +106,11 @@ class TerraformController: NSObject
                 (didDestroy) in
                 
                 //Remove IP File as we check for this to verify if there is a live server available.
-                userServerIP = ""
+                userHost = nil
                 let fileManager = FileManager.default
                 do
                 {
-                    try fileManager.removeItem(atPath: self.ipFilePath)
+                    try fileManager.removeItem(atPath: self.clientConfigURL.path)
                 }
                 catch let error as NSError
                 {

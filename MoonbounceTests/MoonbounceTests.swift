@@ -11,7 +11,6 @@ import Network
 import ReplicantSwift
 import Replicant
 import Datable
-import INI
 import ZIPFoundation
 @testable import Moonbounce
 
@@ -180,7 +179,7 @@ class MoonbounceTests: XCTestCase {
         
         // Save JSON to the destination directory
         let fileManager = FileManager.default
-        let fileName = "replicantClient.config"
+        let fileName = "replicantclient.config"
         let path = destDirectory.appendingPathComponent(fileName).path
         let configCreated = fileManager.createFile(atPath: path, contents: jsonData, attributes: nil)
         

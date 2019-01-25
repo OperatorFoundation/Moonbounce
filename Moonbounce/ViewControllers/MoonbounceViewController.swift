@@ -171,7 +171,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             {
                 if let configPath = menuItem.representedObject as? String
                 {
-                    setSelectedServer(atPath: configPath)
+                    setSelectedServer(atURL: URL(fileURLWithPath: configPath))
                     print("Setting selected server \(selectedItemTitle), with path:\n\(configPath)")
                 }
             }
@@ -216,14 +216,14 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     @IBAction func shareServerClick(_ sender: NSButton)
     {
         //make sure we have a config directory, and that it is not the default server config directory
-        if currentConfigDirectory != "" && currentConfigDirectory != defaultConfigDirectory
+        if currentConfigDirectory != defaultConfigDirectory
         {
             if let presentingWindow = self.view.window
             {
                 sender.isEnabled = false
                 serverSelectButton.isEnabled = false
                 
-                let currentServerName = URL(fileURLWithPath: currentConfigDirectory).lastPathComponent
+                let currentServerName = FileManager.default.displayName(atPath: currentConfigDirectory.path)
                 var serverName = currentServerName
                 
                 let alert = ServerController.sharedInstance.createServerNameAlert(defaultName: currentServerName)
@@ -236,16 +236,16 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                         serverName = textField.stringValue
                     }
                     
-                    let zipPath = appDirectory.appending("/\(serverName).\(moonbounceExtension)")
-                    let fileManager = FileManager()
+                    var zipPath = moonbounceDirectory.appendingPathComponent(serverName, isDirectory: false)
+                    zipPath = zipPath.appendingPathExtension(moonbounceExtension)
                     
                     //Zip the files and save to the temp directory.
                     do
                     {
-                        try fileManager.zipItem(at: URL(fileURLWithPath: currentConfigDirectory), to: URL(fileURLWithPath: zipPath))
+                        try FileManager.default.zipItem(at: currentConfigDirectory, to: zipPath)
 
                         //Set up a sharing services picker
-                        let sharePicker = NSSharingServicePicker.init(items: [URL(fileURLWithPath: zipPath)])
+                        let sharePicker = NSSharingServicePicker.init(items: [zipPath])
 
                         sharePicker.delegate = self
                         sharePicker.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxY)
@@ -452,36 +452,6 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         }
         tunnelsManager?.startActivation(of: tunnel)
         
-        /// Replicant
-        
-        //TODO: Config File Path Based on User Input
-        guard let replicantConfig = ReplicantConfig(withConfigAtPath: currentConfigDirectory)
-        else
-        {
-            print("\nUnable to parse Replicant config file.\n")
-            return
-        }
-        
-        //TODO: Replicant Server IP & Port
-
-        guard let replicantPort = NWEndpoint.Port(rawValue: 51820)
-        else
-        {
-            print("\nUnable to generate port for replicant connection.\n")
-            return
-        }
-        
-        let replicantServerIP = NWEndpoint.Host(currentServerIP)
-        
-        let replicantConnectionFactory = ReplicantConnectionFactory(host: replicantServerIP, port: replicantPort, config: replicantConfig)
-        guard let replicantConnection = replicantConnectionFactory.connect(using: .tcp)
-        else
-        {
-            print("Unable to establish a Replicant connection.")
-            return
-        }
-        
-        
 //        MoonbounceViewController.shiftedOpenVpnController.start(configFilePath: currentConfigDirectory, completion:
 //        {
 //            (didLaunch) in
@@ -498,32 +468,28 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 //        })
     }
     
-    func setSelectedServer(atPath configPath: String)
+    func setSelectedServer(atURL configURL: URL)
     {
-        currentConfigDirectory = configPath
+        currentConfigDirectory = configURL
         checkForServerIP()
     }
     
     func checkForServerIP()
     {
         //Get the file that has the server IP
-        if currentConfigDirectory != ""
+
+        //TODO: This will need to point to something different based on what config files are being used
+        let clientConfigFileURL = currentConfigDirectory.appendingPathComponent(clientConfigFileName, isDirectory: false)
+        
+        guard let clientConfig = ClientConfig(withConfigAtPath: clientConfigFileURL.path)
+        else
         {
-            //TODO: This will need to point to something different based on what config files are being used
-            let ipFileDirectory = currentConfigDirectory.appending("/" + ipFileName)
-            
-            do
-            {
-                let ip = try String(contentsOfFile: ipFileDirectory, encoding: String.Encoding.ascii)
-                currentServerIP = ip
-                
-                print("Current Server IP is: \(ip)")
-            }
-            catch
-            {
-                print("Unable to locate the server IP at: \(ipFileDirectory).")
-            }
+            print("\nUnable to locate the server IP at: \(clientConfigFileURL).\n")
+            return
         }
+        
+        currentHost = clientConfig.host
+        print("Current Server host is: \(currentHost!)")
     }
     
     func disconnect()
@@ -618,13 +584,13 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         serverSelectButton.menu?.addItem(defaultMenuItem)
 
         //We base availability of a given server on whether a file with the IP address exists.
-        if userServerIP == ""
+        if userHost == nil
         {
             userServerIsConnected = false
             serverSelectButton.selectItem(withTitle: ServerName.defaultServer.rawValue)
             
             //Set our server as default if user server is not available.
-            setSelectedServer(atPath: defaultConfigDirectory)
+            setSelectedServer(atURL: defaultConfigDirectory)
             
             //Don't make our default server available to share
             shareServerButton.isHidden = true
@@ -633,45 +599,39 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         {
             //If we can find a user server IP then the user's server should also be listed.
             userServerIsConnected = true
-            //serverSelectButton.addItem(withTitle: ServerName.userServer.rawValue)
             let menuItem = NSMenuItem(title: ServerName.userServer.rawValue, action: nil, keyEquivalent: "")
             menuItem.representedObject = userConfigDirectory
+            
             serverSelectButton.menu?.addItem(menuItem)
             serverSelectButton.selectItem(withTitle: ServerName.userServer.rawValue)
-            
             shareServerButton.isHidden = false
             
             //The user's server is default when available
-            setSelectedServer(atPath: userConfigDirectory)
+            setSelectedServer(atURL: userConfigDirectory)
         }
+    
+        //Check for sub-directories in the Imported folder
+        let subDirectories = (try? FileManager.default.contentsOfDirectory(at: importedConfigDirectory, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles]).filter{ $0.hasDirectoryPath }) ?? [URL]()
         
-        //Check to see if we have an Imported Config Files Directory Path
-        if importedConfigDirectory != ""
+        if !subDirectories.isEmpty
         {
-            //Check for sub-directories in the Imported folder
-            let importDirectoryURL = URL(fileURLWithPath: importedConfigDirectory)
-            let subDirectories = (try? FileManager.default.contentsOfDirectory(at: importDirectoryURL, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles]).filter{ $0.hasDirectoryPath }) ?? [URL]()
-            
-            if !subDirectories.isEmpty
+            //Make a new menu item for our pop-up button for every config directory in the imported folder.
+            for configDirectory in subDirectories
             {
-                //Make a new menu item for our pop-up button for every config directory in the imported folder.
-                for configDirectory in subDirectories
+                
+                let clientConfigURL = configDirectory.appendingPathComponent(clientConfigFileName, isDirectory: false)
+                
+                //Make sure the client config file is there before we bother to add it to the list
+                if FileManager.default.fileExists(atPath: clientConfigURL.path)
                 {
-                    let ipFilePath = configDirectory.path.appending("/serverIP")
-                    do
-                    {
-                        //Make sure the ip file is there before we bother to add it to the list
-                        _ = try String(contentsOfFile: ipFilePath, encoding: String.Encoding.ascii)
-                        
-                        //Adding the new server info to our server select button.
-                        let menuItem = NSMenuItem(title: configDirectory.lastPathComponent, action: nil, keyEquivalent: "")
-                        menuItem.representedObject = configDirectory.path
-                        serverSelectButton.menu?.addItem(menuItem)
-                    }
-                    catch
-                    {
-                        print("Unable to locate the imported server IP at: \(ipFilePath).\nServer will not be added to the list of possible servers.)")
-                    }
+                    //Adding the new server info to our server select button.
+                    let menuItem = NSMenuItem(title: configDirectory.lastPathComponent, action: nil, keyEquivalent: "")
+                    menuItem.representedObject = configDirectory.path
+                    serverSelectButton.menu?.addItem(menuItem)
+                }
+                else
+                {
+                    print("\nUnable to locate the imported client config at: \(clientConfigURL).\nServer will not be added to the list of possible servers.\n)")
                 }
             }
         }

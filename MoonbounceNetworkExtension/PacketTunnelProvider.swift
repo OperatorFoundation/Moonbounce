@@ -9,6 +9,8 @@
 import NetworkExtension
 import Network
 import os.log
+import Replicant
+import ReplicantSwift
 
 class PacketTunnelProvider: NEPacketTunnelProvider
 {
@@ -46,7 +48,36 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         
         wg_log(.info, message: "Starting tunnel from the " + (activationAttemptId == nil ? "OS directly, rather than the app" : "app"))
        
-        // TODO: Initialize Replicant Here
+        // TODO: Replicant
+        
+        // TODO: Config File Path Based on User Input
+        let replicantConfigURL = currentConfigDirectory.appendingPathComponent(replicantConfigFileName, isDirectory: false)
+        guard let replicantConfig = ReplicantConfig(withConfigAtPath: replicantConfigURL.path)
+            else
+        {
+            print("\nUnable to parse Replicant config file.\n")
+            return
+        }
+        
+        // TODO: Replicant Server IP & Port
+        
+        guard let replicantPort = NWEndpoint.Port(rawValue: 51820)
+            else
+        {
+            print("\nUnable to generate port for replicant connection.\n")
+            return
+        }
+        
+        let replicantServerIP = currentHost
+        
+        let replicantConnectionFactory = ReplicantConnectionFactory(host: replicantServerIP!, port: replicantPort, config: replicantConfig)
+        
+        guard let replicantConnection = replicantConnectionFactory.connect(using: .tcp)
+            else
+        {
+            print("Unable to establish a Replicant connection.")
+            return
+        }
         
         
         packetTunnelSettingsGenerator = PacketTunnelSettingsGenerator(tunnelConfiguration: tunnelConfiguration)

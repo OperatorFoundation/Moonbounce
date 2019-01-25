@@ -79,123 +79,93 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
         
         return true
     }
-        
+    
     func checkForServerIP()
     {
-        //Get the file that has the server IP
-        if userConfigDirectory != ""
+        // Try finding a user created server first
+        let userConfigURL = userConfigDirectory.appendingPathComponent(clientConfigFileName, isDirectory: false)
+        
+        if let userConfig = ClientConfig(withConfigAtPath: userConfigURL.path)
         {
-            let ipFileDirectory = userConfigDirectory.appending("/" + ipFileName)
-            
-            do
-            {
-                let ip = try String(contentsOfFile: ipFileDirectory, encoding: String.Encoding.ascii)
-                userServerIP = ip
-                print("User Server IP is: \(ip)")
-            }
-            catch
-            {
-                print("Unable to locate the server IP at: \(ipFileDirectory).")
-            }
+            userHost = userConfig.host
+            return
         }
-        else if defaultConfigDirectory != ""
+        
+        // Next try finding the first available imported server
+        if let importedDirectories = fileManager.subpaths(atPath: importedConfigDirectory.path),
+            let importedClientConfig = ClientConfig(withConfigAtPath: importedDirectories[0])
         {
-            let ipFileDirectory = defaultConfigDirectory.appending("/" + ipFileName)
-            
-            do
-            {
-                let ip = try String(contentsOfFile: ipFileDirectory, encoding: String.Encoding.ascii)
-                userServerIP = ip
-                print("Default Server IP is: \(ip)")
-            }
-            catch
-            {
-                print("Unable to locate the default server IP at: \(ipFileDirectory).")
-            }
+            userHost = importedClientConfig.host
+            return
+        }
+        
+        // If no user or imported servers exist use the default
+        let defaultConfigURL = defaultConfigDirectory.appendingPathComponent(clientConfigFileName, isDirectory: false)
+        
+        if let defaultClientConfig = ClientConfig(withConfigAtPath: defaultConfigURL.path)
+        {
+            userHost = defaultClientConfig.host
+            return
         }
         else
         {
-            print("Unable to find and config directories.")
+            // TODO: Notify user when host information cannot be found
+            print("\nUnable to find config directories.\n")
         }
     }
     
     func createServerConfigDirectories()
     {
-        let appSupportDirectory = fileManager.urls(for: FileManager.SearchPathDirectory.applicationSupportDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
-        if appSupportDirectory.count > 0
+        // Imported config files directory - Configurations imported by the user via the file system
+        // If the directory does not exist, this method creates it.
+        do
         {
-            if let bundleID: String = Bundle.main.bundleIdentifier
+            try fileManager.createDirectory(at: importedConfigDirectory, withIntermediateDirectories: true, attributes: nil)
+        }
+        catch let importedConfigError
+        {
+            print(importedConfigError)
+        }
+        
+        // User Config Directory - Created when the user launches a Digital Ocean server through our app
+        // TODO: We may want to allow for and account for multiple user created servers
+        do
+        {
+            try fileManager.createDirectory(at: userConfigDirectory, withIntermediateDirectories: true, attributes: nil)
+        }
+        catch let userConfigError
+        {
+            print(userConfigError)
+        }
+                        
+        // Default Config and Directory
+        guard let resourcePath = Bundle.main.path(forResource: defaultDirectoryName, ofType: nil)
+        else
+        {
+            print("Unable to find Default Config files.")
+            return
+        }
+        
+        //We overwrite the default directory every time, in case this information has been updated.
+        if fileManager.fileExists(atPath: defaultConfigDirectory.path)
+        {
+            do
             {
-                // Append the bundle ID to the URL for the
-                // Application Support directory
-                let directoryPath = appSupportDirectory[0].appendingPathComponent(bundleID)
-                appDirectory = directoryPath.path
-
-                //Server Config Files Directory
-                let configFilesPath = directoryPath.appendingPathComponent("ConfigFiles", isDirectory: true)
-                
-                //Imported Config Files
-                let importedConfigPath = configFilesPath.appendingPathComponent(importedDirectoryName, isDirectory: true)
-                importedConfigDirectory = importedConfigPath.path
-                
-                // If the directory does not exist, this method creates it.
-                // This method is only available in OS X v10.7 and iOS 5.0 or later.
-                do
-                {
-                    try fileManager.createDirectory(at: importedConfigPath, withIntermediateDirectories: true, attributes: nil)
-                }
-                catch //let importedConfigError
-                {
-                    //print(importedConfigError)
-                }
-                
-                //User Config
-                let userConfigPath = configFilesPath.appendingPathComponent(userDirectoryName + "/DO", isDirectory: true)
-                userConfigDirectory = userConfigPath.path
-                do
-                {
-                    try fileManager.createDirectory(at: userConfigPath, withIntermediateDirectories: true, attributes: nil)
-                }
-                catch
-                {
-                    //print(userConfigError)
-                }
-                
-                configFilesDirectory = configFilesPath.path
-                
-                //Default Config
-                let defaultConfigPath = configFilesPath.appendingPathComponent(defaultDirectoryName
-                , isDirectory: true)
-                defaultConfigDirectory = defaultConfigPath.path
-                guard let resourcePath = Bundle.main.path(forResource: defaultDirectoryName, ofType: nil)
-                else
-                {
-                    print("Unable to find Default Config files.")
-                    return
-                }
-                
-                //We overwrite the default directory every time, in case this information has been updated.
-                if fileManager.fileExists(atPath: defaultConfigDirectory)
-                {
-                    do
-                    {
-                        try fileManager.removeItem(atPath: defaultConfigDirectory)
-                    }
-                    catch
-                    {
-                        print("Attempted to delete existing default config directory, but got an error: \(error.localizedDescription)")
-                    }
-                }
-                
-                do
-                {
-                    try fileManager.copyItem(atPath: resourcePath, toPath: defaultConfigDirectory)
-                }
-                catch
-                {
-                    print("Unable to copy default config files: \(error.localizedDescription)")
-                }
+                try fileManager.removeItem(atPath: defaultConfigDirectory.path)
             }
+            catch
+            {
+                print("Attempted to delete existing default config directory, but got an error: \(error.localizedDescription)")
+            }
+        }
+        
+        do
+        {
+            try fileManager.copyItem(atPath: resourcePath, toPath: defaultConfigDirectory.path)
+        }
+        catch
+        {
+            print("Unable to copy default config files: \(error.localizedDescription)")
         }
     }
     
@@ -255,7 +225,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
     func applicationWillTerminate(_ aNotification: Notification)
     {
         //TODO: Attempt to disconnect when the app is closed
-
     }
 
 

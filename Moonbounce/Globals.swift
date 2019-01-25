@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Network
 
 let mbPink = NSColor(red:0.92, green:0.55, blue:0.73, alpha:1.0)
 let mbDarkBlue = NSColor(red:0.00, green:0.06, blue:0.16, alpha:1.0)
@@ -20,25 +21,38 @@ let userTokenKey = "UserDoToken"
 let userDirectoryName = "User"
 let importedDirectoryName = "Imported"
 let defaultDirectoryName = "Default"
-let ipFileName = "serverIP"
-let obfs4OptionsFileName = "obfs4.json"
+let clientConfigFileName = "replicantclient.config"
+let replicantConfigFileName = "replicant.config"
 let moonbounceExtension = "moonbounce"
 
-var appDirectory = ""
-var configFilesDirectory = ""
-var defaultConfigDirectory = ""
-var importedConfigDirectory = ""
-var userConfigDirectory = ""
-var currentConfigDirectory = ""
-var currentServerIP = ""
-var userServerIP = ""
+let appSupportDirectory = FileManager.default.urls(for: FileManager.SearchPathDirectory.applicationSupportDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
+
+var moonbounceDirectory = appSupportDirectory[0].appendingPathComponent("Moonbounce.macOS", isDirectory: true)
+
+// Parent config files directory - One directory to rule them all
+let configFilesDirectory = moonbounceDirectory.appendingPathComponent("ConfigFiles", isDirectory: true)
+
+//Default Config file directory - This is the config we supply for the demo server we run
+let defaultConfigDirectory = configFilesDirectory.appendingPathComponent(defaultDirectoryName
+    , isDirectory: true)
+
+// Imported config files directory - Configurations imported by the user via the file system
+var importedConfigDirectory = configFilesDirectory.appendingPathComponent(importedDirectoryName, isDirectory: true)
+
+// User Config Directory - Created when the user launches a Digital Ocean server through our app
+var userConfigDirectory = configFilesDirectory.appendingPathComponent(userDirectoryName + "/DO", isDirectory: true)
+
+var currentConfigDirectory = defaultConfigDirectory
+
+var currentHost: NWEndpoint.Host?
+var userHost: NWEndpoint.Host?
 {
     didSet
     {
-        if userServerIP != ""
+        if userHost != nil
         {
-            print("Changed Global var for server IP: \(userServerIP)")
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kServerIPAvailableNotification), object: userServerIP)
+            print("Changed Global var for server IP: \(userHost!)")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kServerIPAvailableNotification), object: userHost!)
         }
     }
 }

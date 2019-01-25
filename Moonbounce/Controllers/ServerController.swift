@@ -28,92 +28,73 @@ class ServerController: NSObject
     
     func addServer(withConfigFileURL configURL: URL, presentInWindow currentWindow: NSWindow?)
     {
-        do
+        let fileManager = FileManager()
+        let newImportConfigName = fileManager.displayName(atPath: configURL.path)
+        var newImportConfigDirectory = importedConfigDirectory.appendingPathComponent(newImportConfigName, isDirectory: true)
+        
+        let alert = createServerNameAlert(defaultName: newImportConfigName)
+    
+        if currentWindow == nil
         {
-            //Make sure zip recognizes our custom file extension
-//            Zip.addCustomFileExtension(moonbounceExtension)
-//            Zip.addCustomFileExtension("MOONBOUNCE")
-            
-            let fileManager = FileManager()
-            //Unzip the selected file
-            
-            do
+            let response: NSApplication.ModalResponse = alert.runModal()
+            if response == NSApplication.ModalResponse.alertFirstButtonReturn
             {
-                try fileManager.unzipItem(at: configURL, to: URL(fileURLWithPath: importedConfigDirectory))
-            }
-            catch (let error)
-            {
-                print("\nFailed to unzip config files: \(error)\n")
-            }
-            
-            print("Unzipped to :\(importedConfigDirectory)")
-            let defaultName = configURL.deletingPathExtension().lastPathComponent
-            let defaultConfigDirectory = importedConfigDirectory + "/" + defaultName
-            let defaultConfigURL = URL(fileURLWithPath: defaultConfigDirectory, isDirectory: true)
-            if configFilesAreValid(atURL: defaultConfigURL)
-            {
-                let alert = createServerNameAlert(defaultName: defaultName)
-                
-                if currentWindow == nil
+                if let textField = alert.accessoryView as? NSTextField
                 {
-                    let response: NSApplication.ModalResponse = alert.runModal()
-                    if response == NSApplication.ModalResponse.alertFirstButtonReturn
+                    let selectedName = textField.stringValue
+                    if selectedName != ""
                     {
-                        if let textField = alert.accessoryView as? NSTextField
+                        //Rename Config Directory to User Selected Name
+                        newImportConfigDirectory = importedConfigDirectory.appendingPathComponent(selectedName, isDirectory: true)
+                        let fileManager = FileManager.default
+                        
+                        //Unzip the selected file
+                        do
                         {
-                            let selectedName = textField.stringValue
-                            if selectedName != ""
-                            {
-                                //Rename Config Directory to User Selected Name
-                                let newConfigDirectory = importedConfigDirectory + "/" + selectedName
-                                let fileManager = FileManager.default
-                                
-                                do
-                                {
-                                    try fileManager.moveItem(atPath: defaultConfigDirectory, toPath: newConfigDirectory)
-                                }
-                                catch
-                                {
-                                    print("Error renaming new config directory: \(error.localizedDescription)")
-                                }
-                            }
+                            try fileManager.unzipItem(at: configURL, to: importedConfigDirectory)
+                            print("Unzipped to :\(importedConfigDirectory)")
+                        }
+                        catch (let error)
+                        {
+                            print("\nFailed to unzip config files: \(error)\n")
+                            return
                         }
                     }
                 }
-                else
-                {
-                    alert.beginSheetModal(for: currentWindow!, completionHandler:
-                    { (response) in
-                        
-                        if response == NSApplication.ModalResponse.alertFirstButtonReturn, let textField = alert.accessoryView as? NSTextField
-                        {
-                            let selectedName = textField.stringValue
-                            if selectedName != ""
-                            {
-                                //Rename Config Directory to User Selected Name
-                                let newConfigDirectory = importedConfigDirectory + "/" + selectedName
-                                let fileManager = FileManager.default
-                                
-                                do
-                                {
-                                    try fileManager.moveItem(atPath: defaultConfigDirectory, toPath: newConfigDirectory)
-                                }
-                                catch
-                                {
-                                    print("Error renaming new config directory: \(error.localizedDescription)")
-                                }
-                            }
-                        }
-                        
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kNewServerAddedNotification) , object: nil)
-                    })
-                }
             }
         }
-        catch
+        else
         {
-            print("Unable to unzip file at path: \(configURL.path)")
-            print("Error: \(error)")
+            alert.beginSheetModal(for: currentWindow!, completionHandler:
+            { (response) in
+                
+                if response == NSApplication.ModalResponse.alertFirstButtonReturn, let textField = alert.accessoryView as? NSTextField
+                {
+                    let selectedName = textField.stringValue
+                    if selectedName != ""
+                    {
+                        //Rename Config Directory to User Selected Name
+                        newImportConfigDirectory = importedConfigDirectory.appendingPathComponent(selectedName, isDirectory: true)
+                        
+                        //Unzip the selected file
+                        do
+                        {
+                            try fileManager.unzipItem(at: configURL, to: importedConfigDirectory)
+                            print("Unzipped to :\(importedConfigDirectory)")
+                        }
+                        catch (let error)
+                        {
+                            print("\nFailed to unzip config files: \(error)\n")
+                            return
+                        }
+                    }
+                }
+            })
+        }
+        
+        if configFilesAreValid(atURL: newImportConfigDirectory)
+        {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kNewServerAddedNotification) , object: nil)
         }
     }
     
@@ -132,8 +113,7 @@ class ServerController: NSObject
             {
                 //Verify  that each of the following files are present as all config files are neccessary for successful connection:
                 let file1 = "replicant.config"
-                let file2 = "wireguard.config"
-                let file3 = "serverIP"
+                let file2 = "client.config"
                 
                 var fileNames = [String]()
                 for case let fileURL as URL in fileEnumerator
@@ -146,7 +126,7 @@ class ServerController: NSObject
                 }
                 
                 //If all required files are present refresh server select button
-                if fileNames.contains(file1) && fileNames.contains(file2) && fileNames.contains(file3)
+                if fileNames.contains(file1) && fileNames.contains(file2)
                 {
                     return true
                 }

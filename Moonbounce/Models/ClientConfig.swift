@@ -20,6 +20,17 @@ public struct ClientConfig: Codable
         self.host = host
     }
     
+    public init?(withConfigAtPath path: String)
+    {
+        guard let config = ClientConfig.parseJSON(atPath:path)
+            else
+        {
+            return nil
+        }
+        
+        self = config
+    }
+    
     /// Creates and returns a JSON representation of the ServerConfig struct.
     public func createJSON() -> Data?
     {
