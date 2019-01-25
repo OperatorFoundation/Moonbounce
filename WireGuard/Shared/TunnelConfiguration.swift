@@ -7,16 +7,18 @@ import ReplicantSwift
 final class TunnelConfiguration
 {
     var name: String?
+    var directory: URL?
     var replicantConfiguration: ReplicantConfig?
     var clientConfig: ClientConfig
 
     static let keyLength = 32
 
-    init(name: String?, clientConfig: ClientConfig, replicantConfig: ReplicantConfig? = nil)
+    init(name: String?, clientConfig: ClientConfig, replicantConfig: ReplicantConfig? = nil, directory: URL? = nil)
     {
         self.name = name
         self.replicantConfiguration = replicantConfig
         self.clientConfig = clientConfig
+        self.directory = directory
     }
 }
 

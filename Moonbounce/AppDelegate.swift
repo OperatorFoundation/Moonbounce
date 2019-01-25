@@ -75,7 +75,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
     func application(_ sender: NSApplication, openFile filename: String) -> Bool
     {
         print("Attempted to open a file: \(filename)")
-        ServerController.sharedInstance.addServer(withConfigFilePath: filename)
+        serverManager.addServer(withConfigFilePath: filename)
         
         return true
     }
@@ -93,6 +93,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
         
         // Next try finding the first available imported server
         if let importedDirectories = fileManager.subpaths(atPath: importedConfigDirectory.path),
+            importedDirectories.count > 0,
             let importedClientConfig = ClientConfig(withConfigAtPath: importedDirectories[0])
         {
             userHost = importedClientConfig.host
@@ -110,7 +111,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
         else
         {
             // TODO: Notify user when host information cannot be found
-            print("\nUnable to find config directories.\n")
+            print("\nUnable to find config directories at: \(defaultConfigURL)\n")
         }
     }
     
@@ -139,7 +140,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
         }
                         
         // Default Config and Directory
-        guard let resourcePath = Bundle.main.path(forResource: defaultDirectoryName, ofType: nil)
+        guard let resourceURL = Bundle.main.url(forResource: "default", withExtension: "moonbounce")
         else
         {
             print("Unable to find Default Config files.")
@@ -161,7 +162,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
         
         do
         {
-            try fileManager.copyItem(atPath: resourcePath, toPath: defaultConfigDirectory.path)
+            print("\ndefaultConfigDirectory = \(defaultConfigDirectory)\n")
+            print("\nresourcePath = \(resourceURL)\n")
+            
+            try fileManager.unzipItem(at: resourceURL, to: configFilesDirectory)
+            
         }
         catch
         {

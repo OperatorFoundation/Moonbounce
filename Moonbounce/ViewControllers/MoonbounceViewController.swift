@@ -11,7 +11,7 @@ import Replicant
 import ReplicantSwift
 import Network
 
-class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate, TunnelsManagerActivationDelegate
+class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 {
     @IBOutlet weak var statusLabel: NSTextField!
     @IBOutlet weak var advancedModeButton: NSButton!
@@ -41,17 +41,9 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     let proximaNARegular = "Proxima Nova Alt Regular"
     let advancedMenuHeight: CGFloat = 176.0
     
-    var onTunnelsManagerReady: ((TunnelsManager) -> Void)?
-    var tunnelsManager: TunnelsManager? = nil
+    
     var userServerIsConnected = false
     var launching = false
-    
-    enum ServerName: String
-    {
-        case defaultServer = "Default Server"
-        case userServer = "User Server"
-        case importedServer = "Imported Server"
-    }
     
     //MARK: View Life Cycle
     
@@ -67,37 +59,11 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         updateStatusUI(connected: false, statusDescription: "Not Connected")
         populateServerSelectButton()
         styleTokenTextField()
-        
-        // Create the tunnels manager, and when it's ready, inform tunnelsListVC
-        TunnelsManager.create
-        {
-            [weak self] result in
-            
-            guard let self = self else { return }
-            
-            if let error = result.error
-            {
-                //FIXME: Show error alert
-                print("\nError creating tunnel manager: \(error)\n")
-                //ErrorPresenter.showErrorAlert(error: error, from: self)
-                return
-            }
-            
-            let tunnelsManager: TunnelsManager = result.value!
-            
-            self.tunnelsManager = tunnelsManager
-            
-            tunnelsManager.activationDelegate = self
-            
-            self.onTunnelsManagerReady?(tunnelsManager)
-            self.onTunnelsManagerReady = nil
-        }
     }
     
     override func viewWillAppear()
     {
         super.viewWillAppear()
-        
         styleViews()
     }
     
@@ -169,10 +135,10 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             
             if let menuItem =  sender.menu?.item(withTitle: selectedItemTitle)
             {
-                if let configPath = menuItem.representedObject as? String
+                if let tunnel = menuItem.representedObject as? TunnelContainer
                 {
-                    setSelectedServer(atURL: URL(fileURLWithPath: configPath))
-                    print("Setting selected server \(selectedItemTitle), with path:\n\(configPath)")
+                    setSelectedServer(tunnel: tunnel)
+                    print("Setting selected server \(selectedItemTitle)")
                 }
             }
         }
@@ -204,7 +170,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 
                 if let chosenDirectory = openDialog.url
                 {
-                    ServerController.sharedInstance.addServer(withConfigFileURL: chosenDirectory, presentInWindow: presentingWindow)
+                    serverManager.addServer(withConfigFileURL: chosenDirectory, presentInWindow: presentingWindow)
                 }
                 
                 self.populateServerSelectButton()
@@ -216,49 +182,66 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     @IBAction func shareServerClick(_ sender: NSButton)
     {
         //make sure we have a config directory, and that it is not the default server config directory
-        if currentConfigDirectory != defaultConfigDirectory
+        guard let tunnel = serverManager.currentTunnel
+            else
         {
-            if let presentingWindow = self.view.window
+            print("\nUnable to share server. Current server not found.\n")
+            return
+        }
+        
+        guard tunnel.name != ServerName.defaultServer.rawValue
+        else
+        {
+            print("\nAttempted to share default server...\n")
+            return
+        }
+        
+        guard let configURL = tunnel.tunnelConfiguration?.directory
+        else
+        {
+            print("\nUnable to share server config, the directory URL is unknown.\n")
+            return
+        }
+
+        if let presentingWindow = self.view.window
+        {
+            sender.isEnabled = false
+            serverSelectButton.isEnabled = false
+            
+            var serverName = tunnel.name
+            
+            let alert = serverManager.createServerNameAlert(defaultName: serverName)
+            alert.beginSheetModal(for: presentingWindow, completionHandler:
             {
-                sender.isEnabled = false
-                serverSelectButton.isEnabled = false
+                (response) in
                 
-                let currentServerName = FileManager.default.displayName(atPath: currentConfigDirectory.path)
-                var serverName = currentServerName
-                
-                let alert = ServerController.sharedInstance.createServerNameAlert(defaultName: currentServerName)
-                alert.beginSheetModal(for: presentingWindow, completionHandler:
+                if response == NSApplication.ModalResponse.alertFirstButtonReturn, let textField = alert.accessoryView as? NSTextField
                 {
-                    (response) in
-                    
-                    if response == NSApplication.ModalResponse.alertFirstButtonReturn, let textField = alert.accessoryView as? NSTextField
-                    {
-                        serverName = textField.stringValue
-                    }
-                    
-                    var zipPath = moonbounceDirectory.appendingPathComponent(serverName, isDirectory: false)
-                    zipPath = zipPath.appendingPathExtension(moonbounceExtension)
-                    
-                    //Zip the files and save to the temp directory.
-                    do
-                    {
-                        try FileManager.default.zipItem(at: currentConfigDirectory, to: zipPath)
+                    serverName = textField.stringValue
+                }
+                
+                var zipPath = moonbounceDirectory.appendingPathComponent(serverName, isDirectory: false)
+                zipPath = zipPath.appendingPathExtension(moonbounceExtension)
+                
+                //Zip the files and save to the temp directory.
+                do
+                {
+                    try FileManager.default.zipItem(at: configURL, to: zipPath)
 
-                        //Set up a sharing services picker
-                        let sharePicker = NSSharingServicePicker.init(items: [zipPath])
+                    //Set up a sharing services picker
+                    let sharePicker = NSSharingServicePicker.init(items: [zipPath])
 
-                        sharePicker.delegate = self
-                        sharePicker.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxY)
-                    }
-                    catch
-                    {
-                        print("\nUnable to zip config directory for export!\n")
-                    }
-                    
-                    sender.isEnabled = true
-                    self.serverSelectButton.isEnabled = true
-                })
-            }
+                    sharePicker.delegate = self
+                    sharePicker.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxY)
+                }
+                catch
+                {
+                    print("\nUnable to zip config directory for export!\n")
+                }
+                
+                sender.isEnabled = true
+                self.serverSelectButton.isEnabled = true
+            })
         }
     }
     
@@ -398,41 +381,6 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         accountTokenBox.isHidden = false
     }
     
-    
-    //MARK: WireGuard
-    
-    func tunnelActivationAttemptFailed(tunnel: TunnelContainer, error: TunnelsManagerActivationAttemptError)
-    {
-        print("\nTunnel Activation Attempt Failed: \(error)\n")
-        self.runningScript = false
-        self.serverSelectButton.isEnabled = true
-        self.showStatus()
-    }
-    
-    func tunnelActivationAttemptSucceeded(tunnel: TunnelContainer)
-    {
-        print("\nTunnel Activation Attempt Succeeded\n")
-        self.runningScript = false
-        self.serverSelectButton.isEnabled = true
-        self.showStatus()
-    }
-    
-    func tunnelActivationFailed(tunnel: TunnelContainer, error: TunnelsManagerActivationError)
-    {
-        print("\nTunnel Activation Failed: \(error)\n")
-        self.runningScript = false
-        self.serverSelectButton.isEnabled = true
-        self.showStatus()
-    }
-    
-    func tunnelActivationSucceeded(tunnel: TunnelContainer)
-    {
-        print("\nTunnel Activation Succeeded\n")
-        self.runningScript = false
-        self.serverSelectButton.isEnabled = true
-        self.showStatus()
-    }
-    
     func connect()
     {
         serverSelectButton.isEnabled = false
@@ -443,48 +391,43 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         //Update button name
         self.toggleConnectionButton.title = "Disconnect"
 
-        /// WireGuard Tunnel Manager
-        guard let tunnel = tunnelsManager?.tunnel(at: 0)
+        guard let tunnel = serverManager.currentTunnel
         else
         {
             print("Unable to find a tunnel to start.")
+            //Verify that connection was succesful and update accordingly
+            self.runningScript = false
+            self.serverSelectButton.isEnabled = true
+            self.showStatus()
             return
         }
-        tunnelsManager?.startActivation(of: tunnel)
         
-//        MoonbounceViewController.shiftedOpenVpnController.start(configFilePath: currentConfigDirectory, completion:
-//        {
-//            (didLaunch) in
-//
-//            //Go back to the main thread
-//            DispatchQueue.main.async(execute:
-//            {
-//                //You can safely do UI stuff here
-//                //Verify that connection was succesful and update accordingly
-//                self.runningScript = false
-//                self.serverSelectButton.isEnabled = true
-//                self.showStatus()
-//            })
-//        })
+        serverManager.tunnelsManager?.startActivation(of: tunnel)
+        
+        //Verify that connection was succesful and update accordingly
+        self.runningScript = false
+        self.serverSelectButton.isEnabled = true
+        self.showStatus()
     }
     
-    func setSelectedServer(atURL configURL: URL)
+    func setSelectedServer(tunnel: TunnelContainer)
     {
-        currentConfigDirectory = configURL
+        serverManager.currentTunnel = tunnel
         checkForServerIP()
     }
     
     func checkForServerIP()
     {
-        //Get the file that has the server IP
-
-        //TODO: This will need to point to something different based on what config files are being used
-        let clientConfigFileURL = currentConfigDirectory.appendingPathComponent(clientConfigFileName, isDirectory: false)
+        guard let tunnel = serverManager.currentTunnel
+            else
+        {
+            print("\nunable to find current server IP: current tunnel is not set.\n")
+            return
+        }
         
-        guard let clientConfig = ClientConfig(withConfigAtPath: clientConfigFileURL.path)
+        guard let clientConfig = tunnel.tunnelConfiguration?.clientConfig
         else
         {
-            print("\nUnable to locate the server IP at: \(clientConfigFileURL).\n")
             return
         }
         
@@ -494,26 +437,20 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     
     func disconnect()
     {
-//        MoonbounceViewController.shiftedOpenVpnController.stop(completion:
-//        {
-//            (stopped) in
-//            //
-//
-//        })
-        
-        guard let tunnel = tunnelsManager?.tunnel(at: 0)
+        guard let tunnel = serverManager.currentTunnel
             else
         {
             print("Unable to find a tunnel to stop.")
             return
         }
         
-        tunnelsManager?.startDeactivation(of: tunnel)
+        serverManager.tunnelsManager?.startDeactivation(of: tunnel)
         self.runningScript = false
         self.serverSelectButton.isEnabled = true
     }
     
-    //MARK: UI Helpers
+    // MARK: - UI Helpers
+    // TODO: Wire this to tunnels
     func showStatus()
     {
         switch isConnected.state
@@ -578,65 +515,61 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     {
         serverSelectButton.removeAllItems()
         
+        // TODO: Address possible race condition
+        serverManager.refreshServers()
+        
         //Default server should always be an option as we provide this.
-        let defaultMenuItem = NSMenuItem(title: ServerName.defaultServer.rawValue, action: nil, keyEquivalent: "")
-        defaultMenuItem.representedObject = defaultConfigDirectory
-        serverSelectButton.menu?.addItem(defaultMenuItem)
-
-        //We base availability of a given server on whether a file with the IP address exists.
-        if userHost == nil
+        if let defaultServer = serverManager.defaultServer
         {
-            userServerIsConnected = false
-            serverSelectButton.selectItem(withTitle: ServerName.defaultServer.rawValue)
-            
-            //Set our server as default if user server is not available.
-            setSelectedServer(atURL: defaultConfigDirectory)
+            let defaultMenuItem = NSMenuItem(title: defaultServer.name, action: nil, keyEquivalent: "")
+            defaultMenuItem.representedObject = defaultServer
+            self.serverSelectButton.menu?.addItem(defaultMenuItem)
+            setSelectedServer(tunnel: defaultServer)
             
             //Don't make our default server available to share
             shareServerButton.isHidden = true
         }
         else
         {
-            //If we can find a user server IP then the user's server should also be listed.
+            print("\nDefault server not found.\n")
+        }
+        
+        //We base availability of a given server on whether a config file in the correct directory exists.
+        
+        // Check for user server
+        if let userServer = serverManager.userServer
+        {
             userServerIsConnected = true
-            let menuItem = NSMenuItem(title: ServerName.userServer.rawValue, action: nil, keyEquivalent: "")
-            menuItem.representedObject = userConfigDirectory
-            
+            let menuItem = NSMenuItem(title: userServer.name, action: nil, keyEquivalent: "")
+            menuItem.representedObject = userServer
             serverSelectButton.menu?.addItem(menuItem)
-            serverSelectButton.selectItem(withTitle: ServerName.userServer.rawValue)
+            
+            serverSelectButton.selectItem(withTitle: userServer.name)
             shareServerButton.isHidden = false
             
             //The user's server is default when available
-            setSelectedServer(atURL: userConfigDirectory)
+            setSelectedServer(tunnel: userServer)
         }
-    
-        //Check for sub-directories in the Imported folder
-        let subDirectories = (try? FileManager.default.contentsOfDirectory(at: importedConfigDirectory, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles]).filter{ $0.hasDirectoryPath }) ?? [URL]()
-        
-        if !subDirectories.isEmpty
+        else
         {
-            //Make a new menu item for our pop-up button for every config directory in the imported folder.
-            for configDirectory in subDirectories
+            userServerIsConnected = false
+        }
+
+        //Check for imported servers
+        if !serverManager.importedServers.isEmpty
+        {
+            for importedServer in serverManager.importedServers
             {
+                //Make a new menu item for our pop-up button for every config directory in the imported folder.
                 
-                let clientConfigURL = configDirectory.appendingPathComponent(clientConfigFileName, isDirectory: false)
-                
-                //Make sure the client config file is there before we bother to add it to the list
-                if FileManager.default.fileExists(atPath: clientConfigURL.path)
-                {
-                    //Adding the new server info to our server select button.
-                    let menuItem = NSMenuItem(title: configDirectory.lastPathComponent, action: nil, keyEquivalent: "")
-                    menuItem.representedObject = configDirectory.path
-                    serverSelectButton.menu?.addItem(menuItem)
-                }
-                else
-                {
-                    print("\nUnable to locate the imported client config at: \(clientConfigURL).\nServer will not be added to the list of possible servers.\n)")
-                }
+                //Adding the new server info to our server select button.
+                let menuItem = NSMenuItem(title: importedServer.name, action: nil, keyEquivalent: "")
+                menuItem.representedObject = importedServer
+                serverSelectButton.menu?.addItem(menuItem)
             }
         }
     }
-    
+
     func showUserServerStatus()
     {
         if userServerIsConnected

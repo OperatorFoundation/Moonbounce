@@ -47,7 +47,7 @@ class MoonbounceTests: XCTestCase {
             return
         }
         
-        let testConfigDirectoryURL = applicationDirectoryURL.appendingPathComponent("TestConfigFiles", isDirectory: true)
+        let testConfigDirectoryURL = applicationDirectoryURL.appendingPathComponent("Default", isDirectory: true)
         
         do
         {
@@ -76,15 +76,7 @@ class MoonbounceTests: XCTestCase {
             return
         }
         
-        // WireGuard Config
-        guard createWireGuardConfig(inDirectory: testConfigDirectoryURL)
-        else
-        {
-            XCTFail()
-            return
-        }
-        
-        let zipPath = moonbounceConfigDirectory.appendingPathComponent("defaultTestConfig.moonbounce")
+        let zipPath = moonbounceConfigDirectory.appendingPathComponent("default.moonbounce")
         
         // Check if an old config already exists and delete it so we can save the new one.
         if fileManager.fileExists(atPath: zipPath.path)
@@ -168,7 +160,8 @@ class MoonbounceTests: XCTestCase {
             return false
         }
         
-        let clientConfig = ReplicantClientConfig(withPort: port, andIP: "165.337.74.150")
+        let host = NWEndpoint.Host("165.337.74.150")
+        let clientConfig = ClientConfig(withPort: port, andHost: host)
         
         guard let jsonData = clientConfig.createJSON()
         else
@@ -192,85 +185,6 @@ class MoonbounceTests: XCTestCase {
             print("\nUnable to create file at path: \(path)\n")
             return false
         }
-    }
-    
-    func createWireGuardConfig(inDirectory destDirectory: URL) -> Bool
-    {
-        guard let wgConfigURL = Bundle.main.url(forResource: "utun9", withExtension: "conf")
-            else
-        {
-            print("\nUnable to find the wireguard config file.\n")
-            XCTFail()
-            return false
-        }
-        
-        do
-        {
-            let wgConfigINI = try parseINI(filename: wgConfigURL.path)
-            
-            guard let privKeyString = wgConfigINI["Interface"]?["PrivateKey"]
-                else
-            {
-                print("\nUnable to get private key from config file.\n")
-                XCTFail()
-                return false
-            }
-            
-            guard let pubKeyString = wgConfigINI["Peer"]?["PublicKey"]
-                else
-            {
-                print("\nUnable to get public key from config file.\n")
-                XCTFail()
-                return false
-            }
-            
-            guard let endpointString = wgConfigINI["Peer"]?["Endpoint"]
-                else
-            {
-                print("\nUnable to get endpoint from config file.\n")
-                XCTFail()
-                return false
-            }
-            
-            let endpointArray = endpointString.components(separatedBy: ":")
-            XCTAssert(endpointArray.count >= 2)
-            
-            // Copy File to Test Destination Directory
-            let fileManager = FileManager.default
-            let filename = "wireguard.config"
-            let testWGConfigURL = destDirectory.appendingPathComponent(filename)
-            
-            if fileManager.fileExists(atPath: testWGConfigURL.path)
-            {
-                do
-                {
-                    try fileManager.removeItem(at: testWGConfigURL)
-                }
-                catch
-                {
-                    print("\nFile already exists at path \(testWGConfigURL), but we were unable to delete the old file.\n")
-                    return false
-                }
-            }
-            
-            do
-            {
-                try fileManager.copyItem(at: wgConfigURL, to: testWGConfigURL)
-            }
-            catch (let error)
-            {
-                print("\nUnable to copy WireGuard Config: \(error)\n")
-                return false
-            }
-        }
-        catch (let error)
-        {
-            print("\nUnable to parse wireguard config. Is it a valid INI? Error: \(error)\n")
-            XCTFail()
-            return false
-        }
-        
-        return true
     }
     
     func getApplicationDirectory() -> URL?

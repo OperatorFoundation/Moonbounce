@@ -8,17 +8,149 @@
 
 import Cocoa
 import ZIPFoundation
+import ReplicantSwift
 
-class ServerController: NSObject
+class ServerController: NSObject, TunnelsManagerActivationDelegate
 {
-    static let sharedInstance = ServerController()
+    var importedServers = [TunnelContainer]()
+    var userServer: TunnelContainer?
+    var defaultServer: TunnelContainer?
+    var currentTunnel: TunnelContainer?
     
+    var onTunnelsManagerReady: ((TunnelsManager) -> Void)?
+    var tunnelsManager: TunnelsManager? = nil
+    
+    override init()
+    {
+        super.init()
+        // Create the tunnels manager, and when it's ready, inform tunnelsListVC
+        TunnelsManager.create
+        {
+            [weak self] result in
+            
+            guard let self = self else { return }
+            
+            if let error = result.error
+            {
+                //FIXME: Show error alert
+                print("\nError creating tunnel manager: \(error)\n")
+                //ErrorPresenter.showErrorAlert(error: error, from: self)
+                return
+            }
+            
+            let tunnelsManager: TunnelsManager = result.value!
+            
+            self.tunnelsManager = tunnelsManager
+            
+            tunnelsManager.activationDelegate = self
+            
+            self.onTunnelsManagerReady?(tunnelsManager)
+            self.onTunnelsManagerReady = nil
+        }
+    }
+    
+    func refreshServers()
+    {
+        // Default Server
+        addServerToTunnels(name: ServerName.defaultServer.rawValue, configDirectory: defaultConfigDirectory)
+        {
+            (result) in
+            
+            switch result
+            {
+            case .failure(let error):
+                print("\nFailed to add default server to tunnels: \(error)\n")
+            case .success(let container):
+                self.defaultServer = container
+            }
+        }
+        
+        // User Server
+        addServerToTunnels(name: ServerName.userServer.rawValue, configDirectory: userConfigDirectory)
+        {
+            (result) in
+            switch result
+            {
+            case .failure(let error):
+                print("\nNo user server found: \(error)\n")
+            case .success(let container):
+                self.userServer = container
+            }
+        }
+        
+        // Imported Servers
+        let subDirectories = (try? FileManager.default.contentsOfDirectory(at: importedConfigDirectory, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles]).filter{ $0.hasDirectoryPath }) ?? [URL]()
+        
+        if !subDirectories.isEmpty
+        {
+            for configDirectory in subDirectories
+            {
+                let importedServerName = FileManager.default.displayName(atPath: configDirectory.path)
+                addServerToTunnels(name: importedServerName, configDirectory: configDirectory)
+                {
+                    (result) in
+                    
+                    switch result
+                    {
+                    case .failure(let error):
+                        print("\nFailed to add imported server at \(configDirectory)\nError:\(error)\n")
+                    case .success(let container):
+                        self.importedServers.append(container)
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: - Tunnels
+    
+    func tunnelActivationAttemptFailed(tunnel: TunnelContainer, error: TunnelsManagerActivationAttemptError)
+    {
+        print("\nTunnel Activation Attempt Failed: \(error)\n")
+    }
+    
+    func tunnelActivationAttemptSucceeded(tunnel: TunnelContainer)
+    {
+        print("\nTunnel Activation Attempt Succeeded\n")
+    }
+    
+    func tunnelActivationFailed(tunnel: TunnelContainer, error: TunnelsManagerActivationError)
+    {
+        print("\nTunnel Activation Failed: \(error)\n")
+    }
+    
+    func tunnelActivationSucceeded(tunnel: TunnelContainer)
+    {
+        print("\nTunnel Activation Succeeded\n")
+    }
+    
+    func addServerToTunnels(name: String, configDirectory: URL, completionHandler: @escaping (WireGuardResult<TunnelContainer>) -> Void)
+    {
+        let clientConfigDirectory = configDirectory.appendingPathComponent(clientConfigFileName, isDirectory: false)
+        if let clientConfig = ClientConfig(withConfigAtPath: clientConfigDirectory.path)
+        {
+            let replicantConfigDirectory = configDirectory.appendingPathComponent(replicantConfigFileName, isDirectory: false)
+            let replicantConfig = ReplicantConfig(withConfigAtPath: replicantConfigDirectory.path)
+            let tunnelConfiguration = TunnelConfiguration(name: name, clientConfig: clientConfig, replicantConfig: replicantConfig, directory: configDirectory)
+            tunnelsManager?.add(tunnelConfiguration: tunnelConfiguration, completionHandler:
+            {
+                (result) in
+                
+                completionHandler(result)
+            })
+        }
+        else
+        {
+            completionHandler(WireGuardResult.failure(TunnelsManagerError.errorOnListingTunnels))
+        }
+    }
+    
+    // Mark: - User added servers
     func addServer(withConfigFilePath configPath: String)
     {
         let configFileURL = URL(fileURLWithPath: configPath, isDirectory: false)
         
         addServer(withConfigFileURL: configFileURL)
-        
     }
     
     func addServer(withConfigFileURL configURL: URL)
@@ -154,4 +286,11 @@ class ServerController: NSObject
         return alert
     }
 
+}
+
+enum ServerName: String
+{
+    case defaultServer = "Default"
+    case userServer = "User"
+    case importedServer = "Imported"
 }

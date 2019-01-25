@@ -49,10 +49,13 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         wg_log(.info, message: "Starting tunnel from the " + (activationAttemptId == nil ? "OS directly, rather than the app" : "app"))
        
         // TODO: Replicant
+        guard let tunnel = serverManager.currentTunnel
+        else
+        {
+            return
+        }
         
-        // TODO: Config File Path Based on User Input
-        let replicantConfigURL = currentConfigDirectory.appendingPathComponent(replicantConfigFileName, isDirectory: false)
-        guard let replicantConfig = ReplicantConfig(withConfigAtPath: replicantConfigURL.path)
+        guard let replicantConfig = tunnel.tunnelConfiguration?.replicantConfiguration
             else
         {
             print("\nUnable to parse Replicant config file.\n")

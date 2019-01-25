@@ -51,8 +51,6 @@
 		467CB5C61DBEB8CF0086E341 /* MoonbounceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 467CB5C41DBEB8CF0086E341 /* MoonbounceViewController.xib */; };
 		467CB5C91DBEB9730086E341 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467CB5C81DBEB9730086E341 /* EventMonitor.swift */; };
 		468D4CAA1E11986F00BD80C4 /* vars in Resources */ = {isa = PBXBuildFile; fileRef = 468D4CA91E11986F00BD80C4 /* vars */; };
-		468F589021E914E800E84ED8 /* utun9.conf in Resources */ = {isa = PBXBuildFile; fileRef = 468F587F21E914E800E84ED8 /* utun9.conf */; };
-		468F589121E94ADC00E84ED8 /* utun9.conf in Resources */ = {isa = PBXBuildFile; fileRef = 468F587F21E914E800E84ED8 /* utun9.conf */; };
 		469B0A4021DC1F5A003FC2BC /* terraform in Resources */ = {isa = PBXBuildFile; fileRef = 469B0A3F21DC1F5A003FC2BC /* terraform */; };
 		469B0A6921DC3653003FC2BC /* ZIPFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469B0A6821DC3653003FC2BC /* ZIPFoundation.framework */; };
 		469B0A7B21DEA5AB003FC2BC /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469B0A7A21DEA5AB003FC2BC /* PacketTunnelProvider.swift */; };
@@ -70,6 +68,16 @@
 		46C6E51821E67491008D383B /* Replicant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4678C2E421DEDE6600492768 /* Replicant.framework */; };
 		46C7F4CB21ED354B007434DD /* ClientConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C7F4CA21ED354B007434DD /* ClientConfig.swift */; };
 		46EA2C7D1E241BB70069E5DE /* Default in Resources */ = {isa = PBXBuildFile; fileRef = 46EA2C7C1E241BB70069E5DE /* Default */; };
+		AE13587921FB7E9F00E81823 /* default.moonbounce in Resources */ = {isa = PBXBuildFile; fileRef = AE13587821FB7E9F00E81823 /* default.moonbounce */; };
+		AE13587B21FBB6F200E81823 /* ServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4614F2C11F59DE430017B1DD /* ServerController.swift */; };
+		AE13587C21FBB72D00E81823 /* TunnelsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E50A21E57098008D383B /* TunnelsManager.swift */; };
+		AE13587D21FBB74C00E81823 /* TunnelErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E50721E57097008D383B /* TunnelErrors.swift */; };
+		AE13587E21FBB74F00E81823 /* TunnelStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E50921E57098008D383B /* TunnelStatus.swift */; };
+		AE13587F21FBB75200E81823 /* MockTunnels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E50621E57097008D383B /* MockTunnels.swift */; };
+		AE13588021FBB75600E81823 /* ActivateOnDemandSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E50821E57098008D383B /* ActivateOnDemandSetting.swift */; };
+		AE13588121FBB75900E81823 /* WireGuardResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E51021E57313008D383B /* WireGuardResult.swift */; };
+		AE13588221FBB75C00E81823 /* WireGuardAppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E51121E57313008D383B /* WireGuardAppError.swift */; };
+		AE13588321FBBEC700E81823 /* MoonbounceStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E51421E5747B008D383B /* MoonbounceStrings.swift */; };
 		AEE942E121F7B8F900213EE7 /* ClientConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C7F4CA21ED354B007434DD /* ClientConfig.swift */; };
 		AEE9436521F921CF00213EE7 /* Flow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEE9436221F921BA00213EE7 /* Flow.framework */; };
 		AEE9436621F941A000213EE7 /* Replicant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4678C2E421DEDE6600492768 /* Replicant.framework */; };
@@ -235,7 +243,6 @@
 		467CB5C41DBEB8CF0086E341 /* MoonbounceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MoonbounceViewController.xib; path = ViewControllers/MoonbounceViewController.xib; sourceTree = "<group>"; };
 		467CB5C81DBEB9730086E341 /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventMonitor.swift; path = Helpers/EventMonitor.swift; sourceTree = "<group>"; };
 		468D4CA91E11986F00BD80C4 /* vars */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vars; sourceTree = "<group>"; };
-		468F587F21E914E800E84ED8 /* utun9.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = utun9.conf; sourceTree = "<group>"; };
 		469B0A3F21DC1F5A003FC2BC /* terraform */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = terraform; sourceTree = "<group>"; };
 		469B0A4E21DC32C7003FC2BC /* MoonbounceDependencies.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MoonbounceDependencies.xcodeproj; path = MoonbounceDependencies/MoonbounceDependencies.xcodeproj; sourceTree = "<group>"; };
 		469B0A7821DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MoonbounceNetworkExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -252,6 +259,7 @@
 		46C6E51421E5747B008D383B /* MoonbounceStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonbounceStrings.swift; sourceTree = "<group>"; };
 		46C7F4CA21ED354B007434DD /* ClientConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientConfig.swift; sourceTree = "<group>"; };
 		46EA2C7C1E241BB70069E5DE /* Default */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Default; sourceTree = "<group>"; };
+		AE13587821FB7E9F00E81823 /* default.moonbounce */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.moonbounce; sourceTree = "<group>"; };
 		B41FE0291DF24BE900E02D17 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		B44390581DC00EA000389352 /* PopoverContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopoverContentView.swift; path = Helpers/PopoverContentView.swift; sourceTree = "<group>"; };
@@ -298,7 +306,6 @@
 		464DA95921E80E80003460D0 /* MoonbounceTests */ = {
 			isa = PBXGroup;
 			children = (
-				468F587F21E914E800E84ED8 /* utun9.conf */,
 				464DA95A21E80E80003460D0 /* MoonbounceTests.swift */,
 				464DA95C21E80E80003460D0 /* Info.plist */,
 			);
@@ -347,6 +354,7 @@
 		467CB5AA1DBEB6E90086E341 = {
 			isa = PBXGroup;
 			children = (
+				AE13587821FB7E9F00E81823 /* default.moonbounce */,
 				4678C33021E00DBC00492768 /* WireGuard */,
 				467CB5B51DBEB6E90086E341 /* Moonbounce */,
 				469B0A7921DEA5AB003FC2BC /* MoonbounceNetworkExtension */,
@@ -696,7 +704,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				468F589021E914E800E84ED8 /* utun9.conf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -704,7 +711,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				468F589121E94ADC00E84ED8 /* utun9.conf in Resources */,
+				AE13587921FB7E9F00E81823 /* default.moonbounce in Resources */,
 				468D4CAA1E11986F00BD80C4 /* vars in Resources */,
 				469B0A4021DC1F5A003FC2BC /* terraform in Resources */,
 				46C28E361E0DBA2F0024A61F /* DestroyTerraform.sh in Resources */,
@@ -779,13 +786,20 @@
 			files = (
 				4678C31D21E008E600492768 /* IPAddressRange.swift in Sources */,
 				4678C30121DFF5FA00492768 /* PacketTunnelSettingsGenerator.swift in Sources */,
+				AE13588121FBB75900E81823 /* WireGuardResult.swift in Sources */,
 				AEE942E121F7B8F900213EE7 /* ClientConfig.swift in Sources */,
 				4678C32D21E009DF00492768 /* ringlogger.c in Sources */,
 				4678C2FE21DFF5EC00492768 /* ErrorNotifier.swift in Sources */,
 				4678C31421E0081600492768 /* TunnelConfiguration+WgQuickConfig.swift in Sources */,
 				469B0A7B21DEA5AB003FC2BC /* PacketTunnelProvider.swift in Sources */,
+				AE13587E21FBB74F00E81823 /* TunnelStatus.swift in Sources */,
+				AE13587C21FBB72D00E81823 /* TunnelsManager.swift in Sources */,
+				AE13587B21FBB6F200E81823 /* ServerController.swift in Sources */,
 				4678C2FD21DFF5EC00492768 /* DNSResolver.swift in Sources */,
 				AEE943AD21FAAFC500213EE7 /* Globals.swift in Sources */,
+				AE13587F21FBB75200E81823 /* MockTunnels.swift in Sources */,
+				AE13588021FBB75600E81823 /* ActivateOnDemandSetting.swift in Sources */,
+				AE13588321FBBEC700E81823 /* MoonbounceStrings.swift in Sources */,
 				4678C32B21E009DF00492768 /* Logger.swift in Sources */,
 				4678C30821DFF7A800492768 /* TunnelConfiguration.swift in Sources */,
 				4678C30B21DFF7F100492768 /* InterfaceConfiguration.swift in Sources */,
@@ -795,6 +809,8 @@
 				4678C31721E0087C00492768 /* Endpoint.swift in Sources */,
 				4678C31A21E008A900492768 /* DNSServer.swift in Sources */,
 				4678C30521DFF74800492768 /* NETunnelProviderProtocol+Extension.swift in Sources */,
+				AE13587D21FBB74C00E81823 /* TunnelErrors.swift in Sources */,
+				AE13588221FBB75C00E81823 /* WireGuardAppError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

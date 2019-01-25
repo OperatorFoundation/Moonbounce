@@ -25,6 +25,7 @@ let clientConfigFileName = "replicantclient.config"
 let replicantConfigFileName = "replicant.config"
 let moonbounceExtension = "moonbounce"
 
+let serverManager = ServerController()
 let appSupportDirectory = FileManager.default.urls(for: FileManager.SearchPathDirectory.applicationSupportDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
 
 var moonbounceDirectory = appSupportDirectory[0].appendingPathComponent("Moonbounce.macOS", isDirectory: true)
@@ -42,7 +43,7 @@ var importedConfigDirectory = configFilesDirectory.appendingPathComponent(import
 // User Config Directory - Created when the user launches a Digital Ocean server through our app
 var userConfigDirectory = configFilesDirectory.appendingPathComponent(userDirectoryName + "/DO", isDirectory: true)
 
-var currentConfigDirectory = defaultConfigDirectory
+//var currentConfigDirectory = defaultConfigDirectory
 
 var currentHost: NWEndpoint.Host?
 var userHost: NWEndpoint.Host?
