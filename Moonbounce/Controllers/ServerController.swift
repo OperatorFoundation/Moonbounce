@@ -18,11 +18,12 @@ class ServerController: NSObject, TunnelsManagerActivationDelegate
     var currentTunnel: TunnelContainer?
     
     var onTunnelsManagerReady: ((TunnelsManager) -> Void)?
-    var tunnelsManager: TunnelsManager? = nil
+    var tunnelsManager: TunnelsManager?
     
-    override init()
+    required init(completionHandler: @escaping () -> Void)
     {
         super.init()
+        
         // Create the tunnels manager, and when it's ready, inform tunnelsListVC
         TunnelsManager.create
         {
@@ -46,57 +47,84 @@ class ServerController: NSObject, TunnelsManagerActivationDelegate
             
             self.onTunnelsManagerReady?(tunnelsManager)
             self.onTunnelsManagerReady = nil
+            
+            NotificationCenter.default.post(Notification(name: Notification.Name(serverManagerReadyNotification)))
         }
     }
     
-    func refreshServers()
+    func refreshServers(completionHandler: @escaping () -> Void)
     {
+        print("\nREFRESH SERVERS CALLED\n")
         // Default Server
         addServerToTunnels(name: ServerName.defaultServer.rawValue, configDirectory: defaultConfigDirectory)
         {
             (result) in
             
-            switch result
+            if result.isSuccess
             {
-            case .failure(let error):
-                print("\nFailed to add default server to tunnels: \(error)\n")
-            case .success(let container):
+                guard let container = result.value
+                else
+                {
+                    return
+                }
+                
+                print("\nDEFAULT SERVER ADDED TO TUNNELS\n")
                 self.defaultServer = container
             }
-        }
-        
-        // User Server
-        addServerToTunnels(name: ServerName.userServer.rawValue, configDirectory: userConfigDirectory)
-        {
-            (result) in
-            switch result
+            
+            // User Server
+            self.addServerToTunnels(name: ServerName.userServer.rawValue, configDirectory: userConfigDirectory)
             {
-            case .failure(let error):
-                print("\nNo user server found: \(error)\n")
-            case .success(let container):
-                self.userServer = container
-            }
-        }
-        
-        // Imported Servers
-        let subDirectories = (try? FileManager.default.contentsOfDirectory(at: importedConfigDirectory, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles]).filter{ $0.hasDirectoryPath }) ?? [URL]()
-        
-        if !subDirectories.isEmpty
-        {
-            for configDirectory in subDirectories
-            {
-                let importedServerName = FileManager.default.displayName(atPath: configDirectory.path)
-                addServerToTunnels(name: importedServerName, configDirectory: configDirectory)
+                (result) in
+                
+                if result.isSuccess
                 {
-                    (result) in
-                    
-                    switch result
+                    guard let container = result.value
+                        else
                     {
-                    case .failure(let error):
-                        print("\nFailed to add imported server at \(configDirectory)\nError:\(error)\n")
-                    case .success(let container):
-                        self.importedServers.append(container)
+                        return
                     }
+                    
+                    print("\nUSER SERVER ADDED TO TUNNELS\n")
+                    self.userServer = container
+                }
+                
+                //TODO: Imported Servers
+
+                do
+                {
+                    var subDirectories = try FileManager.default.contentsOfDirectory(at: importedConfigDirectory, includingPropertiesForKeys:[], options: [.skipsHiddenFiles])
+//                    var subDirectories = try FileManager.default.contentsOfDirectory(at: importedConfigDirectory, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
+                    subDirectories = subDirectories.filter{ $0.hasDirectoryPath }
+
+                    if subDirectories.count > 0
+                    {
+                        for configDirectory in subDirectories
+                        {
+                            print("\nSUBDIRECTORY: \(configDirectory.path)\n")
+                            let importedServerName = FileManager.default.displayName(atPath: configDirectory.path)
+                            self.addServerToTunnels(name: importedServerName, configDirectory: configDirectory)
+                            {
+                                (result) in
+
+                                switch result
+                                {
+                                case .failure(let error):
+                                    print("\nFailed to add imported server at \(configDirectory)\nError:\(error)\n")
+                                case .success(let container):
+                                    self.importedServers.append(container)
+                                }
+
+                                completionHandler()
+                            }
+                        }
+                    }
+                }
+                catch
+                {
+                    // Nothing Found in the Import directory
+                    print("Error getting subdirectories: \(error)")
+                    return
                 }
             }
         }
@@ -132,11 +160,19 @@ class ServerController: NSObject, TunnelsManagerActivationDelegate
             let replicantConfigDirectory = configDirectory.appendingPathComponent(replicantConfigFileName, isDirectory: false)
             let replicantConfig = ReplicantConfig(withConfigAtPath: replicantConfigDirectory.path)
             let tunnelConfiguration = TunnelConfiguration(name: name, clientConfig: clientConfig, replicantConfig: replicantConfig, directory: configDirectory)
-            tunnelsManager?.add(tunnelConfiguration: tunnelConfiguration, completionHandler:
+            guard tunnelsManager != nil
+                else
+            {
+                print("\nUnable to add server to tunnel list. TunnelsManager is nil.\n")
+                completionHandler(WireGuardResult.failure(TunnelsManagerError.errorOnListingTunnels))
+                return
+            }
+            tunnelsManager!.add(tunnelConfiguration: tunnelConfiguration, completionHandler:
             {
                 (result) in
-                
+
                 completionHandler(result)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kNewServerAddedNotification) , object: nil)
             })
         }
         else
@@ -226,7 +262,7 @@ class ServerController: NSObject, TunnelsManagerActivationDelegate
         
         if configFilesAreValid(atURL: newImportConfigDirectory)
         {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kNewServerAddedNotification) , object: nil)
+            // TODO: Add server to tunnels
         }
     }
     

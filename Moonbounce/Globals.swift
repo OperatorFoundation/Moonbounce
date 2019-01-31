@@ -17,15 +17,18 @@ let mbWhite = NSColor(red:0.97, green:0.97, blue:0.98, alpha:1.0)
 let kConnectionStatusNotification = "ConnectionStatusChanged"
 let kServerIPAvailableNotification = "PTServerIPAvailable"
 let kNewServerAddedNotification = "NewServerHasBeenAdded"
+let serverManagerReadyNotification = "ServerFinishedInit"
 let userTokenKey = "UserDoToken"
 let userDirectoryName = "User"
 let importedDirectoryName = "Imported"
 let defaultDirectoryName = "Default"
-let clientConfigFileName = "replicantclient.config"
-let replicantConfigFileName = "replicant.config"
+let clientConfigFileName = "replicantclient.conf"
+let replicantConfigFileName = "replicant.conf"
 let moonbounceExtension = "moonbounce"
 
-let serverManager = ServerController()
+let serverManager = ServerController(completionHandler: {NotificationCenter.default.post(Notification(name: Notification.Name(serverManagerReadyNotification)))})
+
+
 let appSupportDirectory = FileManager.default.urls(for: FileManager.SearchPathDirectory.applicationSupportDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
 
 var moonbounceDirectory = appSupportDirectory[0].appendingPathComponent("Moonbounce.macOS", isDirectory: true)

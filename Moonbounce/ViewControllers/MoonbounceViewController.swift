@@ -41,7 +41,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     let proximaNARegular = "Proxima Nova Alt Regular"
     let advancedMenuHeight: CGFloat = 176.0
     
-    
+    @objc dynamic var serverManagerReady = false
     var userServerIsConnected = false
     var launching = false
     
@@ -54,17 +54,20 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         let nc = NotificationCenter.default
         nc.addObserver(forName: NSNotification.Name(rawValue: kConnectionStatusNotification), object: nil, queue: nil, using: connectionStatusChanged)
         nc.addObserver(forName: NSNotification.Name(rawValue: kNewServerAddedNotification), object: nil, queue: nil, using: newServerAdded)
+        nc.addObserver(forName: NSNotification.Name(serverManagerReadyNotification), object: nil, queue: nil, using: serverManagerNotificationReceived)
+        
+        // TODO: Accessing server manager to force init
+        let _ = serverManager.currentTunnel
         
         serverProgressBar.usesThreadedAnimation = true
         updateStatusUI(connected: false, statusDescription: "Not Connected")
-        populateServerSelectButton()
         styleTokenTextField()
     }
     
     override func viewWillAppear()
     {
         super.viewWillAppear()
-        styleViews()
+        self.styleViews()
     }
     
     func connectionStatusChanged(notification: Notification)
@@ -75,6 +78,18 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     func newServerAdded(notification: Notification)
     {
         populateServerSelectButton()
+    }
+    
+    func serverManagerNotificationReceived(notification: Notification)
+    {
+        print("\nSERVER MANAGER READY\n")
+        // TODO: Address possible race condition
+        self.serverManagerReady = true
+        serverManager.refreshServers
+        {
+            self.populateServerSelectButton()
+        }
+        self.showStatus()
     }
     
     //MARK: Action!
@@ -515,59 +530,57 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     {
         serverSelectButton.removeAllItems()
         
-        // TODO: Address possible race condition
-        serverManager.refreshServers()
         
-        //Default server should always be an option as we provide this.
-        if let defaultServer = serverManager.defaultServer
-        {
-            let defaultMenuItem = NSMenuItem(title: defaultServer.name, action: nil, keyEquivalent: "")
-            defaultMenuItem.representedObject = defaultServer
-            self.serverSelectButton.menu?.addItem(defaultMenuItem)
-            setSelectedServer(tunnel: defaultServer)
-            
-            //Don't make our default server available to share
-            shareServerButton.isHidden = true
-        }
-        else
-        {
-            print("\nDefault server not found.\n")
-        }
-        
-        //We base availability of a given server on whether a config file in the correct directory exists.
-        
-        // Check for user server
-        if let userServer = serverManager.userServer
-        {
-            userServerIsConnected = true
-            let menuItem = NSMenuItem(title: userServer.name, action: nil, keyEquivalent: "")
-            menuItem.representedObject = userServer
-            serverSelectButton.menu?.addItem(menuItem)
-            
-            serverSelectButton.selectItem(withTitle: userServer.name)
-            shareServerButton.isHidden = false
-            
-            //The user's server is default when available
-            setSelectedServer(tunnel: userServer)
-        }
-        else
-        {
-            userServerIsConnected = false
-        }
-
-        //Check for imported servers
-        if !serverManager.importedServers.isEmpty
-        {
-            for importedServer in serverManager.importedServers
+            //Default server should always be an option as we provide this.
+            if let defaultServer = serverManager.defaultServer
             {
-                //Make a new menu item for our pop-up button for every config directory in the imported folder.
+                let defaultMenuItem = NSMenuItem(title: defaultServer.name, action: nil, keyEquivalent: "")
+                defaultMenuItem.representedObject = defaultServer
+                self.serverSelectButton.menu?.addItem(defaultMenuItem)
+                self.setSelectedServer(tunnel: defaultServer)
                 
-                //Adding the new server info to our server select button.
-                let menuItem = NSMenuItem(title: importedServer.name, action: nil, keyEquivalent: "")
-                menuItem.representedObject = importedServer
-                serverSelectButton.menu?.addItem(menuItem)
+                //Don't make our default server available to share
+                self.shareServerButton.isHidden = true
             }
-        }
+            else
+            {
+                print("\nDefault server not found.\n")
+            }
+            
+            //We base availability of a given server on whether a config file in the correct directory exists.
+            
+            // Check for user server
+            if let userServer = serverManager.userServer
+            {
+                self.userServerIsConnected = true
+                let menuItem = NSMenuItem(title: userServer.name, action: nil, keyEquivalent: "")
+                menuItem.representedObject = userServer
+                self.serverSelectButton.menu?.addItem(menuItem)
+                
+                self.serverSelectButton.selectItem(withTitle: userServer.name)
+                self.shareServerButton.isHidden = false
+                
+                //The user's server is default when available
+                self.setSelectedServer(tunnel: userServer)
+            }
+            else
+            {
+                self.userServerIsConnected = false
+            }
+            
+            //Check for imported servers
+            if !serverManager.importedServers.isEmpty
+            {
+                for importedServer in serverManager.importedServers
+                {
+                    //Make a new menu item for our pop-up button for every config directory in the imported folder.
+                    
+                    //Adding the new server info to our server select button.
+                    let menuItem = NSMenuItem(title: importedServer.name, action: nil, keyEquivalent: "")
+                    menuItem.representedObject = importedServer
+                    self.serverSelectButton.menu?.addItem(menuItem)
+                }
+            }
     }
 
     func showUserServerStatus()
@@ -685,20 +698,29 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     func updateStatusUI(connected: Bool, statusDescription: String)
     {
         //Update Connection Status Label
-        self.statusLabel.stringValue = statusDescription
         
-        if connected
+        if serverManagerReady
         {
-            //Update button name
-            self.toggleConnectionButton.title = "Disconnect"
+            self.statusLabel.stringValue = statusDescription
+            
+            if connected
+            {
+                //Update button name
+                self.toggleConnectionButton.title = "Disconnect"
+            }
+            else
+            {
+                self.toggleConnectionButton.title = "Connect"
+            }
+            
+            //Stop BG Animation
+            self.runningScript = false
         }
         else
         {
-            self.toggleConnectionButton.title = "Connect"
+            self.statusLabel.stringValue = "Loading"
+            self.animateLoadingLabel()
         }
-        
-        //Stop BG Animation
-        self.runningScript = false
     }
     
     @objc func animateLaunchingLabel()
@@ -715,6 +737,23 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             }
             
             perform(#selector(animateLaunchingLabel), with: nil, afterDelay: 1)
+        }
+    }
+    
+    @objc func animateLoadingLabel()
+    {
+        if !serverManagerReady
+        {
+            if statusLabel.stringValue == "Loading..."
+            {
+                statusLabel.stringValue = "Loading"
+            }
+            else
+            {
+                statusLabel.stringValue = "\(statusLabel.stringValue)."
+            }
+            
+            perform(#selector(animateLoadingLabel), with: nil, afterDelay: 1)
         }
     }
     

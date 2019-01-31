@@ -11,12 +11,15 @@ import Network
 import os.log
 import Replicant
 import ReplicantSwift
+import Flow
 
 class PacketTunnelProvider: NEPacketTunnelProvider
 {
     private var networkMonitor: NWPathMonitor?
     private var ifname: String?
     private var packetTunnelSettingsGenerator: PacketTunnelSettingsGenerator?
+    
+    var flowerController: FlowerController?
     
     deinit
     {
@@ -48,21 +51,15 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         
         wg_log(.info, message: "Starting tunnel from the " + (activationAttemptId == nil ? "OS directly, rather than the app" : "app"))
        
-        // TODO: Replicant
-        guard let tunnel = serverManager.currentTunnel
-        else
-        {
-            return
-        }
-        
-        guard let replicantConfig = tunnel.tunnelConfiguration?.replicantConfiguration
+        // Replicant
+        guard let replicantConfig = tunnelConfiguration.replicantConfiguration
             else
         {
             print("\nUnable to parse Replicant config file.\n")
             return
         }
         
-        // TODO: Replicant Server IP & Port
+        // TODO: Replicant Server IP & Port come from ClientConfig
         
         guard let replicantPort = NWEndpoint.Port(rawValue: 51820)
             else
@@ -72,7 +69,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         }
         
         let replicantServerIP = currentHost
-        
         let replicantConnectionFactory = ReplicantConnectionFactory(host: replicantServerIP!, port: replicantPort, config: replicantConfig)
         
         guard let replicantConnection = replicantConnectionFactory.connect(using: .tcp)
@@ -82,7 +78,10 @@ class PacketTunnelProvider: NEPacketTunnelProvider
             return
         }
         
+        // Flower
         
+        flowerController = FlowerController(connection: replicantConnection)
+
         packetTunnelSettingsGenerator = PacketTunnelSettingsGenerator(tunnelConfiguration: tunnelConfiguration)
         
         setTunnelNetworkSettings(packetTunnelSettingsGenerator!.generateNetworkSettings())
@@ -100,24 +99,11 @@ class PacketTunnelProvider: NEPacketTunnelProvider
                 self.networkMonitor = NWPathMonitor()
                 self.networkMonitor!.start(queue: DispatchQueue(label: "NetworkMonitor"))
                 
-                let fileDescriptor = (self.packetFlow.value(forKeyPath: "socket.fileDescriptor") as? Int32) ?? -1
-                if fileDescriptor < 0 {
-                    wg_log(.error, staticMessage: "Starting tunnel failed: Could not determine file descriptor")
-                    errorNotifier.notify(PacketTunnelProviderError.couldNotDetermineFileDescriptor)
-                    startTunnelCompletionHandler(PacketTunnelProviderError.couldNotDetermineFileDescriptor)
-                    return
+                DispatchQueue.main.async
+                {
+                    startTunnelCompletionHandler(nil)
+                    self.readPackets()
                 }
-                
-                var ifnameSize = socklen_t(IFNAMSIZ)
-                let ifnamePtr = UnsafeMutablePointer<CChar>.allocate(capacity: Int(ifnameSize))
-                ifnamePtr.initialize(repeating: 0, count: Int(ifnameSize))
-                if getsockopt(fileDescriptor, 2 /* SYSPROTO_CONTROL */, 2 /* UTUN_OPT_IFNAME */, ifnamePtr, &ifnameSize) == 0 {
-                    self.ifname = String(cString: ifnamePtr)
-                }
-                ifnamePtr.deallocate()
-                wg_log(.info, message: "Tunnel interface is \(self.ifname ?? "unknown")")
-                
-                startTunnelCompletionHandler(nil)
             }
         }
     }
@@ -135,6 +121,28 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         
         
         completionHandler()
+    }
+    
+    func readPackets()
+    {
+        packetFlow.readPackets
+        {
+            (packetDatas, protocolNumbers) in
+            
+            let packets = zip(packetDatas, protocolNumbers)
+            
+            for (packetData, protocolNumber) in packets
+            {
+                // TODO: Do something with the data
+            }
+            
+            self.readPackets()
+        }
+    }
+    
+    func writePackets(packetDatas: [Data], protocolNumbers: [NSNumber])
+    {
+        packetFlow.writePackets(packetDatas, withProtocols: protocolNumbers)
     }
     
     private func configureLogger()

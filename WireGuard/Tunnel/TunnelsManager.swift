@@ -98,7 +98,8 @@ class TunnelsManager
     func add(tunnelConfiguration: TunnelConfiguration, activateOnDemandSetting: ActivateOnDemandSetting = ActivateOnDemandSetting.defaultSetting, completionHandler: @escaping (WireGuardResult<TunnelContainer>) -> Void)
     {
         let tunnelName = tunnelConfiguration.name ?? ""
-        if tunnelName.isEmpty {
+        if tunnelName.isEmpty
+        {
             completionHandler(.failure(TunnelsManagerError.tunnelNameEmpty))
             return
         }
@@ -108,6 +109,7 @@ class TunnelsManager
             return
         }
 
+        // MARK: - This is where we pass our parameters to the extension
         let tunnelProviderManager = NETunnelProviderManager()
         tunnelProviderManager.protocolConfiguration = NETunnelProviderProtocol(tunnelConfiguration: tunnelConfiguration)
         tunnelProviderManager.localizedDescription = tunnelConfiguration.name
@@ -115,8 +117,11 @@ class TunnelsManager
 
         activateOnDemandSetting.apply(on: tunnelProviderManager)
 
-        tunnelProviderManager.saveToPreferences { [weak self] error in
-            guard error == nil else {
+        tunnelProviderManager.saveToPreferences
+        {
+            [weak self] error in
+            guard error == nil else
+            {
                 wg_log(.error, message: "Add: Saving configuration failed: \(error!)")
                 completionHandler(.failure(TunnelsManagerError.systemErrorOnAddTunnel(systemError: error!)))
                 return

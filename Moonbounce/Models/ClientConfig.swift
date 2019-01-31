@@ -9,8 +9,29 @@
 import Foundation
 import Network
 
-public struct ClientConfig: Codable
+public class ClientConfig: NSObject, Codable, NSSecureCoding
 {
+    public static var supportsSecureCoding = true
+    
+    public func encode(with aCoder: NSCoder)
+    {
+        aCoder.encode(self, forKey: clientConfigKey)
+    }
+
+    public required init?(coder aDecoder: NSCoder)
+    {
+        if let obj = aDecoder.decodeObject(of:ClientConfig.self, forKey: clientConfigKey)
+        {
+            self.host = obj.host
+            self.port = obj.port
+        }
+        else
+        {
+            return nil
+        }
+    }
+    
+    let clientConfigKey = "ClientConfig"
     public let host: NWEndpoint.Host
     public let port: NWEndpoint.Port
     
@@ -28,7 +49,8 @@ public struct ClientConfig: Codable
             return nil
         }
         
-        self = config
+        self.port = config.port
+        self.host = config.host
     }
     
     /// Creates and returns a JSON representation of the ServerConfig struct.
@@ -61,7 +83,6 @@ public struct ClientConfig: Codable
         guard let jsonData = filemanager.contents(atPath: path)
             else
         {
-            print("\nUnable to get JSON data at path: \(path)\n")
             return nil
         }
         
@@ -78,129 +99,14 @@ public struct ClientConfig: Codable
     }
 }
 
-extension ClientConfig: Equatable
-{
-    public static func == (lhs: ClientConfig, rhs: ClientConfig) -> Bool
-    {
-        return lhs.host == rhs.host &&
-            lhs.port == rhs.port
-    }
-}
-
-//extension NWEndpoint.Port: Encodable
+//extension ClientConfig: Equatable
 //{
-//    public func encode(to encoder: Encoder) throws
+//    public static func == (lhs: ClientConfig, rhs: ClientConfig) -> Bool
 //    {
-//        let portInt = self.rawValue
-//        var container = encoder.singleValueContainer()
-//        
-//        do
-//        {
-//            try container.encode(portInt)
-//        }
-//        catch let error
-//        {
-//            throw error
-//        }
+//        return lhs.host == rhs.host &&
+//            lhs.port == rhs.port
 //    }
 //}
-//
-//extension NWEndpoint.Port: Decodable
-//{
-//    public init(from decoder: Decoder) throws
-//    {
-//        do
-//        {
-//            let container = try decoder.singleValueContainer()
-//            
-//            do
-//            {
-//                let portInt = try container.decode(UInt16.self)
-//                guard let port = NWEndpoint.Port(rawValue: portInt)
-//                    else
-//                {
-//                    throw ClientConfigError.invalidPort
-//                }
-//                
-//                self = port
-//            }
-//            catch let error
-//            {
-//                throw error
-//            }
-//        }
-//        catch let error
-//        {
-//            throw error
-//        }
-//    }
-//}
-
-extension NWEndpoint.Host: Encodable
-{
-    public func encode(to encoder: Encoder) throws
-    {
-        var container = encoder.singleValueContainer()
-        
-        switch self
-        {
-        case .ipv4(let ipv4Address):
-            do
-            {
-                let addressString = "\(ipv4Address)"
-                try container.encode(addressString)
-            }
-            catch let error
-            {
-                throw error
-            }
-        case .ipv6(let ipv6Address):
-            do
-            {
-                let addressString = "\(ipv6Address)"
-                try container.encode(addressString)
-            }
-            catch let error
-            {
-                throw error
-            }
-        case .name(let nameString, _):
-            do
-            {
-                try container.encode(nameString)
-            }
-            catch let error
-            {
-                throw error
-            }
-        }
-    }
-}
-
-extension NWEndpoint.Host: Decodable
-{
-    public init(from decoder: Decoder) throws
-    {
-        do
-        {
-            let container = try decoder.singleValueContainer()
-            
-            do
-            {
-                let addressString = try container.decode(String.self)
-                self.init(addressString)
-            }
-            catch let error
-            {
-                throw error
-            }
-        }
-        catch let error
-        {
-            throw error
-        }
-    }
-}
 
 enum ClientConfigError: Error
 {

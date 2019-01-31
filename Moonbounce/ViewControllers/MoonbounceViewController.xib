@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -43,7 +41,7 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="background" id="ax9-GS-5Vs"/>
                 </imageView>
                 <imageView translatesAutoresizingMaskIntoConstraints="NO" id="Eoy-Bt-WyB">
-                    <rect key="frame" x="70" y="277" width="34" height="10"/>
+                    <rect key="frame" x="70" y="278" width="34" height="10"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="laser" id="yCl-cc-num"/>
                 </imageView>
                 <imageView translatesAutoresizingMaskIntoConstraints="NO" id="Hrb-VL-FIy" userLabel="Foreground Image View">
@@ -57,9 +55,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k4n-CL-bsI">
-                                <rect key="frame" x="19" y="9" width="101" height="25"/>
+                                <rect key="frame" x="19" y="13" width="105" height="19"/>
                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" alignment="left" title="Disconnected" id="MV2-pK-okZ">
-                                    <font key="font" size="16" name="ProximaNovaA-Regular"/>
+                                    <font key="font" metaFont="system" size="16"/>
                                     <color key="textColor" red="0.96862745098039216" green="0.97254901960784312" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </textFieldCell>
@@ -83,20 +81,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6ga-6e-hhM" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
-                                <rect key="frame" x="270" y="0.0" width="169" height="43"/>
+                                <rect key="frame" x="269" y="0.0" width="170" height="43"/>
                                 <buttonCell key="cell" type="roundRect" title="Advanced Mode" bezelStyle="roundedRect" image="arrow" imagePosition="right" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dpu-Zd-6ds">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="18" name="ProximaNovaA-Regular"/>
+                                    <font key="font" metaFont="system" size="18"/>
+                                    <connections>
+                                        <binding destination="-2" name="enabled" keyPath="self.serverManagerReady" id="ddf-Wh-hbT"/>
+                                    </connections>
                                 </buttonCell>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="0.0"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
-                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -120,10 +118,13 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="lcanon" id="sfC-XW-LIR"/>
                 </imageView>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GYv-NE-gSi" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
-                    <rect key="frame" x="4" y="273" width="73" height="19"/>
+                    <rect key="frame" x="4" y="273" width="78" height="19"/>
                     <buttonCell key="cell" type="roundRect" title="Disconnect" bezelStyle="roundedRect" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="U3h-Gj-uoC">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="ProximaNovaA-Regular"/>
+                        <font key="font" metaFont="cellTitle"/>
+                        <connections>
+                            <binding destination="-2" name="enabled" keyPath="self.serverManagerReady" id="EvZ-vv-NZx"/>
+                        </connections>
                     </buttonCell>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
@@ -154,15 +155,15 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qgh-0T-rx6" userLabel="Server Select Label">
-                                            <rect key="frame" x="14" y="9" width="88" height="25"/>
+                                            <rect key="frame" x="14" y="12" width="92" height="19"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Connect To:" id="R9H-PP-zDC">
-                                                <font key="font" size="16" name="ProximaNovaA-Regular"/>
+                                                <font key="font" metaFont="system" size="16"/>
                                                 <color key="textColor" red="0.96862745098039216" green="0.97254901960784312" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
                                         <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IlK-KZ-Hx3">
-                                            <rect key="frame" x="106" y="8" width="76" height="26"/>
+                                            <rect key="frame" x="110" y="8" width="77" height="25"/>
                                             <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="7mO-1k-hhb" id="bzg-0p-Yb5">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="menu"/>
@@ -219,7 +220,7 @@
                                             <rect key="frame" x="16" y="11" width="73" height="19"/>
                                             <buttonCell key="cell" type="roundRect" title="Add File" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NlE-gS-T4H">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" size="16" name="ProximaNovaA-Regular"/>
+                                                <font key="font" metaFont="system" size="16"/>
                                             </buttonCell>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="halfBorder" value="YES"/>
@@ -229,9 +230,9 @@
                                             </connections>
                                         </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kfx-3G-5ai" userLabel="Files Label">
-                                            <rect key="frame" x="95" y="10" width="178" height="21"/>
+                                            <rect key="frame" x="95" y="12" width="184" height="18"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Add Moonbounce VPN Files" id="QB1-B2-yia">
-                                                <font key="font" size="14" name="ProximaNovaA-Regular"/>
+                                                <font key="font" metaFont="system" size="14"/>
                                                 <color key="textColor" red="0.63941168617806543" green="0.49871700153727133" blue="0.79499363732822048" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -249,10 +250,10 @@
                                 </constraints>
                             </box>
                             <button verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="55v-2e-jP8" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
-                                <rect key="frame" x="16" y="13" width="86" height="20"/>
+                                <rect key="frame" x="16" y="13" width="87" height="20"/>
                                 <buttonCell key="cell" type="roundRect" title="Kill Server" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ndI-uw-dTL">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="16" name="ProximaNovaA-Regular"/>
+                                    <font key="font" metaFont="system" size="16"/>
                                 </buttonCell>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="halfBorder" value="YES"/>
@@ -268,10 +269,10 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xg9-Jf-dld" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="11" width="116" height="19"/>
+                                            <rect key="frame" x="16" y="11" width="119" height="19"/>
                                             <buttonCell key="cell" type="roundRect" title="Launch Server" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yxI-uK-AfJ">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" size="16" name="ProximaNovaA-Regular"/>
+                                                <font key="font" metaFont="system" size="16"/>
                                             </buttonCell>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="halfBorder" value="YES"/>
@@ -281,7 +282,7 @@
                                             </connections>
                                         </button>
                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MjW-wy-YNA" userLabel="edit token button">
-                                            <rect key="frame" x="136" y="11" width="20" height="19"/>
+                                            <rect key="frame" x="139" y="13" width="20" height="16"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="20" id="pru-ij-tbp"/>
                                             </constraints>
@@ -305,15 +306,15 @@
                                             </connections>
                                         </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K04-Kv-gvR" userLabel="Server Status Field">
-                                            <rect key="frame" x="158" y="11" width="241" height="21"/>
+                                            <rect key="frame" x="161" y="12" width="252" height="18"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Launch Your Own Moonbounce Server" id="2tc-Xp-vXH">
-                                                <font key="font" size="14" name="ProximaNovaA-Regular"/>
+                                                <font key="font" metaFont="system" size="14"/>
                                                 <color key="textColor" red="0.63941168617806543" green="0.49871700153727133" blue="0.79499363732822048" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
                                         <progressIndicator wantsLayer="YES" maxValue="100" displayedWhenStopped="NO" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="vyQ-8c-VaX">
-                                            <rect key="frame" x="16" y="-5" width="116" height="20"/>
+                                            <rect key="frame" x="16" y="-5" width="119" height="20"/>
                                             <contentFilters>
                                                 <ciFilter name="CIHueAdjust">
                                                     <configuration>
@@ -330,10 +331,10 @@
                                             </contentFilters>
                                         </progressIndicator>
                                         <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="owa-4z-BTf" userLabel="Cancel Server Launch Button" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
-                                            <rect key="frame" x="375" y="11" width="58" height="19"/>
+                                            <rect key="frame" x="374" y="11" width="59" height="19"/>
                                             <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LpO-2H-GuV">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" size="14" name="ProximaNovaA-Regular"/>
+                                                <font key="font" metaFont="system" size="14"/>
                                                 <string key="keyEquivalent" base64-UTF8="YES">
 Gw
 </string>
@@ -348,11 +349,11 @@ Gw
                                                 <rect key="frame" x="1" y="1" width="435" height="42"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0o9-u3-aeC">
-                                                        <rect key="frame" x="16" y="7" width="372" height="28"/>
+                                                    <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0o9-u3-aeC">
+                                                        <rect key="frame" x="16" y="9" width="372" height="24"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Paste Your Account Token Here" drawsBackground="YES" id="ymg-jc-HUB">
-                                                            <font key="font" size="15" name="ProximaNovaA-Regular"/>
-                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                            <font key="font" metaFont="system" size="15"/>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                         <connections>
@@ -467,6 +468,7 @@ Gw
             </constraints>
             <point key="canvasLocation" x="118.5" y="117.5"/>
         </customView>
+        <userDefaultsController representsSharedInstance="YES" id="dit-mC-ur4"/>
     </objects>
     <resources>
         <image name="arrow" width="18" height="10"/>

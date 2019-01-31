@@ -44,14 +44,16 @@ extension NETunnelProviderProtocol
 
     func asTunnelConfiguration(called name: String? = nil) -> TunnelConfiguration?
     {
-        guard let clientConfig = providerConfiguration?[Keys.clientConfigKey.rawValue] as? ClientConfig
+        let maybeclientConfig = providerConfiguration?[Keys.clientConfigKey.rawValue]
+        let maybeReplicantConfig = providerConfiguration?[Keys.replicantConfigKey.rawValue]
+        
+        guard let clientConfig = maybeclientConfig as? ClientConfig
         else
         {
-            print("\nUnable to create tunnel configuration: client configuration is invalid or missing.\n")
             return nil
         }
         
-        if let replicantConfig = providerConfiguration?[Keys.replicantConfigKey.rawValue] as? ReplicantConfig
+        if let replicantConfig = maybeReplicantConfig as? ReplicantConfig
         {
             return TunnelConfiguration(name: name, clientConfig: clientConfig, replicantConfig: replicantConfig)
         }

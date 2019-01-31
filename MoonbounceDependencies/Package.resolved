@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/OperatorFoundation/Flower.git",
         "state": {
           "branch": null,
-          "revision": "cf084096cb53e58946af1bc3204bdde79e2f03ef",
-          "version": "0.0.4"
+          "revision": "7358fc96145536bb08b2bb4464c7d939ad6ae883",
+          "version": "0.0.6"
         }
       },
       {
@@ -96,8 +96,8 @@
         "repositoryURL": "https://github.com/OperatorFoundation/ReplicantSwift.git",
         "state": {
           "branch": null,
-          "revision": "bd3cbb245a38e1dd44970ef2e675619b48e8cf04",
-          "version": "0.2.1"
+          "revision": "4d0362aff36e6326efc80923ab56b8081b24706f",
+          "version": "0.2.3"
         }
       },
       {
@@ -105,8 +105,8 @@
         "repositoryURL": "https://github.com/OperatorFoundation/Shapeshifter-Swift-Transports",
         "state": {
           "branch": null,
-          "revision": "5c903510eff931d392ed01d7a770cef218f2ed13",
-          "version": "0.3.11"
+          "revision": "10fa152afb4b8cc607752af7a9af25a34e9d43ab",
+          "version": "0.3.14"
         }
       },
       {

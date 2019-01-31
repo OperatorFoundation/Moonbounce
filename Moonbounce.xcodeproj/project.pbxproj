@@ -68,7 +68,6 @@
 		46C6E51821E67491008D383B /* Replicant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4678C2E421DEDE6600492768 /* Replicant.framework */; };
 		46C7F4CB21ED354B007434DD /* ClientConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C7F4CA21ED354B007434DD /* ClientConfig.swift */; };
 		46EA2C7D1E241BB70069E5DE /* Default in Resources */ = {isa = PBXBuildFile; fileRef = 46EA2C7C1E241BB70069E5DE /* Default */; };
-		AE13587921FB7E9F00E81823 /* default.moonbounce in Resources */ = {isa = PBXBuildFile; fileRef = AE13587821FB7E9F00E81823 /* default.moonbounce */; };
 		AE13587B21FBB6F200E81823 /* ServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4614F2C11F59DE430017B1DD /* ServerController.swift */; };
 		AE13587C21FBB72D00E81823 /* TunnelsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E50A21E57098008D383B /* TunnelsManager.swift */; };
 		AE13587D21FBB74C00E81823 /* TunnelErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E50721E57097008D383B /* TunnelErrors.swift */; };
@@ -78,6 +77,7 @@
 		AE13588121FBB75900E81823 /* WireGuardResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E51021E57313008D383B /* WireGuardResult.swift */; };
 		AE13588221FBB75C00E81823 /* WireGuardAppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E51121E57313008D383B /* WireGuardAppError.swift */; };
 		AE13588321FBBEC700E81823 /* MoonbounceStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E51421E5747B008D383B /* MoonbounceStrings.swift */; };
+		AE1359522203819400E81823 /* default.moonbounce in Resources */ = {isa = PBXBuildFile; fileRef = AE1359512203819400E81823 /* default.moonbounce */; };
 		AEE942E121F7B8F900213EE7 /* ClientConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C7F4CA21ED354B007434DD /* ClientConfig.swift */; };
 		AEE9436521F921CF00213EE7 /* Flow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEE9436221F921BA00213EE7 /* Flow.framework */; };
 		AEE9436621F941A000213EE7 /* Replicant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4678C2E421DEDE6600492768 /* Replicant.framework */; };
@@ -259,7 +259,7 @@
 		46C6E51421E5747B008D383B /* MoonbounceStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonbounceStrings.swift; sourceTree = "<group>"; };
 		46C7F4CA21ED354B007434DD /* ClientConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientConfig.swift; sourceTree = "<group>"; };
 		46EA2C7C1E241BB70069E5DE /* Default */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Default; sourceTree = "<group>"; };
-		AE13587821FB7E9F00E81823 /* default.moonbounce */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.moonbounce; sourceTree = "<group>"; };
+		AE1359512203819400E81823 /* default.moonbounce */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.moonbounce; sourceTree = "<group>"; };
 		B41FE0291DF24BE900E02D17 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		B44390581DC00EA000389352 /* PopoverContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopoverContentView.swift; path = Helpers/PopoverContentView.swift; sourceTree = "<group>"; };
@@ -354,7 +354,7 @@
 		467CB5AA1DBEB6E90086E341 = {
 			isa = PBXGroup;
 			children = (
-				AE13587821FB7E9F00E81823 /* default.moonbounce */,
+				AE1359512203819400E81823 /* default.moonbounce */,
 				4678C33021E00DBC00492768 /* WireGuard */,
 				467CB5B51DBEB6E90086E341 /* Moonbounce */,
 				469B0A7921DEA5AB003FC2BC /* MoonbounceNetworkExtension */,
@@ -711,7 +711,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE13587921FB7E9F00E81823 /* default.moonbounce in Resources */,
 				468D4CAA1E11986F00BD80C4 /* vars in Resources */,
 				469B0A4021DC1F5A003FC2BC /* terraform in Resources */,
 				46C28E361E0DBA2F0024A61F /* DestroyTerraform.sh in Resources */,
@@ -720,6 +719,7 @@
 				467CB5C61DBEB8CF0086E341 /* MoonbounceViewController.xib in Resources */,
 				467CB5B91DBEB6E90086E341 /* Assets.xcassets in Resources */,
 				467CB5BC1DBEB6E90086E341 /* MainMenu.xib in Resources */,
+				AE1359522203819400E81823 /* default.moonbounce in Resources */,
 				4643055F1E0B2FDF00B1DB78 /* LaunchTerraformScript.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

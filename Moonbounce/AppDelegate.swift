@@ -162,15 +162,24 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
         
         do
         {
-            print("\ndefaultConfigDirectory = \(defaultConfigDirectory)\n")
-            print("\nresourcePath = \(resourceURL)\n")
+            try fileManager.createDirectory(at: defaultConfigDirectory, withIntermediateDirectories: true, attributes: nil)
             
-            try fileManager.unzipItem(at: resourceURL, to: configFilesDirectory)
-            
+            do
+            {
+                print("\ndefaultConfigDirectory = \(defaultConfigDirectory)\n")
+                print("\nresourcePath = \(resourceURL)\n")
+                
+                try fileManager.unzipItem(at: resourceURL, to: defaultConfigDirectory)
+                
+            }
+            catch
+            {
+                print("Unable to copy default config files: \(error.localizedDescription)")
+            }
         }
-        catch
+        catch let error
         {
-            print("Unable to copy default config files: \(error.localizedDescription)")
+            print("\nFailed to create default config directory: \(error)\n")
         }
     }
     
