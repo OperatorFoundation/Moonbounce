@@ -55,11 +55,6 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>SMPrivilegedExecutables</key>
-	<dict>
-		<key>org.OperatorFoundation.MoonbounceHelperTool</key>
-		<string>anchor apple generic and identifier "org.OperatorFoundation.MoonbounceHelperTool" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "67Y4NSLDQ3")</string>
-	</dict>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>

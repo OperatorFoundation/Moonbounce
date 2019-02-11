@@ -211,7 +211,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             return
         }
         
-        guard let configURL = tunnel.tunnelConfiguration?.directory
+        guard let configURL = tunnel.tunnelConfiguration.directory
         else
         {
             print("\nUnable to share server config, the directory URL is unknown.\n")
@@ -440,13 +440,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             return
         }
         
-        guard let clientConfig = tunnel.tunnelConfiguration?.clientConfig
-        else
-        {
-            return
-        }
-        
-        currentHost = clientConfig.host
+        currentHost = tunnel.tunnelConfiguration.clientConfig.host
         print("Current Server host is: \(currentHost!)")
     }
     

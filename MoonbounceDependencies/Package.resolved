@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",
         "state": {
           "branch": null,
-          "revision": "c5ee516c9616ec7dc2a000007ddb8bf5d9543c74",
-          "version": "0.13.1"
+          "revision": "8b3435bd3236819318cde87c8d9315fb89906df3",
+          "version": "0.14.0"
         }
       },
       {
@@ -105,8 +105,8 @@
         "repositoryURL": "https://github.com/OperatorFoundation/Shapeshifter-Swift-Transports",
         "state": {
           "branch": null,
-          "revision": "10fa152afb4b8cc607752af7a9af25a34e9d43ab",
-          "version": "0.3.14"
+          "revision": "3ce2100f4087c353355289508e7a42ea4971a201",
+          "version": "0.3.15"
         }
       },
       {

@@ -9,6 +9,7 @@
 import Cocoa
 import ZIPFoundation
 import ReplicantSwift
+import NetworkExtension
 
 class ServerController: NSObject, TunnelsManagerActivationDelegate
 {
@@ -160,6 +161,7 @@ class ServerController: NSObject, TunnelsManagerActivationDelegate
             let replicantConfigDirectory = configDirectory.appendingPathComponent(replicantConfigFileName, isDirectory: false)
             let replicantConfig = ReplicantConfig(withConfigAtPath: replicantConfigDirectory.path)
             let tunnelConfiguration = TunnelConfiguration(name: name, clientConfig: clientConfig, replicantConfig: replicantConfig, directory: configDirectory)
+            
             guard tunnelsManager != nil
                 else
             {
