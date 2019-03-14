@@ -81,13 +81,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6ga-6e-hhM" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
-                                <rect key="frame" x="269" y="0.0" width="170" height="43"/>
+                                <rect key="frame" x="309" y="0.0" width="130" height="43"/>
                                 <buttonCell key="cell" type="roundRect" title="Advanced Mode" bezelStyle="roundedRect" image="arrow" imagePosition="right" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dpu-Zd-6ds">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system" size="18"/>
-                                    <connections>
-                                        <binding destination="-2" name="enabled" keyPath="self.serverManagerReady" id="ddf-Wh-hbT"/>
-                                    </connections>
+                                    <font key="font" metaFont="cellTitle"/>
                                 </buttonCell>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -122,9 +119,6 @@
                     <buttonCell key="cell" type="roundRect" title="Disconnect" bezelStyle="roundedRect" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="U3h-Gj-uoC">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="cellTitle"/>
-                        <connections>
-                            <binding destination="-2" name="enabled" keyPath="self.serverManagerReady" id="EvZ-vv-NZx"/>
-                        </connections>
                     </buttonCell>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="titleColor">

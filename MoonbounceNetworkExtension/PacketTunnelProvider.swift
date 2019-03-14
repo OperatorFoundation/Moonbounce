@@ -8,7 +8,6 @@
 
 import NetworkExtension
 import Network
-import os.log
 import Replicant
 import ReplicantSwift
 import Flow
@@ -17,16 +16,33 @@ import SwiftQueue
 class PacketTunnelProvider: NEPacketTunnelProvider
 {
     private var networkMonitor: NWPathMonitor?
+    
     private var ifname: String?
-    private var packetTunnelSettingsGenerator: PacketTunnelSettingsGenerator?
+    //private var packetTunnelSettingsGenerator: PacketTunnelSettingsGenerator?
+    
+    var replicantConnectionFactory: ReplicantConnectionFactory?
+    
+    /// The tunnel connection.
+    open var connection: ReplicantConnection?
+    
+    /// The completion handler to call when the tunnel is fully established.
+    var pendingStartCompletion: ((Error?) -> Void)?
+    
+    /// The completion handler to call when the tunnel is fully disconnected.
+    var pendingStopCompletion: (() -> Void)?
+    
+    /// To make sure that we don't try connecting repeatedly and unintentionally
+    var connectionAttemptStatus: ConnectionAttemptStatus = .initialized
+    
+    /// The address of the tunnel server.
+    open var remoteHost: String?
     
     /// A Queue of Log Messages
     var logQueue = Queue<String>()
     
-    var flowerController: FlowerController?
-    
     override init()
     {
+        NSLog("\nQQQ provider init\n")
         logQueue.enqueue("\nQQQ provider init\n")
         super.init()
     }
@@ -36,89 +52,92 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         networkMonitor?.cancel()
     }
     
-    override func startTunnel(options: [String: NSObject]?, completionHandler startTunnelCompletionHandler: @escaping (Error?) -> Void)
+    
+    override func startTunnel(options: [String : NSObject]? = nil, completionHandler: @escaping (Error?) -> Void)
     {
-        startTunnelCompletionHandler(nil)
-//
-//        print("\nstartTunnel called in PacketTunnelProvider\n")
-//        let activationAttemptId = options?["activationAttemptId"] as? String
-//        let errorNotifier = ErrorNotifier(activationAttemptId: activationAttemptId)
-//        
-//        guard let tunnelProviderProtocol = protocolConfiguration as? NETunnelProviderProtocol
-//        else
-//        {
-//            errorNotifier.notify(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
-//            startTunnelCompletionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
-//            return
-//        }
-//        
-//        guard let tunnelConfiguration = TunnelConfiguration(name: ifname, providerProtocol: tunnelProviderProtocol)
-//        else
-//        {
-//            errorNotifier.notify(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
-//            startTunnelCompletionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
-//            return
-//        }
-//        
-//        configureLogger()
-//        
-//        wg_log(.info, message: "Starting tunnel from the " + (activationAttemptId == nil ? "OS directly, rather than the app" : "app"))
-//       
-//        // Replicant
-//        guard let replicantConfig = tunnelConfiguration.replicantConfiguration
-//            else
-//        {
-//            print("\nUnable to parse Replicant config file.\n")
-//            return
-//        }
-//        
-//        // TODO: Replicant Server IP & Port come from ClientConfig
-//        
-//        guard let replicantPort = NWEndpoint.Port(rawValue: 51820)
-//            else
-//        {
-//            print("\nUnable to generate port for replicant connection.\n")
-//            return
-//        }
-//        
-//        let replicantServerIP = currentHost
-//        let replicantConnectionFactory = ReplicantConnectionFactory(host: replicantServerIP!, port: replicantPort, config: replicantConfig)
-//        
-//        guard let replicantConnection = replicantConnectionFactory.connect(using: .tcp)
-//            else
-//        {
-//            print("Unable to establish a Replicant connection.")
-//            return
-//        }
-//        
-//        // Flower
-//        
-//        flowerController = FlowerController(connection: replicantConnection)
-//
-//        packetTunnelSettingsGenerator = PacketTunnelSettingsGenerator(tunnelConfiguration: tunnelConfiguration)
-//        
-//        setTunnelNetworkSettings(packetTunnelSettingsGenerator!.generateNetworkSettings())
-//        {
-//            error in
-//            
-//            if let error = error
-//            {
-//                wg_log(.error, message: "Starting tunnel failed with setTunnelNetworkSettings returning \(error.localizedDescription)")
-//                errorNotifier.notify(PacketTunnelProviderError.couldNotSetNetworkSettings)
-//                startTunnelCompletionHandler(PacketTunnelProviderError.couldNotSetNetworkSettings)
-//            }
-//            else
-//            {
-//                self.networkMonitor = NWPathMonitor()
-//                self.networkMonitor!.start(queue: DispatchQueue(label: "NetworkMonitor"))
-//                
-//                DispatchQueue.main.async
-//                {
-//                    startTunnelCompletionHandler(nil)
-//                    self.readPackets()
-//                }
-//            }
-//        }
+        logQueue.enqueue("PacketTunnelProvider startTunnel called")
+        
+        switch connectionAttemptStatus
+        {
+        case .initialized:
+            connectionAttemptStatus = .started
+        case .started:
+            logQueue.enqueue("start tunnel called when tunnel was already started.")
+        case .connecting:
+            connectionAttemptStatus = .started
+        }
+        
+        // Save the completion handler for when the tunnel is fully established.
+        pendingStartCompletion = completionHandler
+
+        let activationAttemptId = options?["activationAttemptId"] as? String
+        let errorNotifier = ErrorNotifier(activationAttemptId: activationAttemptId)
+        
+        guard let tunnelProviderProtocol = protocolConfiguration as? NETunnelProviderProtocol
+        else
+        {
+            logQueue.enqueue("PacketTunnelProviderError: savedProtocolConfigurationIsInvalid")
+            errorNotifier.notify(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
+            completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
+            return
+        }
+        
+        guard let serverAddress: String = self.protocolConfiguration.serverAddress
+            else
+        {
+            logQueue.enqueue("Unable to get the server address.")
+            completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
+            return
+        }
+        
+        self.remoteHost = serverAddress
+        self.logQueue.enqueue("Server address: \(serverAddress)")
+        
+        guard let moonbounceConfig = Tunnel.getMoonbounceConfig(fromProtocolConfiguration: tunnelProviderProtocol)
+            else
+        {
+            logQueue.enqueue("Unable to get moonbounce config from protocol.")
+            completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
+            return
+        }
+        
+        let tunnelConfiguration = Tunnel(moonbounceConfig: moonbounceConfig, completionHandler:
+        {
+            (maybeError) in
+            
+            if let error = maybeError
+            {
+                self.logQueue.enqueue(error.localizedDescription)
+                completionHandler(PacketTunnelProviderError.couldNotSetNetworkSettings)
+                return
+            }
+            
+        })
+
+        guard let replicantConfig = moonbounceConfig.replicantConfig
+            else
+        {
+            self.logQueue.enqueue("start tunnel failed to find a replicant configuration")
+            completionHandler(TunnelError.badConfiguration)
+            return
+        }
+        let host = moonbounceConfig.clientConfig.host
+        let port = moonbounceConfig.clientConfig.port
+        self.replicantConnectionFactory = ReplicantConnectionFactory(host: host,
+                                                                     port: port,
+                                                                     config: replicantConfig,
+                                                                     logQueue: self.logQueue)
+        
+        self.logQueue.enqueue("\nReplicant Connection Factory Created.\nHost - \(host)\nPort - \(port)\n")
+        
+        self.networkMonitor = NWPathMonitor()
+        self.networkMonitor!.start(queue: DispatchQueue(label: "NetworkMonitor"))
+        
+        DispatchQueue.main.async
+        {
+            completionHandler(nil)
+            self.readPackets()
+        }
     }
     
     override func stopTunnel(with reason: NEProviderStopReason, completionHandler: @escaping () -> Void)
@@ -127,12 +146,21 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         networkMonitor = nil
         
         ErrorNotifier.removeLastErrorFile()
+
+        logQueue.enqueue("closeTunnel Called")
         
-        wg_log(.info, staticMessage: "Stopping tunnel")
+        // Clear out any pending start completion handler.
+        pendingStartCompletion?(TunnelError.internalError)
+        pendingStartCompletion = nil
         
-        // TODO: Stop the tunnel
+        // Close the tunnel connection.
+        if let TCPConnection = connection
+        {
+            TCPConnection.cancel()
+        }
         
-        
+        connectionAttemptStatus = .initialized
+        pendingStopCompletion?()
         completionHandler()
     }
     
@@ -178,10 +206,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         {
             responseString = "\n*******\(logMessage)*******\n"
         }
-        else
-        {
-            responseString = ""
-        }
         
         guard let responseData = responseString.data(using: String.Encoding.utf8)
         else
@@ -194,30 +218,46 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         completionHandler?(responseData)
     }
     
-    private func configureLogger()
+    /// Create the tunnel network settings to be applied to the virtual interface.
+    func createTunnelSettingsFromConfiguration(_ configuration: [NSObject: AnyObject]) -> NEPacketTunnelNetworkSettings?
     {
-        Logger.configureGlobal(withFilePath: FileManager.networkExtensionLogFileURL?.path)
+//        let newSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: "166.78.129.122")
+//        let address = "192.168.2.1"
+        let netmask = "255.255.255.0"
         
-        // TODO: Replace wgSetLogger
-//        wgSetLogger
-//        {
-//            level, msgC in
-//
-//            guard let msgC = msgC else { return }
-//            let logType: OSLogType
-//            switch level
-//            {
-//            case 0:
-//                logType = .debug
-//            case 1:
-//                logType = .info
-//            case 2:
-//                logType = .error
-//            default:
-//                logType = .default
-//            }
-//            wg_log(logType, message: String(cString: msgC))
-//        }
+        //FIXME: tunnelAddress should be remoteHost,
+        //configuration argument is ignored
+        
+        guard let tunnelAddress = remoteHost
+        else
+        {
+            logQueue.enqueue("Unable to resolve tunnelAddress for NEPacketTunnelNetworkSettings")
+            return nil
+        }
+
+        let newSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: tunnelAddress)
+        newSettings.ipv4Settings = NEIPv4Settings(addresses: [tunnelAddress], subnetMasks: [netmask])
+        newSettings.ipv4Settings?.includedRoutes = [NEIPv4Route.default()]
+        newSettings.dnsSettings = NEDNSSettings(servers: ["8.8.8.8"])
+        newSettings.tunnelOverheadBytes = 150
+        
+        return newSettings
     }
     
+}
+
+enum ConnectionAttemptStatus
+{
+    case initialized
+    case started
+    case connecting
+}
+
+public enum TunnelError: Error
+{
+    case badConfiguration
+    case badConnection
+    case cancelled
+    case disconnected
+    case internalError
 }

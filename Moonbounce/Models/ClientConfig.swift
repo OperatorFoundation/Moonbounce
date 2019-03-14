@@ -17,7 +17,7 @@ public class ClientConfig: NSObject, Codable, NSSecureCoding
     {
         aCoder.encode(self, forKey: clientConfigKey)
     }
-
+    
     public required init?(coder aDecoder: NSCoder)
     {
         if let obj = aDecoder.decodeObject(of:ClientConfig.self, forKey: clientConfigKey)
@@ -78,7 +78,7 @@ public class ClientConfig: NSObject, Codable, NSSecureCoding
     static public func parseJSON(atPath path: String) -> ClientConfig?
     {
         let filemanager = FileManager()
-        let decoder = JSONDecoder()
+        
         
         guard let jsonData = filemanager.contents(atPath: path)
             else
@@ -86,6 +86,13 @@ public class ClientConfig: NSObject, Codable, NSSecureCoding
             return nil
         }
         
+        return parse(jsonData: jsonData)
+        
+    }
+    
+    static public func parse(jsonData: Data) -> ClientConfig?
+    {
+        let decoder = JSONDecoder()
         do
         {
             let config = try decoder.decode(ClientConfig.self, from: jsonData)
@@ -93,20 +100,11 @@ public class ClientConfig: NSObject, Codable, NSSecureCoding
         }
         catch (let error)
         {
-            print("\nUnable to decode JSON into ServerConfig: \(error)\n")
+            print("\nUnable to decode JSON into ClientConfig: \(error)\n")
             return nil
         }
     }
 }
-
-//extension ClientConfig: Equatable
-//{
-//    public static func == (lhs: ClientConfig, rhs: ClientConfig) -> Bool
-//    {
-//        return lhs.host == rhs.host &&
-//            lhs.port == rhs.port
-//    }
-//}
 
 enum ClientConfigError: Error
 {

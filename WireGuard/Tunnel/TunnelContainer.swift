@@ -41,7 +41,7 @@ class TunnelContainer: NSObject
                     guard let self = self
                         else { return }
                     
-                    wg_log(.debug, message: "Status update notification timeout for tunnel '\(self.name)'. Tunnel status is now '\(self.tunnelProvider.connection.status)'.")
+                    print("Status update notification timeout for tunnel '\(self.name)'. Tunnel status is now '\(self.tunnelProvider.connection.status)'.")
                     
                     switch self.tunnelProvider.connection.status
                     {
@@ -103,22 +103,29 @@ class TunnelContainer: NSObject
             return
         }
         
-        wg_log(.debug, message: "startActivation: Entering (tunnel: \(name))")
+        print( "startActivation: Entering (tunnel: \(name))")
         
-        status = .activating // Ensure that no other tunnel can attempt activation until this tunnel is done trying
+        // Ensure that no other tunnel can attempt activation until this tunnel is done trying
+        status = .activating
         
         guard tunnelProvider.isEnabled
             else
         {
             // In case the tunnel had gotten disabled, re-enable and save it,
             // then call this function again.
-            wg_log(.debug, staticMessage: "startActivation: Tunnel is disabled. Re-enabling and saving")
+            print("startActivation: Tunnel is disabled. Re-enabling and saving")
             //tunnelProvider.isEnabled = false //FIXME
             
             tunnelProvider.loadFromPreferences
             {
                 (maybeError) in
                 
+                if let error = maybeError
+                {
+                    print("Error loading from preferences: \(error)")
+                    activationDelegate?.tunnelActivationAttemptFailed(tunnel: self, error: .failedWhileLoading(systemError: error))
+                    return
+                }
                 // MARK: - This is where we pass our parameters to the extension
                 self.tunnelProvider.localizedDescription = "MoonbounceTest"
                 self.tunnelProvider.isEnabled = true
@@ -131,12 +138,11 @@ class TunnelContainer: NSObject
                     
                     if error != nil
                     {
-                        wg_log(.error, message: "Error saving tunnel after re-enabling: \(error!)")
+                        print("Error saving tunnel after re-enabling: \(error!)")
                         activationDelegate?.tunnelActivationAttemptFailed(tunnel: self, error: .failedWhileSaving(systemError: error!))
                         return
                     }
-                    
-                    wg_log(.debug, staticMessage: "startActivation: Tunnel saved after re-enabling, invoking startActivation")
+                    print("startActivation: Tunnel saved after re-enabling, invoking startActivation")
                     self.startActivation(recursionCount: recursionCount + 1, lastError: NEVPNError(NEVPNError.configurationUnknown), activationDelegate: activationDelegate)
                 }
             }
@@ -145,57 +151,91 @@ class TunnelContainer: NSObject
         }
         
         // Start the tunnel
-        do
+        tunnelProvider.loadFromPreferences
         {
-            wg_log(.debug, staticMessage: "startActivation: Starting tunnel")
-            isAttemptingActivation = true
-            let activationAttemptId = UUID().uuidString
-            self.activationAttemptId = activationAttemptId
+            maybeError in
             
-            startLoggingLoop()
-            
-            //TODO: Needs to pass configs to the Network Extension
-            try (tunnelProvider.connection as? NETunnelProviderSession)?.startTunnel(options: ["activationAttemptId": activationAttemptId])
-            
-            wg_log(.debug, staticMessage: "startActivation: Success")
-            activationDelegate?.tunnelActivationAttemptSucceeded(tunnel: self)
-        }
-        catch let error
-        {
-            isAttemptingActivation = false
-            guard let systemError = error as? NEVPNError
-                else
+            if let error = maybeError
             {
-                wg_log(.error, message: "Failed to activate tunnel: Error: \(error)")
-                status = .inactive
-                activationDelegate?.tunnelActivationAttemptFailed(tunnel: self, error: .failedWhileStarting(systemError: error))
-                return
-            }
-            guard systemError.code == NEVPNError.configurationInvalid || systemError.code == NEVPNError.configurationStale
-                else
-            {
-                wg_log(.error, message: "Failed to activate tunnel: VPN Error: \(error)")
-                status = .inactive
-                activationDelegate?.tunnelActivationAttemptFailed(tunnel: self, error: .failedWhileStarting(systemError: systemError))
+                print("Error loading from preferences: \(error)")
+                activationDelegate?.tunnelActivationAttemptFailed(tunnel: self, error: .failedWhileLoading(systemError: error))
                 return
             }
             
-            print("\nError trying to start tunnel: \(systemError.localizedDescription)\n")
-            wg_log(.debug, staticMessage: "startActivation: Will reload tunnel and then try to start it.")
-            tunnelProvider.loadFromPreferences
+            self.tunnelProvider.saveToPreferences
             {
-                [weak self] error in
+                maybeSaveError in
                 
-                guard let self = self else { return }
-                if error != nil
+                if let saveError = maybeSaveError
                 {
-                    wg_log(.error, message: "startActivation: Error reloading tunnel: \(error!)")
-                    self.status = .inactive
-                    activationDelegate?.tunnelActivationAttemptFailed(tunnel: self, error: .failedWhileLoading(systemError: systemError))
+                    print("Error saving tunnel after re-enabling: \(saveError)")
+                    activationDelegate?.tunnelActivationAttemptFailed(tunnel: self, error: .failedWhileSaving(systemError: saveError))
                     return
                 }
-                wg_log(.debug, staticMessage: "startActivation: Tunnel reloaded, invoking startActivation")
-                self.startActivation(recursionCount: recursionCount + 1, lastError: systemError, activationDelegate: activationDelegate)
+                
+                do
+                {
+                    print("startActivation: Starting tunnel")
+                    
+                    self.isAttemptingActivation = true
+                    let activationAttemptId = UUID().uuidString
+                    self.activationAttemptId = activationAttemptId
+                    
+                    self.startLoggingLoop()
+                    
+                    //TODO: Needs to pass configs to the Network Extension
+                    //try (tunnelProvider.connection as? NETunnelProviderSession)?.startTunnel(options: ["activationAttemptId": activationAttemptId])
+                    
+                    print("\nCalling startVPNTunnel on \(self.tunnelProvider.connection)\n")
+                    try self.tunnelProvider.connection.startVPNTunnel()
+                    
+                    print("startActivation: Success")
+                    activationDelegate?.tunnelActivationAttemptSucceeded(tunnel: self)
+                }
+                catch let error
+                {
+                    self.isAttemptingActivation = false
+                    guard let systemError = error as? NEVPNError
+                        else
+                    {
+                        print("Failed to activate tunnel: Error: \(error)")
+                        
+                        self.status = .inactive
+                        activationDelegate?.tunnelActivationAttemptFailed(tunnel: self, error: .failedWhileStarting(systemError: error))
+                        return
+                    }
+                    guard systemError.code == NEVPNError.configurationInvalid || systemError.code == NEVPNError.configurationStale
+                        else
+                    {
+                        print("Failed to activate tunnel: VPN Error: \(error)")
+                        
+                        self.status = .inactive
+                        activationDelegate?.tunnelActivationAttemptFailed(tunnel: self, error: .failedWhileStarting(systemError: systemError))
+                        return
+                    }
+                    
+                    print("\nError trying to start tunnel: \(systemError.localizedDescription)")
+                    print("startActivation: Will reload tunnel and then try to start it.")
+                    
+                    self.tunnelProvider.loadFromPreferences
+                        {
+                            [weak self] error in
+                            
+                            guard let self = self
+                                else { return }
+                            
+                            if error != nil
+                            {
+                                print("startActivation: Error reloading tunnel: \(error!)")
+                                self.status = .inactive
+                                activationDelegate?.tunnelActivationAttemptFailed(tunnel: self, error: .failedWhileLoading(systemError: systemError))
+                                return
+                            }
+                            
+                            print("startActivation: Tunnel reloaded, invoking startActivation")
+                            self.startActivation(recursionCount: recursionCount + 1, lastError: systemError, activationDelegate: activationDelegate)
+                    }
+                }
             }
         }
     }
@@ -260,13 +300,13 @@ class TunnelContainer: NSObject
                         }
                         else
                         {
-                            //NSLog("Got a nil response from the provider")
+                            print("Got a nil response from the provider")
                         }
                     }
                 }
                 catch
                 {
-                    NSLog("Failed to send a message to the provider")
+                    print("Failed to send a message to the provider")
                 }
                 
                 DispatchQueue.main.async

@@ -75,15 +75,6 @@ final class TunnelConfiguration: NSObject
     }
 }
 
-enum Keys: String
-{
-    case clientConfigKey = "ClientConfiguration"
-    case replicantConfigKey = "ReplicantConfiguration"
-    case vpnConfigKey = "VPN"
-    case vpnType = "VPNType"
-    case vpnSubType = "VPNSubeType"
-    case providerBundleIDConfigKey = "ProviderBundleIdentifier"
-}
 
 //extension TunnelConfiguration: Equatable
 //{

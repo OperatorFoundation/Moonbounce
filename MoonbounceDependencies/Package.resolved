@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/IBM-Swift/BlueCryptor.git",
         "state": {
           "branch": null,
-          "revision": "25186dc1a53f3eb6d900853f659dff8b9af523aa",
-          "version": "1.0.23"
+          "revision": "fe59cc1fcabb390bf9b3b6dd4f8cacc897d91cf6",
+          "version": "1.0.24"
         }
       },
       {
@@ -96,8 +96,8 @@
         "repositoryURL": "https://github.com/OperatorFoundation/ReplicantSwift.git",
         "state": {
           "branch": null,
-          "revision": "4d0362aff36e6326efc80923ab56b8081b24706f",
-          "version": "0.2.3"
+          "revision": "3e65995810804ca6c9c90bea76faed3db49bf7f1",
+          "version": "0.3.6"
         }
       },
       {
@@ -105,8 +105,8 @@
         "repositoryURL": "https://github.com/OperatorFoundation/Shapeshifter-Swift-Transports",
         "state": {
           "branch": null,
-          "revision": "3ce2100f4087c353355289508e7a42ea4971a201",
-          "version": "0.3.15"
+          "revision": "7a1d99e2b08f34886717467718a90c2df91a1196",
+          "version": "0.4.7"
         }
       },
       {

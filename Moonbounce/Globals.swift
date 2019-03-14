@@ -22,11 +22,12 @@ let userTokenKey = "UserDoToken"
 let userDirectoryName = "User"
 let importedDirectoryName = "Imported"
 let defaultDirectoryName = "Default"
-let clientConfigFileName = "replicantclient.conf"
-let replicantConfigFileName = "replicant.conf"
+let defaultTunnelName = "Default"
+let clientConfigFileName = "replicantclient.config"
+let replicantConfigFileName = "replicant.config"
 let moonbounceExtension = "moonbounce"
 
-let serverManager = ServerController(completionHandler: {NotificationCenter.default.post(Notification(name: Notification.Name(serverManagerReadyNotification)))})
+//let serverManager = ServerController(completionHandler: {NotificationCenter.default.post(Notification(name: Notification.Name(serverManagerReadyNotification)))})
 
 
 let appSupportDirectory = FileManager.default.urls(for: FileManager.SearchPathDirectory.applicationSupportDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)

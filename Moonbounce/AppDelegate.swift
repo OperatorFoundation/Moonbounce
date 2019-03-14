@@ -72,13 +72,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
         checkForServerIP()
     }
     
-    func application(_ sender: NSApplication, openFile filename: String) -> Bool
-    {
-        print("Attempted to open a file: \(filename)")
-        serverManager.addServer(withConfigFilePath: filename)
-        
-        return true
-    }
+//    func application(_ sender: NSApplication, openFile filename: String) -> Bool
+//    {
+//        print("Attempted to open a file: \(filename)")
+//        let tunnelController = TunnelController()
+//        serverManager.addServer(withConfigFilePath: filename)
+//
+//        return true
+//    }
     
     func checkForServerIP()
     {
@@ -137,49 +138,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
         catch let userConfigError
         {
             print(userConfigError)
-        }
-                        
-        // Default Config and Directory
-        guard let resourceURL = Bundle.main.url(forResource: "default", withExtension: "moonbounce")
-        else
-        {
-            print("Unable to find Default Config files.")
-            return
-        }
-        
-        //We overwrite the default directory every time, in case this information has been updated.
-        if fileManager.fileExists(atPath: defaultConfigDirectory.path)
-        {
-            do
-            {
-                try fileManager.removeItem(atPath: defaultConfigDirectory.path)
-            }
-            catch
-            {
-                print("Attempted to delete existing default config directory, but got an error: \(error.localizedDescription)")
-            }
-        }
-        
-        do
-        {
-            try fileManager.createDirectory(at: defaultConfigDirectory, withIntermediateDirectories: true, attributes: nil)
-            
-            do
-            {
-                print("\ndefaultConfigDirectory = \(defaultConfigDirectory)\n")
-                print("\nresourcePath = \(resourceURL)\n")
-                
-                try fileManager.unzipItem(at: resourceURL, to: defaultConfigDirectory)
-                
-            }
-            catch
-            {
-                print("Unable to copy default config files: \(error.localizedDescription)")
-            }
-        }
-        catch let error
-        {
-            print("\nFailed to create default config directory: \(error)\n")
         }
     }
     
