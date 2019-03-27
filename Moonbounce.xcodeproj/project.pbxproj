@@ -66,8 +66,6 @@
 		AE07389E2232E0C2009E3C4E /* MoonbounceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE07389C2232E0C2009E3C4E /* MoonbounceConfig.swift */; };
 		AE0738D422370EF9009E3C4E /* ConfigController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0738D322370EF9009E3C4E /* ConfigController.swift */; };
 		AE0738D622370F06009E3C4E /* TunnelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0738D522370F06009E3C4E /* TunnelController.swift */; };
-		AE1233332239D348008EF3E7 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE1233322239D348008EF3E7 /* NetworkExtension.framework */; };
-		AE1233342239D351008EF3E7 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE1233322239D348008EF3E7 /* NetworkExtension.framework */; };
 		AE13587B21FBB6F200E81823 /* ServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4614F2C11F59DE430017B1DD /* ServerController.swift */; };
 		AE13587D21FBB74C00E81823 /* TunnelErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E50721E57097008D383B /* TunnelErrors.swift */; };
 		AE13587E21FBB74F00E81823 /* TunnelStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E50921E57098008D383B /* TunnelStatus.swift */; };
@@ -79,15 +77,21 @@
 		AE135989220B5C4400E81823 /* PacketTunnelProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE135988220B5C4400E81823 /* PacketTunnelProviderError.swift */; };
 		AE13598A220B5C4400E81823 /* PacketTunnelProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE135988220B5C4400E81823 /* PacketTunnelProviderError.swift */; };
 		AE1359A7220DFC6F00E81823 /* default.moonbounce in Resources */ = {isa = PBXBuildFile; fileRef = AE1359A6220DFC6F00E81823 /* default.moonbounce */; };
-		AE1359A8220E2C0B00E81823 /* Flower.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEE9436421F921BA00213EE7 /* Flower.framework */; };
-		AE1359AA220E2C2300E81823 /* Flow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEE9436221F921BA00213EE7 /* Flow.framework */; };
 		AE135A66221213D300E81823 /* Replicant.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4678C2E421DEDE6600492768 /* Replicant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AE135A67221213F200E81823 /* ReplicantSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4678C2E621DEDE6600492768 /* ReplicantSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AE135A682212149200E81823 /* Datable.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 469B0A8E21DEA5AB003FC2BC /* Datable.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AE135A692212149E00E81823 /* ZIPFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 469B0A6821DC3653003FC2BC /* ZIPFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AE135A6A221215FE00E81823 /* Transport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4678C2E821DEDE6600492768 /* Transport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AEE9436621F941A000213EE7 /* Replicant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4678C2E421DEDE6600492768 /* Replicant.framework */; };
-		AEE9436721F941BE00213EE7 /* ReplicantSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4678C2E621DEDE6600492768 /* ReplicantSwift.framework */; };
+		AE39BD15223B4665007C7C90 /* Flower.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEE9436421F921BA00213EE7 /* Flower.framework */; };
+		AE39BD16223B466C007C7C90 /* ReplicantSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4678C2E621DEDE6600492768 /* ReplicantSwift.framework */; };
+		AE39BD17223B4671007C7C90 /* Replicant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4678C2E421DEDE6600492768 /* Replicant.framework */; };
+		AE39BD2F223B576B007C7C90 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */; };
+		AE39BD31223C7362007C7C90 /* Flower.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEE9436421F921BA00213EE7 /* Flower.framework */; };
+		AE39BD32223C7362007C7C90 /* Flower.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AEE9436421F921BA00213EE7 /* Flower.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AE39BD35223C736B007C7C90 /* SwiftQueue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE135A1A22120F4D00E81823 /* SwiftQueue.framework */; };
+		AE39BD36223C736B007C7C90 /* SwiftQueue.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE135A1A22120F4D00E81823 /* SwiftQueue.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AE39BD4D22400BFC007C7C90 /* ClientTunnelConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE39BD3B22400BFC007C7C90 /* ClientTunnelConnection.swift */; };
+		AE39BD6822440123007C7C90 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */; };
 		AEE943AD21FAAFC500213EE7 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4672B8961DF60498008134E5 /* Globals.swift */; };
 		B41FE02A1DF24BE900E02D17 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B41FE0291DF24BE900E02D17 /* Security.framework */; };
 		B41FE02C1DF24BF500E02D17 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */; };
@@ -167,6 +171,20 @@
 			remoteGlobalIDString = "SwiftQueue::SwiftQueue::Product";
 			remoteInfo = SwiftQueue;
 		};
+		AE39BD33223C7362007C7C90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 469B0A4E21DC32C7003FC2BC /* MoonbounceDependencies.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = "Flower::Flower";
+			remoteInfo = Flower;
+		};
+		AE39BD37223C736B007C7C90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 469B0A4E21DC32C7003FC2BC /* MoonbounceDependencies.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = "SwiftQueue::SwiftQueue";
+			remoteInfo = SwiftQueue;
+		};
 		AEE9436121F921BA00213EE7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 469B0A4E21DC32C7003FC2BC /* MoonbounceDependencies.xcodeproj */;
@@ -212,9 +230,11 @@
 			files = (
 				AE135A6A221215FE00E81823 /* Transport.framework in Embed Frameworks */,
 				AE135A692212149E00E81823 /* ZIPFoundation.framework in Embed Frameworks */,
+				AE39BD36223C736B007C7C90 /* SwiftQueue.framework in Embed Frameworks */,
 				AE135A682212149200E81823 /* Datable.framework in Embed Frameworks */,
 				AE135A67221213F200E81823 /* ReplicantSwift.framework in Embed Frameworks */,
 				AE135A66221213D300E81823 /* Replicant.framework in Embed Frameworks */,
+				AE39BD32223C7362007C7C90 /* Flower.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,9 +298,10 @@
 		AE07389C2232E0C2009E3C4E /* MoonbounceConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoonbounceConfig.swift; sourceTree = "<group>"; };
 		AE0738D322370EF9009E3C4E /* ConfigController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigController.swift; path = Controllers/ConfigController.swift; sourceTree = "<group>"; };
 		AE0738D522370F06009E3C4E /* TunnelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TunnelController.swift; path = Controllers/TunnelController.swift; sourceTree = "<group>"; };
-		AE1233322239D348008EF3E7 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		AE135988220B5C4400E81823 /* PacketTunnelProviderError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProviderError.swift; sourceTree = "<group>"; };
 		AE1359A6220DFC6F00E81823 /* default.moonbounce */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.moonbounce; sourceTree = "<group>"; };
+		AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		AE39BD3B22400BFC007C7C90 /* ClientTunnelConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientTunnelConnection.swift; sourceTree = "<group>"; };
 		B41FE0291DF24BE900E02D17 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		B44390581DC00EA000389352 /* PopoverContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopoverContentView.swift; path = Helpers/PopoverContentView.swift; sourceTree = "<group>"; };
@@ -301,8 +322,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B41FE02C1DF24BF500E02D17 /* ServiceManagement.framework in Frameworks */,
-				AE1233332239D348008EF3E7 /* NetworkExtension.framework in Frameworks */,
 				B41FE02A1DF24BE900E02D17 /* Security.framework in Frameworks */,
+				AE39BD35223C736B007C7C90 /* SwiftQueue.framework in Frameworks */,
+				AE39BD6822440123007C7C90 /* NetworkExtension.framework in Frameworks */,
+				AE39BD31223C7362007C7C90 /* Flower.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,11 +333,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE1359AA220E2C2300E81823 /* Flow.framework in Frameworks */,
-				AE1359A8220E2C0B00E81823 /* Flower.framework in Frameworks */,
-				AEE9436721F941BE00213EE7 /* ReplicantSwift.framework in Frameworks */,
-				AE1233342239D351008EF3E7 /* NetworkExtension.framework in Frameworks */,
-				AEE9436621F941A000213EE7 /* Replicant.framework in Frameworks */,
+				AE39BD17223B4671007C7C90 /* Replicant.framework in Frameworks */,
+				AE39BD2F223B576B007C7C90 /* NetworkExtension.framework in Frameworks */,
+				AE39BD16223B466C007C7C90 /* ReplicantSwift.framework in Frameworks */,
+				AE39BD15223B4665007C7C90 /* Flower.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,6 +479,7 @@
 		469B0A7921DEA5AB003FC2BC /* MoonbounceNetworkExtension */ = {
 			isa = PBXGroup;
 			children = (
+				AE39BD3B22400BFC007C7C90 /* ClientTunnelConnection.swift */,
 				4678C30021DFF5FA00492768 /* PacketTunnelSettingsGenerator.swift */,
 				4678C32621E009DC00492768 /* MoonbounceNetworkExtension-Bridging-Header.h */,
 				4678C2FB21DFF5EB00492768 /* DNSResolver.swift */,
@@ -505,7 +528,7 @@
 		D1943F52C69C7904415E81F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AE1233322239D348008EF3E7 /* NetworkExtension.framework */,
+				AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */,
 				B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */,
 				B41FE0291DF24BE900E02D17 /* Security.framework */,
 			);
@@ -548,6 +571,8 @@
 			);
 			dependencies = (
 				469B0A7F21DEA5AB003FC2BC /* PBXTargetDependency */,
+				AE39BD34223C7362007C7C90 /* PBXTargetDependency */,
+				AE39BD38223C736B007C7C90 /* PBXTargetDependency */,
 			);
 			name = Moonbounce;
 			productName = Moonbounce;
@@ -606,7 +631,7 @@
 								enabled = 1;
 							};
 							com.apple.VPNLite = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -826,6 +851,7 @@
 				4678C30121DFF5FA00492768 /* PacketTunnelSettingsGenerator.swift in Sources */,
 				AE13588121FBB75900E81823 /* WireGuardResult.swift in Sources */,
 				4678C32D21E009DF00492768 /* ringlogger.c in Sources */,
+				AE39BD4D22400BFC007C7C90 /* ClientTunnelConnection.swift in Sources */,
 				AE07389E2232E0C2009E3C4E /* MoonbounceConfig.swift in Sources */,
 				4678C2FE21DFF5EC00492768 /* ErrorNotifier.swift in Sources */,
 				469B0A7B21DEA5AB003FC2BC /* PacketTunnelProvider.swift in Sources */,
@@ -865,6 +891,16 @@
 			isa = PBXTargetDependency;
 			target = 469B0A7721DEA5AB003FC2BC /* MoonbounceNetworkExtension */;
 			targetProxy = 469B0A7E21DEA5AB003FC2BC /* PBXContainerItemProxy */;
+		};
+		AE39BD34223C7362007C7C90 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Flower;
+			targetProxy = AE39BD33223C7362007C7C90 /* PBXContainerItemProxy */;
+		};
+		AE39BD38223C736B007C7C90 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftQueue;
+			targetProxy = AE39BD37223C736B007C7C90 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1050,7 +1086,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/WireGuard",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.OperatorFoundation.Moonbounce.MacOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1078,7 +1114,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/WireGuard",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.OperatorFoundation.Moonbounce.MacOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -66,7 +66,9 @@ class Tunnel
             }
             
             let protocolConfiguration: NETunnelProviderProtocol = NETunnelProviderProtocol()
-            protocolConfiguration.providerBundleIdentifier = "org.OperatorFoundation.Moonbounce.MacOS.NetworkExtension"
+            let appId = Bundle.main.bundleIdentifier!
+            print("\n----->Setting the providerBundleIdentifier to \(appId).NetworkExtension")
+            protocolConfiguration.providerBundleIdentifier = "\(appId).NetworkExtension"
             protocolConfiguration.serverAddress = "\(moonbounceConfig.clientConfig.host)"
             newManager.localizedDescription = moonbounceConfig.name
             newManager.isEnabled = true

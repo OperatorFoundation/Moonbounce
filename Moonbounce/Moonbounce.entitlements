@@ -6,15 +6,17 @@
 	<array>
 		<string>packet-tunnel-provider</string>
 	</array>
+	<key>com.apple.developer.networking.vpn.api</key>
+	<array>
+		<string>allow-vpn</string>
+	</array>
 	<key>com.apple.security.app-sandbox</key>
-	<true/>
-	<key>com.apple.security.files.user-selected.read-write</key>
 	<true/>
 	<key>com.apple.security.network.client</key>
 	<true/>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>$(AppIdentifierPrefix)org.OperatorFoundation.Moonbounce.MacOS.NetworkExtension</string>
+		<string>$(AppIdentifierPrefix)org.OperatorFoundation.Moonbounce.MacOS</string>
 	</array>
 </dict>
 </plist>
