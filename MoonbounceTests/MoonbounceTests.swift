@@ -120,7 +120,7 @@ class MoonbounceTests: XCTestCase {
             return false
         }
         
-        guard let replicantConfig = ReplicantConfig(serverPublicKey: "ReplaceMe".data, chunkSize: 800, chunkTimeout: 120, addSequences: [addSequence], removeSequences: [removeSequence])
+        guard let replicantConfig = ReplicantConfig(serverPublicKey: "ReplaceMe".data, chunkSize: 800, chunkTimeout: 120, toneBurst: nil)
             else
         {
             print("\nUnable to generate a replicant config struct.\n")

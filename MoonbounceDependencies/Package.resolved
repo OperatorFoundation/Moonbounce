@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/IBM-Swift/BlueCryptor.git",
         "state": {
           "branch": null,
-          "revision": "fe59cc1fcabb390bf9b3b6dd4f8cacc897d91cf6",
-          "version": "1.0.24"
+          "revision": "3730de858ac464ce0d3f8e604e21fcaaf2fb4e33",
+          "version": "1.0.26"
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",
         "state": {
           "branch": null,
-          "revision": "8b3435bd3236819318cde87c8d9315fb89906df3",
-          "version": "0.14.0"
+          "revision": "5da70ba744d58d772201f03600eb16c53197652d",
+          "version": "0.15.0"
         }
       },
       {
@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/OperatorFoundation/Flower.git",
         "state": {
           "branch": null,
-          "revision": "7358fc96145536bb08b2bb4464c7d939ad6ae883",
-          "version": "0.0.6"
+          "revision": "0cbe0b2f5e903cbf46907cc1267bf35b65fcba6a",
+          "version": "0.0.7"
         }
       },
       {
