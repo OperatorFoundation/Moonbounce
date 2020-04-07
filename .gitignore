@@ -58,3 +58,4 @@ DerivedData/
 
 # End of https://www.gitignore.io/api/go,xcode
 Moonbounce/terraform
+.DS_Store

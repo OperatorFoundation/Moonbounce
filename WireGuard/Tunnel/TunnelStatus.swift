@@ -12,6 +12,7 @@ import NetworkExtension
     case reasserting // Not a possible state at present
     case restarting // Restarting tunnel (done after saving modifications to an active tunnel)
     case waiting    // Waiting for another tunnel to be brought down
+    case unknown
 
     init(from systemStatus: NEVPNStatus)
      {
@@ -28,6 +29,8 @@ import NetworkExtension
             self = .reasserting
         case .invalid:
             self = .inactive
+        default:
+            self = .unknown
         }
     }
 }
@@ -42,6 +45,7 @@ extension TunnelStatus: CustomDebugStringConvertible {
         case .reasserting: return "reasserting"
         case .restarting: return "restarting"
         case .waiting: return "waiting"
+        case .unknown: return "unknown"
         }
     }
 }

@@ -131,8 +131,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         let port = moonbounceConfig.clientConfig.port
         self.replicantConnectionFactory = ReplicantConnectionFactory(host: host,
                                                                      port: port,
-                                                                     config: replicantConfig,
-                                                                     logQueue: self.logQueue)
+                                                                     config: replicantConfig)
         
         self.logQueue.enqueue("\nReplicant Connection Factory Created.\nHost - \(host)\nPort - \(port)\n")
         
@@ -366,7 +365,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
             startCompletion(TunnelError.cancelled)
             
         case .failed(let error):
-            self.logQueue.enqueue("\n🐒💨  Connection Failed  🐒💨\n")
+            self.logQueue.enqueue("\n🐒  Connection Failed  🐒\n")
             self.closeTunnelWithError(error)
             startCompletion(error)
             
