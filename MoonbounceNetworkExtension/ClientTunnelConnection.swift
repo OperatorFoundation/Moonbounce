@@ -66,7 +66,7 @@ public class ClientTunnelConnection
                         }
                     })
                 case 6:
-                    self.logQueue.enqueue("IPv6 prtocol")
+                    self.logQueue.enqueue("IPv6 protocol")
                     let message = Message.IPDataV6(packet)
                     self.replicantConnection.writeMessage(message: message, completion:
                     {

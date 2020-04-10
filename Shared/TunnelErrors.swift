@@ -3,7 +3,7 @@
 
 import NetworkExtension
 
-enum TunnelsManagerError: WireGuardAppError
+enum TunnelsManagerError: AppError
 {
     case tunnelNameEmpty
     case tunnelAlreadyExistsWithThatName
@@ -35,7 +35,7 @@ enum TunnelsManagerError: WireGuardAppError
     }
 }
 
-enum TunnelsManagerActivationAttemptError: WireGuardAppError {
+enum TunnelsManagerActivationAttemptError: AppError {
     case tunnelIsNotInactive
     case failedWhileStarting(systemError: Error) // startTunnel() throwed
     case failedWhileSaving(systemError: Error) // save config after re-enabling throwed
@@ -57,7 +57,7 @@ enum TunnelsManagerActivationAttemptError: WireGuardAppError {
     }
 }
 
-enum TunnelsManagerActivationError: WireGuardAppError
+enum TunnelsManagerActivationError: AppError
 {
     case activationFailed(wasOnDemandEnabled: Bool)
     case activationFailedWithExtensionError(title: String, message: String, wasOnDemandEnabled: Bool)
@@ -68,23 +68,6 @@ enum TunnelsManagerActivationError: WireGuardAppError
             return (alertTunnelActivationFailureTitle, alertTunnelActivationFailureMessage + (wasOnDemandEnabled ? alertTunnelActivationFailureOnDemandAddendum : ""))
         case .activationFailedWithExtensionError(let title, let message, let wasOnDemandEnabled):
             return (title, message + (wasOnDemandEnabled ? alertTunnelActivationFailureOnDemandAddendum : ""))
-        }
-    }
-}
-
-extension PacketTunnelProviderError: WireGuardAppError {
-    var alertText: AlertText {
-        switch self {
-        case .savedProtocolConfigurationIsInvalid:
-            return (alertTunnelActivationFailureTitle, alertTunnelActivationSavedConfigFailureMessage)
-        case .dnsResolutionFailure:
-            return (alertTunnelDNSFailureTitle, alertTunnelDNSFailureMessage)
-        case .couldNotStartBackend:
-            return (alertTunnelActivationFailureTitle, alertTunnelActivationBackendFailureMessage)
-        case .couldNotDetermineFileDescriptor:
-            return (alertTunnelActivationFailureTitle, alertTunnelActivationFileDescriptorFailureMessage)
-        case .couldNotSetNetworkSettings:
-            return (alertTunnelActivationFailureTitle, alertTunnelActivationSetNetworkSettingsMessage)
         }
     }
 }
@@ -112,4 +95,11 @@ extension Error {
             return localizedDescription
         }
     }
+}
+
+protocol AppError: Error
+{
+    typealias AlertText = (title: String, message: String)
+
+    var alertText: AlertText { get }
 }

@@ -833,14 +833,14 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         
         DispatchQueue.global(qos: .background).async
         {
-            var currentStatus = "Unknown"
+            var currentStatus: NEVPNStatus = .invalid
             while self.loggingEnabled
             {
                 sleep(1)
                 
-                if tunnel.targetManager.connection.status.debugDescription != currentStatus
+                if tunnel.targetManager.connection.status != currentStatus
                 {
-                    currentStatus = tunnel.targetManager.connection.status.debugDescription
+                    currentStatus = tunnel.targetManager.connection.status
                     print("\nCurrent Status Changed: \(currentStatus)\n")
                 }
                 

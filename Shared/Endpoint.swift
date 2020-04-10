@@ -36,6 +36,8 @@ extension Endpoint {
             return "\(address):\(port)"
         case .ipv6(let address):
             return "[\(address)]:\(port)"
+        default:
+            return "\(host):\(port)"
         }
     }
 

@@ -51,7 +51,8 @@ class DNSResolver {
             }
         }
         if !hostnamesWithDnsResolutionFailure.isEmpty {
-            wg_log(.error, message: "DNS resolution failed for the following hostnames: \(hostnamesWithDnsResolutionFailure.joined(separator: ", "))")
+            // FIXME: Logging
+            //wg_log(.error, message: "DNS resolution failed for the following hostnames: \(hostnamesWithDnsResolutionFailure.joined(separator: ", "))")
             return nil
         }
         return resolvedEndpoints
@@ -142,10 +143,12 @@ extension Endpoint {
             ret = Endpoint(host: .ipv6(addr!), port: port)
         }
         freeaddrinfo(resultPointer)
+        
+        // FIXME: Logging
         if ret.host != host {
-            wg_log(.debug, message: "DNS64: mapped \(host) to \(ret.host)")
+            //wg_log(.debug, message: "DNS64: mapped \(host) to \(ret.host)")
         } else {
-            wg_log(.debug, message: "DNS64: mapped \(host) to itself.")
+            //wg_log(.debug, message: "DNS64: mapped \(host) to itself.")
         }
         return ret
     }
