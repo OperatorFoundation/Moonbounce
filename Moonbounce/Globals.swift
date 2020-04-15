@@ -29,10 +29,9 @@ let moonbounceExtension = "moonbounce"
 
 //let serverManager = ServerController(completionHandler: {NotificationCenter.default.post(Notification(name: Notification.Name(serverManagerReadyNotification)))})
 
+let appSupportDirectory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
 
-let appSupportDirectory = FileManager.default.urls(for: FileManager.SearchPathDirectory.applicationSupportDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
-
-var moonbounceDirectory = appSupportDirectory[0].appendingPathComponent("Moonbounce.macOS", isDirectory: true)
+var moonbounceDirectory = appSupportDirectory!.appendingPathComponent("Moonbounce.macOS", isDirectory: true)
 
 // Parent config files directory - One directory to rule them all
 let configFilesDirectory = moonbounceDirectory.appendingPathComponent("ConfigFiles", isDirectory: true)

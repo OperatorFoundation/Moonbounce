@@ -60,7 +60,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
     
     override func startTunnel(options: [String : NSObject]? = nil, completionHandler: @escaping (Error?) -> Void)
     {
-        logQueue.enqueue("PacketTunnelProvider startTunnel called")
+        logQueue.enqueue("👾 PacketTunnelProvider startTunnel called 👾")
         
         switch connectionAttemptStatus
         {
@@ -98,7 +98,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         self.remoteHost = serverAddress
         self.logQueue.enqueue("Server address: \(serverAddress)")
         
-        guard let moonbounceConfig = Tunnel.getMoonbounceConfig(fromProtocolConfiguration: tunnelProviderProtocol)
+        guard let moonbounceConfig = ConfigController.getMoonbounceConfig(fromProtocolConfiguration: tunnelProviderProtocol)
             else
         {
             logQueue.enqueue("Unable to get moonbounce config from protocol.")
@@ -106,18 +106,18 @@ class PacketTunnelProvider: NEPacketTunnelProvider
             return
         }
         
-        let tunnelConfiguration = Tunnel(moonbounceConfig: moonbounceConfig, completionHandler:
-        {
-            (maybeError) in
-            
-            if let error = maybeError
-            {
-                self.logQueue.enqueue(error.localizedDescription)
-                completionHandler(PacketTunnelProviderError.couldNotSetNetworkSettings)
-                return
-            }
-            
-        })
+//        let tunnelConfiguration = Tunnel(moonbounceConfig: moonbounceConfig, completionHandler:
+//        {
+//            (maybeError) in
+//            
+//            if let error = maybeError
+//            {
+//                self.logQueue.enqueue(error.localizedDescription)
+//                completionHandler(PacketTunnelProviderError.couldNotSetNetworkSettings)
+//                return
+//            }
+//            
+//        })
 
         guard let replicantConfig = moonbounceConfig.replicantConfig
             else

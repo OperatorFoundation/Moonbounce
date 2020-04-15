@@ -41,13 +41,12 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     
     let proximaNARegular = "Proxima Nova Alt Regular"
     let advancedMenuHeight: CGFloat = 176.0
-    let tunnelController = TunnelController()
+    //let tunnelController = TunnelController()
     let configController = ConfigController()
     
     //@objc dynamic var serverManagerReady = false
     var userServerIsConnected = false
     var launching = false
-    var selectedTunnel: Tunnel?
     var loggingEnabled = false
     
     //MARK: View Life Cycle
@@ -64,9 +63,6 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         nc.addObserver(forName: NSNotification.Name.NEVPNStatusDidChange, object: nil, queue: nil, using: connectionStatusChanged)
         nc.addObserver(forName: NSNotification.Name(rawValue: kNewServerAddedNotification), object: nil, queue: nil, using: newServerAdded)
         //nc.addObserver(forName: NSNotification.Name(serverManagerReadyNotification), object: nil, queue: nil, using: serverManagerNotificationReceived)
-        
-        // TODO: Accessing tunnel controller to force init
-        selectedTunnel = tunnelController.defaultTunnel
         
         serverProgressBar.usesThreadedAnimation = true
         updateStatusUI(connected: false, statusDescription: "Not Connected")
@@ -157,14 +153,15 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 shareServerButton.isHidden = false
             }
             
-            if let menuItem =  sender.menu?.item(withTitle: selectedItemTitle)
-            {
-                if let tunnel = menuItem.representedObject as? Tunnel
-                {
-                    setSelectedServer(tunnel: tunnel)
-                    print("Setting selected server \(selectedItemTitle)")
-                }
-            }
+            // Currently we do not support launching you own server
+//            if let menuItem =  sender.menu?.item(withTitle: selectedItemTitle)
+//            {
+//                if let tunnel = menuItem.representedObject as? Tunnel
+//                {
+//                    setSelectedServer(tunnel: tunnel)
+//                    print("Setting selected server \(selectedItemTitle)")
+//                }
+//            }
         }
         else
         {
@@ -400,7 +397,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     }
     
     func connect()
-    {
+    {        
         serverSelectButton.isEnabled = false
         runBackgroundAnimation()
         isConnected = ConnectState(state: .start, stage: .start)
@@ -408,19 +405,21 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         
         //Update button name
         self.toggleConnectionButton.title = "Disconnect"
-
-        guard let tunnel = selectedTunnel
+        
+        //serverManager.tunnelsManager?.startActivation(of: tunnel)
+        
+        // TODO: For now we are just loading a default config
+        guard let controller = configController, let moonbounceConfig = controller.getDefaultMoonbounceConfig()
         else
         {
-            print("Unable to find a tunnel to start.")
+            print("Unable to connect, unable to load default config.")
             self.runningScript = false
             self.serverSelectButton.isEnabled = true
             self.showStatus()
             return
         }
         
-        //serverManager.tunnelsManager?.startActivation(of: tunnel)
-        tunnel.targetManager.loadFromPreferences
+        VPNPreferencesController.shared.updateConfiguration(moonbounceConfig: moonbounceConfig, isEnabled: true)
         {
             (maybeLoadError) in
             if let loadError = maybeLoadError
@@ -432,68 +431,70 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 return
             }
             
-            tunnel.targetManager.saveToPreferences(completionHandler:
+            guard let vpnPreference = VPNPreferencesController.shared.maybeVPNPreference
+            else
             {
-                (maybeSaveError) in
+                print("Unable to connect, vpnPreference is nil.")
+                self.runningScript = false
+                self.serverSelectButton.isEnabled = true
+                self.showStatus()
+                return
+            }
+            
+            if vpnPreference.connection.status == .disconnected || vpnPreference.connection.status == .invalid
+            {
+                print("\nConnect pressed, starting logging loop.\n")
+                self.startLoggingLoop()
                 
-                if let saveError = maybeSaveError
+                do
                 {
-                    print("Unable to connect, error saving to preferences: \(saveError)")
-                    self.runningScript = false
-                    self.serverSelectButton.isEnabled = true
-                    self.showStatus()
-                    return
+                    print("\nCalling startVPNTunnel on vpnPreference.connection.\n")
+                    try vpnPreference.connection.startVPNTunnel()
                 }
-                
-                if tunnel.targetManager.connection.status == .disconnected || tunnel.targetManager.connection.status == .invalid
+                catch
                 {
-                    print("\nConnect pressed, starting logging loop.\n")
-                    self.startLoggingLoop()
-                    
-                    do
-                    {
-                        print("\nCalling startVPNTunnel on \(tunnel.targetManager.connection)\n")
-                        try tunnel.targetManager.connection.startVPNTunnel()
-                    }
-                    catch
-                    {
-                        NSLog("\nFailed to start the VPN: \(error)\n")
-                        self.stopLoggingLoop()
-                    }
-                    
-                    //self.activityIndicator.stopAnimating()
-                }
-                else
-                {
+                    NSLog("\nFailed to start the VPN: \(error)\n")
                     self.stopLoggingLoop()
-                    tunnel.targetManager.connection.stopVPNTunnel()
-                    //self.activityIndicator.stopAnimating()
                 }
-            })
+                
+                //self.activityIndicator.stopAnimating()
+            }
+            else
+            {
+                self.stopLoggingLoop()
+                vpnPreference.connection.stopVPNTunnel()
+                //self.activityIndicator.stopAnimating()
+            }
         }
         
-        //Verify that connection was succesful and update accordingly
+        //Verify that connection was successful and update accordingly
         self.runningScript = false
         self.serverSelectButton.isEnabled = true
         self.showStatus()
     }
     
-    func setSelectedServer(tunnel: Tunnel)
-    {
-        selectedTunnel = tunnel
-        checkForServerIP()
-    }
+//    func setSelectedServer(tunnel: Tunnel)
+//    {
+//        selectedTunnel = tunnel
+//        checkForServerIP()
+//    }
     
     func checkForServerIP()
     {
-        guard let tunnel = selectedTunnel
-            else
+//        guard let tunnel = selectedTunnel
+//            else
+//        {
+//            print("\nunable to find current server IP: current tunnel is not set.\n")
+//            return
+//        }
+        guard let vpnPreferences = VPNPreferencesController.shared.maybeVPNPreference
+        else
         {
-            print("\nunable to find current server IP: current tunnel is not set.\n")
+            print("Unable to find a server IP, our vpnPreference is nil.")
             return
         }
         
-        if let ipString = tunnel.targetManager.protocolConfiguration?.serverAddress
+        if let ipString = vpnPreferences.protocolConfiguration?.serverAddress//tunnel.targetManager.protocolConfiguration?.serverAddress
         {
             currentHost = NWEndpoint.Host(ipString)
             print("Current Server host is: \(currentHost!)")
@@ -502,14 +503,21 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     
     func disconnect()
     {
-        guard let tunnel = selectedTunnel
-            else
+//        guard let tunnel = selectedTunnel
+//            else
+//        {
+//            print("Unable to find a tunnel to stop.")
+//            return
+//        }
+        
+        guard let vpnPreferences = VPNPreferencesController.shared.maybeVPNPreference
+        else
         {
-            print("Unable to find a tunnel to stop.")
+            print("Unable to find a server IP, our vpnPreference is nil.")
             return
         }
         
-        tunnel.targetManager.connection.stopVPNTunnel()
+        vpnPreferences.connection.stopVPNTunnel()
         self.runningScript = false
         self.serverSelectButton.isEnabled = true
     }
@@ -580,25 +588,27 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     {
         serverSelectButton.removeAllItems()
         
-        //Default server should always be an option as we provide this.
-        if let defaultServer = tunnelController.defaultTunnel
-        {
-            let defaultMenuItem = NSMenuItem(title: defaultTunnelName, action: nil, keyEquivalent: "")
-            defaultMenuItem.representedObject = defaultServer
-            self.serverSelectButton.menu?.addItem(defaultMenuItem)
-            self.setSelectedServer(tunnel: defaultServer)
-            
-            //Don't make our default server available to share
-            self.shareServerButton.isHidden = true
-        }
-        else
-        {
-            print("\nDefault server not found.\n")
-        }
-        
-        //We base availability of a given server on whether a config file in the correct directory exists.
-        
-        // TODO: Check for user server
+        /// We do not currently support launching servers
+//
+//        //Default server should always be an option as we provide this.
+//        if let defaultServer = tunnelController.defaultTunnel
+//        {
+//            let defaultMenuItem = NSMenuItem(title: defaultTunnelName, action: nil, keyEquivalent: "")
+//            defaultMenuItem.representedObject = defaultServer
+//            self.serverSelectButton.menu?.addItem(defaultMenuItem)
+//            self.setSelectedServer(tunnel: defaultServer)
+//
+//            //Don't make our default server available to share
+//            self.shareServerButton.isHidden = true
+//        }
+//        else
+//        {
+//            print("\nDefault server not found.\n")
+//        }
+//
+//        //We base availability of a given server on whether a config file in the correct directory exists.
+//
+//        // TODO: Check for user server
 //        if let userServer = serverManager.userServer
 //        {
 //            self.userServerIsConnected = true
@@ -807,24 +817,31 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     {
         loggingEnabled = true
         
-        guard let tunnel = selectedTunnel
-            else
+//        guard let tunnel = selectedTunnel
+//            else
+//        {
+//            print("\nUnable to start communications with extension, tunnel is nil.\n")
+//            return
+//        }
+        
+        guard let vpnPreference = VPNPreferencesController.shared.maybeVPNPreference
+        else
         {
-            print("\nUnable to start communications with extension, tunnel is nil.\n")
+            print("\nUnable to start communications with extension, vpnPreference is nil.\n")
             return
         }
         
         // Send a simple IPC message to the provider, handle the response.
-        guard let session = tunnel.targetManager.connection as? NETunnelProviderSession
+        guard let session = vpnPreference.connection as? NETunnelProviderSession
             else
         {
             print("\nStart logging loop failed:")
-            print("Unable to send a message, targetManager.connection could not be unwrapped as a NETunnelProviderSession.")
-            print("\(tunnel.targetManager.connection)\n")
+            print("Unable to send a message, vpnPreference.connection could not be unwrapped as a NETunnelProviderSession.")
+            print("\(vpnPreference.connection)\n")
             return
         }
         
-        guard tunnel.targetManager.connection.status != .invalid
+        guard vpnPreference.connection.status != .invalid
             else
         {
             print("\nInvalid connection status")
@@ -838,10 +855,10 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             {
                 sleep(1)
                 
-                if tunnel.targetManager.connection.status != currentStatus
+                if vpnPreference.connection.status != currentStatus
                 {
-                    currentStatus = tunnel.targetManager.connection.status
-                    print("\nCurrent Status Changed: \(currentStatus)\n")
+                    currentStatus = vpnPreference.connection.status
+                    print("\nCurrent Status Changed: \(currentStatus.stringValue)\n")
                 }
                 
                 guard let message = "Hello Provider".data(using: String.Encoding.utf8)
