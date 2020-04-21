@@ -453,7 +453,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 }
                 catch
                 {
-                    NSLog("\nFailed to start the VPN: \(error)\n")
+                    NSLog("\nFailed to start the VPN: \(error.localizedDescription)\n")
                     self.stopLoggingLoop()
                 }
                 

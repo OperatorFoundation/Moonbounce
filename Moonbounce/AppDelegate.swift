@@ -196,7 +196,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
     
     func applicationWillTerminate(_ aNotification: Notification)
     {
-        //TODO: Attempt to disconnect when the app is closed
+        VPNPreferencesController.shared.deactivate
+        { (maybeError) in
+            
+            print("\n✌️ Callling deactivate before exiting app.\n")
+            if let error = maybeError
+            {
+                print("Error atttempting to deactivate VPNPreferencesController on app exit: \(error)")
+            }
+        }
     }
 
 

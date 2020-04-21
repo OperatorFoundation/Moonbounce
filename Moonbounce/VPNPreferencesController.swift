@@ -87,7 +87,7 @@ class VPNPreferencesController
         }
     }
     
-    private func updateConfiguration(vpnPreference: NETunnelProviderManager, moonbounceConfig: MoonbounceConfig, isEnabled: Bool = false, completionHandler: @escaping ((Error?) -> Void))
+    private func updateConfiguration(vpnPreference: NETunnelProviderManager, moonbounceConfig: MoonbounceConfig, isEnabled: Bool = true, completionHandler: @escaping ((Error?) -> Void))
     {
         guard let protocolConfiguration = self.newProtocolConfiguration(moonbounceConfig: moonbounceConfig)
         else
@@ -96,9 +96,9 @@ class VPNPreferencesController
             return
         }
         
+        vpnPreference.protocolConfiguration = protocolConfiguration
         vpnPreference.localizedDescription = moonbounceConfig.name
         vpnPreference.isEnabled = isEnabled
-        vpnPreference.protocolConfiguration = protocolConfiguration
         
         self.save(completionHandler: completionHandler)
     }
@@ -161,8 +161,21 @@ class VPNPreferencesController
     
     private func deactivate(vpnPreference: NETunnelProviderManager, completionHandler: @escaping ((Error?) -> Void))
     {
-        vpnPreference.isEnabled = false
-        save(vpnPreference: vpnPreference, completionHandler: completionHandler)
+        vpnPreference.loadFromPreferences
+        { (maybeError) in
+            if let error = maybeError
+            {
+                print("PRIVATE DEACTIVATE CALL - Error loading from preferences: \(error)")
+                completionHandler(error)
+                return
+            }
+            
+            vpnPreference.isEnabled = false
+            self.save(vpnPreference: vpnPreference, completionHandler: completionHandler)
+        }
+        
+//        vpnPreference.isEnabled = false
+//        save(vpnPreference: vpnPreference, completionHandler: completionHandler)
     }
     
     // MARK: Private Functions
@@ -239,6 +252,7 @@ class VPNPreferencesController
         print("\n----->Setting the providerBundleIdentifier to \(appId).NetworkExtension")
         protocolConfiguration.providerBundleIdentifier = "\(appId).NetworkExtension"
         protocolConfiguration.serverAddress = "\(moonbounceConfig.clientConfig.host)"
+        protocolConfiguration.includeAllNetworks = true
         
         guard let clientConfigJSON = moonbounceConfig.clientConfig.createJSON()
             else

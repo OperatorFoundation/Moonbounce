@@ -76,16 +76,5 @@ final class TunnelConfiguration: NSObject
 }
 
 
-//extension TunnelConfiguration: Equatable
-//{
-//    static func == (lhs: TunnelConfiguration, rhs: TunnelConfiguration) -> Bool
-//    {
-//        return lhs.name == rhs.name &&
-//            lhs.replicantConfiguration == rhs.replicantConfiguration &&
-//            lhs.clientConfig == rhs.clientConfig
-//    }
-//}
-
-
 
 

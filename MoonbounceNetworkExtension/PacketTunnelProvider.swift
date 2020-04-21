@@ -370,7 +370,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
             startCompletion(error)
             
         default:
-            self.logQueue.enqueue("\n🤷‍♀️  Unexpected State: \(newState))  🤷‍♀️\n")
+            self.logQueue.enqueue("\n🤷‍♀️  Unexpected State: \(newState) 🤷‍♀️\n")
         }
     }
     
