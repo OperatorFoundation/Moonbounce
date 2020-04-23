@@ -18,7 +18,7 @@ class VPNPreferencesController
     
     // MARK: Public Functions
     
-    func setup(completionHandler: @escaping ((Either<NETunnelProviderManager>) -> Void))
+    func setup(moonbounceConfig: MoonbounceConfig, completionHandler: @escaping ((Either<NETunnelProviderManager>) -> Void))
     {
         // Doing this because we believe NetworkExtension requires it
         load
@@ -31,32 +31,21 @@ class VPNPreferencesController
                 completionHandler(eitherVPNPreference)
                 return
             case .value(let vpnPreference):
-                self.save(vpnPreference: vpnPreference)
+                self.updateConfiguration(moonbounceConfig: moonbounceConfig)
                 {
                     (maybeError) in
                     
-                    guard maybeError == nil
-                    else
+                    if let error = maybeError
                     {
-                        if let error = maybeError
-                        {
-                            completionHandler(.error(error))
-                            return
-                        }
-                        else
-                        {
-                            completionHandler(.error(VPNPreferencesError.unexpectedNilValue))
-                            return
-                        }
-                    }
-                    
-                    self.load
-                    {
-                        (nextEitherVPNPreference) in
-                        
-                        completionHandler(nextEitherVPNPreference)
+                        completionHandler(Either<NETunnelProviderManager>.error(error))
                         return
                     }
+                    else
+                    {
+                        completionHandler(Either<NETunnelProviderManager>.value(vpnPreference))
+                        return
+                    }
+
                 }
             }
         }
@@ -70,7 +59,7 @@ class VPNPreferencesController
         }
         else
         {
-            setup
+            setup(moonbounceConfig: moonbounceConfig)
             {
                 (eitherVPNPreference) in
                 
@@ -103,79 +92,14 @@ class VPNPreferencesController
         self.save(completionHandler: completionHandler)
     }
     
-    func activate(completionHandler: @escaping ((Error?) -> Void))
-    {
-        if let vpnPreference = maybeVPNPreference
-        {
-            activate(vpnPreference: vpnPreference, completionHandler: completionHandler)
-        }
-        else
-        {
-            setup
-            {
-                (eitherVPNPreference) in
-                
-                switch eitherVPNPreference
-                {
-                case .error(let error):
-                    completionHandler(error)
-                    return
-                case .value(let vpnPreference):
-                    self.maybeVPNPreference = vpnPreference
-                    self.activate(vpnPreference: vpnPreference, completionHandler: completionHandler)
-                }
-            }
-        }
-    }
-    
-    private func activate(vpnPreference: NETunnelProviderManager, completionHandler: @escaping ((Error?) -> Void))
-    {
-        vpnPreference.isEnabled = true
-        save(completionHandler: completionHandler)
-    }
     
     func deactivate(completionHandler: @escaping ((Error?) -> Void))
     {
         if let vpnPreference = maybeVPNPreference
         {
-            deactivate(vpnPreference: vpnPreference, completionHandler: completionHandler)
-        }
-        else
-        {
-            setup
-            {
-                (eitherVPNPreference) in
-                
-                switch eitherVPNPreference
-                {
-                case .error(let error):
-                    completionHandler(error)
-                    return
-                case .value(let vpnPreference):
-                    self.maybeVPNPreference = vpnPreference
-                    self.deactivate(vpnPreference: vpnPreference, completionHandler: completionHandler)
-                }
-            }
-        }
-    }
-    
-    private func deactivate(vpnPreference: NETunnelProviderManager, completionHandler: @escaping ((Error?) -> Void))
-    {
-        vpnPreference.loadFromPreferences
-        { (maybeError) in
-            if let error = maybeError
-            {
-                print("PRIVATE DEACTIVATE CALL - Error loading from preferences: \(error)")
-                completionHandler(error)
-                return
-            }
-            
             vpnPreference.isEnabled = false
-            self.save(vpnPreference: vpnPreference, completionHandler: completionHandler)
+            save(vpnPreference: vpnPreference, completionHandler: completionHandler)
         }
-        
-//        vpnPreference.isEnabled = false
-//        save(vpnPreference: vpnPreference, completionHandler: completionHandler)
     }
     
     // MARK: Private Functions

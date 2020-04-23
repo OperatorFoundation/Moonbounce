@@ -105,19 +105,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider
             completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
             return
         }
-        
-//        let tunnelConfiguration = Tunnel(moonbounceConfig: moonbounceConfig, completionHandler:
-//        {
-//            (maybeError) in
-//            
-//            if let error = maybeError
-//            {
-//                self.logQueue.enqueue(error.localizedDescription)
-//                completionHandler(PacketTunnelProviderError.couldNotSetNetworkSettings)
-//                return
-//            }
-//            
-//        })
 
         guard let replicantConfig = moonbounceConfig.replicantConfig
             else

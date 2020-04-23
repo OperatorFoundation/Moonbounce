@@ -56,8 +56,17 @@ class MoonbounceTests: XCTestCase {
     func testVPNPreferencesSetup()
     {
         let completionExpectation = expectation(description: "completion handler called")
+        let configController = ConfigController()
         
-        VPNPreferencesController.shared.setup
+        guard let controller = configController, let moonbounceConfig = controller.getDefaultMoonbounceConfig()
+        else
+        {
+            print("Update test failed: unable to load default config.")
+            XCTFail()
+            return
+        }
+        
+        VPNPreferencesController.shared.setup(moonbounceConfig: moonbounceConfig)
         {
             (managerOrError) in
             
@@ -68,26 +77,6 @@ class MoonbounceTests: XCTestCase {
                 XCTAssertNil(error)
             case .value(let manager):
                 print("Setup test created a manager: \(manager.debugDescription)")
-            }
-            
-            completionExpectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: 1, handler: nil)
-    }
-    
-    func testVPNPreferencesActivate()
-    {
-        let completionExpectation = expectation(description: "completion handler called")
-        
-        VPNPreferencesController.shared.activate
-        {
-            (maybeError) in
-            
-            if let error = maybeError
-            {
-                print("Error testing activate: \(error.localizedDescription)")
-                XCTFail()
             }
             
             completionExpectation.fulfill()
