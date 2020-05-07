@@ -191,9 +191,10 @@ class  ConfigController
                         return false
                     }
                     
-                    let replicantConfig = ReplicantConfig(withConfigAtPath: configURL.appendingPathComponent(file1).path)
+                    // FIXME: Replicant Config from JSON
+                    //let replicantConfig = ReplicantConfig(withConfigAtPath: configURL.appendingPathComponent(file1).path)
                     
-                    let moonbounceConfig = MoonbounceConfig(name: configURL.lastPathComponent, clientConfig: clientConfig, replicantConfig: replicantConfig)
+                    let moonbounceConfig = MoonbounceConfig(name: configURL.lastPathComponent, clientConfig: clientConfig, replicantConfig: nil)
                     
                     self.configs.append(moonbounceConfig)
                     
@@ -294,9 +295,11 @@ class  ConfigController
                         return nil
                     }
                     
-                    let replicantConfig = ReplicantConfig(withConfigAtPath: configURL.appendingPathComponent(file2).path)
+                    // FIXME: Replicant config from JSON
                     
-                    let moonbounceConfig = MoonbounceConfig(name: configURL.lastPathComponent, clientConfig: clientConfig, replicantConfig: replicantConfig)
+//                    let replicantConfig = ReplicantConfig(withConfigAtPath: configURL.appendingPathComponent(file2).path)
+                    
+                    let moonbounceConfig = MoonbounceConfig(name: configURL.lastPathComponent, clientConfig: clientConfig, replicantConfig: nil)
                     
                     
                     return moonbounceConfig
@@ -320,14 +323,22 @@ class  ConfigController
             return nil
         }
         
-        guard let replicantConfigJSON = providerConfiguration[Keys.replicantConfigKey.rawValue] as? Data
-            else
-        {
-            print("Unable to get ReplicantConfig JSON from provider config")
-            return nil
-        }
+        // FIXME: Replicant config from JSON
         
-        guard let replicantConfig = ReplicantConfig.parse(jsonData: replicantConfigJSON)
+//        guard let replicantConfigJSON = providerConfiguration[Keys.replicantConfigKey.rawValue] as? Data
+//            else
+//        {
+//            print("Unable to get ReplicantConfig JSON from provider config")
+//            return nil
+//        }
+//
+//        guard let replicantConfig = ReplicantConfig.parse(jsonData: replicantConfigJSON)
+//            else
+//        {
+//            return nil
+//        }
+        
+        guard let replicantConfig = ReplicantConfig(polish: nil, toneBurst: nil)
             else
         {
             return nil

@@ -43,8 +43,10 @@ public class ClientTunnelConnection
         // Read more packets.
         self.packetFlow.readPackets
         {
-            inPackets, inProtocols in
+            (inPackets, inProtocols) in
 
+            self.logQueue.enqueue("Reached the readPackets callback :)")
+            
             let packages = zip(inPackets, inProtocols)
 
             for (packet, prot) in packages
@@ -52,9 +54,10 @@ public class ClientTunnelConnection
                 // Check if protocol is v4 or v6
                 switch prot
                 {
-                case 4:
+                case NSNumber(value: AF_INET):
                     self.logQueue.enqueue("Ipv4 protocol")
 
+                    // Encapsulates packages into Messages (using Flower)
                     let message = Message.IPDataV4(packet)
                     self.replicantConnection.writeMessage(message: message, completion:
                     {
@@ -65,7 +68,7 @@ public class ClientTunnelConnection
                             self.logQueue.enqueue("Error writing message: \(error)")
                         }
                     })
-                case 6:
+                case NSNumber(value: AF_INET6):
                     self.logQueue.enqueue("IPv6 protocol")
                     let message = Message.IPDataV6(packet)
                     self.replicantConnection.writeMessage(message: message, completion:
@@ -89,7 +92,7 @@ public class ClientTunnelConnection
     /// Make the initial readPacketsWithCompletionHandler call.
     func startHandlingPackets()
     {
-        // FIXME: async block
+        logQueue.enqueue("Start handling packets called.")
         DispatchQueue.global(qos: .userInitiated).async
         {
             self.handlePackets()

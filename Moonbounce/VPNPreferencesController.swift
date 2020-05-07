@@ -92,7 +92,6 @@ class VPNPreferencesController
         self.save(completionHandler: completionHandler)
     }
     
-    
     func deactivate(completionHandler: @escaping ((Error?) -> Void))
     {
         if let vpnPreference = maybeVPNPreference
@@ -100,11 +99,13 @@ class VPNPreferencesController
             vpnPreference.isEnabled = false
             save(vpnPreference: vpnPreference, completionHandler: completionHandler)
         }
+        else
+        {
+            completionHandler(VPNPreferencesError.nilVPNPreference)
+        }
     }
-    
-    // MARK: Private Functions
-    
-    private func load(completionHandler: @escaping ((Either<NETunnelProviderManager>) -> Void))
+
+    func load(completionHandler: @escaping ((Either<NETunnelProviderManager>) -> Void))
     {
         let newManager = NETunnelProviderManager()
 
@@ -127,7 +128,7 @@ class VPNPreferencesController
         }
     }
     
-    private func save(completionHandler: @escaping ((Error?) -> Void))
+    func save(completionHandler: @escaping ((Error?) -> Void))
     {
         guard let vpnPreference = maybeVPNPreference
         else
@@ -139,7 +140,7 @@ class VPNPreferencesController
         save(vpnPreference: vpnPreference, completionHandler: completionHandler)
     }
     
-    private func save(vpnPreference: NETunnelProviderManager, completionHandler: @escaping ((Error?) -> Void))
+    func save(vpnPreference: NETunnelProviderManager, completionHandler: @escaping ((Error?) -> Void))
     {
         vpnPreference.saveToPreferences
         {
@@ -169,7 +170,7 @@ class VPNPreferencesController
         }
     }
     
-    private func newProtocolConfiguration(moonbounceConfig: MoonbounceConfig) -> NETunnelProviderProtocol?
+    func newProtocolConfiguration(moonbounceConfig: MoonbounceConfig) -> NETunnelProviderProtocol?
     {
         let protocolConfiguration: NETunnelProviderProtocol = NETunnelProviderProtocol()
         let appId = Bundle.main.bundleIdentifier!
@@ -183,27 +184,35 @@ class VPNPreferencesController
         {
             return nil
         }
+
+        // FIXME: Replicant JSON needed here
         
-        if moonbounceConfig.replicantConfig != nil
-        {
-            guard let replicantConfigJSON = moonbounceConfig.replicantConfig!.createJSON()
-                else
-            {
-                return nil
-            }
-            
-            protocolConfiguration.providerConfiguration = [
-                Keys.clientConfigKey.rawValue: clientConfigJSON,
-                Keys.replicantConfigKey.rawValue: replicantConfigJSON,
-                Keys.tunnelNameKey.rawValue: moonbounceConfig.name]
-            
-            print("\nproviderConfiguration: \(protocolConfiguration.providerConfiguration!)\n")
-        }
-        else
-        {
-            protocolConfiguration.providerConfiguration = [Keys.clientConfigKey.rawValue: clientConfigJSON]
-        }
+//        if moonbounceConfig.replicantConfig != nil
+//        {
+//            guard let replicantConfigJSON = moonbounceConfig.replicantConfig!.createJSON()
+//                else
+//            {
+//                return nil
+//            }
+//
+//            protocolConfiguration.providerConfiguration = [
+//                Keys.clientConfigKey.rawValue: clientConfigJSON,
+//                Keys.replicantConfigKey.rawValue: replicantConfigJSON,
+//                Keys.tunnelNameKey.rawValue: moonbounceConfig.name]
+//
+//            print("\nproviderConfiguration: \(protocolConfiguration.providerConfiguration!)\n")
+//        }
+//        else
+//        {
+//            protocolConfiguration.providerConfiguration = [Keys.clientConfigKey.rawValue: clientConfigJSON]
+//        }
         
+        let replicantConfigString = "{}"
+        protocolConfiguration.providerConfiguration = [
+                        Keys.clientConfigKey.rawValue: clientConfigJSON,
+                        Keys.replicantConfigKey.rawValue: replicantConfigString.data,
+                        Keys.tunnelNameKey.rawValue: moonbounceConfig.name]
+                
         return protocolConfiguration
     }
     

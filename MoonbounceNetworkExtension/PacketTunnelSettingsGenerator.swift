@@ -4,6 +4,7 @@
 import Foundation
 import Network
 import NetworkExtension
+import ReplicantSwift
 
 class PacketTunnelSettingsGenerator
 {
@@ -23,7 +24,6 @@ class PacketTunnelSettingsGenerator
          * a valid IP address that will actually route over the Internet.
          */
         let remoteAddress = "\(tunnelConfiguration.clientConfig.host)"
-
         let networkSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: remoteAddress)
 
         // These are the Google DNS Settings, we will use these for now
@@ -38,7 +38,10 @@ class PacketTunnelSettingsGenerator
         
         if let replicantConfig = tunnelConfiguration.replicantConfiguration
         {
-            networkSettings.mtu = NSNumber(value: replicantConfig.chunkSize)
+            if let polish = replicantConfig.polish as? SilverClientConfig
+            {
+                networkSettings.mtu = NSNumber(value: polish.chunkSize)
+            }            
         }
 
         let (ipv4Routes, ipv6Routes) = routes()

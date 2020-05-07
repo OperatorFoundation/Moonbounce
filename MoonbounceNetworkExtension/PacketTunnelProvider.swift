@@ -50,6 +50,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         NSLog("\nQQQ provider init\n")
         logQueue.enqueue("\nQQQ provider init\n")
         super.init()
+        logQueue.enqueue("\nQQQ provider super init\n")
     }
     
     deinit
@@ -125,12 +126,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         self.networkMonitor = NWPathMonitor()
         self.networkMonitor!.start(queue: DispatchQueue(label: "NetworkMonitor"))
         
-        
-        DispatchQueue.main.async
-        {
-            completionHandler(nil)
-            self.readPackets()
-        }
+        completionHandler(nil)
     }
     
     override func stopTunnel(with reason: NEProviderStopReason, completionHandler: @escaping () -> Void)
@@ -155,23 +151,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         connectionAttemptStatus = .initialized
         pendingStopCompletion?()
         completionHandler()
-    }
-    
-    func readPackets()
-    {
-        packetFlow.readPackets
-        {
-            (packetDatas, protocolNumbers) in
-            
-            let packets = zip(packetDatas, protocolNumbers)
-            
-            for (packetData, protocolNumber) in packets
-            {
-                // TODO: Do something with the data
-            }
-            
-            self.readPackets()
-        }
     }
     
     func writePackets(packetDatas: [Data], protocolNumbers: [NSNumber])
@@ -257,14 +236,25 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         logQueue.enqueue("\n🚀 tunnelConnectionDidOpen  🚀\n")
         
         // Create the virtual interface settings.
-        guard let settings = createTunnelSettingsFromConfiguration(configuration)
-            else
+//        guard let settings = createTunnelSettingsFromConfiguration(configuration)
+//            else
+//        {
+//            connectionAttemptStatus = .initialized
+//            pendingStartCompletion?(TunnelError.internalError)
+//            pendingStartCompletion = nil
+//            return
+//        }
+        guard let host = remoteHost
+        else
         {
+            logQueue.enqueue("Unable to set network settings remote host is nil.")
             connectionAttemptStatus = .initialized
             pendingStartCompletion?(TunnelError.internalError)
             pendingStartCompletion = nil
             return
         }
+        
+        let settings = makeNetworkSettings(host: host)
         
         // Set the virtual interface settings.
         setTunnelNetworkSettings(settings, completionHandler: tunnelSettingsCompleted)
@@ -316,7 +306,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
     
     func handleStateUpdate(newState: NWConnection.State)
     {
-        self.logQueue.enqueue("CURRENT STATE = \(newState))")
+        self.logQueue.enqueue("CURRENT STATE = \(newState)")
         
         guard let startCompletion = pendingStartCompletion
             else
@@ -329,8 +319,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         {
         case .ready:
             // Start reading messages from the tunnel connection.
-            self.tunnelConnection?.startHandlingPackets()
-            
             // Open the logical flow of packets through the tunnel.
             guard connection != nil
                 else
@@ -343,6 +331,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider
             
             self.logQueue.enqueue("\n🚀 open() called on tunnel connection  🚀\n")
             self.tunnelConnection = newConnection
+            
+            newConnection.startHandlingPackets()
             startCompletion(nil)
             
         case .cancelled:
@@ -362,30 +352,29 @@ class PacketTunnelProvider: NEPacketTunnelProvider
     }
     
     /// Create the tunnel network settings to be applied to the virtual interface.
-    func createTunnelSettingsFromConfiguration(_ configuration: [NSObject: AnyObject]) -> NEPacketTunnelNetworkSettings?
-    {
-//        let newSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: "166.78.129.122")
-//        let address = "192.168.2.1"
-        let netmask = "255.255.255.0"
-        
-        //FIXME: tunnelAddress should be remoteHost,
-        //configuration argument is ignored
-        
-        guard let tunnelAddress = remoteHost
-        else
-        {
-            logQueue.enqueue("Unable to resolve tunnelAddress for NEPacketTunnelNetworkSettings")
-            return nil
-        }
-
-        let newSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: tunnelAddress)
-        newSettings.ipv4Settings = NEIPv4Settings(addresses: [tunnelAddress], subnetMasks: [netmask])
-        newSettings.ipv4Settings?.includedRoutes = [NEIPv4Route.default()]
-        newSettings.dnsSettings = NEDNSSettings(servers: ["8.8.8.8"])
-        newSettings.tunnelOverheadBytes = 150
-        
-        return newSettings
-    }
+//    func createTunnelSettingsFromConfiguration(_ configuration: [NSObject: AnyObject]) -> NEPacketTunnelNetworkSettings?
+//    {
+////        let newSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: "166.78.129.122")
+////        let address = "192.168.2.1"
+//        let netmask = "255.255.255.0"
+//
+//        //configuration argument is ignored
+//
+//        guard let tunnelAddress = remoteHost
+//        else
+//        {
+//            logQueue.enqueue("Unable to resolve tunnelAddress for NEPacketTunnelNetworkSettings")
+//            return nil
+//        }
+//
+//        let newSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: tunnelAddress)
+//        newSettings.ipv4Settings = NEIPv4Settings(addresses: [tunnelAddress], subnetMasks: [netmask])
+//        newSettings.ipv4Settings?.includedRoutes = [NEIPv4Route.default()]
+//        newSettings.dnsSettings = NEDNSSettings(servers: ["8.8.8.8"])
+//        newSettings.tunnelOverheadBytes = 150
+//
+//        return newSettings
+//    }
     
 }
 
