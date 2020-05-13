@@ -90,6 +90,8 @@ class PacketTunnelSettingsGenerator
             ipv6Routes.append(NEIPv6Route(destinationAddress: "\(address)", networkPrefixLength: 128))
         case .name(let name, _):
             print("\nUnable to resolve included routes: host was a domain name which is currently unsupported - \(name)\n")
+        default:
+            print("\nUnable to resolve included routes: host was an unknown type.")
         }
 
         return (ipv4Routes, ipv6Routes)
@@ -108,9 +110,10 @@ class PacketTunnelSettingsGenerator
             ipv4IncludedRoutes.append(NEIPv4Route(destinationAddress: "\(address)", subnetMask: "255.255.255.255"))
         case .ipv6(let address):
             ipv6IncludedRoutes.append(NEIPv6Route(destinationAddress: "\(address)", networkPrefixLength: 128))
-            
         case .name(let name, _):
             print("\nUnable to resolve included routes: host was a domain name which is currently unsupported - \(name)\n")
+        default:
+            print("\nUnable to resolve included routes: host was of unknown type.")
         }
         
         return (ipv4IncludedRoutes, ipv6IncludedRoutes)

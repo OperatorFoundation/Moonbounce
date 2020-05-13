@@ -117,6 +117,10 @@ extension Endpoint {
             hostname = "\(address)"
         case .ipv6(let address):
             hostname = "\(address)"
+        default:
+            hostname = host.debugDescription
+            print("--->>> Attempting to us a host address \(hostname) of unknown type.")
+            
         }
 
         var resultPointer = UnsafeMutablePointer<addrinfo>(OpaquePointer(bitPattern: 0))

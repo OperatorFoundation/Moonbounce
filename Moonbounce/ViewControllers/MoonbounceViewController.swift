@@ -422,6 +422,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         VPNPreferencesController.shared.updateConfiguration(moonbounceConfig: moonbounceConfig, isEnabled: true)
         {
             (maybeLoadError) in
+            
             if let loadError = maybeLoadError
             {
                 print("Unable to connect, error loading from preferences: \(loadError)")
@@ -524,6 +525,33 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     
     // MARK: - UI Helpers
     // TODO: Wire this to tunnels
+    
+    func updateStatus(state: NEVPNStatus)
+    {
+        switch state
+        {
+        case .connected:
+            isConnected = ConnectState(state: .success, stage: .statusCodes)
+        case .connecting:
+            isConnected = ConnectState(state: .trying, stage: .statusCodes)
+        case .disconnected:
+            isConnected = ConnectState(state: .failed, stage: .statusCodes)
+        case .disconnecting:
+            isConnected = ConnectState(state: .trying, stage: .statusCodes)
+        case .invalid:
+            isConnected = ConnectState(state: .failed, stage: .statusCodes)
+        case .reasserting:
+            isConnected = ConnectState(state: .start, stage: .statusCodes)
+        default:
+            isConnected = ConnectState(state: .failed, stage: .statusCodes)
+        }
+        
+        DispatchQueue.main.async
+        {
+            self.showStatus()
+        }
+    }
+    
     func showStatus()
     {
         switch isConnected.state
@@ -544,8 +572,6 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                     print("Error: Connected state of Trying but Stage is Start")
                 case .dispatcher:
                     self.updateStatusUI(connected: true, statusDescription: "Starting Dispatcher")
-                case .openVpn:
-                    self.updateStatusUI(connected: true, statusDescription: "Launching OpenVPN")
                 case .management:
                     self.updateStatusUI(connected: true, statusDescription: "Connecting to the Management Server")
                 case .statusCodes:
@@ -559,8 +585,6 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 print("Error: Connected state of Success but Stage is Start")
             case .dispatcher:
                 self.updateStatusUI(connected: true, statusDescription: "Started Dispatcher")
-            case .openVpn:
-                self.updateStatusUI(connected: true, statusDescription: "Launched OpenVPN")
             case .management:
                 self.updateStatusUI(connected: true, statusDescription: "Connected to the Management Server")
             case .statusCodes:
@@ -574,8 +598,6 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 print("Error: Connected state of Failed but Stage is Start")
             case .dispatcher:
                 self.updateStatusUI(connected: false, statusDescription: "Failed to start Dispatcher")
-            case .openVpn:
-                self.updateStatusUI(connected: false, statusDescription: "Failed to launch OpenVPN")
             case .management:
                 self.updateStatusUI(connected: false, statusDescription: "Failed to Connect to the Management Server")
             case .statusCodes:
@@ -756,21 +778,24 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     
     func updateStatusUI(connected: Bool, statusDescription: String)
     {
-        //Update Connection Status Label
-        self.statusLabel.stringValue = statusDescription
-        
-        if connected
+        DispatchQueue.main.async
         {
-            //Update button name
-            self.toggleConnectionButton.title = "Disconnect"
+            //Update Connection Status Label
+            self.statusLabel.stringValue = statusDescription
+            
+            if connected
+            {
+                //Update button name
+                self.toggleConnectionButton.title = "Disconnect"
+            }
+            else
+            {
+                self.toggleConnectionButton.title = "Connect"
+            }
+            
+            //Stop BG Animation
+            self.runningScript = false
         }
-        else
-        {
-            self.toggleConnectionButton.title = "Connect"
-        }
-        
-        //Stop BG Animation
-        self.runningScript = false
     }
     
     @objc func animateLaunchingLabel()
@@ -813,16 +838,10 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         alert.runModal()
     }
     
+    // This allows us to see print statements for debugging
     @objc func startLoggingLoop()
     {
         loggingEnabled = true
-        
-//        guard let tunnel = selectedTunnel
-//            else
-//        {
-//            print("\nUnable to start communications with extension, tunnel is nil.\n")
-//            return
-//        }
         
         guard let vpnPreference = VPNPreferencesController.shared.maybeVPNPreference
         else
@@ -859,6 +878,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 {
                     currentStatus = vpnPreference.connection.status
                     print("\nCurrent Status Changed: \(currentStatus.stringValue)\n")
+                    self.updateStatus(state: vpnPreference.connection.status)
                 }
                 
                 guard let message = "Hello Provider".data(using: String.Encoding.utf8)
@@ -886,11 +906,6 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 catch
                 {
                     NSLog("Failed to send a message to the provider")
-                }
-                
-                DispatchQueue.main.async
-                {
-                    // Stub
                 }
             }
         }

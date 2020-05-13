@@ -63,7 +63,7 @@ public class KeychainController: NSObject
         let keychainQueryDictionary = [kSecClassValue: kSecClassGenericPasswordValue,
                                        kSecAttrServiceValue: service,
                                        kSecAttrAccountValue: userAccount,
-                                       kSecReturnDataValue: kCFBooleanTrue,
+                                       kSecReturnDataValue: kCFBooleanTrue as Any,
                                        kSecMatchLimitValue: kSecMatchLimitOneValue] as CFDictionary
         
         var dataTypeRef: AnyObject?

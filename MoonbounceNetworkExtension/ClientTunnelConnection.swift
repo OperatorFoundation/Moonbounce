@@ -58,7 +58,10 @@ public class ClientTunnelConnection
                     self.logQueue.enqueue("Ipv4 protocol")
 
                     // Encapsulates packages into Messages (using Flower)
+                    self.logQueue.enqueue("packet: \(packet)")
                     let message = Message.IPDataV4(packet)
+                    self.logQueue.enqueue("encapsulated into Flower Message: \(message)")
+                    
                     self.replicantConnection.writeMessage(message: message, completion:
                     {
                         (maybeError) in

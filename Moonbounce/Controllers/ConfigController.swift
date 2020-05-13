@@ -270,7 +270,7 @@ class  ConfigController
             {
                 //Verify  that each of the following files are present as all config files are neccessary for successful connection:
                 let file1 = "replicantclient.config"
-                let file2 = "replicant.config"
+                //let file2 = "replicant.config"
                 
                 var fileNames = [String]()
                 for case let fileURL as URL in fileEnumerator

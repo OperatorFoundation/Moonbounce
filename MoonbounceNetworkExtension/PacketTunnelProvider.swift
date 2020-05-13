@@ -317,6 +317,13 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         
         switch newState
         {
+        case .preparing:
+            self.logQueue.enqueue("\n⏳ Connection is  preparing ⏳\n")
+            isConnected = ConnectState(state: .start, stage: .statusCodes)
+            
+        case .setup:
+            self.logQueue.enqueue("\n👷‍♀️ Connection is in the setup stage 👷‍♀️\n")
+            isConnected = ConnectState(state: .trying, stage: .statusCodes)
         case .ready:
             // Start reading messages from the tunnel connection.
             // Open the logical flow of packets through the tunnel.
@@ -327,6 +334,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider
                 return
             }
             
+            self.logQueue.enqueue("\n🚀 Connection state is ready 🚀\n")
+            isConnected = ConnectState(state: .success, stage: .statusCodes)
             let newConnection = ClientTunnelConnection(clientPacketFlow: self.packetFlow, replicantConnection: connection!, logQueue: logQueue)
             
             self.logQueue.enqueue("\n🚀 open() called on tunnel connection  🚀\n")
@@ -336,7 +345,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
             startCompletion(nil)
             
         case .cancelled:
-            self.logQueue.enqueue("\n🙅‍♀️  Connection Canceled  🙅‍♀️\n")
+            self.logQueue.enqueue("\n🙅‍♀️  Connection Cancelled  🙅‍♀️\n")
             self.connection = nil
             self.tunnelDidClose()
             startCompletion(TunnelError.cancelled)

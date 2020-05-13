@@ -94,7 +94,6 @@ enum Stage
 {
     case start
     case dispatcher
-    case openVpn
     case management
     case statusCodes
 }

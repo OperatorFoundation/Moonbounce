@@ -74,12 +74,12 @@ extension Endpoint {
 extension Endpoint {
     func hasHostAsIPAddress() -> Bool {
         switch host {
-        case .name:
-            return false
         case .ipv4:
             return true
         case .ipv6:
             return true
+        default:
+            return false
         }
     }
 
@@ -87,9 +87,7 @@ extension Endpoint {
         switch host {
         case .name(let hostname, _):
             return hostname
-        case .ipv4:
-            return nil
-        case .ipv6:
+        default:
             return nil
         }
     }
