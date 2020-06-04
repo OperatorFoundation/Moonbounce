@@ -445,7 +445,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             if vpnPreference.connection.status == .disconnected || vpnPreference.connection.status == .invalid
             {
                 print("\nConnect pressed, starting logging loop.\n")
-                self.startLoggingLoop()
+                LoggingController.shared.startLoggingLoop()
                 
                 do
                 {
@@ -455,16 +455,15 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 catch
                 {
                     NSLog("\nFailed to start the VPN: \(error.localizedDescription)\n")
-                    self.stopLoggingLoop()
+                    LoggingController.shared.stopLoggingLoop()
                 }
                 
                 //self.activityIndicator.stopAnimating()
             }
             else
             {
-                self.stopLoggingLoop()
+                LoggingController.shared.stopLoggingLoop()
                 vpnPreference.connection.stopVPNTunnel()
-                //self.activityIndicator.stopAnimating()
             }
         }
         
@@ -524,33 +523,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     }
     
     // MARK: - UI Helpers
-    // TODO: Wire this to tunnels
-    
-    func updateStatus(state: NEVPNStatus)
-    {
-        switch state
-        {
-        case .connected:
-            isConnected = ConnectState(state: .success, stage: .statusCodes)
-        case .connecting:
-            isConnected = ConnectState(state: .trying, stage: .statusCodes)
-        case .disconnected:
-            isConnected = ConnectState(state: .failed, stage: .statusCodes)
-        case .disconnecting:
-            isConnected = ConnectState(state: .trying, stage: .statusCodes)
-        case .invalid:
-            isConnected = ConnectState(state: .failed, stage: .statusCodes)
-        case .reasserting:
-            isConnected = ConnectState(state: .start, stage: .statusCodes)
-        default:
-            isConnected = ConnectState(state: .failed, stage: .statusCodes)
-        }
-        
-        DispatchQueue.main.async
-        {
-            self.showStatus()
-        }
-    }
+
     
     func showStatus()
     {
@@ -838,82 +811,6 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         alert.runModal()
     }
     
-    // This allows us to see print statements for debugging
-    @objc func startLoggingLoop()
-    {
-        loggingEnabled = true
-        
-        guard let vpnPreference = VPNPreferencesController.shared.maybeVPNPreference
-        else
-        {
-            print("\nUnable to start communications with extension, vpnPreference is nil.\n")
-            return
-        }
-        
-        // Send a simple IPC message to the provider, handle the response.
-        guard let session = vpnPreference.connection as? NETunnelProviderSession
-            else
-        {
-            print("\nStart logging loop failed:")
-            print("Unable to send a message, vpnPreference.connection could not be unwrapped as a NETunnelProviderSession.")
-            print("\(vpnPreference.connection)\n")
-            return
-        }
-        
-        guard vpnPreference.connection.status != .invalid
-            else
-        {
-            print("\nInvalid connection status")
-            return
-        }
-        
-        DispatchQueue.global(qos: .background).async
-        {
-            var currentStatus: NEVPNStatus = .invalid
-            while self.loggingEnabled
-            {
-                sleep(1)
-                
-                if vpnPreference.connection.status != currentStatus
-                {
-                    currentStatus = vpnPreference.connection.status
-                    print("\nCurrent Status Changed: \(currentStatus.stringValue)\n")
-                    self.updateStatus(state: vpnPreference.connection.status)
-                }
-                
-                guard let message = "Hello Provider".data(using: String.Encoding.utf8)
-                    else
-                {
-                    continue
-                }
-                
-                do
-                {
-                    try session.sendProviderMessage(message)
-                    {
-                        response in
-                        
-                        if response != nil
-                        {
-                            let responseString: String = NSString(data: response!, encoding: String.Encoding.utf8.rawValue)! as String
-                            if responseString != ""
-                            {
-                                print(responseString)
-                            }
-                        }
-                    }
-                }
-                catch
-                {
-                    NSLog("Failed to send a message to the provider")
-                }
-            }
-        }
-    }
-    
-    func stopLoggingLoop()
-    {
-        loggingEnabled = false
-    }
+
     
 }

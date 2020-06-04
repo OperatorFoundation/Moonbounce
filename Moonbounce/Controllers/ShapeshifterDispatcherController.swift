@@ -34,7 +34,16 @@ class ShapeshifterDispatcherController: NSObject
             //The launchPath is the path to the executable to run.
             launchTask!.launchPath = Bundle.main.path(forResource: "shapeshifter-dispatcher", ofType: nil)
             launchTask!.arguments = arguments
-            launchTask!.launch()
+            
+            do
+            {
+                try launchTask!.run()
+            }
+            catch let runError
+            {
+                print("Failed to launch dispatcher: \(runError)")
+                return
+            }
         }
         else
         {

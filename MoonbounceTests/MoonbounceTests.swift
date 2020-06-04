@@ -8,22 +8,179 @@
 
 import XCTest
 import Network
+import NetworkExtension
 import ReplicantSwift
 import Replicant
 import Datable
+import Flower
 import ZIPFoundation
 @testable import Moonbounce
 
 class MoonbounceTests: XCTestCase {
-
-//    override func setUp() {
-//        // Put setup code here. This method is called before the invocation of each test method in the class.
-//    }
+    
+    func testConnectToServer()
+    {
+        guard let controller = ConfigController(), let moonbounceConfig = controller.getDefaultMoonbounceConfig()
+        else
+        {
+            print("Unable to connect, unable to load default config.")
+            XCTFail()
+            return
+        }
+        
+        VPNPreferencesController.shared.updateConfiguration(moonbounceConfig: moonbounceConfig, isEnabled: true)
+        {
+            (maybeLoadError) in
+            
+            if let loadError = maybeLoadError
+            {
+                print("Unable to connect, error loading from preferences: \(loadError)")
+                XCTFail()
+                return
+            }
+            
+            guard let vpnPreference = VPNPreferencesController.shared.maybeVPNPreference
+            else
+            {
+                print("Unable to connect, vpnPreference is nil.")
+                XCTFail()
+                return
+            }
+            
+            if vpnPreference.connection.status == .disconnected || vpnPreference.connection.status == .invalid
+            {
+                print("\nConnect pressed, starting logging loop.\n")
+                LoggingController.shared.startLoggingLoop()
+                
+                do
+                {
+                    print("\nCalling startVPNTunnel on vpnPreference.connection.\n")
+                    try vpnPreference.connection.startVPNTunnel()
+                    
+                    // Fetch URL here
+                    
+                }
+                catch
+                {
+                    NSLog("\nFailed to start the VPN: \(error.localizedDescription)\n")
+                    LoggingController.shared.stopLoggingLoop()
+                }
+                
+            }
+            else
+            {
+                LoggingController.shared.stopLoggingLoop()
+                vpnPreference.connection.stopVPNTunnel()
+            }
+        }
+    }
+    
+    // TODO: Polish
+//    func testReplicantClientConnectionWithPolish()
+//    {
+//       let writeExpectation = expectation(description: "wrote")
 //
-//    override func tearDown() {
-//        // Put teardown code here. This method is called after the invocation of each test method in the class.
+//        let polishConfig = SilverClientConfig(
+//        guard let replicantConfig = ReplicantConfig(polish: nil, toneBurst: nil)
+//        else
+//        {
+//            XCTFail()
+//            return
+//        }
+//
+//        let connectionFactory = ReplicantConnectionFactory(host: "127.0.0.1", port: 1234, config: replicantConfig)
+//
+//        guard var connection = connectionFactory.connect(using: .tcp)
+//        else
+//        {
+//            XCTFail()
+//            return
+//        }
+//
+//        connection.stateUpdateHandler =
+//        {
+//            (newState) in
+//
+//            switch newState
+//            {
+//            case .ready:
+//                let message = Message.IPDataV4("Hello".data)
+//                connection.writeMessage(message: message)
+//                {
+//                    (maybeWriteError) in
+//
+//                    if let writeError = maybeWriteError
+//                    {
+//                        print("***Write error: \(writeError)")
+//                        XCTFail()
+//                        return
+//                    }
+//                    else
+//                    {
+//                        writeExpectation.fulfill()
+//                    }
+//                }
+//            default:
+//                print("***Not ready: \(newState)")
+//            }
+//        }
+//
+//        connection.start(queue: DispatchQueue(label: "TestQueue") )
+//        wait(for: [writeExpectation], timeout: 1)
 //    }
     
+    func testReplicantClientConnectionToServer()
+    {
+       let writeExpectation = expectation(description: "wrote")
+
+        guard let replicantConfig = ReplicantConfig(polish: nil, toneBurst: nil)
+        else
+        {
+            XCTFail()
+            return
+        }
+
+        let connectionFactory = ReplicantConnectionFactory(host: "127.0.0.1", port: 1234, config: replicantConfig)
+
+        guard var connection = connectionFactory.connect(using: .tcp)
+        else
+        {
+            XCTFail()
+            return
+        }
+
+        connection.stateUpdateHandler =
+        {
+            (newState) in
+
+            switch newState
+            {
+            case .ready:
+                let message = Message.IPDataV4("Hello".data)
+                connection.writeMessage(message: message)
+                {
+                    (maybeWriteError) in
+
+                    if let writeError = maybeWriteError
+                    {
+                        print("***Write error: \(writeError)")
+                        XCTFail()
+                        return
+                    }
+                    else
+                    {
+                        writeExpectation.fulfill()
+                    }
+                }
+            default:
+                print("***Not ready: \(newState)")
+            }
+        }
+
+        connection.start(queue: DispatchQueue(label: "TestQueue") )
+        wait(for: [writeExpectation], timeout: 1)
+    }
+
     func testVPNPreferencesUpdate()
     {
         let completionExpectation = expectation(description: "completion handler called")

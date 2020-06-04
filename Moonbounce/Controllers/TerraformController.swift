@@ -146,6 +146,16 @@ class TerraformController: NSObject
             }
 
             //self.captureStandardOutput(self.terraformTask)
+            
+            do
+            {
+                try self.terraformTask.run()
+            }
+            catch let runError
+            {
+                print("Failed to launch terraform: \(runError)")
+            }
+            
             self.terraformTask.launch()
         }
     }

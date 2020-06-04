@@ -60,7 +60,7 @@ public class ClientTunnelConnection
                     // Encapsulates packages into Messages (using Flower)
                     self.logQueue.enqueue("packet: \(packet)")
                     let message = Message.IPDataV4(packet)
-                    self.logQueue.enqueue("encapsulated into Flower Message: \(message)")
+                    self.logQueue.enqueue("🌷 encapsulated into Flower Message: \(message.description) 🌷")
                     
                     self.replicantConnection.writeMessage(message: message, completion:
                     {
@@ -114,13 +114,14 @@ public class ClientTunnelConnection
         {
             message in
 
+            print("🌷 replicantConnection.readMessages callback message: \(message.description) 🌷")
             switch message
             {
             case .IPDataV4(let data):
                 self.logQueue.enqueue("IPDataV4 calling write packets.")
                 self.packetFlow.writePackets([data], withProtocols: [4])
             case .IPDataV6(let data):
-                self.logQueue.enqueue("IPDataV4 calling write packets.")
+                self.logQueue.enqueue("IPDataV6 calling write packets.")
                 self.packetFlow.writePackets([data], withProtocols: [6])
             default:
                 self.logQueue.enqueue("unsupported message type")
