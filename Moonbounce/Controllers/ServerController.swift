@@ -35,7 +35,7 @@
 //            if let error = result.error
 //            {
 //                //FIXME: Show error alert
-//                print("\nError creating tunnel manager: \(error)\n")
+//                appLog.error("\nError creating tunnel manager: \(error)\n")
 //                //ErrorPresenter.showErrorAlert(error: error, from: self)
 //                return
 //            }
@@ -55,7 +55,7 @@
 //    
 //    func refreshServers(completionHandler: @escaping () -> Void)
 //    {
-//        print("\nREFRESH SERVERS CALLED\n")
+//        appLog.debug("\nREFRESH SERVERS CALLED\n")
 //        // Default Server
 //        addServerToTunnels(name: ServerName.defaultServer.rawValue, configDirectory: defaultConfigDirectory)
 //        {
@@ -69,7 +69,7 @@
 //                    return
 //                }
 //                
-//                print("\nDEFAULT SERVER ADDED TO TUNNELS\n")
+//                appLog.debug("\nDEFAULT SERVER ADDED TO TUNNELS\n")
 //                self.defaultServer = container
 //            }
 //            
@@ -86,7 +86,7 @@
 //                        return
 //                    }
 //                    
-//                    print("\nUSER SERVER ADDED TO TUNNELS\n")
+//                    appLog.debug("\nUSER SERVER ADDED TO TUNNELS\n")
 //                    self.userServer = container
 //                }
 //                
@@ -102,7 +102,7 @@
 //                    {
 //                        for configDirectory in subDirectories
 //                        {
-//                            print("\nSUBDIRECTORY: \(configDirectory.path)\n")
+//                            appLog.debug("\nSUBDIRECTORY: \(configDirectory.path)\n")
 //                            let importedServerName = FileManager.default.displayName(atPath: configDirectory.path)
 //                            self.addServerToTunnels(name: importedServerName, configDirectory: configDirectory)
 //                            {
@@ -111,7 +111,7 @@
 //                                switch result
 //                                {
 //                                case .failure(let error):
-//                                    print("\nFailed to add imported server at \(configDirectory)\nError:\(error)\n")
+//                                    appLog.error("\nFailed to add imported server at \(configDirectory)\nError:\(error)\n")
 //                                case .success(let container):
 //                                    self.importedServers.append(container)
 //                                }
@@ -124,7 +124,7 @@
 //                catch
 //                {
 //                    // Nothing Found in the Import directory
-//                    print("Error getting subdirectories: \(error)")
+//                    appLog.error("Error getting subdirectories: \(error)")
 //                    return
 //                }
 //            }
@@ -135,22 +135,22 @@
 //    
 //    func tunnelActivationAttemptFailed(tunnel: TunnelContainer, error: TunnelsManagerActivationAttemptError)
 //    {
-//        print("\nTunnel Activation Attempt Failed: \(error)\n")
+//        appLog.error("\nTunnel Activation Attempt Failed: \(error)\n")
 //    }
 //    
 //    func tunnelActivationAttemptSucceeded(tunnel: TunnelContainer)
 //    {
-//        print("\nTunnel Activation Attempt Succeeded\n")
+//        appLog.debug("\nTunnel Activation Attempt Succeeded\n")
 //    }
 //    
 //    func tunnelActivationFailed(tunnel: TunnelContainer, error: TunnelsManagerActivationError)
 //    {
-//        print("\nTunnel Activation Failed: \(error)\n")
+//        appLog.error("\nTunnel Activation Failed: \(error)\n")
 //    }
 //    
 //    func tunnelActivationSucceeded(tunnel: TunnelContainer)
 //    {
-//        print("\nTunnel Activation Succeeded\n")
+//        appLog.debug("\nTunnel Activation Succeeded\n")
 //    }
 //    
 //    func addServerToTunnels(name: String, configDirectory: URL, completionHandler: @escaping (WireGuardResult<TunnelContainer>) -> Void)
@@ -165,7 +165,7 @@
 //            guard tunnelsManager != nil
 //                else
 //            {
-//                print("\nUnable to add server to tunnel list. TunnelsManager is nil.\n")
+//                appLog.error("\nUnable to add server to tunnel list. TunnelsManager is nil.\n")
 //                completionHandler(WireGuardResult.failure(TunnelsManagerError.errorOnListingTunnels))
 //                return
 //            }
@@ -222,11 +222,11 @@
 //                        do
 //                        {
 //                            try fileManager.unzipItem(at: configURL, to: importedConfigDirectory)
-//                            print("Unzipped to :\(importedConfigDirectory)")
+//                            appLog.debug("Unzipped to :\(importedConfigDirectory)")
 //                        }
 //                        catch (let error)
 //                        {
-//                            print("\nFailed to unzip config files: \(error)\n")
+//                            appLog.error("\nFailed to unzip config files: \(error)\n")
 //                            return
 //                        }
 //                    }
@@ -250,11 +250,11 @@
 //                        do
 //                        {
 //                            try fileManager.unzipItem(at: configURL, to: importedConfigDirectory)
-//                            print("Unzipped to :\(importedConfigDirectory)")
+//                            appLog.debug("Unzipped to :\(importedConfigDirectory)")
 //                        }
 //                        catch (let error)
 //                        {
-//                            print("\nFailed to unzip config files: \(error)\n")
+//                            appLog.error("\nFailed to unzip config files: \(error)\n")
 //                            return
 //                        }
 //                    }
@@ -277,7 +277,7 @@
 //                {
 //                    (url, error) -> Bool in
 //                    
-//                    print("File enumerator error at \(configURL.path): \(error.localizedDescription)")
+//                    appLog.error("File enumerator error at \(configURL.path): \(error.localizedDescription)")
 //                    return true
 //            })
 //            {

@@ -23,7 +23,7 @@
 //
 //            if let error = maybeError
 //            {
-//                print("\nreceived an error while loading tunnels: \(error)\n")
+//                appLog.error("\nreceived an error while loading tunnels: \(error)\n")
 //            }
 //        }
 //    }
@@ -37,7 +37,7 @@
 //            guard let vpnManagers = newManagers
 //                else
 //            {
-//                print("We think newManagers from load preferences is nil: \(String(describing: newManagers))")
+//                appLog.error("We think newManagers from load preferences is nil: \(String(describing: newManagers))")
 //                return
 //
 //            }
@@ -65,7 +65,7 @@
 //
 //                    if let error = maybeError
 //                    {
-//                        print("\nUnable to add the default tunnel: \(error)")
+//                        appLog.error("\nUnable to add the default tunnel: \(error)")
 //                    }
 //                })
 //            }
@@ -90,7 +90,7 @@
 //
 //            if let error = maybeError
 //            {
-//                print("\nError removing tunnel from preferences: \n\(error)\n")
+//                appLog.error("\nError removing tunnel from preferences: \n\(error)\n")
 //                return
 //            }
 //
@@ -108,7 +108,7 @@
 //
 //            if let error = maybeError
 //            {
-//                print("\nreceived an error creating a demo tunnel: \(error)\n")
+//                appLog.error("\nreceived an error creating a demo tunnel: \(error)\n")
 //                return
 //            }
 //
@@ -128,7 +128,7 @@
 //        guard let configController = ConfigController()
 //        else
 //        {
-//            print("Unable to create default config: Config controller was not initialized correctly.")
+//            appLog.error("Unable to create default config: Config controller was not initialized correctly.")
 //            //FIXME: Add error
 //            completionHandler(nil)
 //            return
@@ -137,7 +137,7 @@
 //        guard let dDirectory = configController.get(configDirectory: .defaultDirectory)
 //        else
 //        {
-//            print("Unable to get default directory.")
+//            appLog.error("Unable to get default directory.")
 //            return
 //        }
 //
@@ -150,14 +150,14 @@
 //            }
 //            catch let error
 //            {
-//                print("Error deleting files in default directory: \(error)")
+//                appLog.error("Error deleting files in default directory: \(error)")
 //            }
 //        }
 //
 //         guard let moonbounceZip = Bundle.main.url(forResource: "default.moonbounce", withExtension: nil)
 //        else
 //         {
-//            print("\nUnable to find the default config file in the bundle")
+//            appLog.error("\nUnable to find the default config file in the bundle")
 //            return
 //        }
 //
@@ -167,9 +167,9 @@
 //            do {
 //                let defaultDirectory = dDirectory.appendingPathComponent("Default")
 //                 let files = try fileManager.contentsOfDirectory(atPath: defaultDirectory.path)
-//                print(files)
+//                appLog.debug(files)
 //            } catch let error {
-//                print("error listing contents of default directory: \(error)")
+//                appLog.error("error listing contents of default directory: \(error)")
 //            }
 //
 //            let defaultDirectory = dDirectory.appendingPathComponent("Default")
@@ -181,7 +181,7 @@
 //
 //                    if let error = maybeError
 //                    {
-//                        print("\nError creating tunnel: \(error)")
+//                        appLog.error("\nError creating tunnel: \(error)")
 //
 //                    }
 //
@@ -196,7 +196,7 @@
 //        }
 //        catch let error
 //        {
-//            print("Error unzipping item: \(error)")
+//            appLog.error("Error unzipping item: \(error)")
 //            return
 //        }
 //    }
@@ -213,7 +213,7 @@
 //                {
 //                    (url, error) -> Bool in
 //
-//                    print("File enumerator error at \(configURL.path): \(error.localizedDescription)")
+//                    appLog.error("File enumerator error at \(configURL.path): \(error.localizedDescription)")
 //                    return true
 //            })
 //            {
@@ -239,7 +239,7 @@
 //
 //                        else
 //                    {
-//                        print("Unable to create replicant config from file at \(configURL.appendingPathComponent(file1))")
+//                        appLog.error("Unable to create replicant config from file at \(configURL.appendingPathComponent(file1))")
 //
 //                        return nil
 //                    }
@@ -265,11 +265,11 @@
 ////        guard tunnels.isEmpty
 ////        else
 ////        {
-////            print("\nNot creating demo tunnel as \(tunnels.count) tunnels already exist.\n")
+////            appLog.error("\nNot creating demo tunnel as \(tunnels.count) tunnels already exist.\n")
 ////            for tunnel in tunnels
 ////            {
-////                print(tunnel.targetManager.localizedDescription ?? "Unnamed Tunnel")
-////                print(tunnel.targetManager.protocolConfiguration ?? "No Protocol Config\n")
+////                appLog.error(tunnel.targetManager.localizedDescription ?? "Unnamed Tunnel")
+////                appLog.error(tunnel.targetManager.protocolConfiguration ?? "No Protocol Config\n")
 ////            }
 ////
 ////            return
@@ -281,7 +281,7 @@
 ////
 ////            if let error = maybeError
 ////            {
-////                print("\nreceived an error creating a demo tunnel: \(error)\n")
+////                appLog.error("\nreceived an error creating a demo tunnel: \(error)\n")
 ////                return
 ////            }
 ////

@@ -115,7 +115,7 @@ class VPNPreferencesController
          
              if let error = maybeError
              {
-                 print("\nError loading from preferences!\(error)\n")
+                 appLog.error("\nError loading from preferences!\(error)\n")
                 
                 self.maybeVPNPreference = nil
                 completionHandler(.error(error))
@@ -149,7 +149,7 @@ class VPNPreferencesController
             guard maybeError == nil
                 else
             {
-                print("\nFailed to save the configuration: \(maybeError!)\n")
+                appLog.error("\nFailed to save the configuration: \(maybeError!)\n")
                 completionHandler(maybeError)
                 return
             }
@@ -160,7 +160,7 @@ class VPNPreferencesController
                 
                 if let error = maybeError
                 {
-                    print("\nError loading from preferences!\(error)\n")
+                    appLog.error("\nError loading from preferences!\(error)\n")
                     completionHandler(error)
                     return
                 }
@@ -174,7 +174,7 @@ class VPNPreferencesController
     {
         let protocolConfiguration: NETunnelProviderProtocol = NETunnelProviderProtocol()
         let appId = Bundle.main.bundleIdentifier!
-        print("\n----->Setting the providerBundleIdentifier to \(appId).NetworkExtension")
+        appLog.debug("\n----->Setting the providerBundleIdentifier to \(appId).NetworkExtension")
         protocolConfiguration.providerBundleIdentifier = "\(appId).NetworkExtension"
         protocolConfiguration.serverAddress = "\(moonbounceConfig.clientConfig.host)"
         protocolConfiguration.includeAllNetworks = true
@@ -200,7 +200,7 @@ class VPNPreferencesController
 //                Keys.replicantConfigKey.rawValue: replicantConfigJSON,
 //                Keys.tunnelNameKey.rawValue: moonbounceConfig.name]
 //
-//            print("\nproviderConfiguration: \(protocolConfiguration.providerConfiguration!)\n")
+//            appLog.debug("\nproviderConfiguration: \(protocolConfiguration.providerConfiguration!)\n")
 //        }
 //        else
 //        {

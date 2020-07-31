@@ -45,23 +45,16 @@
 		AE1359A7220DFC6F00E81823 /* default.moonbounce in Resources */ = {isa = PBXBuildFile; fileRef = AE1359A6220DFC6F00E81823 /* default.moonbounce */; };
 		AE39BD4D22400BFC007C7C90 /* ClientTunnelConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE39BD3B22400BFC007C7C90 /* ClientTunnelConnection.swift */; };
 		AE39BD6822440123007C7C90 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */; };
-		AE4CFCC7244134E0006FF16E /* MoonbounceDependencies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEB1D9AF243FDD7300C644B6 /* MoonbounceDependencies.framework */; };
-		AE4CFCC8244134E0006FF16E /* MoonbounceDependencies.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AEB1D9AF243FDD7300C644B6 /* MoonbounceDependencies.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		AE4CFCCA244134EC006FF16E /* MoonbounceDependencies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEB1D9AF243FDD7300C644B6 /* MoonbounceDependencies.framework */; };
-		AE4CFCCB244134EC006FF16E /* MoonbounceDependencies.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AEB1D9AF243FDD7300C644B6 /* MoonbounceDependencies.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		AE4CFCCE244135E5006FF16E /* libswiftCreateML.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AE4CFCCD244135E5006FF16E /* libswiftCreateML.dylib */; };
-		AE4CFCCF244135E5006FF16E /* libswiftCreateML.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = AE4CFCCD244135E5006FF16E /* libswiftCreateML.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		AE4D6BAC24452FA0002DA1E4 /* NEVPNStatus+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4D6BAB24452FA0002DA1E4 /* NEVPNStatus+Extension.swift */; };
 		AE4D6BAD24452FA0002DA1E4 /* NEVPNStatus+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4D6BAB24452FA0002DA1E4 /* NEVPNStatus+Extension.swift */; };
 		AE4D6BAF24462C28002DA1E4 /* VPNPreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4D6BAE24462C28002DA1E4 /* VPNPreferencesController.swift */; };
 		AE4D6BB12447B962002DA1E4 /* ConfigController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0738D322370EF9009E3C4E /* ConfigController.swift */; };
-		AEB1D9B3243FDD7300C644B6 /* MoonbounceDependencies.h in Headers */ = {isa = PBXBuildFile; fileRef = AEB1D9B1243FDD7300C644B6 /* MoonbounceDependencies.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AEB1D9B8243FDD9B00C644B6 /* Datable in Frameworks */ = {isa = PBXBuildFile; productRef = AEB1D9B7243FDD9B00C644B6 /* Datable */; };
-		AEB1D9BA243FDDA100C644B6 /* Flow in Frameworks */ = {isa = PBXBuildFile; productRef = AEB1D9B9243FDDA100C644B6 /* Flow */; };
-		AEB1D9BC243FDDB400C644B6 /* Replicant in Frameworks */ = {isa = PBXBuildFile; productRef = AEB1D9BB243FDDB400C644B6 /* Replicant */; };
-		AEB1D9BE243FDDBF00C644B6 /* Optimizer in Frameworks */ = {isa = PBXBuildFile; productRef = AEB1D9BD243FDDBF00C644B6 /* Optimizer */; };
-		AEB1D9C0243FDDC600C644B6 /* SwiftQueue in Frameworks */ = {isa = PBXBuildFile; productRef = AEB1D9BF243FDDC600C644B6 /* SwiftQueue */; };
-		AEB1D9C2243FDDCB00C644B6 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AEB1D9C1243FDDCB00C644B6 /* ZIPFoundation */; };
+		AE59B9F224CBB1C200703630 /* LoggerQueue in Frameworks */ = {isa = PBXBuildFile; productRef = AE59B9F124CBB1C200703630 /* LoggerQueue */; };
+		AE59B9F424CBB2BD00703630 /* Replicant in Frameworks */ = {isa = PBXBuildFile; productRef = AE59B9F324CBB2BD00703630 /* Replicant */; };
+		AE59B9F624CBB2CA00703630 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AE59B9F524CBB2CA00703630 /* ZIPFoundation */; };
+		AE6517F8246F4CDA00EFFB94 /* LoggingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6517F7246F4CDA00EFFB94 /* LoggingController.swift */; };
+		AE94E51024CB66E0007B552B /* Replicant in Frameworks */ = {isa = PBXBuildFile; productRef = AE94E50F24CB66E0007B552B /* Replicant */; };
+		AE94E51624CB6D18007B552B /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AE94E51524CB6D18007B552B /* ZIPFoundation */; };
 		AED4E9FF243FD148003C367F /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4E9FE243FD148003C367F /* Endpoint.swift */; };
 		AED4EA00243FD185003C367F /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4E9FE243FD148003C367F /* Endpoint.swift */; };
 		AED4EA02243FD3A7003C367F /* PacketTunnelProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA01243FD3A7003C367F /* PacketTunnelProviderError.swift */; };
@@ -72,6 +65,7 @@
 		AED4EA09243FD707003C367F /* IPAddressRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA07243FD707003C367F /* IPAddressRange.swift */; };
 		AED4EA0E243FDA1D003C367F /* TunnelConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA0D243FDA1D003C367F /* TunnelConfiguration.swift */; };
 		AED4EA0F243FDA1D003C367F /* TunnelConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA0D243FDA1D003C367F /* TunnelConfiguration.swift */; };
+		AEE57D2E2461F23A005A784E /* NetworkSettingsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE57D2D2461F23A005A784E /* NetworkSettingsFactory.swift */; };
 		AEE943AD21FAAFC500213EE7 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4672B8961DF60498008134E5 /* Globals.swift */; };
 		AEFDFD7C2432A112003571DB /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */; };
 		B41FE02A1DF24BE900E02D17 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B41FE0291DF24BE900E02D17 /* Security.framework */; };
@@ -96,20 +90,6 @@
 			remoteGlobalIDString = 469B0A7721DEA5AB003FC2BC;
 			remoteInfo = MoonbounceNetworkExtension;
 		};
-		AE4CFCB1243FE3FB006FF16E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 467CB5AB1DBEB6E90086E341 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = AEB1D9AE243FDD7300C644B6;
-			remoteInfo = MoonbounceDependencies;
-		};
-		AE4CFCB3243FE414006FF16E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 467CB5AB1DBEB6E90086E341 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = AEB1D9AE243FDD7300C644B6;
-			remoteInfo = MoonbounceDependencies;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -130,31 +110,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				AE4CFCC8244134E0006FF16E /* MoonbounceDependencies.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AE4CFCCC244134EC006FF16E /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				AE4CFCCB244134EC006FF16E /* MoonbounceDependencies.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AE4CFCD0244135E5006FF16E /* Embed Libraries */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				AE4CFCCF244135E5006FF16E /* libswiftCreateML.dylib in Embed Libraries */,
-			);
-			name = "Embed Libraries";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		B41FE0251DF10A0400E02D17 /* CopyFiles */ = {
@@ -213,14 +170,13 @@
 		AE4CFCCD244135E5006FF16E /* libswiftCreateML.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftCreateML.dylib; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/libswiftCreateML.dylib; sourceTree = DEVELOPER_DIR; };
 		AE4D6BAB24452FA0002DA1E4 /* NEVPNStatus+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NEVPNStatus+Extension.swift"; sourceTree = "<group>"; };
 		AE4D6BAE24462C28002DA1E4 /* VPNPreferencesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNPreferencesController.swift; sourceTree = "<group>"; };
-		AEB1D9AF243FDD7300C644B6 /* MoonbounceDependencies.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoonbounceDependencies.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AEB1D9B1243FDD7300C644B6 /* MoonbounceDependencies.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoonbounceDependencies.h; sourceTree = "<group>"; };
-		AEB1D9B2243FDD7300C644B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AE6517F7246F4CDA00EFFB94 /* LoggingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingController.swift; sourceTree = "<group>"; };
 		AED4E9FE243FD148003C367F /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		AED4EA01243FD3A7003C367F /* PacketTunnelProviderError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PacketTunnelProviderError.swift; sourceTree = "<group>"; };
 		AED4EA04243FD632003C367F /* FileManager+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
 		AED4EA07243FD707003C367F /* IPAddressRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPAddressRange.swift; sourceTree = "<group>"; };
 		AED4EA0D243FDA1D003C367F /* TunnelConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TunnelConfiguration.swift; sourceTree = "<group>"; };
+		AEE57D2D2461F23A005A784E /* NetworkSettingsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSettingsFactory.swift; sourceTree = "<group>"; };
 		B41FE0291DF24BE900E02D17 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		B44390581DC00EA000389352 /* PopoverContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopoverContentView.swift; path = Helpers/PopoverContentView.swift; sourceTree = "<group>"; };
@@ -240,10 +196,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE4CFCCA244134EC006FF16E /* MoonbounceDependencies.framework in Frameworks */,
 				B41FE02C1DF24BF500E02D17 /* ServiceManagement.framework in Frameworks */,
 				B41FE02A1DF24BE900E02D17 /* Security.framework in Frameworks */,
 				AE39BD6822440123007C7C90 /* NetworkExtension.framework in Frameworks */,
+				AE59B9F424CBB2BD00703630 /* Replicant in Frameworks */,
+				AE59B9F624CBB2CA00703630 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,22 +208,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE4CFCC7244134E0006FF16E /* MoonbounceDependencies.framework in Frameworks */,
+				AE59B9F224CBB1C200703630 /* LoggerQueue in Frameworks */,
 				AEFDFD7C2432A112003571DB /* NetworkExtension.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AEB1D9AC243FDD7300C644B6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AEB1D9BE243FDDBF00C644B6 /* Optimizer in Frameworks */,
-				AEB1D9BA243FDDA100C644B6 /* Flow in Frameworks */,
-				AEB1D9B8243FDD9B00C644B6 /* Datable in Frameworks */,
-				AEB1D9C0243FDDC600C644B6 /* SwiftQueue in Frameworks */,
-				AEB1D9BC243FDDB400C644B6 /* Replicant in Frameworks */,
-				AEB1D9C2243FDDCB00C644B6 /* ZIPFoundation in Frameworks */,
-				AE4CFCCE244135E5006FF16E /* libswiftCreateML.dylib in Frameworks */,
+				AE94E51024CB66E0007B552B /* Replicant in Frameworks */,
+				AE94E51624CB6D18007B552B /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,7 +235,6 @@
 				467CB5B51DBEB6E90086E341 /* Moonbounce */,
 				464DA95921E80E80003460D0 /* MoonbounceTests */,
 				469B0A7921DEA5AB003FC2BC /* MoonbounceNetworkExtension */,
-				AEB1D9B0243FDD7300C644B6 /* MoonbounceDependencies */,
 				467CB5B41DBEB6E90086E341 /* Products */,
 				D1943F52C69C7904415E81F0 /* Frameworks */,
 			);
@@ -302,7 +246,6 @@
 				467CB5B31DBEB6E90086E341 /* Moonbounce.app */,
 				469B0A7821DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex */,
 				464DA95821E80E80003460D0 /* MoonbounceTests.xctest */,
-				AEB1D9AF243FDD7300C644B6 /* MoonbounceDependencies.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -354,6 +297,7 @@
 		469B0A7921DEA5AB003FC2BC /* MoonbounceNetworkExtension */ = {
 			isa = PBXGroup;
 			children = (
+				AEE57D2D2461F23A005A784E /* NetworkSettingsFactory.swift */,
 				AE39BD3B22400BFC007C7C90 /* ClientTunnelConnection.swift */,
 				4678C30021DFF5FA00492768 /* PacketTunnelSettingsGenerator.swift */,
 				4678C32621E009DC00492768 /* MoonbounceNetworkExtension-Bridging-Header.h */,
@@ -374,15 +318,6 @@
 				AE0738802232D6E1009E3C4E /* ClientConfig.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		AEB1D9B0243FDD7300C644B6 /* MoonbounceDependencies */ = {
-			isa = PBXGroup;
-			children = (
-				AEB1D9B1243FDD7300C644B6 /* MoonbounceDependencies.h */,
-				AEB1D9B2243FDD7300C644B6 /* Info.plist */,
-			);
-			path = MoonbounceDependencies;
 			sourceTree = "<group>";
 		};
 		AED4E9FD243FD11D003C367F /* Shared */ = {
@@ -409,6 +344,7 @@
 				B4634E321EA15AF40069C1DE /* KeychainController.swift */,
 				4614F2C11F59DE430017B1DD /* ServerController.swift */,
 				AE4D6BAE24462C28002DA1E4 /* VPNPreferencesController.swift */,
+				AE6517F7246F4CDA00EFFB94 /* LoggingController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -425,17 +361,6 @@
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
-
-/* Begin PBXHeadersBuildPhase section */
-		AEB1D9AA243FDD7300C644B6 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AEB1D9B3243FDD7300C644B6 /* MoonbounceDependencies.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		464DA95721E80E80003460D0 /* MoonbounceTests */ = {
@@ -465,16 +390,16 @@
 				467CB5B11DBEB6E90086E341 /* Resources */,
 				B41FE0251DF10A0400E02D17 /* CopyFiles */,
 				469B0A9221DEA5AB003FC2BC /* Embed App Extensions */,
-				AE4CFCCC244134EC006FF16E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				AE4CFCB2243FE3FB006FF16E /* PBXTargetDependency */,
 				469B0A7F21DEA5AB003FC2BC /* PBXTargetDependency */,
 			);
 			name = Moonbounce;
 			packageProductDependencies = (
+				AE59B9F324CBB2BD00703630 /* Replicant */,
+				AE59B9F524CBB2CA00703630 /* ZIPFoundation */,
 			);
 			productName = Moonbounce;
 			productReference = 467CB5B31DBEB6E90086E341 /* Moonbounce.app */;
@@ -492,47 +417,16 @@
 			buildRules = (
 			);
 			dependencies = (
-				AE4CFCB4243FE414006FF16E /* PBXTargetDependency */,
 			);
 			name = MoonbounceNetworkExtension;
 			packageProductDependencies = (
+				AE94E50F24CB66E0007B552B /* Replicant */,
+				AE94E51524CB6D18007B552B /* ZIPFoundation */,
+				AE59B9F124CBB1C200703630 /* LoggerQueue */,
 			);
 			productName = MoonbounceNetworkExtension;
 			productReference = 469B0A7821DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
-		};
-		AEB1D9AE243FDD7300C644B6 /* MoonbounceDependencies */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AEB1D9B6243FDD7300C644B6 /* Build configuration list for PBXNativeTarget "MoonbounceDependencies" */;
-			buildPhases = (
-				AEB1D9AA243FDD7300C644B6 /* Headers */,
-				AEB1D9AB243FDD7300C644B6 /* Sources */,
-				AEB1D9AC243FDD7300C644B6 /* Frameworks */,
-				AEB1D9AD243FDD7300C644B6 /* Resources */,
-				AE4CFCD0244135E5006FF16E /* Embed Libraries */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				AE4CFCC6243FE47A006FF16E /* PBXTargetDependency */,
-				AE4CFCC4243FE475006FF16E /* PBXTargetDependency */,
-				AE4CFCC2243FE470006FF16E /* PBXTargetDependency */,
-				AE4CFCC0243FE460006FF16E /* PBXTargetDependency */,
-				AE4CFCBE243FE457006FF16E /* PBXTargetDependency */,
-				AE4CFCBC243FE450006FF16E /* PBXTargetDependency */,
-			);
-			name = MoonbounceDependencies;
-			packageProductDependencies = (
-				AEB1D9B7243FDD9B00C644B6 /* Datable */,
-				AEB1D9B9243FDDA100C644B6 /* Flow */,
-				AEB1D9BB243FDDB400C644B6 /* Replicant */,
-				AEB1D9BD243FDDBF00C644B6 /* Optimizer */,
-				AEB1D9BF243FDDC600C644B6 /* SwiftQueue */,
-				AEB1D9C1243FDDCB00C644B6 /* ZIPFoundation */,
-			);
-			productName = MoonbounceDependencies;
-			productReference = AEB1D9AF243FDD7300C644B6 /* MoonbounceDependencies.framework */;
-			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -541,19 +435,16 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = operatorfoundation.org;
 				TargetAttributes = {
 					464DA95721E80E80003460D0 = {
 						CreatedOnToolsVersion = 10.1;
-						DevelopmentTeam = 67Y4NSLDQ3;
 						LastSwiftMigration = 1020;
-						ProvisioningStyle = Automatic;
 						TestTargetID = 467CB5B21DBEB6E90086E341;
 					};
 					467CB5B21DBEB6E90086E341 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 67Y4NSLDQ3;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -597,9 +488,6 @@
 							};
 						};
 					};
-					AEB1D9AE243FDD7300C644B6 = {
-						CreatedOnToolsVersion = 11.4;
-					};
 				};
 			};
 			buildConfigurationList = 467CB5AE1DBEB6E90086E341 /* Build configuration list for PBXProject "Moonbounce" */;
@@ -615,14 +503,13 @@
 				AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				AEFDFD6324326298003571DB /* XCRemoteSwiftPackageReference "Datable" */,
 				AEFDFD66243262B4003571DB /* XCRemoteSwiftPackageReference "SwiftQueue" */,
-				AEE62516243BF61B000B9601 /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */,
+				AE94E50E24CB66E0007B552B /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */,
 			);
 			productRefGroup = 467CB5B41DBEB6E90086E341 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				467CB5B21DBEB6E90086E341 /* Moonbounce */,
-				AEB1D9AE243FDD7300C644B6 /* MoonbounceDependencies */,
 				469B0A7721DEA5AB003FC2BC /* MoonbounceNetworkExtension */,
 				464DA95721E80E80003460D0 /* MoonbounceTests */,
 			);
@@ -661,13 +548,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AEB1D9AD243FDD7300C644B6 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -695,6 +575,7 @@
 				4643055B1E0B088700B1DB78 /* ShapeshifterDispatcherController.swift in Sources */,
 				464305621E0B369700B1DB78 /* TerraformController.swift in Sources */,
 				AE0738952232D6E1009E3C4E /* ClientConfig.swift in Sources */,
+				AE6517F8246F4CDA00EFFB94 /* LoggingController.swift in Sources */,
 				467CB5C91DBEB9730086E341 /* EventMonitor.swift in Sources */,
 				AED4EA02243FD3A7003C367F /* PacketTunnelProviderError.swift in Sources */,
 				AE07389D2232E0C2009E3C4E /* MoonbounceConfig.swift in Sources */,
@@ -728,18 +609,12 @@
 				AED4EA09243FD707003C367F /* IPAddressRange.swift in Sources */,
 				AED4EA06243FD632003C367F /* FileManager+Extension.swift in Sources */,
 				AE4D6BB12447B962002DA1E4 /* ConfigController.swift in Sources */,
+				AEE57D2E2461F23A005A784E /* NetworkSettingsFactory.swift in Sources */,
 				AE4D6BAD24452FA0002DA1E4 /* NEVPNStatus+Extension.swift in Sources */,
 				AE0738962232D6E1009E3C4E /* ClientConfig.swift in Sources */,
 				AE07389B2232D739009E3C4E /* Tunnel.swift in Sources */,
 				AED4EA0F243FDA1D003C367F /* TunnelConfiguration.swift in Sources */,
 				AE13587D21FBB74C00E81823 /* TunnelErrors.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AEB1D9AB243FDD7300C644B6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -755,40 +630,6 @@
 			isa = PBXTargetDependency;
 			target = 469B0A7721DEA5AB003FC2BC /* MoonbounceNetworkExtension */;
 			targetProxy = 469B0A7E21DEA5AB003FC2BC /* PBXContainerItemProxy */;
-		};
-		AE4CFCB2243FE3FB006FF16E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = AEB1D9AE243FDD7300C644B6 /* MoonbounceDependencies */;
-			targetProxy = AE4CFCB1243FE3FB006FF16E /* PBXContainerItemProxy */;
-		};
-		AE4CFCB4243FE414006FF16E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = AEB1D9AE243FDD7300C644B6 /* MoonbounceDependencies */;
-			targetProxy = AE4CFCB3243FE414006FF16E /* PBXContainerItemProxy */;
-		};
-		AE4CFCBC243FE450006FF16E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = AE4CFCBB243FE450006FF16E /* Replicant */;
-		};
-		AE4CFCBE243FE457006FF16E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = AE4CFCBD243FE457006FF16E /* Optimizer */;
-		};
-		AE4CFCC0243FE460006FF16E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = AE4CFCBF243FE460006FF16E /* Flow */;
-		};
-		AE4CFCC2243FE470006FF16E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = AE4CFCC1243FE470006FF16E /* ZIPFoundation */;
-		};
-		AE4CFCC4243FE475006FF16E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = AE4CFCC3243FE475006FF16E /* Datable */;
-		};
-		AE4CFCC6243FE47A006FF16E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = AE4CFCC5243FE47A006FF16E /* SwiftQueue */;
 		};
 /* End PBXTargetDependency section */
 
@@ -812,7 +653,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
@@ -827,6 +668,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.operatorFoundation.MoonbounceTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Moonbounce.app/Contents/MacOS/Moonbounce";
 			};
@@ -840,7 +682,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
@@ -854,6 +696,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.operatorFoundation.MoonbounceTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Moonbounce.app/Contents/MacOS/Moonbounce";
 			};
@@ -981,6 +824,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Moonbounce/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1012,6 +857,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Moonbounce/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1043,6 +890,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = MoonbounceNetworkExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1077,6 +925,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = MoonbounceNetworkExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1093,77 +942,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "MoonbounceNetworkExtension/MoonbounceNetworkExtension-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		AEB1D9B4243FDD7300C644B6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = MoonbounceDependencies/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.org.OperatorFoundation.MoonbounceDependencies;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		AEB1D9B5243FDD7300C644B6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = MoonbounceDependencies/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.org.OperatorFoundation.MoonbounceDependencies;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -1206,24 +984,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AEB1D9B6243FDD7300C644B6 /* Build configuration list for PBXNativeTarget "MoonbounceDependencies" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AEB1D9B4243FDD7300C644B6 /* Debug */,
-				AEB1D9B5243FDD7300C644B6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		AEE62516243BF61B000B9601 /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */ = {
+		AE94E50E24CB66E0007B552B /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/OperatorFoundation/Shapeshifter-Swift-Transports";
+			repositoryURL = "https://github.com/OperatorFoundation/Shapeshifter-Swift-Transports.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.5.1;
+				minimumVersion = 2.2.5;
 			};
 		};
 		AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
@@ -1239,7 +1008,7 @@
 			repositoryURL = "https://github.com/OperatorFoundation/Datable";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 3.0.0;
 			};
 		};
 		AEFDFD66243262B4003571DB /* XCRemoteSwiftPackageReference "SwiftQueue" */ = {
@@ -1253,62 +1022,27 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		AE4CFCBB243FE450006FF16E /* Replicant */ = {
+		AE59B9F124CBB1C200703630 /* LoggerQueue */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AEE62516243BF61B000B9601 /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */;
+			package = AE94E50E24CB66E0007B552B /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */;
+			productName = LoggerQueue;
+		};
+		AE59B9F324CBB2BD00703630 /* Replicant */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE94E50E24CB66E0007B552B /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */;
 			productName = Replicant;
 		};
-		AE4CFCBD243FE457006FF16E /* Optimizer */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AEE62516243BF61B000B9601 /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */;
-			productName = Optimizer;
-		};
-		AE4CFCBF243FE460006FF16E /* Flow */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AEE62516243BF61B000B9601 /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */;
-			productName = Flow;
-		};
-		AE4CFCC1243FE470006FF16E /* ZIPFoundation */ = {
+		AE59B9F524CBB2CA00703630 /* ZIPFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
 			productName = ZIPFoundation;
 		};
-		AE4CFCC3243FE475006FF16E /* Datable */ = {
+		AE94E50F24CB66E0007B552B /* Replicant */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AEFDFD6324326298003571DB /* XCRemoteSwiftPackageReference "Datable" */;
-			productName = Datable;
-		};
-		AE4CFCC5243FE47A006FF16E /* SwiftQueue */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AEFDFD66243262B4003571DB /* XCRemoteSwiftPackageReference "SwiftQueue" */;
-			productName = SwiftQueue;
-		};
-		AEB1D9B7243FDD9B00C644B6 /* Datable */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AEFDFD6324326298003571DB /* XCRemoteSwiftPackageReference "Datable" */;
-			productName = Datable;
-		};
-		AEB1D9B9243FDDA100C644B6 /* Flow */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AEE62516243BF61B000B9601 /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */;
-			productName = Flow;
-		};
-		AEB1D9BB243FDDB400C644B6 /* Replicant */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AEE62516243BF61B000B9601 /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */;
+			package = AE94E50E24CB66E0007B552B /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */;
 			productName = Replicant;
 		};
-		AEB1D9BD243FDDBF00C644B6 /* Optimizer */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AEE62516243BF61B000B9601 /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */;
-			productName = Optimizer;
-		};
-		AEB1D9BF243FDDC600C644B6 /* SwiftQueue */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AEFDFD66243262B4003571DB /* XCRemoteSwiftPackageReference "SwiftQueue" */;
-			productName = SwiftQueue;
-		};
-		AEB1D9C1243FDDCB00C644B6 /* ZIPFoundation */ = {
+		AE94E51524CB6D18007B552B /* ZIPFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
 			productName = ZIPFoundation;

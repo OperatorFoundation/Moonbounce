@@ -66,7 +66,7 @@ public class ClientConfig: NSObject, Codable, NSSecureCoding
         }
         catch (let error)
         {
-            print("Failed to encode Server config into JSON format: \(error)")
+            appLog.error("Failed to encode Server config into JSON format: \(error)")
             return nil
         }
     }
@@ -100,7 +100,7 @@ public class ClientConfig: NSObject, Codable, NSSecureCoding
         }
         catch (let error)
         {
-            print("\nUnable to decode JSON into ClientConfig: \(error)\n")
+            appLog.error("\nUnable to decode JSON into ClientConfig: \(error)\n")
             return nil
         }
     }

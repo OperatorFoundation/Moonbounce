@@ -18,7 +18,7 @@ class ShapeshifterDispatcherController: NSObject
     {
         if let arguments = shapeShifterDispatcherArguments()
         {
-            print("👀 LaunchShapeShifterDispatcher Args:\n \(arguments) 👀")
+            appLog.debug("👀 LaunchShapeShifterDispatcher Args:\n \(arguments) 👀")
             
             if launchTask == nil
             {
@@ -41,13 +41,13 @@ class ShapeshifterDispatcherController: NSObject
             }
             catch let runError
             {
-                print("Failed to launch dispatcher: \(runError)")
+                appLog.error("Failed to launch dispatcher: \(runError)")
                 return
             }
         }
         else
         {
-            print("Could not create/find the transport state directory path, which is required.")
+            appLog.error("Could not create/find the transport state directory path, which is required.")
         }
     }
     
@@ -140,7 +140,7 @@ class ShapeshifterDispatcherController: NSObject
                 catch let theError
                 {
                     // Handle the error.
-                    print(theError)
+                    appLog.error("\(theError)")
                 }
                 
                 //Application Queue Directory
@@ -152,7 +152,7 @@ class ShapeshifterDispatcherController: NSObject
                 }
                 catch let queueDirError
                 {
-                    print(queueDirError)
+                    appLog.error("\(queueDirError)")
                 }
                 
                 return stateDirectoryPath.path

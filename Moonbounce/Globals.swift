@@ -7,7 +7,10 @@
 //
 
 import Cocoa
+import Logging
 import Network
+
+var appLog = Logger(label: "org.OperatorFoundation.Moonbounce.MacOS")
 
 let mbPink = NSColor(red:0.92, green:0.55, blue:0.73, alpha:1.0)
 let mbDarkBlue = NSColor(red:0.00, green:0.06, blue:0.16, alpha:1.0)
@@ -55,7 +58,7 @@ var userHost: NWEndpoint.Host?
     {
         if userHost != nil
         {
-            print("Changed Global var for server IP: \(userHost!)")
+            appLog.debug("Changed Global var for server IP: \(userHost!)")
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: kServerIPAvailableNotification), object: userHost!)
         }
     }
@@ -65,7 +68,7 @@ var isConnected = ConnectState(state: .start, stage: .start)
 {
     didSet
     {
-        print("Changed Global var for connection status: \(isConnected)")
+        appLog.debug("Changed Global var for connection status: \(isConnected)")
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: kConnectionStatusNotification), object: isConnected)
     }
 }

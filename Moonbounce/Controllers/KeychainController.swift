@@ -40,7 +40,7 @@ public class KeychainController: NSObject
         guard let dataFromString = data.data(using: String.Encoding.utf8, allowLossyConversion: false)
         else
         {
-            print("Unable to save data to keychain: string to data conversion failed.")
+            appLog.error("Unable to save data to keychain: string to data conversion failed.")
             return
         }
         
@@ -80,7 +80,7 @@ public class KeychainController: NSObject
             }
             else
             {
-                print("No token was found in the keychain.")
+                appLog.debug("No token was found in the keychain.")
             }
         }
         

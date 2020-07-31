@@ -31,7 +31,7 @@ import Network
 //
 //            if let error = maybeError
 //            {
-//                print("Error initializing tunnel model: \(error)")
+//                appLog.error("Error initializing tunnel model: \(error)")
 //            }
 //        }
 //    }
@@ -41,7 +41,7 @@ import Network
 ////        guard let protocolConfig = targetManager.protocolConfiguration as? NETunnelProviderProtocol
 ////        else
 ////        {
-////            print("Attempted to initialize tunnel configuration with a target manager that has no protocol configuration.")
+////            appLog.error("Attempted to initialize tunnel configuration with a target manager that has no protocol configuration.")
 ////            return nil
 ////        }
 //        
@@ -60,14 +60,14 @@ import Network
 //        
 //            if let error = maybeError
 //            {
-//                print("\nError loading from preferences!\(error)\n")
+//                appLog.error("\nError loading from preferences!\(error)\n")
 //                completionHandler(error)
 //                return
 //            }
 //            
 //            let protocolConfiguration: NETunnelProviderProtocol = NETunnelProviderProtocol()
 //            let appId = Bundle.main.bundleIdentifier!
-//            print("\n----->Setting the providerBundleIdentifier to \(appId).NetworkExtension")
+//            appLog.debug("\n----->Setting the providerBundleIdentifier to \(appId).NetworkExtension")
 //            protocolConfiguration.providerBundleIdentifier = "\(appId).NetworkExtension"
 //            protocolConfiguration.serverAddress = "\(moonbounceConfig.clientConfig.host)"
 //            newManager.localizedDescription = moonbounceConfig.name
@@ -91,7 +91,7 @@ import Network
 //                    Keys.clientConfigKey.rawValue: clientConfigJSON,
 //                    Keys.replicantConfigKey.rawValue: replicantConfigJSON,
 //                    Keys.tunnelNameKey.rawValue: moonbounceConfig.name]
-//                print("\nproviderConfiguration: \(protocolConfiguration.providerConfiguration!)\n")
+//                appLog.debug("\nproviderConfiguration: \(protocolConfiguration.providerConfiguration!)\n")
 //            }
 //            else
 //            {
@@ -107,7 +107,7 @@ import Network
 //                guard maybeError == nil
 //                    else
 //                {
-//                    print("\nFailed to save the configuration: \(maybeError!)\n")
+//                    appLog.error("\nFailed to save the configuration: \(maybeError!)\n")
 //                    completionHandler(maybeError)
 //                    return
 //                }
@@ -118,7 +118,7 @@ import Network
 //                    
 //                    if let error = maybeError
 //                    {
-//                        print("\nError loading from preferences!\(error)\n")
+//                        appLog.error("\nError loading from preferences!\(error)\n")
 //                        completionHandler(error)
 //                        return
 //                    }
@@ -149,7 +149,7 @@ import Network
 ////            guard maybeError == nil
 ////                else
 ////            {
-////                print("\nFailed to save the configuration: \(maybeError!)\n")
+////                appLog.error("\nFailed to save the configuration: \(maybeError!)\n")
 ////                completionHandler(maybeError)
 ////                return
 ////            }
@@ -160,7 +160,7 @@ import Network
 ////
 ////                if let error = maybeError
 ////                {
-////                    print("\nError loading from preferences!\(error)\n")
+////                    appLog.error("\nError loading from preferences!\(error)\n")
 ////                    completionHandler(error)
 ////                    return
 ////                }

@@ -38,7 +38,7 @@ class PacketTunnelSettingsGenerator
         
         if let replicantConfig = tunnelConfiguration.replicantConfiguration
         {
-            if let polish = replicantConfig.polish as? SilverClientConfig
+            if let polish = replicantConfig.polish
             {
                 networkSettings.mtu = NSNumber(value: polish.chunkSize)
             }            
@@ -89,9 +89,9 @@ class PacketTunnelSettingsGenerator
              */
             ipv6Routes.append(NEIPv6Route(destinationAddress: "\(address)", networkPrefixLength: 128))
         case .name(let name, _):
-            print("\nUnable to resolve included routes: host was a domain name which is currently unsupported - \(name)\n")
+            appLog.error("\nUnable to resolve included routes: host was a domain name which is currently unsupported - \(name)\n")
         default:
-            print("\nUnable to resolve included routes: host was an unknown type.")
+            appLog.error("\nUnable to resolve included routes: host was an unknown type.")
         }
 
         return (ipv4Routes, ipv6Routes)
@@ -111,9 +111,9 @@ class PacketTunnelSettingsGenerator
         case .ipv6(let address):
             ipv6IncludedRoutes.append(NEIPv6Route(destinationAddress: "\(address)", networkPrefixLength: 128))
         case .name(let name, _):
-            print("\nUnable to resolve included routes: host was a domain name which is currently unsupported - \(name)\n")
+            appLog.error("\nUnable to resolve included routes: host was a domain name which is currently unsupported - \(name)\n")
         default:
-            print("\nUnable to resolve included routes: host was of unknown type.")
+            appLog.error("\nUnable to resolve included routes: host was of unknown type.")
         }
         
         return (ipv4IncludedRoutes, ipv6IncludedRoutes)

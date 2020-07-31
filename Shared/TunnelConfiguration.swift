@@ -17,10 +17,10 @@ final class TunnelConfiguration: NSObject
     var tunnelProviderProtocol: NETunnelProviderProtocol
     var name: String?
     var directory: URL?
-    var replicantConfiguration: ReplicantConfig?
+    var replicantConfiguration: ReplicantConfig<SilverClientConfig>?
     var clientConfig: ClientConfig
     
-    init(name: String?, clientConfig: ClientConfig, replicantConfig: ReplicantConfig? = nil, directory: URL? = nil)
+    init(name: String?, clientConfig: ClientConfig, replicantConfig: ReplicantConfig<SilverClientConfig>? = nil, directory: URL? = nil)
     {
         self.name = name
         self.replicantConfiguration = replicantConfig
@@ -34,8 +34,7 @@ final class TunnelConfiguration: NSObject
         let vpnConfig = [Keys.providerBundleIDConfigKey.rawValue: tunnelProviderProtocol.providerBundleIdentifier,
                          Keys.vpnType.rawValue: "VPN",
                          Keys.vpnSubType.rawValue: tunnelProviderProtocol.providerBundleIdentifier]
-        print("\nappID = \(appId)")
-        print("provider id = \(String(describing: tunnelProviderProtocol.providerBundleIdentifier))\n")
+        appLog.debug("\nappID = \(appId)")
         
         if replicantConfig != nil
         {
@@ -64,7 +63,7 @@ final class TunnelConfiguration: NSObject
             return nil
         }
         
-        if let replicantConfig = maybeReplicantConfig as? ReplicantConfig
+        if let replicantConfig = maybeReplicantConfig as? ReplicantConfig<SilverClientConfig>
         {
             self.init(name: name, clientConfig: clientConfig, replicantConfig: replicantConfig)
         }

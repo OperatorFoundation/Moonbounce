@@ -23,21 +23,21 @@ class TerraformController: NSObject
         guard let terrPath = bundle.path(forResource: "terraform", ofType: nil)
         else
         {
-            print("Unable to launch terraform server. Could not find terraform executable.")
+            appLog.error("Unable to launch terraform server. Could not find terraform executable.")
             return
         }
         
         guard let path = bundle.path(forResource: "LaunchTerraformScript", ofType: "sh")
         else
         {
-            print("Unable to launch Terraform server. Could not find the script.")
+            appLog.error("Unable to launch Terraform server. Could not find the script.")
             return
         }
         
         guard let shapeshifterServerPath = Bundle.main.path(forResource: "shapeshifter-server", ofType: nil)
         else
         {
-            print("Unable to launch terraform server. Could not find shapeshifter server executable.")
+            appLog.error("Unable to launch terraform server. Could not find shapeshifter server executable.")
             return
         }
         
@@ -53,8 +53,8 @@ class TerraformController: NSObject
                 guard let clientConfig = ClientConfig(withConfigAtPath: self.clientConfigURL.path)
                 else
                 {
-                    print("Unable to locate the new user server IP at: \(self.clientConfigURL))")
-                    print("Perhaps we were unable to launch a new DO server.")
+                    appLog.error("Unable to locate the new user server IP at: \(self.clientConfigURL))")
+                    appLog.error("Perhaps we were unable to launch a new DO server.")
                     completion(false)
                     return
                 }
@@ -69,21 +69,21 @@ class TerraformController: NSObject
     {
         guard let path = Bundle.main.path(forResource: "DestroyTerraform", ofType: "sh") else
         {
-            print("Unable to destroy Terraform server. Could not find the script.")
+            appLog.error("Unable to destroy Terraform server. Could not find the script.")
             return
         }
         
         guard let terrPath = Bundle.main.path(forResource: "terraform", ofType: nil)
             else
         {
-            print("Unable to launch terraform server. Could not find terraform executable.")
+            appLog.error("Unable to launch terraform server. Could not find terraform executable.")
             return
         }
         
         guard let shapeshifterServerPath  = Bundle.main.path(forResource: "shapeshifter-server", ofType: nil)
             else
         {
-            print("Unable to launch terraform server. Could not find shapeshifter server executable.")
+            appLog.error("Unable to launch terraform server. Could not find shapeshifter server executable.")
             return
         }
         
@@ -114,7 +114,7 @@ class TerraformController: NSObject
                 }
                 catch let error as NSError
                 {
-                    print("Error deleting IP file: \(error.debugDescription)")
+                    appLog.error("Error deleting IP file: \(error.debugDescription)")
                 }
                 
                 completion(didDestroy)
@@ -137,7 +137,7 @@ class TerraformController: NSObject
                 //Main Thread Stuff Here If Needed
                 DispatchQueue.main.async(execute:
                 {
-                    print("Terraform Script Has Terminated.")
+                    appLog.error("Terraform Script Has Terminated.")
                     
                     //TODO: Fetch the new server IP
                     
@@ -153,7 +153,7 @@ class TerraformController: NSObject
             }
             catch let runError
             {
-                print("Failed to launch terraform: \(runError)")
+                appLog.error("Failed to launch terraform: \(runError)")
             }
             
             self.terraformTask.launch()
@@ -178,7 +178,7 @@ class TerraformController: NSObject
             
             DispatchQueue.main.async(execute:
             {
-                print("\nTerraform Standard Output:\n \(String(describing: outputString))\n")
+                appLog.debug("\nTerraform Standard Output:\n \(String(describing: outputString))\n")
             })
         }
         
@@ -191,7 +191,7 @@ class TerraformController: NSObject
         guard let path = bundle.path(forResource: "vars", ofType: nil)
             else
         {
-            print("Unable to copy vars template, template could not be found in the app bundle.")
+            appLog.error("Unable to copy vars template, template could not be found in the app bundle.")
             return
         }
         
@@ -200,7 +200,7 @@ class TerraformController: NSObject
             guard let shapeshifterServerPath = bundle.path(forResource: "shapeshifter-server", ofType: nil)
             else
             {
-                print("Unable to copy vars template as the shapeshifter server directory could not be found.")
+                appLog.error("Unable to copy vars template as the shapeshifter server directory could not be found.")
                 return
             }
             let shapeshifterServerVarsPath = shapeshifterServerPath.appending("/vars")
@@ -215,8 +215,8 @@ class TerraformController: NSObject
                 }
                 catch
                 {
-                    print("Vars file already exists at path:\n\(shapeshifterServerVarsPath)")
-                    print("Unable to delete existing vars file:\n\(error.localizedDescription)")
+                    appLog.error("Vars file already exists at path:\n\(shapeshifterServerVarsPath)")
+                    appLog.error("Unable to delete existing vars file:\n\(error.localizedDescription)")
                 }
             }
             
@@ -239,18 +239,18 @@ class TerraformController: NSObject
                     }
                     else
                     {
-                        print("Can't open file handle for updating vars file.")
+                        appLog.error("Can't open file handle for updating vars file.")
                     }
                 }
                 else
                 {
-                    print("Unable to convert new vars lines to data to append")
+                    appLog.error("Unable to convert new vars lines to data to append")
                 }
             }
         }
         catch
         {
-            print("Unable to copy vars template to shapeshifter server directory:\n \(error)")
+            appLog.error("Unable to copy vars template to shapeshifter server directory:\n \(error)")
         }
     }
     

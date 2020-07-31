@@ -7,9 +7,9 @@
 //
 
 import Foundation
+import Logging
 import NetworkExtension
 import Replicant
-import SwiftQueue
 import Flower
 
 /// An object used to tunnel IP packets using the SimpleTunnel protocol.
@@ -17,19 +17,17 @@ public class ClientTunnelConnection
 {
     /// The flow of IP packets.
     let packetFlow: NEPacketTunnelFlow
-    
-    /// A Queue of Log Messages
-    var logQueue = Queue<String>()
+    let log: Logger
     let replicantConnection: ReplicantConnection
     
     // MARK: Initializers
     
-    init(clientPacketFlow: NEPacketTunnelFlow, replicantConnection: ReplicantConnection, logQueue: Queue<String>)
+    init(clientPacketFlow: NEPacketTunnelFlow, replicantConnection: ReplicantConnection, logger: Logger)
     {
-        self.logQueue = logQueue
+        self.log = logger
         self.packetFlow = clientPacketFlow
         self.replicantConnection = replicantConnection
-        self.logQueue.enqueue("Initialized ClientTunnelConnection")
+        logger.debug("Initialized ClientTunnelConnection")
     }
 
     // MARK: Interface
@@ -37,7 +35,7 @@ public class ClientTunnelConnection
     /// Handle packets coming from the packet flow.
     func handlePackets()
     {
-        logQueue.enqueue("Handle Packets Called")
+        log.debug("Handle Packets Called")
         // This is where you should send the packets to the server.
 
         // Read more packets.
@@ -45,7 +43,7 @@ public class ClientTunnelConnection
         {
             (inPackets, inProtocols) in
 
-            self.logQueue.enqueue("Reached the readPackets callback :)")
+            self.log.debug("Reached the readPackets callback :)")
             
             let packages = zip(inPackets, inProtocols)
 
@@ -55,12 +53,12 @@ public class ClientTunnelConnection
                 switch prot
                 {
                 case NSNumber(value: AF_INET):
-                    self.logQueue.enqueue("Ipv4 protocol")
+                    self.log.debug("Ipv4 protocol")
 
                     // Encapsulates packages into Messages (using Flower)
-                    self.logQueue.enqueue("packet: \(packet)")
+                    self.log.debug("packet: \(packet)")
                     let message = Message.IPDataV4(packet)
-                    self.logQueue.enqueue("🌷 encapsulated into Flower Message: \(message.description) 🌷")
+                    self.log.debug("🌷 encapsulated into Flower Message: \(message.description) 🌷")
                     
                     self.replicantConnection.writeMessage(message: message, completion:
                     {
@@ -68,11 +66,11 @@ public class ClientTunnelConnection
 
                         if let error = maybeError
                         {
-                            self.logQueue.enqueue("Error writing message: \(error)")
+                            self.log.error("Error writing message: \(error)")
                         }
                     })
                 case NSNumber(value: AF_INET6):
-                    self.logQueue.enqueue("IPv6 protocol")
+                    self.log.debug("IPv6 protocol")
                     let message = Message.IPDataV6(packet)
                     self.replicantConnection.writeMessage(message: message, completion:
                     {
@@ -80,11 +78,11 @@ public class ClientTunnelConnection
 
                         if let error = maybeError
                         {
-                            self.logQueue.enqueue("Error writing message: \(error)")
+                            self.log.error("Error writing message: \(error)")
                         }
                     })
                 default:
-                    self.logQueue.enqueue("Unsupported protocol type: \(prot)")
+                    self.log.error("Unsupported protocol type: \(prot)")
                 }
             }
 
@@ -95,7 +93,7 @@ public class ClientTunnelConnection
     /// Make the initial readPacketsWithCompletionHandler call.
     func startHandlingPackets()
     {
-        logQueue.enqueue("Start handling packets called.")
+        log.debug("Start handling packets called.")
         DispatchQueue.global(qos: .userInitiated).async
         {
             self.handlePackets()
@@ -112,19 +110,19 @@ public class ClientTunnelConnection
     {
         replicantConnection.readMessages
         {
-            message in
+            (message) in
 
-            print("🌷 replicantConnection.readMessages callback message: \(message.description) 🌷")
+            self.log.debug("🌷 replicantConnection.readMessages callback message: \(message.description) 🌷")
             switch message
             {
             case .IPDataV4(let data):
-                self.logQueue.enqueue("IPDataV4 calling write packets.")
+                self.log.debug("IPDataV4 calling write packets.")
                 self.packetFlow.writePackets([data], withProtocols: [4])
             case .IPDataV6(let data):
-                self.logQueue.enqueue("IPDataV6 calling write packets.")
+                self.log.debug("IPDataV6 calling write packets.")
                 self.packetFlow.writePackets([data], withProtocols: [6])
             default:
-                self.logQueue.enqueue("unsupported message type")
+                self.log.error("unsupported message type")
             }
         }
     }

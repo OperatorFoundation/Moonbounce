@@ -7,12 +7,11 @@
 //
 
 import Foundation
+import Logging
 import NetworkExtension
 
 class LoggingController
 {
-    static let shared = LoggingController()
-    
     var loggingEnabled = true
     
     // This allows us to see print statements for debugging
@@ -23,7 +22,7 @@ class LoggingController
         guard let vpnPreference = VPNPreferencesController.shared.maybeVPNPreference
         else
         {
-            print("\nUnable to start communications with extension, vpnPreference is nil.\n")
+            appLog.error("\nUnable to start communications with extension, vpnPreference is nil.\n")
             return
         }
         
@@ -31,16 +30,16 @@ class LoggingController
         guard let session = vpnPreference.connection as? NETunnelProviderSession
             else
         {
-            print("\nStart logging loop failed:")
-            print("Unable to send a message, vpnPreference.connection could not be unwrapped as a NETunnelProviderSession.")
-            print("\(vpnPreference.connection)\n")
+            appLog.error("\nStart logging loop failed:")
+            appLog.error("Unable to send a message, vpnPreference.connection could not be unwrapped as a NETunnelProviderSession.")
+            appLog.error("\(vpnPreference.connection)\n")
             return
         }
         
         guard vpnPreference.connection.status != .invalid
             else
         {
-            print("\nInvalid connection status")
+            appLog.error("\nInvalid connection status")
             return
         }
         
@@ -54,7 +53,7 @@ class LoggingController
                 if vpnPreference.connection.status != currentStatus
                 {
                     currentStatus = vpnPreference.connection.status
-                    print("\nCurrent Status Changed: \(currentStatus.stringValue)\n")
+                    appLog.debug("\nCurrent Status Changed: \(currentStatus.stringValue)\n")
                     self.updateStatus(state: vpnPreference.connection.status)
                 }
                 
@@ -75,7 +74,7 @@ class LoggingController
                             let responseString: String = NSString(data: response!, encoding: String.Encoding.utf8.rawValue)! as String
                             if responseString != ""
                             {
-                                print(responseString)
+                                appLog.debug("\(responseString)")
                             }
                         }
                     }

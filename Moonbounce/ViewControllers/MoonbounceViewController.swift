@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Logging
 import Replicant
 import ReplicantSwift
 import Network
@@ -43,6 +44,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     let advancedMenuHeight: CGFloat = 176.0
     //let tunnelController = TunnelController()
     let configController = ConfigController()
+    
     
     //@objc dynamic var serverManagerReady = false
     var userServerIsConnected = false
@@ -87,7 +89,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     
 //    func serverManagerNotificationReceived(notification: Notification)
 //    {
-//        print("\nSERVER MANAGER READY\n")
+//        appLogdebug("\nSERVER MANAGER READY\n")
 //        // TODO: Address possible race condition
 //        self.serverManagerReady = true
 //        serverManager.refreshServers
@@ -108,14 +110,14 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 case .start:
                     self.connect()
                 default:
-                    print("Error: Connected state of Start but Stage is \(isConnected.stage)")
+                    appLog.error("Error: Connected state of Start but Stage is \(isConnected.stage)")
                 }
             case .trying:
                 switch isConnected.stage
                 {
                     case .start:
                         //Should Not Happen
-                        print("Error: Connected state of Trying but Stage is Start")
+                        appLog.error("Error: Connected state of Trying but Stage is Start")
                     default:
                         //Terminate Dispatcher Task & Kill OpenVPN & Management
                         disconnect()
@@ -159,13 +161,13 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 //                if let tunnel = menuItem.representedObject as? Tunnel
 //                {
 //                    setSelectedServer(tunnel: tunnel)
-//                    print("Setting selected server \(selectedItemTitle)")
+//                    appLog.debug("Setting selected server \(selectedItemTitle)")
 //                }
 //            }
         }
         else
         {
-            print("Unable to understand server selection, we could not get an item title from the popup button.")
+            appLog.error("Unable to understand server selection, we could not get an item title from the popup button.")
         }
     }
     
@@ -194,7 +196,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                     guard let confController = self.configController, confController.addConfig(atURL: chosenDirectory)
                         else
                     {
-                        print("Failed to add a selected config to the config controller.")
+                        appLog.debug("Failed to add a selected config to the config controller.")
                         return
                     }
                 }
@@ -211,14 +213,14 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 //        guard let tunnel = selectedTunnel
 //            else
 //        {
-//            print("\nUnable to share server. Current server not found.\n")
+//            appLog.error("\nUnable to share server. Current server not found.\n")
 //            return
 //        }
 //
 //        guard tunnel.name != defaultTunnelName
 //        else
 //        {
-//            print("\nAttempted to share default server...\n")
+//            appLog.error("\nAttempted to share default server...\n")
 //            return
 //        }
 //
@@ -255,7 +257,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 //                }
 //                catch
 //                {
-//                    print("\nUnable to zip config directory for export!\n")
+//                    appLog.error("\nUnable to zip config directory for export!\n")
 //                }
 //
 //                sender.isEnabled = true
@@ -266,7 +268,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     
     func sharingServicePicker(_ sharingServicePicker: NSSharingServicePicker, sharingServicesForItems items: [Any], proposedSharingServices proposedServices: [NSSharingService]) -> [NSSharingService]
     {
-        print("Share services: \(proposedServices)")
+        appLog.debug("Share services: \(proposedServices)")
         return proposedServices
     }
     
@@ -306,7 +308,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 self.populateServerSelectButton()
                 self.showUserServerStatus()
                 
-                print("Launch server task exited.")
+                appLog.debug("Launch server task exited.")
                 self.cancelLaunchButton.isHidden = true
                 self.launching = false
             }
@@ -364,7 +366,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             self.stopIncrementingProgress()
             self.populateServerSelectButton()
             self.showUserServerStatus()
-            print("Destroy server task exited.")
+            appLog.debug("Destroy server task exited.")
         }
     }
     
@@ -379,12 +381,12 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         let newToken = sender.stringValue
         if newToken == ""
         {
-            print("User entered an empty string for DO token")
+            appLog.error("User entered an empty string for DO token")
             return
         }
         else
         {
-            print("New user token: \(newToken)")
+            appLog.debug("New user token: \(newToken)")
             KeychainController.saveToken(token: sender.stringValue)
             hasDoToken = true
             MoonbounceViewController.terraformController.createVarsFile(token: sender.stringValue)
@@ -412,7 +414,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         guard let controller = configController, let moonbounceConfig = controller.getDefaultMoonbounceConfig()
         else
         {
-            print("Unable to connect, unable to load default config.")
+            appLog.error("Unable to connect, unable to load default config.")
             self.runningScript = false
             self.serverSelectButton.isEnabled = true
             self.showStatus()
@@ -425,7 +427,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             
             if let loadError = maybeLoadError
             {
-                print("Unable to connect, error loading from preferences: \(loadError)")
+                appLog.error("Unable to connect, error loading from preferences: \(loadError)")
                 self.runningScript = false
                 self.serverSelectButton.isEnabled = true
                 self.showStatus()
@@ -435,34 +437,36 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             guard let vpnPreference = VPNPreferencesController.shared.maybeVPNPreference
             else
             {
-                print("Unable to connect, vpnPreference is nil.")
+                appLog.error("Unable to connect, vpnPreference is nil.")
                 self.runningScript = false
                 self.serverSelectButton.isEnabled = true
                 self.showStatus()
                 return
             }
             
+            let loggingController = LoggingController()
+            
             if vpnPreference.connection.status == .disconnected || vpnPreference.connection.status == .invalid
             {
-                print("\nConnect pressed, starting logging loop.\n")
-                LoggingController.shared.startLoggingLoop()
+                appLog.debug("\nConnect pressed, starting logging loop.\n")
+                loggingController.startLoggingLoop()
                 
                 do
                 {
-                    print("\nCalling startVPNTunnel on vpnPreference.connection.\n")
+                    appLog.debug("\nCalling startVPNTunnel on vpnPreference.connection.\n")
                     try vpnPreference.connection.startVPNTunnel()
                 }
                 catch
                 {
-                    NSLog("\nFailed to start the VPN: \(error.localizedDescription)\n")
-                    LoggingController.shared.stopLoggingLoop()
+                    appLog.error("\nFailed to start the VPN: \(error.localizedDescription)\n")
+                    loggingController.stopLoggingLoop()
                 }
                 
                 //self.activityIndicator.stopAnimating()
             }
             else
             {
-                LoggingController.shared.stopLoggingLoop()
+                loggingController.stopLoggingLoop()
                 vpnPreference.connection.stopVPNTunnel()
             }
         }
@@ -484,20 +488,20 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 //        guard let tunnel = selectedTunnel
 //            else
 //        {
-//            print("\nunable to find current server IP: current tunnel is not set.\n")
+//            appLog.error("\nunable to find current server IP: current tunnel is not set.\n")
 //            return
 //        }
         guard let vpnPreferences = VPNPreferencesController.shared.maybeVPNPreference
         else
         {
-            print("Unable to find a server IP, our vpnPreference is nil.")
+            appLog.error("Unable to find a server IP, our vpnPreference is nil.")
             return
         }
         
         if let ipString = vpnPreferences.protocolConfiguration?.serverAddress//tunnel.targetManager.protocolConfiguration?.serverAddress
         {
             currentHost = NWEndpoint.Host(ipString)
-            print("Current Server host is: \(currentHost!)")
+            appLog.debug("Current Server host is: \(currentHost!)")
         }
     }
     
@@ -506,14 +510,14 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 //        guard let tunnel = selectedTunnel
 //            else
 //        {
-//            print("Unable to find a tunnel to stop.")
+//            appLog.error("Unable to find a tunnel to stop.")
 //            return
 //        }
         
         guard let vpnPreferences = VPNPreferencesController.shared.maybeVPNPreference
         else
         {
-            print("Unable to find a server IP, our vpnPreference is nil.")
+            appLog.error("Unable to find a server IP, our vpnPreference is nil.")
             return
         }
         
@@ -535,14 +539,14 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             case .start:
                 self.updateStatusUI(connected: false, statusDescription: "Not Connected")
             default:
-                print("Error: Connected state of Start but Stage is \(isConnected.stage)")
+                appLog.error("Error: Connected state of Start but Stage is \(isConnected.stage)")
             }
         case .trying:
             switch isConnected.stage
             {
                 case .start:
                     //Should Not Happen
-                    print("Error: Connected state of Trying but Stage is Start")
+                    appLog.error("Error: Connected state of Trying but Stage is Start")
                 case .dispatcher:
                     self.updateStatusUI(connected: true, statusDescription: "Starting Dispatcher")
                 case .management:
@@ -555,7 +559,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             {
             case .start:
                 //Should Not Happen
-                print("Error: Connected state of Success but Stage is Start")
+                appLog.error("Error: Connected state of Success but Stage is Start")
             case .dispatcher:
                 self.updateStatusUI(connected: true, statusDescription: "Started Dispatcher")
             case .management:
@@ -568,7 +572,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             {
             case .start:
                 //Should Not Happen
-                print("Error: Connected state of Failed but Stage is Start")
+                appLog.error("Error: Connected state of Failed but Stage is Start")
             case .dispatcher:
                 self.updateStatusUI(connected: false, statusDescription: "Failed to start Dispatcher")
             case .management:
@@ -598,7 +602,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 //        }
 //        else
 //        {
-//            print("\nDefault server not found.\n")
+//            appLog.error("\nDefault server not found.\n")
 //        }
 //
 //        //We base availability of a given server on whether a config file in the correct directory exists.
@@ -690,7 +694,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             {
                 hasDoToken = true
                 accountTokenTextField.stringValue = userToken
-                print("******Found a token in keychain!")
+                appLog.debug("******Found a token in keychain!")
             }
         }
         else

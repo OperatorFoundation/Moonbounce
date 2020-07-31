@@ -35,14 +35,14 @@ class  ConfigController
         guard let configController = ConfigController()
         else
         {
-            print("Unable to create default config: Config controller was not initialized correctly.")
+            appLog.error("Unable to create default config: Config controller was not initialized correctly.")
             return nil
         }
 
         guard let dDirectory = configController.get(configDirectory: .defaultDirectory)
         else
         {
-            print("Unable to get default directory.")
+            appLog.error("Unable to get default directory.")
             return nil
         }
 
@@ -55,14 +55,14 @@ class  ConfigController
             }
             catch let error
             {
-                print("Error deleting files in default directory: \(error)")
+                appLog.error("Error deleting files in default directory: \(error)")
             }
         }
 
         guard let moonbounceZip = Bundle.main.url(forResource: "default.moonbounce", withExtension: nil)
         else
          {
-            print("\nUnable to find the default config file in the bundle")
+            appLog.error("\nUnable to find the default config file in the bundle")
             return nil
         }
 
@@ -74,11 +74,11 @@ class  ConfigController
             do
             {
                  let files = try fileManager.contentsOfDirectory(atPath: dDirectory.path)
-                print(files)
+                appLog.debug("\(files)")
             }
             catch let error
             {
-                print("error listing contents of default directory: \(error)")
+                appLog.error("error listing contents of default directory: \(error)")
             }
 
             if let moonbounceConfig = createMoonbounceConfigFromFiles(atURL: dDirectory)
@@ -88,7 +88,7 @@ class  ConfigController
         }
         catch let error
         {
-            print("Error unzipping item: \(error)")
+            appLog.error("Error unzipping item: \(error)")
             return nil
         }
         
@@ -104,7 +104,7 @@ class  ConfigController
         guard let importDirectory = get(configDirectory: .importedDirectory)
         else
         {
-            print("Unable to get the config directory")
+            appLog.error("Unable to get the config directory")
             return false
         }
 
@@ -126,7 +126,7 @@ class  ConfigController
                 }
                 catch let error
                 {
-                    print("Error unzipping item: \(error)")
+                    appLog.error("Error unzipping item: \(error)")
                     return false
                 }
             }
@@ -144,7 +144,7 @@ class  ConfigController
         }
         catch let error
         {
-            print("\nError deleting config at \(url): \(error)\n")
+            appLog.error("\nError deleting config at \(url): \(error)\n")
             return false
         }
     }
@@ -161,7 +161,7 @@ class  ConfigController
             {
                 (url, error) -> Bool in
                 
-                print("File enumerator error at \(configURL.path): \(error.localizedDescription)")
+                appLog.error("File enumerator error at \(configURL.path): \(error.localizedDescription)")
                 return true
             })
             {
@@ -186,15 +186,15 @@ class  ConfigController
                         
                     else
                     {
-                        print("Unable to create replicant config from file at \(configURL.appendingPathComponent(file1))")
+                        appLog.error("Unable to create replicant config from file at \(configURL.appendingPathComponent(file1))")
                         
                         return false
                     }
                     
                     // FIXME: Replicant Config from JSON
                     //let replicantConfig = ReplicantConfig(withConfigAtPath: configURL.appendingPathComponent(file1).path)
-                    
-                    let moonbounceConfig = MoonbounceConfig(name: configURL.lastPathComponent, clientConfig: clientConfig, replicantConfig: nil)
+                    let replicantConfig: ReplicantConfig<SilverClientConfig>? = nil
+                    let moonbounceConfig = MoonbounceConfig(name: configURL.lastPathComponent, clientConfig: clientConfig, replicantConfig: replicantConfig)
                     
                     self.configs.append(moonbounceConfig)
                     
@@ -247,7 +247,7 @@ class  ConfigController
         }
         catch let error
         {
-            print("Error creating \(configDirectory.rawValue): \(error)")
+            appLog.error("Error creating \(configDirectory.rawValue): \(error)")
             return nil
         }
     }
@@ -261,11 +261,11 @@ class  ConfigController
                                                            includingPropertiesForKeys: [.nameKey],
                                                            options: [.skipsHiddenFiles],
                                                            errorHandler:
-                {
-                    (url, error) -> Bool in
-                    
-                    print("File enumerator error at \(configURL.path): \(error.localizedDescription)")
-                    return true
+            {
+                (url, error) -> Bool in
+                
+                appLog.error("File enumerator error at \(configURL.path): \(error.localizedDescription)")
+                return true
             })
             {
                 //Verify  that each of the following files are present as all config files are neccessary for successful connection:
@@ -290,7 +290,7 @@ class  ConfigController
                         
                         else
                     {
-                        print("Unable to create replicant config from file at \(configURL.appendingPathComponent(file1))")
+                        appLog.error("Unable to create replicant config from file at \(configURL.appendingPathComponent(file1))")
                         
                         return nil
                     }
@@ -319,7 +319,7 @@ class  ConfigController
         guard let providerConfiguration = protocolConfiguration.providerConfiguration
             else
         {
-            print("\nAttempted to initialize a tunnel with a protocol config that does not have a provider config (no replicant or client configs).")
+            appLog.error("\nAttempted to initialize a tunnel with a protocol config that does not have a provider config (no replicant or client configs).")
             return nil
         }
         
@@ -328,7 +328,7 @@ class  ConfigController
 //        guard let replicantConfigJSON = providerConfiguration[Keys.replicantConfigKey.rawValue] as? Data
 //            else
 //        {
-//            print("Unable to get ReplicantConfig JSON from provider config")
+//            appLog.error("Unable to get ReplicantConfig JSON from provider config")
 //            return nil
 //        }
 //
@@ -338,7 +338,7 @@ class  ConfigController
 //            return nil
 //        }
         
-        guard let replicantConfig = ReplicantConfig(polish: nil, toneBurst: nil)
+        guard let replicantConfig = ReplicantConfig<SilverClientConfig>(polish: nil, toneBurst: nil)
             else
         {
             return nil
@@ -347,7 +347,7 @@ class  ConfigController
         guard let clientConfigJSON = providerConfiguration[Keys.clientConfigKey.rawValue] as? Data
             else
         {
-            print("Unable to get ClientConfig JSON from provider config")
+            appLog.error("Unable to get ClientConfig JSON from provider config")
             return nil
         }
         
@@ -360,7 +360,7 @@ class  ConfigController
         guard let name = providerConfiguration[Keys.tunnelNameKey.rawValue] as? String
         else
         {
-            print("Unable to get tunnel name from provider config.")
+            appLog.error("Unable to get tunnel name from provider config.")
             return nil
         }
         

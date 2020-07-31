@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Logging
 
 let statusBarIcon = "icon"
 let statusBarAlternateIcon = "iconWhite"
@@ -25,7 +26,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
 
     func applicationDidFinishLaunching(_ aNotification: Notification)
     {
-        //Set up the status bar item/button
+        // Setup the logger
+        LoggingSystem.bootstrap(StreamLogHandler.standardError)
+        appLog.logLevel = .debug
+        
+        // Setup the status bar item/button
         if let moonbounceButton = statusItem.button
         {
             moonbounceButton.image = NSImage(named: statusBarIcon)
@@ -35,13 +40,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
             moonbounceButton.sendAction(on: [.leftMouseUp, .rightMouseUp])
         }
         
-        //Set up the right-click menu
+        // Setup the right-click menu
         menu.addItem(withTitle: "Quit Moonbounce", action: #selector(self.quitMoonbounce), keyEquivalent: "q")
         
-        //Show them our pretty things in this VC
+        // Show them our pretty things in this VC
         popover.contentViewController = MoonbounceViewController(nibName: "MoonbounceViewController", bundle: nil)
 
-        //If user clicks away close the popover (get outta the way)
+        // If user clicks away close the popover (get outta the way)
         eventMonitor = EventMonitor(mask: .leftMouseDown, handler: { (event) in
             if self.popover.isShown
             {
@@ -49,7 +54,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
             }
         })
         
-        //Cocoa normally keeps you from launching more than one instance at a time, but sometimes it happens anyway
+        // Cocoa normally keeps you from launching more than one instance at a time, but sometimes it happens anyway
         if let bundleID = Bundle.main.bundleIdentifier
         {
             if NSRunningApplication.runningApplications(withBundleIdentifier: bundleID).count > 1
@@ -66,20 +71,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
             }
         }
         
-        //Check for config directories, if they don't exist, create them
+        // Check for config directories, if they don't exist, create them
         fileManager.delegate = self
         createServerConfigDirectories()
         checkForServerIP()
     }
-    
-//    func application(_ sender: NSApplication, openFile filename: String) -> Bool
-//    {
-//        print("Attempted to open a file: \(filename)")
-//        let tunnelController = TunnelController()
-//        serverManager.addServer(withConfigFilePath: filename)
-//
-//        return true
-//    }
     
     func checkForServerIP()
     {
@@ -112,7 +108,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
         else
         {
             // TODO: Notify user when host information cannot be found
-            print("\nUnable to find config directories at: \(defaultConfigURL)\n")
+            appLog.error("\nUnable to find config directories at: \(defaultConfigURL)\n")
         }
     }
     
@@ -126,7 +122,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
         }
         catch let importedConfigError
         {
-            print(importedConfigError)
+            appLog.error("\(importedConfigError)")
         }
         
         // User Config Directory - Created when the user launches a Digital Ocean server through our app
@@ -137,7 +133,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
         }
         catch let userConfigError
         {
-            print(userConfigError)
+            appLog.error("\(userConfigError)")
         }
     }
     
@@ -199,10 +195,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
         VPNPreferencesController.shared.deactivate
         { (maybeError) in
             
-            print("\n✌️ Callling deactivate before exiting app.\n")
+            appLog.debug("\n✌️ Callling deactivate before exiting app.\n")
             if let error = maybeError
             {
-                print("Error atttempting to deactivate VPNPreferencesController on app exit: \(error)")
+                appLog.error("Error atttempting to deactivate VPNPreferencesController on app exit: \(error)")
             }
         }
     }

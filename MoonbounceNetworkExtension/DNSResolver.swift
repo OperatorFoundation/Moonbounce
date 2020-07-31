@@ -119,7 +119,7 @@ extension Endpoint {
             hostname = "\(address)"
         default:
             hostname = host.debugDescription
-            print("--->>> Attempting to us a host address \(hostname) of unknown type.")
+            appLog.error("--->>> Attempting to use a host address \(hostname) of unknown type.")
             
         }
 
