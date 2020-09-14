@@ -23,7 +23,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     @IBOutlet weak var laserLeadingConstraint: NSLayoutConstraint!
 
     @objc dynamic var runningScript = false
-    static var terraformController = TerraformController()
+//    static var terraformController = TerraformController()
     
     //Advanced Mode Outlets
     @IBOutlet weak var advModeHeightConstraint: NSLayoutConstraint!
@@ -119,7 +119,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                         //Should Not Happen
                         appLog.error("Error: Connected state of Trying but Stage is Start")
                     default:
-                        //Terminate Dispatcher Task & Kill OpenVPN & Management
+                        //Disconnect from VPN server
                         disconnect()
                 }
             case .success:
@@ -288,7 +288,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     {
         if let userToken = KeychainController.loadToken()
         {
-            MoonbounceViewController.terraformController.createVarsFile(token: userToken)
+//            MoonbounceViewController.terraformController.createVarsFile(token: userToken)
             
             sender.isEnabled = false
             toggleConnectionButton.isEnabled = false
@@ -298,20 +298,20 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             launching = true
             animateLaunchingLabel()
             
-            MoonbounceViewController.terraformController.launchTerraformServer
-            {
-                (launched) in
-                
-                sender.isEnabled = true
-                self.toggleConnectionButton.isEnabled = true
-                self.stopIncrementingProgress()
-                self.populateServerSelectButton()
-                self.showUserServerStatus()
-                
-                appLog.debug("Launch server task exited.")
-                self.cancelLaunchButton.isHidden = true
-                self.launching = false
-            }
+//            MoonbounceViewController.terraformController.launchTerraformServer
+//            {
+//                (launched) in
+//
+//                sender.isEnabled = true
+//                self.toggleConnectionButton.isEnabled = true
+//                self.stopIncrementingProgress()
+//                self.populateServerSelectButton()
+//                self.showUserServerStatus()
+//
+//                appLog.debug("Launch server task exited.")
+//                self.cancelLaunchButton.isHidden = true
+//                self.launching = false
+//            }
         }
         else
         {
@@ -356,18 +356,18 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         launchServerButton.isEnabled = false
         startIncrementingProgress(by: 3.0)
         
-        MoonbounceViewController.terraformController.destroyTerraformServer
-        {
-            (destroyed) in
-            
-            sender.isEnabled = true
-            self.toggleConnectionButton.isEnabled = true
-            self.launchServerButton.isEnabled = true
-            self.stopIncrementingProgress()
-            self.populateServerSelectButton()
-            self.showUserServerStatus()
-            appLog.debug("Destroy server task exited.")
-        }
+//        MoonbounceViewController.terraformController.destroyTerraformServer
+//        {
+//            (destroyed) in
+//
+//            sender.isEnabled = true
+//            self.toggleConnectionButton.isEnabled = true
+//            self.launchServerButton.isEnabled = true
+//            self.stopIncrementingProgress()
+//            self.populateServerSelectButton()
+//            self.showUserServerStatus()
+//            appLog.debug("Destroy server task exited.")
+//        }
     }
     
     @IBAction func closeTokenWindow(_ sender: NSButton)
@@ -389,7 +389,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             appLog.debug("New user token: \(newToken)")
             KeychainController.saveToken(token: sender.stringValue)
             hasDoToken = true
-            MoonbounceViewController.terraformController.createVarsFile(token: sender.stringValue)
+//            MoonbounceViewController.terraformController.createVarsFile(token: sender.stringValue)
         }
     }
     
@@ -552,7 +552,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 case .management:
                     self.updateStatusUI(connected: true, statusDescription: "Connecting to the Management Server")
                 case .statusCodes:
-                    self.updateStatusUI(connected: true, statusDescription: "Getting OpenVPN Status")
+                    self.updateStatusUI(connected: true, statusDescription: "Getting VPN Status")
             }
         case .success:
             switch isConnected.stage
@@ -578,7 +578,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             case .management:
                 self.updateStatusUI(connected: false, statusDescription: "Failed to Connect to the Management Server")
             case .statusCodes:
-                self.updateStatusUI(connected: false, statusDescription: "Failed to connect  to OpenVPN")
+                self.updateStatusUI(connected: false, statusDescription: "Failed to connect  to VPN")
             }
         }
     }
