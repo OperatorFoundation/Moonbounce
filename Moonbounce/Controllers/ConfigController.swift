@@ -11,7 +11,7 @@ import NetworkExtension
 import ZIPFoundation
 import ReplicantSwift
 
-class  ConfigController
+class ConfigController
 {
     let fileManager = FileManager.default
     let configsDirectory: URL

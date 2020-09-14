@@ -11,22 +11,24 @@ import NetworkExtension
 
 extension NEVPNStatus
 {
-    var stringValue: String {
-        switch self {
-        case .invalid:
-            return "invalid"
-        case .connecting:
-            return "connecting"
-        case .connected:
-            return "connected"
-        case .disconnecting:
-            return "disconnecting"
-        case .disconnected:
-            return "disconnected"
-        case .reasserting:
-            return "reasserting"
-        default:
-            return "unknown"
+    var stringValue: String
+    {
+        switch self
+        {
+            case .invalid:
+                return "invalid"
+            case .connecting:
+                return "connecting"
+            case .connected:
+                return "connected"
+            case .disconnecting:
+                return "disconnecting"
+            case .disconnected:
+                return "disconnected"
+            case .reasserting:
+                return "reasserting"
+            default:
+                return "unknown"
         }
     }
 }

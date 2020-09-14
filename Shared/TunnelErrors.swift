@@ -17,20 +17,20 @@ enum TunnelsManagerError: AppError
     {
         switch self
         {
-        case .tunnelNameEmpty:
-            return (alertTunnelNameEmptyTitle, alertTunnelNameEmptyMessage)
-        case .tunnelAlreadyExistsWithThatName:
-            return (alertTunnelAlreadyExistsWithThatNameTitle, alertTunnelAlreadyExistsWithThatNameMessage)
-        case .errorOnListingTunnels:
-            return (alertSystemErrorOnListingTunnelsTitle, alertErrorOnListingTunnelsMessage)
-        case .systemErrorOnListingTunnels(let systemError):
-            return (alertSystemErrorOnListingTunnelsTitle, systemError.localizedUIString)
-        case .systemErrorOnAddTunnel(let systemError):
-            return (alertSystemErrorOnAddTunnelTitle, systemError.localizedUIString)
-        case .systemErrorOnModifyTunnel(let systemError):
-            return (alertSystemErrorOnModifyTunnelTitle, systemError.localizedUIString)
-        case .systemErrorOnRemoveTunnel(let systemError):
-            return (alertSystemErrorOnRemoveTunnelTitle, systemError.localizedUIString)
+            case .tunnelNameEmpty:
+                return (alertTunnelNameEmptyTitle, alertTunnelNameEmptyMessage)
+            case .tunnelAlreadyExistsWithThatName:
+                return (alertTunnelAlreadyExistsWithThatNameTitle, alertTunnelAlreadyExistsWithThatNameMessage)
+            case .errorOnListingTunnels:
+                return (alertSystemErrorOnListingTunnelsTitle, alertErrorOnListingTunnelsMessage)
+            case .systemErrorOnListingTunnels(let systemError):
+                return (alertSystemErrorOnListingTunnelsTitle, systemError.localizedUIString)
+            case .systemErrorOnAddTunnel(let systemError):
+                return (alertSystemErrorOnAddTunnelTitle, systemError.localizedUIString)
+            case .systemErrorOnModifyTunnel(let systemError):
+                return (alertSystemErrorOnModifyTunnelTitle, systemError.localizedUIString)
+            case .systemErrorOnRemoveTunnel(let systemError):
+                return (alertSystemErrorOnRemoveTunnelTitle, systemError.localizedUIString)
         }
     }
 }
@@ -46,13 +46,13 @@ enum TunnelsManagerActivationAttemptError: AppError {
     {
         switch self
         {
-        case .tunnelIsNotInactive:
-            return (alertTunnelActivationErrorTunnelIsNotInactiveTitle, alertTunnelActivationErrorTunnelIsNotInactiveMessage)
-        case .failedWhileStarting(let systemError),
-             .failedWhileSaving(let systemError),
-             .failedWhileLoading(let systemError),
-             .failedBecauseOfTooManyErrors(let systemError):
-            return (alertTunnelActivationSystemErrorTitle, "\(alertTunnelActivationSystemErrorMessage): \(systemError.localizedUIString)")
+            case .tunnelIsNotInactive:
+                return (alertTunnelActivationErrorTunnelIsNotInactiveTitle, alertTunnelActivationErrorTunnelIsNotInactiveMessage)
+            case .failedWhileStarting(let systemError),
+                 .failedWhileSaving(let systemError),
+                 .failedWhileLoading(let systemError),
+                 .failedBecauseOfTooManyErrors(let systemError):
+                return (alertTunnelActivationSystemErrorTitle, "\(alertTunnelActivationSystemErrorMessage): \(systemError.localizedUIString)")
         }
     }
 }
@@ -62,36 +62,44 @@ enum TunnelsManagerActivationError: AppError
     case activationFailed(wasOnDemandEnabled: Bool)
     case activationFailedWithExtensionError(title: String, message: String, wasOnDemandEnabled: Bool)
 
-    var alertText: AlertText {
-        switch self {
-        case .activationFailed(let wasOnDemandEnabled):
-            return (alertTunnelActivationFailureTitle, alertTunnelActivationFailureMessage + (wasOnDemandEnabled ? alertTunnelActivationFailureOnDemandAddendum : ""))
-        case .activationFailedWithExtensionError(let title, let message, let wasOnDemandEnabled):
-            return (title, message + (wasOnDemandEnabled ? alertTunnelActivationFailureOnDemandAddendum : ""))
+    var alertText: AlertText
+    {
+        switch self
+        {
+            case .activationFailed(let wasOnDemandEnabled):
+                return (alertTunnelActivationFailureTitle, alertTunnelActivationFailureMessage + (wasOnDemandEnabled ? alertTunnelActivationFailureOnDemandAddendum : ""))
+            case .activationFailedWithExtensionError(let title, let message, let wasOnDemandEnabled):
+                return (title, message + (wasOnDemandEnabled ? alertTunnelActivationFailureOnDemandAddendum : ""))
         }
     }
 }
 
-extension Error {
-    var localizedUIString: String {
-        if let systemError = self as? NEVPNError {
-            switch systemError {
-            case NEVPNError.configurationInvalid:
-                return alertSystemErrorMessageTunnelConfigurationInvalid
-            case NEVPNError.configurationDisabled:
-                return alertSystemErrorMessageTunnelConfigurationDisabled
-            case NEVPNError.connectionFailed:
-                return alertSystemErrorMessageTunnelConnectionFailed
-            case NEVPNError.configurationStale:
-                return alertSystemErrorMessageTunnelConfigurationStale
-            case NEVPNError.configurationReadWriteFailed:
-                return alertSystemErrorMessageTunnelConfigurationReadWriteFailed
-            case NEVPNError.configurationUnknown:
-                return alertSystemErrorMessageTunnelConfigurationUnknown
-            default:
-                return ""
+extension Error
+{
+    var localizedUIString: String
+    {
+        if let systemError = self as? NEVPNError
+        {
+            switch systemError
+            {
+                case NEVPNError.configurationInvalid:
+                    return alertSystemErrorMessageTunnelConfigurationInvalid
+                case NEVPNError.configurationDisabled:
+                    return alertSystemErrorMessageTunnelConfigurationDisabled
+                case NEVPNError.connectionFailed:
+                    return alertSystemErrorMessageTunnelConnectionFailed
+                case NEVPNError.configurationStale:
+                    return alertSystemErrorMessageTunnelConfigurationStale
+                case NEVPNError.configurationReadWriteFailed:
+                    return alertSystemErrorMessageTunnelConfigurationReadWriteFailed
+                case NEVPNError.configurationUnknown:
+                    return alertSystemErrorMessageTunnelConfigurationUnknown
+                default:
+                    return ""
             }
-        } else {
+        }
+        else
+        {
             return localizedDescription
         }
     }

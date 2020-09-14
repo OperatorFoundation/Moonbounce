@@ -17,19 +17,22 @@ enum PacketTunnelProviderError: String, Error
     case couldNotSetNetworkSettings
 }
 
-extension PacketTunnelProviderError: AppError {
-    var alertText: AlertText {
-        switch self {
-        case .savedProtocolConfigurationIsInvalid:
-            return (alertTunnelActivationFailureTitle, alertTunnelActivationSavedConfigFailureMessage)
-        case .dnsResolutionFailure:
-            return (alertTunnelDNSFailureTitle, alertTunnelDNSFailureMessage)
-        case .couldNotStartBackend:
-            return (alertTunnelActivationFailureTitle, alertTunnelActivationBackendFailureMessage)
-        case .couldNotDetermineFileDescriptor:
-            return (alertTunnelActivationFailureTitle, alertTunnelActivationFileDescriptorFailureMessage)
-        case .couldNotSetNetworkSettings:
-            return (alertTunnelActivationFailureTitle, alertTunnelActivationSetNetworkSettingsMessage)
+extension PacketTunnelProviderError: AppError
+{
+    var alertText: AlertText
+    {
+        switch self
+        {
+            case .savedProtocolConfigurationIsInvalid:
+                return (alertTunnelActivationFailureTitle, alertTunnelActivationSavedConfigFailureMessage)
+            case .dnsResolutionFailure:
+                return (alertTunnelDNSFailureTitle, alertTunnelDNSFailureMessage)
+            case .couldNotStartBackend:
+                return (alertTunnelActivationFailureTitle, alertTunnelActivationBackendFailureMessage)
+            case .couldNotDetermineFileDescriptor:
+                return (alertTunnelActivationFailureTitle, alertTunnelActivationFileDescriptorFailureMessage)
+            case .couldNotSetNetworkSettings:
+                return (alertTunnelActivationFailureTitle, alertTunnelActivationSetNetworkSettingsMessage)
         }
     }
 }
