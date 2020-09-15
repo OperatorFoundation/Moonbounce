@@ -13,13 +13,13 @@ import Replicant
 import ReplicantSwift
 import SwiftQueue
 import LoggerQueue
+import Flower
 
 class PacketTunnelProvider: NEPacketTunnelProvider
 {
     private var networkMonitor: NWPathMonitor?
     
     private var ifname: String?
-    //private var packetTunnelSettingsGenerator: PacketTunnelSettingsGenerator?
     
     var replicantConnectionFactory: ReplicantConnectionFactory?
     
@@ -71,27 +71,34 @@ class PacketTunnelProvider: NEPacketTunnelProvider
     {
         networkMonitor?.cancel()
     }
-    
-    
+
     override func startTunnel(options: [String : NSObject]? = nil, completionHandler: @escaping (Error?) -> Void)
     {
         log.debug("👾 PacketTunnelProvider startTunnel called 👾")
         
         switch connectionAttemptStatus
         {
-        case .initialized:
-            connectionAttemptStatus = .started
-        case .started:
-            log.debug("start tunnel called when tunnel was already started.")
-        case .connecting:
-            connectionAttemptStatus = .started
+            case .initialized:
+                connectionAttemptStatus = .started
+            case .started:
+                log.debug("start tunnel called when tunnel was already started.")
+            case .connecting:
+                connectionAttemptStatus = .started
+            case .connected:
+                connectionAttemptStatus = .started
+            case .ipAssigned(_):
+                connectionAttemptStatus = .started
+                tunnelConnection?.ipAllocationMessage = nil
+            case .ready:
+                connectionAttemptStatus = .started
+            case .stillReady:
+                connectionAttemptStatus = .started
+            case .failed:
+                connectionAttemptStatus = .started
         }
         
         // Save the completion handler for when the tunnel is fully established.
         pendingStartCompletion = completionHandler
-
-        //let activationAttemptId = options?["activationAttemptId"] as? String
-        //let errorNotifier = ErrorNotifier(activationAttemptId: activationAttemptId)
         
         guard let tunnelProviderProtocol = protocolConfiguration as? NETunnelProviderProtocol
         else
@@ -178,13 +185,23 @@ class PacketTunnelProvider: NEPacketTunnelProvider
     {
         switch connectionAttemptStatus
         {
-        case .initialized:
-            log.debug("handleAppMessage called before start tunnel. Doing nothing...")
-        case .started:
-            connectionAttemptStatus = .connecting
-            setTunnelSettings(configuration: [:])
-        case .connecting:
-            break
+            case .initialized:
+                log.debug("handleAppMessage called before start tunnel. Doing nothing...")
+            case .started:
+                connectionAttemptStatus = .connecting
+            case .connecting:
+                break
+            case .connected:
+                log.debug("### Connection is connected ###")
+            case .ipAssigned(let message):
+                setTunnelSettings(message: message)
+                connectionAttemptStatus = .ready
+            case .ready:
+                log.debug("!!! Connection is ready !!!")
+            case .stillReady:
+                break
+            case .failed:
+                log.debug("~~~ Connection failed ~~~")
         }
         
         var responseString = "Nothing to see here!"
@@ -246,19 +263,10 @@ class PacketTunnelProvider: NEPacketTunnelProvider
     // MARK: - ClientTunnelConnection
     
     /// Handle the event of the logical flow of packets being established through the tunnel.
-    func setTunnelSettings(configuration: [NSObject: AnyObject])
+    func setTunnelSettings(message: Message)
     {
-        log.debug("\n🚀 tunnelConnectionDidOpen  🚀\n")
+        log.debug("🚀 setTunnelSettings  🚀")
         
-        // Create the virtual interface settings.
-//        guard let settings = createTunnelSettingsFromConfiguration(configuration)
-//            else
-//        {
-//            connectionAttemptStatus = .initialized
-//            pendingStartCompletion?(TunnelError.internalError)
-//            pendingStartCompletion = nil
-//            return
-//        }
         guard let host = remoteHost
         else
         {
@@ -332,74 +340,49 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         
         switch newState
         {
-        case .preparing:
-            self.log.debug("\n⏳ Connection is  preparing ⏳\n")
-            isConnected = ConnectState(state: .start, stage: .statusCodes)
-            
-        case .setup:
-            self.log.debug("\n👷‍♀️ Connection is in the setup stage 👷‍♀️\n")
-            isConnected = ConnectState(state: .trying, stage: .statusCodes)
-        case .ready:
-            // Start reading messages from the tunnel connection.
-            // Open the logical flow of packets through the tunnel.
-            guard connection != nil
-                else
-            {
-                log.error("Ready state but replicant connection is nil.")
-                return
-            }
-            
-            self.log.debug("\n🚀 Connection state is ready 🚀\n")
-            isConnected = ConnectState(state: .success, stage: .statusCodes)
-            let newConnection = ClientTunnelConnection(clientPacketFlow: self.packetFlow, replicantConnection: connection!, logger: log)
-            
-            self.log.debug("\n🚀 open() called on tunnel connection  🚀\n")
-            self.tunnelConnection = newConnection
-            
-            newConnection.startHandlingPackets()
-            startCompletion(nil)
-            
-        case .cancelled:
-            self.log.debug("\n🙅‍♀️  Connection Cancelled  🙅‍♀️\n")
-            self.connection = nil
-            self.tunnelDidClose()
-            startCompletion(TunnelError.cancelled)
-            
-        case .failed(let error):
-            self.log.error("\n🐒  Connection Failed  🐒\n")
-            self.closeTunnelWithError(error)
-            startCompletion(error)
-            
-        default:
-            self.log.debug("\n🤷‍♀️  Unexpected State: \(newState) 🤷‍♀️\n")
+            case .preparing:
+                self.log.debug("\n⏳ Connection is  preparing ⏳\n")
+                isConnected = ConnectState(state: .start, stage: .statusCodes)
+                
+            case .setup:
+                self.log.debug("\n👷‍♀️ Connection is in the setup stage 👷‍♀️\n")
+                isConnected = ConnectState(state: .trying, stage: .statusCodes)
+                
+            case .ready:
+                // Start reading messages from the tunnel connection.
+                // Open the logical flow of packets through the tunnel.
+                guard connection != nil
+                    else
+                {
+                    log.error("Ready state but replicant connection is nil.")
+                    return
+                }
+                
+                self.log.debug("\n🚀 Connection state is ready 🚀\n")
+                isConnected = ConnectState(state: .success, stage: .statusCodes)
+                let newConnection = ClientTunnelConnection(clientPacketFlow: self.packetFlow, replicantConnection: connection!, logger: log)
+                
+                self.log.debug("\n🚀 open() called on tunnel connection  🚀\n")
+                self.tunnelConnection = newConnection
+                
+                newConnection.startHandlingPackets()
+                startCompletion(nil)
+                
+            case .cancelled:
+                self.log.debug("\n🙅‍♀️  Connection Cancelled  🙅‍♀️\n")
+                self.connection = nil
+                self.tunnelDidClose()
+                startCompletion(TunnelError.cancelled)
+                
+            case .failed(let error):
+                self.log.error("\n🐒  Connection Failed  🐒\n")
+                self.closeTunnelWithError(error)
+                startCompletion(error)
+                
+            default:
+                self.log.debug("\n🤷‍♀️  Unexpected State: \(newState) 🤷‍♀️\n")
         }
     }
-    
-    /// Create the tunnel network settings to be applied to the virtual interface.
-//    func createTunnelSettingsFromConfiguration(_ configuration: [NSObject: AnyObject]) -> NEPacketTunnelNetworkSettings?
-//    {
-////        let newSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: "166.78.129.122")
-////        let address = "192.168.2.1"
-//        let netmask = "255.255.255.0"
-//
-//        //configuration argument is ignored
-//
-//        guard let tunnelAddress = remoteHost
-//        else
-//        {
-//            logQueue.enqueue("Unable to resolve tunnelAddress for NEPacketTunnelNetworkSettings")
-//            return nil
-//        }
-//
-//        let newSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: tunnelAddress)
-//        newSettings.ipv4Settings = NEIPv4Settings(addresses: [tunnelAddress], subnetMasks: [netmask])
-//        newSettings.ipv4Settings?.includedRoutes = [NEIPv4Route.default()]
-//        newSettings.dnsSettings = NEDNSSettings(servers: ["8.8.8.8"])
-//        newSettings.tunnelOverheadBytes = 150
-//
-//        return newSettings
-//    }
-    
 }
 
 enum ConnectionAttemptStatus
@@ -407,6 +390,11 @@ enum ConnectionAttemptStatus
     case initialized
     case started
     case connecting
+    case connected
+    case ipAssigned(Message)
+    case ready
+    case stillReady
+    case failed
 }
 
 public enum TunnelError: Error

@@ -19,10 +19,10 @@ public class ClientTunnelConnection
     let packetFlow: NEPacketTunnelFlow
     let log: Logger
     let replicantConnection: ReplicantConnection
-    
+    var ipAllocationMessage: Message? = nil
+
     // MARK: Initializers
-    
-    init(clientPacketFlow: NEPacketTunnelFlow, replicantConnection: ReplicantConnection, logger: Logger)
+    public init(clientPacketFlow: NEPacketTunnelFlow, replicantConnection: ReplicantConnection, logger: Logger)
     {
         self.log = logger
         self.packetFlow = clientPacketFlow
@@ -31,9 +31,23 @@ public class ClientTunnelConnection
     }
 
     // MARK: Interface
+    /// Make the initial readPacketsWithCompletionHandler call.
+    public func startHandlingPackets()
+    {
+        log.debug("Start handling packets called.")
+        DispatchQueue.global(qos: .userInitiated).async
+        {
+            self.packetsToMessages()
+        }
+        
+        DispatchQueue.global(qos: .userInitiated).async
+        {
+            self.messagesToPackets()
+        }
+    }
     
     /// Handle packets coming from the packet flow.
-    func handlePackets()
+    func packetsToMessages()
     {
         log.debug("Handle Packets Called")
         // This is where you should send the packets to the server.
@@ -52,61 +66,45 @@ public class ClientTunnelConnection
                 // Check if protocol is v4 or v6
                 switch prot
                 {
-                case NSNumber(value: AF_INET):
-                    self.log.debug("Ipv4 protocol")
+                    case NSNumber(value: AF_INET):
+                        self.log.debug("Ipv4 protocol")
 
-                    // Encapsulates packages into Messages (using Flower)
-                    self.log.debug("packet: \(packet)")
-                    let message = Message.IPDataV4(packet)
-                    self.log.debug("🌷 encapsulated into Flower Message: \(message.description) 🌷")
-                    
-                    self.replicantConnection.writeMessage(message: message, completion:
-                    {
-                        (maybeError) in
+                        // Encapsulates packages into Messages (using Flower)
+                        self.log.debug("packet: \(packet)")
+                        let message = Message.IPDataV4(packet)
+                        self.log.debug("🌷 encapsulated into Flower Message: \(message.description) 🌷")
 
-                        if let error = maybeError
+                        self.replicantConnection.writeMessage(message: message, completion:
                         {
-                            self.log.error("Error writing message: \(error)")
-                        }
-                    })
-                case NSNumber(value: AF_INET6):
-                    self.log.debug("IPv6 protocol")
-                    let message = Message.IPDataV6(packet)
-                    self.replicantConnection.writeMessage(message: message, completion:
-                    {
-                        (maybeError) in
+                            (maybeError) in
 
-                        if let error = maybeError
+                            if let error = maybeError
+                            {
+                                self.log.error("Error writing message: \(error)")
+                            }
+                        })
+                    case NSNumber(value: AF_INET6):
+                        self.log.debug("IPv6 protocol")
+                        let message = Message.IPDataV6(packet)
+                        self.replicantConnection.writeMessage(message: message, completion:
                         {
-                            self.log.error("Error writing message: \(error)")
-                        }
-                    })
-                default:
-                    self.log.error("Unsupported protocol type: \(prot)")
+                            (maybeError) in
+
+                            if let error = maybeError
+                            {
+                                self.log.error("Error writing message: \(error)")
+                            }
+                        })
+                    default:
+                        self.log.error("Unsupported protocol type: \(prot)")
                 }
             }
 
-            self.handlePackets()
+            self.packetsToMessages()
         }
     }
-    
-    /// Make the initial readPacketsWithCompletionHandler call.
-    func startHandlingPackets()
-    {
-        log.debug("Start handling packets called.")
-        DispatchQueue.global(qos: .userInitiated).async
-        {
-            self.handlePackets()
-        }
-    }
-    
-    /// Send packets to the virtual interface to be injected into the IP stack.
-    public func sendPackets(_ packets: [Data], protocols: [NSNumber])
-    {
-        packetFlow.writePackets(packets, withProtocols: protocols)
-    }
-    
-    public func startGettingPackets()
+        
+    func messagesToPackets()
     {
         replicantConnection.readMessages
         {
@@ -115,15 +113,26 @@ public class ClientTunnelConnection
             self.log.debug("🌷 replicantConnection.readMessages callback message: \(message.description) 🌷")
             switch message
             {
-            case .IPDataV4(let data):
-                self.log.debug("IPDataV4 calling write packets.")
-                self.packetFlow.writePackets([data], withProtocols: [4])
-            case .IPDataV6(let data):
-                self.log.debug("IPDataV6 calling write packets.")
-                self.packetFlow.writePackets([data], withProtocols: [6])
-            default:
-                self.log.error("unsupported message type")
+                case .IPAssignV4(_),
+                     .IPAssignV6(_),
+                     .IPAssignDualStack(_, _):
+                    guard self.ipAllocationMessage == nil else {break}
+                    self.ipAllocationMessage = message
+                case .IPDataV4(let data):
+                    self.log.debug("IPDataV4 calling write packets.")
+                    self.packetFlow.writePackets([data], withProtocols: [4])
+                case .IPDataV6(let data):
+                    self.log.debug("IPDataV6 calling write packets.")
+                    self.packetFlow.writePackets([data], withProtocols: [6])
+                default:
+                    self.log.error("unsupported message type")
             }
         }
+    }
+    
+    /// Send packets to the virtual interface to be injected into the IP stack.
+    public func sendPackets(_ packets: [Data], protocols: [NSNumber])
+    {
+        packetFlow.writePackets(packets, withProtocols: protocols)
     }
 }
