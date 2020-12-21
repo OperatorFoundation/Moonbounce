@@ -47,7 +47,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
         popover.contentViewController = MoonbounceViewController(nibName: "MoonbounceViewController", bundle: nil)
 
         // If user clicks away close the popover (get outta the way)
-        eventMonitor = EventMonitor(mask: .leftMouseDown, handler: { (event) in
+        eventMonitor = EventMonitor(mask: .leftMouseDown, handler:
+        { (event) in
             if self.popover.isShown
             {
                 self.closePopover(sender: event)

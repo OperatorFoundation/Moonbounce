@@ -14,44 +14,29 @@ import ReplicantSwift
 class ConfigController
 {
     let fileManager = FileManager.default
-    let configsDirectory: URL
-    
     var configs = [MoonbounceConfig]()
-    
-    init?()
-    {
-        guard let configsURL = ConfigController.getMainConfigDirectory()
-            else
-        {
-            return nil
-        }
-        
-        self.configsDirectory = configsURL
-    }
     
     func getDefaultMoonbounceConfig()-> MoonbounceConfig?
     {
         let fileManager = FileManager.default
-        guard let configController = ConfigController()
-        else
-        {
-            appLog.error("Unable to create default config: Config controller was not initialized correctly.")
-            return nil
-        }
 
-        guard let dDirectory = configController.get(configDirectory: .defaultDirectory)
-        else
-        {
-            appLog.error("Unable to get default directory.")
-            return nil
-        }
-
-
-        if fileManager.fileExists(atPath: dDirectory.path)
+        if fileManager.fileExists(atPath: defaultConfigDirectory.path)
         {
             do
             {
-                try fileManager.removeItem(at: dDirectory)
+                try fileManager.removeItem(at: defaultConfigDirectory)
+            }
+            catch let error
+            {
+                appLog.error("Error deleting files in default directory: \(error)")
+            }
+        }
+        
+        if fileManager.fileExists(atPath: configFilesDirectory.appendingPathComponent("/__MACOSX").path)
+        {
+            do
+            {
+                try fileManager.removeItem(at: configFilesDirectory.appendingPathComponent("/__MACOSX"))
             }
             catch let error
             {
@@ -68,12 +53,12 @@ class ConfigController
 
         do
         {
-            try fileManager.unzipItem(at: moonbounceZip, to: dDirectory, progress: nil)
+            try fileManager.unzipItem(at: moonbounceZip, to: configFilesDirectory, progress: nil)
             
             // Print for debug use only
             do
             {
-                 let files = try fileManager.contentsOfDirectory(atPath: dDirectory.path)
+                 let files = try fileManager.contentsOfDirectory(atPath: defaultConfigDirectory.path)
                 appLog.debug("\(files)")
             }
             catch let error
@@ -81,7 +66,7 @@ class ConfigController
                 appLog.error("error listing contents of default directory: \(error)")
             }
 
-            if let moonbounceConfig = createMoonbounceConfigFromFiles(atURL: dDirectory)
+            if let moonbounceConfig = createMoonbounceConfigFromFiles(atURL: defaultConfigDirectory)
             {
                 return moonbounceConfig
             }
@@ -210,35 +195,9 @@ class ConfigController
         return false
     }
     
-    static func documentsDirectoryURL() -> URL?
-    {
-        if let docDirectory =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-        {
-            return docDirectory
-        }
-        else
-        {
-            return nil
-        }
-    }
-    
-    static func getMainConfigDirectory() -> URL?
-    {
-        
-        guard let appDocumentsDirectory = documentsDirectoryURL()
-        else
-        {
-            return nil
-        }
-        
-        let configsURL = appDocumentsDirectory.appendingPathComponent("Configs")
-        
-        return configsURL
-    }
-    
     func get(configDirectory: ConfigDirectory) -> URL?
     {
-        let thisDirectory = configsDirectory.appendingPathComponent(configDirectory.rawValue)
+        let thisDirectory = configFilesDirectory.appendingPathComponent(configDirectory.rawValue)
         
         do
         {
@@ -295,11 +254,10 @@ class ConfigController
                         return nil
                     }
                     
-                    // FIXME: Replicant config from JSON
+                    // FIXME: Replicant config from file
+                    let replicantConfig = ReplicantConfig<SilverClientConfig>(polish: nil, toneBurst: nil)
                     
-//                    let replicantConfig = ReplicantConfig(withConfigAtPath: configURL.appendingPathComponent(file2).path)
-                    
-                    let moonbounceConfig = MoonbounceConfig(name: configURL.lastPathComponent, clientConfig: clientConfig, replicantConfig: nil)
+                    let moonbounceConfig = MoonbounceConfig(name: configURL.lastPathComponent, clientConfig: clientConfig, replicantConfig: replicantConfig)
                     
                     
                     return moonbounceConfig

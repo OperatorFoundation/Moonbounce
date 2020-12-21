@@ -62,3 +62,8 @@ DerivedData/
 Moonbounce/terraform
 .DS_Store
 Moonbounce.xcodeproj/xcshareddata/xcschemes/Moonbounce.xcscheme
+Moonbounce.xcodeproj/xcshareddata/xcschemes/MoonbounceTests.xcscheme
+default1.moonbounce
+Moonbounce.xcodeproj/project.pbxproj
+Moonbounce.xcodeproj/xcshareddata/xcschemes/MoonbounceNetworkExtension.xcscheme
+Moonbounce.xcodeproj/xcshareddata/xcschemes/MoonbounceTests.xcscheme

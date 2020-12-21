@@ -114,8 +114,8 @@ public class ClientTunnelConnection
             switch message
             {
                 case .IPAssignV4(_),
-                     .IPAssignV6(_),
-                     .IPAssignDualStack(_, _):
+                     .IPAssignV6(_):
+                     //.IPAssignDualStack(_, _):
                     guard self.ipAllocationMessage == nil else {break}
                     self.ipAllocationMessage = message
                 case .IPDataV4(let data):

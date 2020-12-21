@@ -193,7 +193,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 
                 if let chosenDirectory = openDialog.url
                 {
-                    guard let confController = self.configController, confController.addConfig(atURL: chosenDirectory)
+                    guard self.configController.addConfig(atURL: chosenDirectory)
                         else
                     {
                         appLog.debug("Failed to add a selected config to the config controller.")
@@ -411,7 +411,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         //serverManager.tunnelsManager?.startActivation(of: tunnel)
         
         // TODO: For now we are just loading a default config
-        guard let controller = configController, let moonbounceConfig = controller.getDefaultMoonbounceConfig()
+        guard let moonbounceConfig = configController.getDefaultMoonbounceConfig()
         else
         {
             appLog.error("Unable to connect, unable to load default config.")

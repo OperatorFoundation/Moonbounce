@@ -34,7 +34,7 @@ let moonbounceExtension = "moonbounce"
 
 let appSupportDirectory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
 
-var moonbounceDirectory = appSupportDirectory!.appendingPathComponent("Moonbounce.macOS", isDirectory: true)
+var moonbounceDirectory = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Moonbounce.macOS", isDirectory: true)
 
 // Parent config files directory - One directory to rule them all
 let configFilesDirectory = moonbounceDirectory.appendingPathComponent("ConfigFiles", isDirectory: true)

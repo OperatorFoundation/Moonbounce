@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Network
 
 func checkForServerIP()
 {
@@ -24,7 +25,7 @@ func checkForServerIP()
     // Next try finding the first available imported server
     if let importedDirectories = fileManager.subpaths(atPath: importedConfigDirectory.path),
         importedDirectories.count > 0,
-        let importedClientConfig = ClientConfig(withConfigAtPath: importedDirectories[0])
+        let importedClientConfig = ClientConfig(withConfigAtPath: importedConfigDirectory.appendingPathComponent(importedDirectories[0]).path)
     {
         userHost = importedClientConfig.host
         return
@@ -36,6 +37,9 @@ func checkForServerIP()
     if let defaultClientConfig = ClientConfig(withConfigAtPath: defaultConfigURL.path)
     {
         userHost = defaultClientConfig.host
+        print("Default config pat: \(defaultConfigURL.path)")
+        print("User host is \(defaultClientConfig.host)")
+        print("Port: \(defaultClientConfig.port)")
         return
     }
     else
@@ -55,19 +59,29 @@ func createServerConfigDirectories()
     {
         try fileManager.createDirectory(at: importedConfigDirectory, withIntermediateDirectories: true, attributes: nil)
     }
-    catch let importedConfigError
+    catch let importedConfigDirError
     {
-        appLog.error("\(importedConfigError)")
+        appLog.error("\(importedConfigDirError)")
     }
     
-    // User Config Directory - Created when the user launches a Digital Ocean server through our app
+    // User Config Directory - Configs created when the user launches a Digital Ocean server through our app
     // TODO: We may want to allow for and account for multiple user created servers
     do
     {
         try fileManager.createDirectory(at: userConfigDirectory, withIntermediateDirectories: true, attributes: nil)
     }
-    catch let userConfigError
+    catch let userConfigDirError
     {
-        appLog.error("\(userConfigError)")
+        appLog.error("\(userConfigDirError)")
+    }
+    
+    // Default Config Directory
+    do
+    {
+        try fileManager.createDirectory(at: defaultConfigDirectory, withIntermediateDirectories: true, attributes: nil)
+    }
+    catch let defaultConfigDirError
+    {
+        appLog.error("\(defaultConfigDirError)")
     }
 }

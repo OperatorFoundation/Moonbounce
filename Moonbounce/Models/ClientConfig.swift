@@ -79,7 +79,6 @@ public class ClientConfig: NSObject, Codable, NSSecureCoding
     {
         let filemanager = FileManager()
         
-        
         guard let jsonData = filemanager.contents(atPath: path)
             else
         {
