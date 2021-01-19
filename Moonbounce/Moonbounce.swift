@@ -18,7 +18,7 @@ func checkForServerIP()
     
     if let userConfig = ClientConfig(withConfigAtPath: userConfigURL.path)
     {
-        userHost = userConfig.host
+        userHost = NWEndpoint.Host(userConfig.host)
         return
     }
     
@@ -27,7 +27,7 @@ func checkForServerIP()
         importedDirectories.count > 0,
         let importedClientConfig = ClientConfig(withConfigAtPath: importedConfigDirectory.appendingPathComponent(importedDirectories[0]).path)
     {
-        userHost = importedClientConfig.host
+        userHost = NWEndpoint.Host(importedClientConfig.host)
         return
     }
     
@@ -36,7 +36,7 @@ func checkForServerIP()
     
     if let defaultClientConfig = ClientConfig(withConfigAtPath: defaultConfigURL.path)
     {
-        userHost = defaultClientConfig.host
+        userHost = NWEndpoint.Host(defaultClientConfig.host)
         print("Default config pat: \(defaultConfigURL.path)")
         print("User host is \(defaultClientConfig.host)")
         print("Port: \(defaultClientConfig.port)")

@@ -63,7 +63,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         
         log = Logger(label: loggerLabel)
         log.logLevel = .debug
-        log.debug("\nQQQ provider super init\n")
         logQueue.queue.enqueue(LoggerQueueMessage(message: "Initialized PacketTunnelProvider"))
     }
     
@@ -79,22 +78,14 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         switch connectionAttemptStatus
         {
             case .initialized:
-                connectionAttemptStatus = .started
-            case .started:
-                log.debug("start tunnel called when tunnel was already started.")
-            case .connecting:
-                connectionAttemptStatus = .started
-            case .connected:
-                connectionAttemptStatus = .started
-            case .ipAssigned(_):
-                connectionAttemptStatus = .started
-                tunnelConnection?.ipAllocationMessage = nil
-            case .ready:
-                connectionAttemptStatus = .started
-            case .stillReady:
+                // Start the tunnel
                 connectionAttemptStatus = .started
             case .failed:
+                // Start the tunnel
                 connectionAttemptStatus = .started
+            default:
+                log.debug("start tunnel called when tunnel was already started.")
+                return
         }
         
         // Save the completion handler for when the tunnel is fully established.
@@ -144,11 +135,11 @@ class PacketTunnelProvider: NEPacketTunnelProvider
                                                                      log: log)
         
         self.log.debug("\nReplicant Connection Factory Created.\nHost - \(host)\nPort - \(port)\n")
-        
         self.networkMonitor = NWPathMonitor()
         self.networkMonitor!.start(queue: DispatchQueue(label: "NetworkMonitor"))
-        
-        completionHandler(nil)
+    
+        pendingStartCompletion = completionHandler
+        connectToServer()
     }
     
     override func stopTunnel(with reason: NEProviderStopReason, completionHandler: @escaping () -> Void)
@@ -177,6 +168,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
     
     func writePackets(packetDatas: [Data], protocolNumbers: [NSNumber])
     {
+        log.debug("Writing packets.")
         packetFlow.writePackets(packetDatas, withProtocols: protocolNumbers)
     }
     
@@ -188,14 +180,13 @@ class PacketTunnelProvider: NEPacketTunnelProvider
             case .initialized:
                 log.debug("handleAppMessage called before start tunnel. Doing nothing...")
             case .started:
-                connectionAttemptStatus = .connecting
+                log.debug("Connection attempt started.")
             case .connecting:
                 break
             case .connected:
                 log.debug("### Connection is connected ###")
-            case .ipAssigned(let message):
-                setTunnelSettings(message: message)
-                connectionAttemptStatus = .ready
+            case .ipAssigned( _):
+                log.debug("Received IP assignment from the server.")
             case .ready:
                 log.debug("!!! Connection is ready !!!")
             case .stillReady:
@@ -263,7 +254,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
     // MARK: - ClientTunnelConnection
     
     /// Handle the event of the logical flow of packets being established through the tunnel.
-    func setTunnelSettings(message: Message)
+    func setTunnelSettings(tunnelAddress: TunnelAddress)
     {
         log.debug("🚀 setTunnelSettings  🚀")
         
@@ -277,7 +268,9 @@ class PacketTunnelProvider: NEPacketTunnelProvider
             return
         }
         
-        let settings = makeNetworkSettings(host: host)
+        connectionAttemptStatus = .ipAssigned(tunnelAddress)
+        
+        let settings = makeNetworkSettings(host: host, tunnelAddress: tunnelAddress)
         
         // Set the virtual interface settings.
         setTunnelNetworkSettings(settings, completionHandler: tunnelSettingsCompleted)
@@ -285,22 +278,36 @@ class PacketTunnelProvider: NEPacketTunnelProvider
     
     func tunnelSettingsCompleted(maybeError: Error?)
     {
-        log.error("Tunnel settings updated.")
+        log.debug("Tunnel settings updated.")
+        
         if let error = maybeError
         {
             self.log.error("Failed to set the tunnel network settings: \(error)")
-            connectionAttemptStatus = .initialized
-            self.pendingStartCompletion?(error)
-            self.pendingStartCompletion = nil
+            failedConnection(error: error)
+            return
         }
+
+        guard let startCompletion = pendingStartCompletion
         else
         {
-            connectToServer()
+            failedConnection(error: TunnelError.internalError)
+            return
         }
+        
+        connectionAttemptStatus = .ready
+        startCompletion(nil)
+        
+        let newConnection = ClientTunnelConnection(clientPacketFlow: self.packetFlow, replicantConnection: connection!, logger: log)
+
+        self.log.debug("\n🚀 Connection to server complete! 🚀\n")
+        self.tunnelConnection = newConnection
+        newConnection.startHandlingPackets()
     }
     
     func connectToServer()
     {
+        connectionAttemptStatus = .connecting
+        
         log.debug("Connect to server called.")
         guard let replicantConnectionFactory = replicantConnectionFactory
             else
@@ -322,9 +329,37 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         connection = replicantConnection
         
         // Kick off the connection to the server
-        log.debug("Kicking off the connection to the server.")
+        log.debug("⚽️ Kicking off the connection to the server.")
         connection!.stateUpdateHandler = handleStateUpdate
         connection!.start(queue: connectQueue)
+    }
+    
+    func waitForIPAssignment()
+    {
+        guard let currentConnection = connection
+        else
+        {
+            failedConnection(error: TunnelError.disconnected)
+            
+            return
+        }
+        
+        currentConnection.readMessage
+        {
+            (message) in
+            
+            switch message
+            {
+                case .IPAssignV4(let ipv4Address):
+                    self.setTunnelSettings(tunnelAddress: .ipV4(ipv4Address))
+                case .IPAssignV6(let ipv6Address):
+                    self.setTunnelSettings(tunnelAddress: .ipV6(ipv6Address))
+                case .IPAssignDualStack(let ipv4Address, let ipv6Address):
+                    self.setTunnelSettings(tunnelAddress: .dualStack(ipv4Address, ipv6Address))
+                default:
+                    self.waitForIPAssignment()
+            }
+        }
     }
     
     func handleStateUpdate(newState: NWConnection.State)
@@ -358,43 +393,50 @@ class PacketTunnelProvider: NEPacketTunnelProvider
                     return
                 }
                 
-                self.log.debug("\n🚀 Connection state is ready 🚀\n")
+                self.log.debug("\n🌲 Connection state is ready 🌲\n")
                 isConnected = ConnectState(state: .success, stage: .statusCodes)
-                let newConnection = ClientTunnelConnection(clientPacketFlow: self.packetFlow, replicantConnection: connection!, logger: log)
-                
-                self.log.debug("\n🚀 open() called on tunnel connection  🚀\n")
-                self.tunnelConnection = newConnection
-                
-                newConnection.startHandlingPackets()
-                startCompletion(nil)
+                waitForIPAssignment()
                 
             case .cancelled:
                 self.log.debug("\n🙅‍♀️  Connection Cancelled  🙅‍♀️\n")
                 self.connection = nil
                 self.tunnelDidClose()
+                connectionAttemptStatus = .failed
                 startCompletion(TunnelError.cancelled)
                 
             case .failed(let error):
                 self.log.error("\n🐒  Connection Failed  🐒\n")
                 self.closeTunnelWithError(error)
+                connectionAttemptStatus = .failed
                 startCompletion(error)
                 
             default:
                 self.log.debug("\n🤷‍♀️  Unexpected State: \(newState) 🤷‍♀️\n")
         }
     }
+    
+    func failedConnection(error: Error)
+    {
+        connectionAttemptStatus = .failed
+        
+        if let completionHandler = pendingStartCompletion
+        {
+            completionHandler(error)
+            pendingStartCompletion = nil
+        }
+    }
 }
 
 enum ConnectionAttemptStatus
 {
-    case initialized
-    case started
-    case connecting
-    case connected
-    case ipAssigned(Message)
-    case ready
-    case stillReady
-    case failed
+    case initialized // Start tunnel has not been called yet
+    case started // Start tunnel has been called but nothing has been done yet
+    case connecting // Tried to connect to the server but have not heard back yet
+    case connected // Connected to the server
+    case ipAssigned(TunnelAddress) // Received an IP assignment message from the server
+    case ready // Connected and able to received packets (handshakes etc. are complete)
+    case stillReady // ??
+    case failed // Failed :(
 }
 
 public enum TunnelError: Error
@@ -404,4 +446,11 @@ public enum TunnelError: Error
     case cancelled
     case disconnected
     case internalError
+}
+
+public enum TunnelAddress
+{
+    case ipV4(IPv4Address)
+    case ipV6(IPv6Address)
+    case dualStack(IPv4Address, IPv6Address)
 }

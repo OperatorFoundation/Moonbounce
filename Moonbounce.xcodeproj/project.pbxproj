@@ -41,6 +41,7 @@
 		AE59B9F424CBB2BD00703630 /* Replicant in Frameworks */ = {isa = PBXBuildFile; productRef = AE59B9F324CBB2BD00703630 /* Replicant */; };
 		AE59B9F624CBB2CA00703630 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AE59B9F524CBB2CA00703630 /* ZIPFoundation */; };
 		AE6517F8246F4CDA00EFFB94 /* LoggingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6517F7246F4CDA00EFFB94 /* LoggingController.swift */; };
+		AE71729325B66F2B0070AF2C /* Flower in Frameworks */ = {isa = PBXBuildFile; productRef = AE71729225B66F2B0070AF2C /* Flower */; };
 		AE94E51024CB66E0007B552B /* Replicant in Frameworks */ = {isa = PBXBuildFile; productRef = AE94E50F24CB66E0007B552B /* Replicant */; };
 		AE94E51624CB6D18007B552B /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AE94E51524CB6D18007B552B /* ZIPFoundation */; };
 		AED4EA02243FD3A7003C367F /* PacketTunnelProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA01243FD3A7003C367F /* PacketTunnelProviderError.swift */; };
@@ -181,6 +182,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE71729325B66F2B0070AF2C /* Flower in Frameworks */,
 				AE59B9F224CBB1C200703630 /* LoggerQueue in Frameworks */,
 				AEFDFD7C2432A112003571DB /* NetworkExtension.framework in Frameworks */,
 				AE94E51024CB66E0007B552B /* Replicant in Frameworks */,
@@ -392,6 +394,7 @@
 				AE94E50F24CB66E0007B552B /* Replicant */,
 				AE94E51524CB6D18007B552B /* ZIPFoundation */,
 				AE59B9F124CBB1C200703630 /* LoggerQueue */,
+				AE71729225B66F2B0070AF2C /* Flower */,
 			);
 			productName = MoonbounceNetworkExtension;
 			productReference = 469B0A7821DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex */;
@@ -404,7 +407,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = operatorfoundation.org;
 				TargetAttributes = {
 					464DA95721E80E80003460D0 = {
@@ -473,6 +476,7 @@
 				AEFDFD6324326298003571DB /* XCRemoteSwiftPackageReference "Datable" */,
 				AEFDFD66243262B4003571DB /* XCRemoteSwiftPackageReference "SwiftQueue" */,
 				AE94E50E24CB66E0007B552B /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */,
+				AE71729125B66F2B0070AF2C /* XCRemoteSwiftPackageReference "Flower" */,
 			);
 			productRefGroup = 467CB5B41DBEB6E90086E341 /* Products */;
 			projectDirPath = "";
@@ -681,6 +685,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -740,6 +745,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -941,12 +947,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		AE71729125B66F2B0070AF2C /* XCRemoteSwiftPackageReference "Flower" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/Flower.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.2;
+			};
+		};
 		AE94E50E24CB66E0007B552B /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OperatorFoundation/Shapeshifter-Swift-Transports.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.2.5;
+				minimumVersion = 2.3.0;
 			};
 		};
 		AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
@@ -990,6 +1004,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
 			productName = ZIPFoundation;
+		};
+		AE71729225B66F2B0070AF2C /* Flower */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE71729125B66F2B0070AF2C /* XCRemoteSwiftPackageReference "Flower" */;
+			productName = Flower;
 		};
 		AE94E50F24CB66E0007B552B /* Replicant */ = {
 			isa = XCSwiftPackageProductDependency;

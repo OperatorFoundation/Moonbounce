@@ -31,6 +31,35 @@ public class ClientTunnelConnection
     }
 
     // MARK: Interface
+    
+    /// Wait for IP assignment from the server
+    public func waitForIPAssignment()
+    {
+        replicantConnection.readMessages
+        {
+            (message) in
+
+            self.log.debug("🌷 replicantConnection.readMessages callback message: \(message.description) 🌷")
+            switch message
+            {
+                case .IPAssignV4(_),
+                     .IPAssignV6(_):
+                     //.IPAssignDualStack(_, _):
+                    guard self.ipAllocationMessage == nil else {break}
+                    self.ipAllocationMessage = message
+                case .IPDataV4(let data):
+                    self.log.debug("IPDataV4 calling write packets.")
+                    self.packetFlow.writePackets([data], withProtocols: [4])
+                case .IPDataV6(let data):
+                    self.log.debug("IPDataV6 calling write packets.")
+                    self.packetFlow.writePackets([data], withProtocols: [6])
+                default:
+                    self.log.error("unsupported message type")
+            }
+        }
+
+    }
+    
     /// Make the initial readPacketsWithCompletionHandler call.
     public func startHandlingPackets()
     {
