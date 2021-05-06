@@ -59,6 +59,7 @@
 		B4634E331EA15AF40069C1DE /* KeychainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4634E321EA15AF40069C1DE /* KeychainController.swift */; };
 		B4EF3E5D1E15C12700A5DDBD /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EF3E5C1E15C12700A5DDBD /* CustomButton.swift */; };
 		CAFF6EC6250FFC0300BCBF5B /* Moonbounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFF6EC5250FFC0300BCBF5B /* Moonbounce.swift */; };
+		EFB1F50E26446D4B007AFD1E /* Transport in Frameworks */ = {isa = PBXBuildFile; productRef = EFB1F50D26446D4B007AFD1E /* Transport */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,6 +171,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFB1F50E26446D4B007AFD1E /* Transport in Frameworks */,
 				B41FE02C1DF24BF500E02D17 /* ServiceManagement.framework in Frameworks */,
 				B41FE02A1DF24BE900E02D17 /* Security.framework in Frameworks */,
 				AE39BD6822440123007C7C90 /* NetworkExtension.framework in Frameworks */,
@@ -371,6 +373,7 @@
 			packageProductDependencies = (
 				AE59B9F324CBB2BD00703630 /* Replicant */,
 				AE59B9F524CBB2CA00703630 /* ZIPFoundation */,
+				EFB1F50D26446D4B007AFD1E /* Transport */,
 			);
 			productName = Moonbounce;
 			productReference = 467CB5B31DBEB6E90086E341 /* Moonbounce.app */;
@@ -477,6 +480,7 @@
 				AEFDFD66243262B4003571DB /* XCRemoteSwiftPackageReference "SwiftQueue" */,
 				AE94E50E24CB66E0007B552B /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */,
 				AE71729125B66F2B0070AF2C /* XCRemoteSwiftPackageReference "Flower" */,
+				EFB1F50C26446D4B007AFD1E /* XCRemoteSwiftPackageReference "Transport" */,
 			);
 			productRefGroup = 467CB5B41DBEB6E90086E341 /* Products */;
 			projectDirPath = "";
@@ -987,6 +991,14 @@
 				minimumVersion = 0.0.3;
 			};
 		};
+		EFB1F50C26446D4B007AFD1E /* XCRemoteSwiftPackageReference "Transport" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/Transport";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1019,6 +1031,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
 			productName = ZIPFoundation;
+		};
+		EFB1F50D26446D4B007AFD1E /* Transport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EFB1F50C26446D4B007AFD1E /* XCRemoteSwiftPackageReference "Transport" */;
+			productName = Transport;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
