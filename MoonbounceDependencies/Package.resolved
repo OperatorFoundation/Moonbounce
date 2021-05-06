@@ -11,30 +11,12 @@
         }
       },
       {
-        "package": "Socket",
-        "repositoryURL": "https://github.com/OperatorFoundation/BlueSocket",
-        "state": {
-          "branch": null,
-          "revision": "90212ea8b66787c2d51d03527a04748ba6ee7679",
-          "version": "1.1.0"
-        }
-      },
-      {
         "package": "Chord",
         "repositoryURL": "https://github.com/OperatorFoundation/Chord.git",
         "state": {
           "branch": null,
-          "revision": "3d0189b4f6e71441d82c577c0f583fceace47684",
-          "version": "0.0.5"
-        }
-      },
-      {
-        "package": "Clibsodium",
-        "repositoryURL": "https://github.com/tiwoc/Clibsodium.git",
-        "state": {
-          "branch": null,
-          "revision": "2ac72772aae26b2da0b15c253d9bb79ba452f66a",
-          "version": "1.0.0"
+          "revision": "27f92c6eae98c1fc4ef28d5b6655c8e3b4f327b4",
+          "version": "0.0.11"
         }
       },
       {
@@ -51,8 +33,8 @@
         "repositoryURL": "https://github.com/OperatorFoundation/Datable",
         "state": {
           "branch": null,
-          "revision": "1c23f2b72d0d0cf4386fad05f8a5db4b91e8d304",
-          "version": "3.0.2"
+          "revision": "aff3113e993217cae43180df9286eaa481682cce",
+          "version": "3.0.4"
         }
       },
       {
@@ -60,17 +42,8 @@
         "repositoryURL": "https://github.com/OperatorFoundation/Elligator.git",
         "state": {
           "branch": null,
-          "revision": "ac7ae7f3d5b0296f0628691914a66f3652bd3c70",
-          "version": "0.1.0"
-        }
-      },
-      {
-        "package": "Flower",
-        "repositoryURL": "https://github.com/OperatorFoundation/Flower.git",
-        "state": {
-          "branch": null,
-          "revision": "70a2b9f43a9e0409bd17cd8d4fad1448f0e289db",
-          "version": "0.1.0"
+          "revision": "ca7820792bce549c2039b108dfce903f97911d97",
+          "version": "0.1.1"
         }
       },
       {
@@ -83,21 +56,30 @@
         }
       },
       {
+        "package": "Keychain",
+        "repositoryURL": "https://github.com/OperatorFoundation/Keychain.git",
+        "state": {
+          "branch": null,
+          "revision": "64c2e570f0cdb15beb879bdf1b3a9e01916f85d0",
+          "version": "0.1.2"
+        }
+      },
+      {
+        "package": "KeychainLinux",
+        "repositoryURL": "https://github.com/OperatorFoundation/KeychainLinux.git",
+        "state": {
+          "branch": null,
+          "revision": "9be9dbf0a3492444a770ef22da18d0ff544713f7",
+          "version": "0.1.1"
+        }
+      },
+      {
         "package": "Monolith",
         "repositoryURL": "https://github.com/OperatorFoundation/Monolith.git",
         "state": {
           "branch": null,
           "revision": "b2724b4814a9ce89935ac7d8aebd92c88c3c0f8c",
           "version": "1.0.0"
-        }
-      },
-      {
-        "package": "NetworkLinux",
-        "repositoryURL": "https://github.com/OperatorFoundation/NetworkLinux.git",
-        "state": {
-          "branch": null,
-          "revision": "d176e9fb287c7e574b09f6565e69860194ee8931",
-          "version": "0.1.0"
         }
       },
       {
@@ -114,8 +96,8 @@
         "repositoryURL": "https://github.com/OperatorFoundation/ReplicantSwift.git",
         "state": {
           "branch": null,
-          "revision": "8903b8daad17d466c49bf43aedde6fa46d2b6c91",
-          "version": "0.6.0"
+          "revision": "143d061849a9c0fd31b0460d36fedf071b29423b",
+          "version": "0.8.4"
         }
       },
       {
@@ -123,8 +105,8 @@
         "repositoryURL": "https://github.com/OperatorFoundation/Shapeshifter-Swift-Transports",
         "state": {
           "branch": null,
-          "revision": "5192efbb82ad67ad7c3730f6313b5c9bc6d9d5b1",
-          "version": "2.2.8"
+          "revision": "1e3f5204a4ce0f8b793287bf3c005435de405e83",
+          "version": "2.3.23"
         }
       },
       {
@@ -132,8 +114,8 @@
         "repositoryURL": "https://github.com/OperatorFoundation/Song.git",
         "state": {
           "branch": null,
-          "revision": "9a2e23e0db2fc23edcbaa8a9b57b0c7b533a915b",
-          "version": "0.1.0"
+          "revision": "ac3cabb2fd470091364706bb197c4de6295a05e6",
+          "version": "0.1.4"
         }
       },
       {
@@ -143,6 +125,15 @@
           "branch": null,
           "revision": "e8507d78b32dbd33ea5ea975bbbc82b7613870a1",
           "version": "0.19.9"
+        }
+      },
+      {
+        "package": "swift-crypto",
+        "repositoryURL": "https://github.com/apple/swift-crypto.git",
+        "state": {
+          "branch": null,
+          "revision": "3bea268b223651c4ab7b7b9ad62ef9b2d4143eb6",
+          "version": "1.1.6"
         }
       },
       {
@@ -156,20 +147,11 @@
       },
       {
         "package": "Sodium",
-        "repositoryURL": "https://github.com/OperatorFoundation/swift-sodium",
+        "repositoryURL": "https://github.com/OperatorFoundation/swift-sodium.git",
         "state": {
           "branch": null,
-          "revision": "1e66f454379716cc7f2be875991ec7f6e37c2132",
-          "version": "0.8.4"
-        }
-      },
-      {
-        "package": "SwiftHexTools",
-        "repositoryURL": "https://github.com/OperatorFoundation/SwiftHexTools",
-        "state": {
-          "branch": null,
-          "revision": "4ce4a4f66eea05c900d447af8c07ecaac720716c",
-          "version": "1.2.2"
+          "revision": "bf86f64a4f28a75f6683078540f24727fad1b12c",
+          "version": "0.9.0"
         }
       },
       {
@@ -182,12 +164,21 @@
         }
       },
       {
+        "package": "Transmission",
+        "repositoryURL": "https://github.com/OperatorFoundation/Transmission.git",
+        "state": {
+          "branch": null,
+          "revision": "f19c4784d14b90069a95ed6c8e0921545c09636f",
+          "version": "0.2.2"
+        }
+      },
+      {
         "package": "Transport",
         "repositoryURL": "https://github.com/OperatorFoundation/Transport.git",
         "state": {
           "branch": null,
-          "revision": "9013238d5e673330d4be46c7baa6a9ee25d770d6",
-          "version": "2.1.5"
+          "revision": "b5ac00eac45a2e57923540c1fd80c734fe160ffe",
+          "version": "2.3.4"
         }
       },
       {
