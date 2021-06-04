@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Logging
 import Network
 import NetworkExtension
 import ReplicantSwift
@@ -18,62 +19,62 @@ import ZIPFoundation
 
 class MoonbounceTests: XCTestCase {
     
-    func testConnectToServer()
-    {
-        guard let controller = ConfigController(), let moonbounceConfig = controller.getDefaultMoonbounceConfig()
-        else
-        {
-            print("Unable to connect, unable to load default config.")
-            XCTFail()
-            return
-        }
-        
-        VPNPreferencesController.shared.updateConfiguration(moonbounceConfig: moonbounceConfig, isEnabled: true)
-        {
-            (maybeLoadError) in
-            
-            if let loadError = maybeLoadError
-            {
-                print("Unable to connect, error loading from preferences: \(loadError)")
-                XCTFail()
-                return
-            }
-            
-            guard let vpnPreference = VPNPreferencesController.shared.maybeVPNPreference
-            else
-            {
-                print("Unable to connect, vpnPreference is nil.")
-                XCTFail()
-                return
-            }
-            
-            if vpnPreference.connection.status == .disconnected || vpnPreference.connection.status == .invalid
-            {
-                print("\nConnect pressed, starting logging loop.\n")
-                LoggingController.shared.startLoggingLoop()
-                
-                do
-                {
-                    print("\nCalling startVPNTunnel on vpnPreference.connection.\n")
-                    try vpnPreference.connection.startVPNTunnel()
-                    
-                    // Fetch URL here
-                    
-                }
-                catch
-                {
-                    NSLog("\nFailed to start the VPN: \(error.localizedDescription)\n")
-                    LoggingController.shared.stopLoggingLoop()
-                }
-                
-            }
-            else
-            {
-                LoggingController.shared.stopLoggingLoop()
-                vpnPreference.connection.stopVPNTunnel()
-            }
-        }
-    }
+//    func testConnectToServer()
+//    {
+//        guard let controller = ConfigController(), let moonbounceConfig = controller.getDefaultMoonbounceConfig()
+//        else
+//        {
+//            print("Unable to connect, unable to load default config.")
+//            XCTFail()
+//            return
+//        }
+//
+//        VPNPreferencesController.shared.updateConfiguration(moonbounceConfig: moonbounceConfig, isEnabled: true)
+//        {
+//            (maybeLoadError) in
+//
+//            if let loadError = maybeLoadError
+//            {
+//                print("Unable to connect, error loading from preferences: \(loadError)")
+//                XCTFail()
+//                return
+//            }
+//
+//            guard let vpnPreference = VPNPreferencesController.shared.maybeVPNPreference
+//            else
+//            {
+//                print("Unable to connect, vpnPreference is nil.")
+//                XCTFail()
+//                return
+//            }
+//
+//            if vpnPreference.connection.status == .disconnected || vpnPreference.connection.status == .invalid
+//            {
+//                print("\nConnect pressed, starting logging loop.\n")
+//                LoggingController.shared.startLoggingLoop()
+//
+//                do
+//                {
+//                    print("\nCalling startVPNTunnel on vpnPreference.connection.\n")
+//                    try vpnPreference.connection.startVPNTunnel()
+//
+//                    // Fetch URL here
+//
+//                }
+//                catch
+//                {
+//                    NSLog("\nFailed to start the VPN: \(error.localizedDescription)\n")
+//                    LoggingController.shared.stopLoggingLoop()
+//                }
+//
+//            }
+//            else
+//            {
+//                LoggingController.shared.stopLoggingLoop()
+//                vpnPreference.connection.stopVPNTunnel()
+//            }
+//        }
+//    }
     
     // TODO: Polish
 //    func testReplicantClientConnectionWithPolish()
@@ -133,14 +134,16 @@ class MoonbounceTests: XCTestCase {
     {
        let writeExpectation = expectation(description: "wrote")
 
-        guard let replicantConfig = ReplicantConfig(polish: nil, toneBurst: nil)
+        guard let replicantConfig = ReplicantConfig<SilverClientConfig>(polish: nil, toneBurst: nil)
         else
         {
             XCTFail()
             return
         }
+        LoggingSystem.bootstrap(StreamLogHandler.standardError)
+        let logger = Logger(label: "MoonbounceTest")
 
-        let connectionFactory = ReplicantConnectionFactory(host: "127.0.0.1", port: 1234, config: replicantConfig)
+        let connectionFactory = ReplicantConnectionFactory(host: "138.197.196.245", port: 1234, config: replicantConfig, log: logger)
 
         guard var connection = connectionFactory.connect(using: .tcp)
         else
@@ -181,235 +184,235 @@ class MoonbounceTests: XCTestCase {
         wait(for: [writeExpectation], timeout: 1)
     }
 
-    func testVPNPreferencesUpdate()
-    {
-        let completionExpectation = expectation(description: "completion handler called")
-        let configController = ConfigController()
-        
-        guard let controller = configController, let moonbounceConfig = controller.getDefaultMoonbounceConfig()
-        else
-        {
-            print("Update test failed: unable to load default config.")
-            XCTFail()
-            return
-        }
-        
-        VPNPreferencesController.shared.updateConfiguration(moonbounceConfig: moonbounceConfig)
-        {
-            (maybeError) in
-            
-            if let error = maybeError
-            {
-                print("Error testing update: \(error.localizedDescription)")
-                XCTFail()
-            }
-            
-            completionExpectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: 1, handler: nil)
-    }
-    
-    func testVPNPreferencesSetup()
-    {
-        let completionExpectation = expectation(description: "completion handler called")
-        let configController = ConfigController()
-        
-        guard let controller = configController, let moonbounceConfig = controller.getDefaultMoonbounceConfig()
-        else
-        {
-            print("Update test failed: unable to load default config.")
-            XCTFail()
-            return
-        }
-        
-        VPNPreferencesController.shared.setup(moonbounceConfig: moonbounceConfig)
-        {
-            (managerOrError) in
-            
-            switch managerOrError
-            {
-            case .error(let error):
-                print("Error testing VPNPreferences setup: \(error.localizedDescription)")
-                XCTAssertNil(error)
-            case .value(let manager):
-                print("Setup test created a manager: \(manager.debugDescription)")
-            }
-            
-            completionExpectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: 1, handler: nil)
-    }
-    
-    func testVPNPreferencesDeactivateNilPreference()
-    {
-        let completionExpectation = expectation(description: "completion handler called")
-        VPNPreferencesController.shared.maybeVPNPreference = nil
-        
-        VPNPreferencesController.shared.deactivate
-        {
-            (maybeError) in
-            
-            guard let _ = maybeError
-                else
-            {
-                XCTFail()
-                return
-            }
-            
-            completionExpectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: 3, handler: nil)
-    }
-    
-    func testVPNPreferencesDeactivate()
-    {
-        let completionExpectation = expectation(description: "completion handler called")
-        let configController = ConfigController()
-        
-        guard let controller = configController, let moonbounceConfig = controller.getDefaultMoonbounceConfig()
-        else
-        {
-            print("Update test failed: unable to load default config.")
-            XCTFail()
-            return
-        }
-        
-        VPNPreferencesController.shared.updateConfiguration(moonbounceConfig: moonbounceConfig)
-        {
-            (maybeError) in
-            
-            if let error = maybeError
-            {
-                print("Error testing update: \(error.localizedDescription)")
-                XCTFail()
-            }
-            
-            VPNPreferencesController.shared.deactivate
-            {
-                (maybeError) in
-                
-                if let error = maybeError
-                {
-                    print("Error testing activate: \(error.localizedDescription)")
-                    XCTFail()
-                }
-                
-                completionExpectation.fulfill()
-            }
-        }
-
-        waitForExpectations(timeout: 1, handler: nil)
-    }
-    
-    func testVPNPreferencesNewProtocolConfig()
-    {
-        let configController = ConfigController()
-
-        guard let controller = configController, let moonbounceConfig = controller.getDefaultMoonbounceConfig()
-        else
-        {
-            print("Update test failed: unable to load default config.")
-            XCTFail()
-            return
-        }
-
-        guard let _ = VPNPreferencesController.shared.newProtocolConfiguration(moonbounceConfig: moonbounceConfig)
-        else
-        {
-            XCTFail()
-            return
-        }
-    }
-
-    func testVPNPreferencesLoad()
-    {
-        let completionExpectation = expectation(description: "completion handler called")
-        
-        VPNPreferencesController.shared.load
-        {
-           (eitherVPNPreference) in
-            
-            switch eitherVPNPreference
-            {
-                case .error(_):
-                    XCTFail()
-                    return
-                case .value( _):
-                    print("Load test returned a VPNPreference")
-            }
-            
-            completionExpectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: 1, handler: nil)
-    }
-    
-    func testVPNPreferenceSaveNilPreference()
-    {
-        let completionExpectation = expectation(description: "completion handler called")
-        
-        VPNPreferencesController.shared.maybeVPNPreference = nil
-        
-        VPNPreferencesController.shared.save
-        {
-            (maybeError) in
-            
-            guard let _ = maybeError
-                else
-            {
-                XCTFail()
-                return
-            }
-            
-            completionExpectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: 1, handler: nil)
-    }
-    
-    func testVPNPreferenceSave()
-    {
-        let completionExpectation = expectation(description: "completion handler called")
-        let configController = ConfigController()
-        
-        guard let controller = configController, let moonbounceConfig = controller.getDefaultMoonbounceConfig()
-        else
-        {
-            print("Update test failed: unable to load default config.")
-            XCTFail()
-            return
-        }
-        
-        VPNPreferencesController.shared.updateConfiguration(moonbounceConfig: moonbounceConfig)
-        {
-            (maybeError) in
-            
-            if let error = maybeError
-            {
-                print("Error testing update: \(error.localizedDescription)")
-                completionExpectation.fulfill()
-                XCTFail()
-            }
-            
-            VPNPreferencesController.shared.save
-            {
-                (maybeError) in
-                
-                if let error = maybeError
-                {
-                    print("Error testing VPNPreference save: \(error)")
-                    XCTFail()
-                }
-                
-                completionExpectation.fulfill()
-            }
-        }
-
-        waitForExpectations(timeout: 1, handler: nil)
-    }
+//    func testVPNPreferencesUpdate()
+//    {
+//        let completionExpectation = expectation(description: "completion handler called")
+//        let configController = ConfigController()
+//
+//        guard let controller = configController, let moonbounceConfig = controller.getDefaultMoonbounceConfig()
+//        else
+//        {
+//            print("Update test failed: unable to load default config.")
+//            XCTFail()
+//            return
+//        }
+//
+//        VPNPreferencesController.shared.updateConfiguration(moonbounceConfig: moonbounceConfig)
+//        {
+//            (maybeError) in
+//
+//            if let error = maybeError
+//            {
+//                print("Error testing update: \(error.localizedDescription)")
+//                XCTFail()
+//            }
+//
+//            completionExpectation.fulfill()
+//        }
+//
+//        waitForExpectations(timeout: 1, handler: nil)
+//    }
+//
+//    func testVPNPreferencesSetup()
+//    {
+//        let completionExpectation = expectation(description: "completion handler called")
+//        let configController = ConfigController()
+//
+//        guard let controller = configController, let moonbounceConfig = controller.getDefaultMoonbounceConfig()
+//        else
+//        {
+//            print("Update test failed: unable to load default config.")
+//            XCTFail()
+//            return
+//        }
+//
+//        VPNPreferencesController.shared.setup(moonbounceConfig: moonbounceConfig)
+//        {
+//            (managerOrError) in
+//
+//            switch managerOrError
+//            {
+//            case .error(let error):
+//                print("Error testing VPNPreferences setup: \(error.localizedDescription)")
+//                XCTAssertNil(error)
+//            case .value(let manager):
+//                print("Setup test created a manager: \(manager.debugDescription)")
+//            }
+//
+//            completionExpectation.fulfill()
+//        }
+//
+//        waitForExpectations(timeout: 1, handler: nil)
+//    }
+//
+//    func testVPNPreferencesDeactivateNilPreference()
+//    {
+//        let completionExpectation = expectation(description: "completion handler called")
+//        VPNPreferencesController.shared.maybeVPNPreference = nil
+//
+//        VPNPreferencesController.shared.deactivate
+//        {
+//            (maybeError) in
+//
+//            guard let _ = maybeError
+//                else
+//            {
+//                XCTFail()
+//                return
+//            }
+//
+//            completionExpectation.fulfill()
+//        }
+//
+//        waitForExpectations(timeout: 3, handler: nil)
+//    }
+//
+//    func testVPNPreferencesDeactivate()
+//    {
+//        let completionExpectation = expectation(description: "completion handler called")
+//        let configController = ConfigController()
+//
+//        guard let controller = configController, let moonbounceConfig = controller.getDefaultMoonbounceConfig()
+//        else
+//        {
+//            print("Update test failed: unable to load default config.")
+//            XCTFail()
+//            return
+//        }
+//
+//        VPNPreferencesController.shared.updateConfiguration(moonbounceConfig: moonbounceConfig)
+//        {
+//            (maybeError) in
+//
+//            if let error = maybeError
+//            {
+//                print("Error testing update: \(error.localizedDescription)")
+//                XCTFail()
+//            }
+//
+//            VPNPreferencesController.shared.deactivate
+//            {
+//                (maybeError) in
+//
+//                if let error = maybeError
+//                {
+//                    print("Error testing activate: \(error.localizedDescription)")
+//                    XCTFail()
+//                }
+//
+//                completionExpectation.fulfill()
+//            }
+//        }
+//
+//        waitForExpectations(timeout: 1, handler: nil)
+//    }
+//
+//    func testVPNPreferencesNewProtocolConfig()
+//    {
+//        let configController = ConfigController()
+//
+//        guard let controller = configController, let moonbounceConfig = controller.getDefaultMoonbounceConfig()
+//        else
+//        {
+//            print("Update test failed: unable to load default config.")
+//            XCTFail()
+//            return
+//        }
+//
+//        guard let _ = VPNPreferencesController.shared.newProtocolConfiguration(moonbounceConfig: moonbounceConfig)
+//        else
+//        {
+//            XCTFail()
+//            return
+//        }
+//    }
+//
+//    func testVPNPreferencesLoad()
+//    {
+//        let completionExpectation = expectation(description: "completion handler called")
+//
+//        VPNPreferencesController.shared.load
+//        {
+//           (eitherVPNPreference) in
+//
+//            switch eitherVPNPreference
+//            {
+//                case .error(_):
+//                    XCTFail()
+//                    return
+//                case .value( _):
+//                    print("Load test returned a VPNPreference")
+//            }
+//
+//            completionExpectation.fulfill()
+//        }
+//
+//        waitForExpectations(timeout: 1, handler: nil)
+//    }
+//
+//    func testVPNPreferenceSaveNilPreference()
+//    {
+//        let completionExpectation = expectation(description: "completion handler called")
+//
+//        VPNPreferencesController.shared.maybeVPNPreference = nil
+//
+//        VPNPreferencesController.shared.save
+//        {
+//            (maybeError) in
+//
+//            guard let _ = maybeError
+//                else
+//            {
+//                XCTFail()
+//                return
+//            }
+//
+//            completionExpectation.fulfill()
+//        }
+//
+//        waitForExpectations(timeout: 1, handler: nil)
+//    }
+//
+//    func testVPNPreferenceSave()
+//    {
+//        let completionExpectation = expectation(description: "completion handler called")
+//        let configController = ConfigController()
+//
+//        guard let controller = configController, let moonbounceConfig = controller.getDefaultMoonbounceConfig()
+//        else
+//        {
+//            print("Update test failed: unable to load default config.")
+//            XCTFail()
+//            return
+//        }
+//
+//        VPNPreferencesController.shared.updateConfiguration(moonbounceConfig: moonbounceConfig)
+//        {
+//            (maybeError) in
+//
+//            if let error = maybeError
+//            {
+//                print("Error testing update: \(error.localizedDescription)")
+//                completionExpectation.fulfill()
+//                XCTFail()
+//            }
+//
+//            VPNPreferencesController.shared.save
+//            {
+//                (maybeError) in
+//
+//                if let error = maybeError
+//                {
+//                    print("Error testing VPNPreference save: \(error)")
+//                    XCTFail()
+//                }
+//
+//                completionExpectation.fulfill()
+//            }
+//        }
+//
+//        waitForExpectations(timeout: 1, handler: nil)
+//    }
 
 //    func testCreateConfigs()
 //    {
