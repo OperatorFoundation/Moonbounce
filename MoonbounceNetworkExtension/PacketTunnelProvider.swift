@@ -352,10 +352,18 @@ class PacketTunnelProvider: NEPacketTunnelProvider
             {
                 case .IPAssignV4(let ipv4Address):
                     self.setTunnelSettings(tunnelAddress: .ipV4(ipv4Address))
+                    print("IPV4 Address: ")
+                    print(ipv4Address)
                 case .IPAssignV6(let ipv6Address):
                     self.setTunnelSettings(tunnelAddress: .ipV6(ipv6Address))
+                    print("IPV6 Address: ")
+                    print(ipv6Address)
                 case .IPAssignDualStack(let ipv4Address, let ipv6Address):
                     self.setTunnelSettings(tunnelAddress: .dualStack(ipv4Address, ipv6Address))
+                    print("IPV4 Address: ")
+                    print(ipv4Address)
+                    print("IPV6 Address: ")
+                    print(ipv6Address)
                 default:
                     self.waitForIPAssignment()
             }
