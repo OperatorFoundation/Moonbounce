@@ -19,6 +19,10 @@ import ZIPFoundation
 
 class MoonbounceTests: XCTestCase {
     
+//    override class func setUp() {
+//        LoggingSystem.bootstrap(StreamLogHandler.standardError)
+//        }
+    
 //    func testConnectToServer()
 //    {
 //        guard let controller = ConfigController(), let moonbounceConfig = controller.getDefaultMoonbounceConfig()
@@ -140,7 +144,6 @@ class MoonbounceTests: XCTestCase {
             XCTFail()
             return
         }
-        LoggingSystem.bootstrap(StreamLogHandler.standardError)
         let logger = Logger(label: "MoonbounceTest")
 
         let connectionFactory = ReplicantConnectionFactory(host: "138.197.196.245", port: 1234, config: replicantConfig, log: logger)
