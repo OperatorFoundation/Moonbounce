@@ -187,6 +187,122 @@ class MoonbounceTests: XCTestCase {
         wait(for: [writeExpectation], timeout: 1)
     }
 
+    func testSendAndReceiveData()
+    {
+        let writeExpectation = expectation(description: "wrote")
+        let readExpectation = expectation(description: "read")
+
+         guard let replicantConfig = ReplicantConfig<SilverClientConfig>(polish: nil, toneBurst: nil)
+         else
+         {
+             XCTFail()
+             return
+         }
+         let logger = Logger(label: "MoonbounceTest")
+
+         let connectionFactory = ReplicantConnectionFactory(host: "138.197.196.245", port: 1234, config: replicantConfig, log: logger)
+
+         guard var connection = connectionFactory.connect(using: .tcp)
+         else
+         {
+             XCTFail()
+             return
+         }
+
+         connection.stateUpdateHandler =
+         {
+             (newState) in
+
+             switch newState
+             {
+             case .ready:
+                 let message = Message.IPDataV4("Hello".data)
+                 connection.writeMessage(message: message)
+                 {
+                     (maybeWriteError) in
+
+                     if let writeError = maybeWriteError
+                     {
+                         print("***Write error: \(writeError)")
+                         XCTFail()
+                         return
+                     }
+                     else
+                     {
+                         writeExpectation.fulfill()
+                        connection.readMessage { message in
+                            readExpectation.fulfill()
+                        }
+                     }
+                 }
+             default:
+                 print("***Not ready: \(newState)")
+             }
+         }
+
+         connection.start(queue: DispatchQueue(label: "TestQueue") )
+         wait(for: [writeExpectation, readExpectation], timeout: 1000)
+        
+        
+    }
+    
+    func testSendAndReceiveByte()
+    {
+        let writeExpectation = expectation(description: "wrote")
+        let readExpectation = expectation(description: "read")
+
+         guard let replicantConfig = ReplicantConfig<SilverClientConfig>(polish: nil, toneBurst: nil)
+         else
+         {
+             XCTFail()
+             return
+         }
+         let logger = Logger(label: "MoonbounceTest")
+
+         let connectionFactory = ReplicantConnectionFactory(host: "138.197.196.245", port: 1234, config: replicantConfig, log: logger)
+
+         guard var connection = connectionFactory.connect(using: .tcp)
+         else
+         {
+             XCTFail()
+             return
+         }
+
+         connection.stateUpdateHandler =
+         {
+             (newState) in
+
+             switch newState
+             {
+             case .ready:
+                let message = "hi".data
+                connection.send(content: message, contentContext: .defaultMessage, isComplete: false, completion: .contentProcessed(
+                                    { maybeWriteError in
+                    if let writeError = maybeWriteError
+                    {
+                        print("***Write error: \(writeError)")
+                        XCTFail()
+                        return
+                    }
+                    else
+                    {
+                        writeExpectation.fulfill()
+                        connection.receive(minimumIncompleteLength: 1, maximumLength: 1) { maybeData, maybeContext, isComplete, maybeError in
+                            readExpectation.fulfill()
+                        }
+                    }
+                }))
+             default:
+                 print("***Not ready: \(newState)")
+             }
+            
+         }
+         connection.start(queue: DispatchQueue(label: "TestQueue") )
+         wait(for: [writeExpectation, readExpectation], timeout: 1000)
+        
+        
+    }
+    
 //    func testVPNPreferencesUpdate()
 //    {
 //        let completionExpectation = expectation(description: "completion handler called")
