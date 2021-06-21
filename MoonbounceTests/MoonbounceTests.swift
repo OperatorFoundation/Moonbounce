@@ -299,10 +299,82 @@ class MoonbounceTests: XCTestCase {
          }
          connection.start(queue: DispatchQueue(label: "TestQueue") )
          wait(for: [writeExpectation, readExpectation], timeout: 1000)
-        
-        
     }
     
+    func testDefaultMoonbounceConfig() {
+        // its getting the config from /Users/bluesaxorcist/Library/Developer/Xcode/DerivedData/Moonbounce-bwswfokwswbfrughpywkefjxmjtx/Build/Products/Debug/Moonbounce.app/Contents/Resources/Default
+        let config = ConfigController().getDefaultMoonbounceConfig()
+        guard (config != nil) else {
+            XCTFail()
+            return
+        }
+        let host = config!.clientConfig.host
+        let port = config!.clientConfig.port
+        XCTAssertNotNil(config)
+        XCTAssertEqual(host, "138.197.196.245")
+        XCTAssertEqual(port,  1234)
+    }
+    
+    func testSendAndReceiveByteWithConfig()
+    {
+        let writeExpectation = expectation(description: "wrote")
+        let readExpectation = expectation(description: "read")
+
+        guard let config = ConfigController().getDefaultMoonbounceConfig() else {
+            XCTFail()
+            return
+        }
+        
+        // TODO: Figure out how to use the replicantConfig from the default config
+         guard let replicantConfig = ReplicantConfig<SilverClientConfig>(polish: nil, toneBurst: nil)
+         else
+         {
+             XCTFail()
+             return
+         }
+         let logger = Logger(label: "MoonbounceTest")
+
+        let connectionFactory = ReplicantConnectionFactory(host: config.clientConfig.host, port: config.clientConfig.port, config: replicantConfig, log: logger)
+
+         guard var connection = connectionFactory.connect(using: .tcp)
+         else
+         {
+             XCTFail()
+             return
+         }
+
+         connection.stateUpdateHandler =
+         {
+             (newState) in
+
+             switch newState
+             {
+             case .ready:
+                let message = "hi".data
+                connection.send(content: message, contentContext: .defaultMessage, isComplete: false, completion: .contentProcessed(
+                                    { maybeWriteError in
+                    if let writeError = maybeWriteError
+                    {
+                        print("***Write error: \(writeError)")
+                        XCTFail()
+                        return
+                    }
+                    else
+                    {
+                        writeExpectation.fulfill()
+                        connection.receive(minimumIncompleteLength: 1, maximumLength: 1) { maybeData, maybeContext, isComplete, maybeError in
+                            readExpectation.fulfill()
+                        }
+                    }
+                }))
+             default:
+                 print("***Not ready: \(newState)")
+             }
+            
+         }
+         connection.start(queue: DispatchQueue(label: "TestQueue") )
+         wait(for: [writeExpectation, readExpectation], timeout: 1000)
+    }
 //    func testVPNPreferencesUpdate()
 //    {
 //        let completionExpectation = expectation(description: "completion handler called")
