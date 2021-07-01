@@ -336,11 +336,13 @@ class PacketTunnelProvider: NEPacketTunnelProvider
     
     func waitForIPAssignment()
     {
+        log.debug("⏳ Waiting for our IP assignment! ⏳")
+        
         guard let currentConnection = connection
         else
         {
+            log.error("🛑 Current connection is nil, giving up. 🛑")
             failedConnection(error: TunnelError.disconnected)
-            
             return
         }
         
@@ -348,6 +350,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         {
             (message) in
             
+            self.log.debug("Received a message while waiting for our IP assignement:\n\(message)")
             switch message
             {
                 case .IPAssignV4(let ipv4Address):
