@@ -11,6 +11,7 @@ import Logging
 import NetworkExtension
 import Replicant
 import Flower
+import InternetProtocols
 
 /// An object used to tunnel IP packets using the SimpleTunnel protocol.
 public class ClientTunnelConnection
@@ -98,6 +99,11 @@ public class ClientTunnelConnection
                     case NSNumber(value: AF_INET):
                         self.log.debug("Ipv4 protocol")
 
+                        if let ipv4Packet = IPv4(data: packet) {
+                            if ipv4Packet.destinationAddress == Data(array: [8, 8, 8, 8]) {
+                                self.log.debug("saw a packet from 8.8.8.8!")
+                            }
+                        }
                         // Encapsulates packages into Messages (using Flower)
                         self.log.debug("packet: \(packet)")
                         let message = Message.IPDataV4(packet)
