@@ -204,6 +204,144 @@ class MoonbounceTests: XCTestCase {
         wait(for: [writeExpectation, readExpectation], timeout: 1000)
     }
     
+    func testTCP() {
+        let writeExpectation = expectation(description: "wrote")
+        let readExpectation = expectation(description: "read")
+        
+         guard let replicantConfig = ReplicantConfig<SilverClientConfig>(polish: nil, toneBurst: nil)
+         else
+         {
+             XCTFail()
+             return
+         }
+         let logger = Logger(label: "MoonbounceTest")
+
+         let connectionFactory = ReplicantConnectionFactory(host: "138.197.196.245", port: 1234, config: replicantConfig, log: logger)
+
+         guard var connection = connectionFactory.connect(using: .tcp)
+         else
+         {
+             XCTFail()
+             return
+         }
+
+         connection.stateUpdateHandler =
+         {
+             (newState) in
+
+             switch newState
+             {
+                
+                case .ready:
+                    connection.readMessage { ipAssignMessage in
+                        switch ipAssignMessage {
+                            case .IPAssignV4(let ipv4Address):
+                                print(ipv4Address)
+                                print(ipv4Address.rawValue.hex)
+                                print(ipv4Address.rawValue.array)
+                                let newPacket = "450000400000400040060afc\(ipv4Address.rawValue.hex)054f68c3d71601bb0ee2261300000000b002ffff2a3c0000020405b4010303060101080a2173adc90000000004020000"
+                                print(newPacket)
+                                let message = Message.IPDataV4(Data(hex: newPacket)!)
+                                connection.writeMessage(message: message)
+                                {
+                                    (maybeWriteError) in
+
+                                    if let writeError = maybeWriteError
+                                    {
+                                        print("***Write error: \(writeError)")
+                                        XCTFail()
+                                        return
+                                    }
+                                    else
+                                    {
+                                        writeExpectation.fulfill()
+                                        connection.readMessage { message in
+                                            readExpectation.fulfill()
+                                        }
+                                    }
+                                }
+                            default:
+                                print("***Not ready: \(newState)")
+                            }
+                        }
+                default:
+                    XCTFail()
+                    return
+                    }
+                }
+        connection.start(queue: DispatchQueue(label: "TestQueue") )
+        wait(for: [writeExpectation, readExpectation], timeout: 1000)
+    }
+    
+    func testUDP() {
+        let writeExpectation = expectation(description: "wrote")
+        let readExpectation = expectation(description: "read")
+        
+         guard let replicantConfig = ReplicantConfig<SilverClientConfig>(polish: nil, toneBurst: nil)
+         else
+         {
+             XCTFail()
+             return
+         }
+         let logger = Logger(label: "MoonbounceTest")
+
+         let connectionFactory = ReplicantConnectionFactory(host: "138.197.196.245", port: 1234, config: replicantConfig, log: logger)
+
+         guard var connection = connectionFactory.connect(using: .tcp)
+         else
+         {
+             XCTFail()
+             return
+         }
+
+         connection.stateUpdateHandler =
+         {
+             (newState) in
+
+             switch newState
+             {
+                
+                case .ready:
+                    connection.readMessage { ipAssignMessage in
+                        switch ipAssignMessage {
+                            case .IPAssignV4(let ipv4Address):
+                                print(ipv4Address)
+                                print(ipv4Address.rawValue.hex)
+                                print(ipv4Address.rawValue.array)
+                                let newPacket = "4500003dbfca00004011f783\(ipv4Address.rawValue.hex)8efa72bdd8a801bb00293d7550fa2df0bc8cdbcdf2a9af346c7bdb1f6972e32fc7f45c9a774e6e698999fb1e48"
+                                print(newPacket)
+                                let message = Message.IPDataV4(Data(hex: newPacket)!)
+                                connection.writeMessage(message: message)
+                                {
+                                    (maybeWriteError) in
+
+                                    if let writeError = maybeWriteError
+                                    {
+                                        print("***Write error: \(writeError)")
+                                        XCTFail()
+                                        return
+                                    }
+                                    else
+                                    {
+                                        writeExpectation.fulfill()
+                                        connection.readMessage { message in
+                                            readExpectation.fulfill()
+                                        }
+                                    }
+                                }
+                            default:
+                                print("***Not ready: \(newState)")
+                            }
+                        }
+                default:
+                    XCTFail()
+                    return
+                    }
+                }
+        connection.start(queue: DispatchQueue(label: "TestQueue") )
+        wait(for: [writeExpectation, readExpectation], timeout: 1000)
+    }
+    
     func testReplicantClientConnectionToServer()
     {
        let writeExpectation = expectation(description: "wrote")
