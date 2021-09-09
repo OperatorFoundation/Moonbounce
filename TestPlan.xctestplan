@@ -1,0 +1,33 @@
+{
+  "configurations" : [
+    {
+      "id" : "1677CBB8-01FF-42AF-B72E-5574C8CC2BE1",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "MoonbounceTests\/testDefaultMoonbounceConfig()",
+        "MoonbounceTests\/testReplicantClientConnectionToServer()",
+        "MoonbounceTests\/testSendAndReceiveByte()",
+        "MoonbounceTests\/testSendAndReceiveByteWithConfig()",
+        "MoonbounceTests\/testSendAndReceiveData()",
+        "MoonbounceTests\/testTCP()",
+        "MoonbounceTests\/testUDP()"
+      ],
+      "target" : {
+        "containerPath" : "container:Moonbounce.xcodeproj",
+        "identifier" : "464DA95721E80E80003460D0",
+        "name" : "MoonbounceTests"
+      }
+    }
+  ],
+  "version" : 1
+}

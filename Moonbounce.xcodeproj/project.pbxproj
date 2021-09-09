@@ -159,6 +159,8 @@
 		B4EF3E5C1E15C12700A5DDBD /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomButton.swift; path = Helpers/CustomButton.swift; sourceTree = "<group>"; };
 		CAFF6EC5250FFC0300BCBF5B /* Moonbounce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moonbounce.swift; sourceTree = "<group>"; };
 		CAFF6EC8250FFDB000BCBF5B /* Moonbounce-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Moonbounce-Bridging-Header.h"; path = "Moonbounce/Moonbounce-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		EF426EF426B867BF008A8504 /* TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestPlan.xctestplan; sourceTree = SOURCE_ROOT; };
+		EF426EF526B86896008A8504 /* MoonbounceTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = MoonbounceTests.xctestplan; path = Moonbounce.xcodeproj/MoonbounceTests.xctestplan; sourceTree = "<group>"; };
 		EF7449AA2673CC32007BA534 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -204,6 +206,7 @@
 		464DA95921E80E80003460D0 /* MoonbounceTests */ = {
 			isa = PBXGroup;
 			children = (
+				EF426EF426B867BF008A8504 /* TestPlan.xctestplan */,
 				464DA95A21E80E80003460D0 /* MoonbounceTests.swift */,
 				464DA95C21E80E80003460D0 /* Info.plist */,
 			);
@@ -213,6 +216,7 @@
 		467CB5AA1DBEB6E90086E341 = {
 			isa = PBXGroup;
 			children = (
+				EF426EF526B86896008A8504 /* MoonbounceTests.xctestplan */,
 				AE1359A6220DFC6F00E81823 /* default.moonbounce */,
 				AED4E9FD243FD11D003C367F /* Shared */,
 				467CB5B51DBEB6E90086E341 /* Moonbounce */,
@@ -970,7 +974,7 @@
 			repositoryURL = "https://github.com/OperatorFoundation/Flower.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.12;
+				minimumVersion = 0.1.15;
 			};
 		};
 		AE94E50E24CB66E0007B552B /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */ = {

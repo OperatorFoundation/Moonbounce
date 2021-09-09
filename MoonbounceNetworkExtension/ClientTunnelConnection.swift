@@ -36,7 +36,7 @@ public class ClientTunnelConnection
     /// Wait for IP assignment from the server
     public func waitForIPAssignment()
     {
-        replicantConnection.readMessages
+        replicantConnection.readMessages(log: self.log)
         {
             (message) in
 
@@ -67,11 +67,13 @@ public class ClientTunnelConnection
         log.debug("Start handling packets called.")
         DispatchQueue.global(qos: .userInitiated).async
         {
+            self.log.debug("calling packetsToMessages async")
             self.packetsToMessages()
         }
         
         DispatchQueue.global(qos: .userInitiated).async
         {
+            self.log.debug("calling messagesToPackets async")
             self.messagesToPackets()
         }
     }
@@ -101,7 +103,7 @@ public class ClientTunnelConnection
 
                         if let ipv4Packet = IPv4(data: packet) {
                             if ipv4Packet.destinationAddress == Data(array: [8, 8, 8, 8]) {
-                                self.log.debug("saw a packet from 8.8.8.8!")
+                                self.log.debug("saw a packet for 8.8.8.8!")
                             }
                         }
                         // Encapsulates packages into Messages (using Flower)
@@ -109,7 +111,7 @@ public class ClientTunnelConnection
                         let message = Message.IPDataV4(packet)
                         self.log.debug("🌷 encapsulated into Flower Message: \(message.description) 🌷")
 
-                        self.replicantConnection.writeMessage(message: message, completion:
+                        self.replicantConnection.writeMessage(log: self.log, message: message, completion:
                         {
                             (maybeError) in
 
@@ -121,7 +123,7 @@ public class ClientTunnelConnection
                     case NSNumber(value: AF_INET6):
                         self.log.debug("IPv6 protocol")
                         let message = Message.IPDataV6(packet)
-                        self.replicantConnection.writeMessage(message: message, completion:
+                        self.replicantConnection.writeMessage(log: self.log, message: message, completion:
                         {
                             (maybeError) in
 
@@ -141,7 +143,8 @@ public class ClientTunnelConnection
         
     func messagesToPackets()
     {
-        replicantConnection.readMessages
+        self.log.debug("calling messagesToPackets!")
+        replicantConnection.readMessages(log: self.log)
         {
             (message) in
 

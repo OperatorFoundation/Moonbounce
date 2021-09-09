@@ -166,11 +166,11 @@ class MoonbounceTests: XCTestCase {
                 case .ready:
                     connection.readMessage { ipAssignMessage in
                         switch ipAssignMessage {
-                            case .IPAssignV4(let ipv4Address):
-                                print(ipv4Address)
-                                print(ipv4Address.rawValue.hex)
-                                print(ipv4Address.rawValue.array)
-                                let newPacket = "45000054edfa00004001baf1\(ipv4Address.rawValue.hex)080808080800335dde64021860f5bcab0009db7808090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f3031323334353637"
+                            case .IPAssignV4(let sourceAddress):
+                                print(sourceAddress)
+                                print(sourceAddress.rawValue.hex)
+                                print(sourceAddress.rawValue.array)
+                                let newPacket = "45000054edfa00004001baf1\(sourceAddress.rawValue.hex)080808080800335dde64021860f5bcab0009db7808090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f3031323334353637"
                                 print(newPacket)
                                 let message = Message.IPDataV4(Data(hex: newPacket)!)
                                 connection.writeMessage(message: message)
@@ -235,11 +235,14 @@ class MoonbounceTests: XCTestCase {
                 case .ready:
                     connection.readMessage { ipAssignMessage in
                         switch ipAssignMessage {
-                            case .IPAssignV4(let ipv4Address):
-                                print(ipv4Address)
-                                print(ipv4Address.rawValue.hex)
-                                print(ipv4Address.rawValue.array)
-                                let newPacket = "450000400000400040060afc\(ipv4Address.rawValue.hex)054f68c3d71601bb0ee2261300000000b002ffff2a3c0000020405b4010303060101080a2173adc90000000004020000"
+                            case .IPAssignV4(let sourceAddress):
+                                print(sourceAddress)
+                                print(sourceAddress.rawValue.hex)
+                                print(sourceAddress.rawValue.array)
+                                //FIXME: this destaddr is the DO server, replace with google (172.18.128.1) and port 443
+                                let destinationAddress = "a747b88e"
+                                let destinationPort = "0016"
+                                let newPacket = "450000400000400040060afc\(sourceAddress.rawValue.hex)\(destinationAddress)d716\(destinationPort)0ee2261300000000b002ffff2a3c0000020405b4010303060101080a2173adc90000000004020000"
                                 print(newPacket)
                                 let message = Message.IPDataV4(Data(hex: newPacket)!)
                                 connection.writeMessage(message: message)
@@ -287,7 +290,7 @@ class MoonbounceTests: XCTestCase {
 
          let connectionFactory = ReplicantConnectionFactory(host: "138.197.196.245", port: 1234, config: replicantConfig, log: logger)
 
-         guard var connection = connectionFactory.connect(using: .tcp)
+         guard var connection = connectionFactory.connect(using: .udp)
          else
          {
              XCTFail()
