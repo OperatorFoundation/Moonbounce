@@ -36,11 +36,9 @@
 		AE4D6BAF24462C28002DA1E4 /* VPNPreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4D6BAE24462C28002DA1E4 /* VPNPreferencesController.swift */; };
 		AE4D6BB12447B962002DA1E4 /* ConfigController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0738D322370EF9009E3C4E /* ConfigController.swift */; };
 		AE59B9F224CBB1C200703630 /* LoggerQueue in Frameworks */ = {isa = PBXBuildFile; productRef = AE59B9F124CBB1C200703630 /* LoggerQueue */; };
-		AE59B9F424CBB2BD00703630 /* Replicant in Frameworks */ = {isa = PBXBuildFile; productRef = AE59B9F324CBB2BD00703630 /* Replicant */; };
 		AE59B9F624CBB2CA00703630 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AE59B9F524CBB2CA00703630 /* ZIPFoundation */; };
 		AE6517F8246F4CDA00EFFB94 /* LoggingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6517F7246F4CDA00EFFB94 /* LoggingController.swift */; };
 		AE71729325B66F2B0070AF2C /* Flower in Frameworks */ = {isa = PBXBuildFile; productRef = AE71729225B66F2B0070AF2C /* Flower */; };
-		AE94E51024CB66E0007B552B /* Replicant in Frameworks */ = {isa = PBXBuildFile; productRef = AE94E50F24CB66E0007B552B /* Replicant */; };
 		AE94E51624CB6D18007B552B /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AE94E51524CB6D18007B552B /* ZIPFoundation */; };
 		AED4EA02243FD3A7003C367F /* PacketTunnelProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA01243FD3A7003C367F /* PacketTunnelProviderError.swift */; };
 		AED4EA03243FD3A7003C367F /* PacketTunnelProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA01243FD3A7003C367F /* PacketTunnelProviderError.swift */; };
@@ -59,6 +57,7 @@
 		CAFF6EC6250FFC0300BCBF5B /* Moonbounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFF6EC5250FFC0300BCBF5B /* Moonbounce.swift */; };
 		EF1E354D26F282CD006CC1D6 /* ReplicantSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EF1E354C26F282CD006CC1D6 /* ReplicantSwift */; };
 		EF1E355026F2858F006CC1D6 /* ReplicantSwiftClient in Frameworks */ = {isa = PBXBuildFile; productRef = EF1E354F26F2858F006CC1D6 /* ReplicantSwiftClient */; };
+		EF1E355226F2991A006CC1D6 /* ReplicantSwiftClient in Frameworks */ = {isa = PBXBuildFile; productRef = EF1E355126F2991A006CC1D6 /* ReplicantSwiftClient */; };
 		EF5FB20C269CDB0D00D2938D /* InternetProtocols in Frameworks */ = {isa = PBXBuildFile; productRef = EF5FB20B269CDB0D00D2938D /* InternetProtocols */; };
 		EF72F95B265DD97800294C6F /* default.moonbounce in Resources */ = {isa = PBXBuildFile; fileRef = AE1359A6220DFC6F00E81823 /* default.moonbounce */; };
 		EF7449AD2673CC71007BA534 /* Flower in Frameworks */ = {isa = PBXBuildFile; productRef = EF7449AC2673CC71007BA534 /* Flower */; };
@@ -186,7 +185,6 @@
 				AE39BD6822440123007C7C90 /* NetworkExtension.framework in Frameworks */,
 				EF1E354D26F282CD006CC1D6 /* ReplicantSwift in Frameworks */,
 				EF1E355026F2858F006CC1D6 /* ReplicantSwiftClient in Frameworks */,
-				AE59B9F424CBB2BD00703630 /* Replicant in Frameworks */,
 				AE59B9F624CBB2CA00703630 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -198,7 +196,7 @@
 				AE71729325B66F2B0070AF2C /* Flower in Frameworks */,
 				AE59B9F224CBB1C200703630 /* LoggerQueue in Frameworks */,
 				AEFDFD7C2432A112003571DB /* NetworkExtension.framework in Frameworks */,
-				AE94E51024CB66E0007B552B /* Replicant in Frameworks */,
+				EF1E355226F2991A006CC1D6 /* ReplicantSwiftClient in Frameworks */,
 				AE94E51624CB6D18007B552B /* ZIPFoundation in Frameworks */,
 				EF5FB20C269CDB0D00D2938D /* InternetProtocols in Frameworks */,
 			);
@@ -389,7 +387,6 @@
 			);
 			name = Moonbounce;
 			packageProductDependencies = (
-				AE59B9F324CBB2BD00703630 /* Replicant */,
 				AE59B9F524CBB2CA00703630 /* ZIPFoundation */,
 				EFB1F50D26446D4B007AFD1E /* Transport */,
 				EFEA2F3E26A5F30B00F1D116 /* SwiftHexTools */,
@@ -415,11 +412,11 @@
 			);
 			name = MoonbounceNetworkExtension;
 			packageProductDependencies = (
-				AE94E50F24CB66E0007B552B /* Replicant */,
 				AE94E51524CB6D18007B552B /* ZIPFoundation */,
 				AE59B9F124CBB1C200703630 /* LoggerQueue */,
 				AE71729225B66F2B0070AF2C /* Flower */,
 				EF5FB20B269CDB0D00D2938D /* InternetProtocols */,
+				EF1E355126F2991A006CC1D6 /* ReplicantSwiftClient */,
 			);
 			productName = MoonbounceNetworkExtension;
 			productReference = 469B0A7821DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex */;
@@ -1006,7 +1003,7 @@
 			repositoryURL = "https://github.com/OperatorFoundation/Datable";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.6;
+				minimumVersion = 3.1.0;
 			};
 		};
 		AEFDFD66243262B4003571DB /* XCRemoteSwiftPackageReference "SwiftQueue" */ = {
@@ -1038,7 +1035,7 @@
 			repositoryURL = "https://github.com/OperatorFoundation/InternetProtocols.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.4;
+				minimumVersion = 2.1.0;
 			};
 		};
 		EFB1F50C26446D4B007AFD1E /* XCRemoteSwiftPackageReference "Transport" */ = {
@@ -1065,11 +1062,6 @@
 			package = AE94E50E24CB66E0007B552B /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */;
 			productName = LoggerQueue;
 		};
-		AE59B9F324CBB2BD00703630 /* Replicant */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AE94E50E24CB66E0007B552B /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */;
-			productName = Replicant;
-		};
 		AE59B9F524CBB2CA00703630 /* ZIPFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
@@ -1079,11 +1071,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AE71729125B66F2B0070AF2C /* XCRemoteSwiftPackageReference "Flower" */;
 			productName = Flower;
-		};
-		AE94E50F24CB66E0007B552B /* Replicant */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AE94E50E24CB66E0007B552B /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */;
-			productName = Replicant;
 		};
 		AE94E51524CB6D18007B552B /* ZIPFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1096,6 +1083,11 @@
 			productName = ReplicantSwift;
 		};
 		EF1E354F26F2858F006CC1D6 /* ReplicantSwiftClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF1E354E26F2858F006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwiftClient" */;
+			productName = ReplicantSwiftClient;
+		};
+		EF1E355126F2991A006CC1D6 /* ReplicantSwiftClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EF1E354E26F2858F006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwiftClient" */;
 			productName = ReplicantSwiftClient;

@@ -9,7 +9,7 @@
 import Foundation
 import Logging
 import NetworkExtension
-import Replicant
+import ReplicantSwiftClient
 import Flower
 import InternetProtocols
 

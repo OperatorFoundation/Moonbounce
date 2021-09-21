@@ -8,7 +8,7 @@
 
 import Cocoa
 import Logging
-import Replicant
+import ReplicantSwiftClient
 import ReplicantSwift
 import Network
 import NetworkExtension

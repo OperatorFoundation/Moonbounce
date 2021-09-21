@@ -9,7 +9,7 @@
 import Logging
 import NetworkExtension
 import Network
-import Replicant
+import ReplicantSwiftClient
 import ReplicantSwift
 import SwiftQueue
 import LoggerQueue
