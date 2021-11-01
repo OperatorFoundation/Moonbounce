@@ -73,7 +73,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
 
     override func startTunnel(options: [String : NSObject]? = nil, completionHandler: @escaping (Error?) -> Void)
     {
-        log.debug("👾 PacketTunnelProvider startTunnel called 👾")
+        log.debug("1. 👾 PacketTunnelProvider startTunnel called 👾")
         
         switch connectionAttemptStatus
         {
@@ -256,7 +256,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
     /// Handle the event of the logical flow of packets being established through the tunnel.
     func setTunnelSettings(tunnelAddress: TunnelAddress)
     {
-        log.debug("🚀 setTunnelSettings  🚀")
+        log.debug("5. 🚀 setTunnelSettings  🚀")
         
         guard let host = remoteHost
         else
@@ -271,6 +271,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         connectionAttemptStatus = .ipAssigned(tunnelAddress)
         
         let settings = makeNetworkSettings(host: host, tunnelAddress: tunnelAddress)
+        log.debug("(setTunnelSettings) host: \(host), tunnelAddress: \(tunnelAddress)")
         
         // Set the virtual interface settings.
         setTunnelNetworkSettings(settings, completionHandler: tunnelSettingsCompleted)
@@ -278,7 +279,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
     
     func tunnelSettingsCompleted(maybeError: Error?)
     {
-        log.debug("Tunnel settings updated.")
+        log.debug("6. Tunnel settings updated.")
         
         if let error = maybeError
         {
@@ -308,7 +309,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
     {
         connectionAttemptStatus = .connecting
         
-        log.debug("Connect to server called.")
+        log.debug("2. Connect to server called.")
         guard let replicantConnectionFactory = replicantConnectionFactory
             else
         {
@@ -336,7 +337,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
     
     func waitForIPAssignment()
     {
-        log.debug("⏳ Waiting for our IP assignment! ⏳")
+        log.debug("4. ⏳ Waiting for our IP assignment! ⏳")
         
         guard let currentConnection = connection
         else
@@ -346,7 +347,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
             return
         }
         
-        currentConnection.readMessage
+        currentConnection.readMessage(log: log)
         {
             (message) in
             
@@ -357,18 +358,22 @@ class PacketTunnelProvider: NEPacketTunnelProvider
                     self.setTunnelSettings(tunnelAddress: .ipV4(ipv4Address))
                     print("IPV4 Address: ")
                     print(ipv4Address)
+                    return
                 case .IPAssignV6(let ipv6Address):
                     self.setTunnelSettings(tunnelAddress: .ipV6(ipv6Address))
                     print("IPV6 Address: ")
                     print(ipv6Address)
+                    return
                 case .IPAssignDualStack(let ipv4Address, let ipv6Address):
                     self.setTunnelSettings(tunnelAddress: .dualStack(ipv4Address, ipv6Address))
                     print("IPV4 Address: ")
                     print(ipv4Address)
                     print("IPV6 Address: ")
                     print(ipv6Address)
+                    return
                 default:
                     self.waitForIPAssignment()
+                    return
             }
         }
     }
@@ -404,7 +409,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
                     return
                 }
                 
-                self.log.debug("\n🌲 Connection state is ready 🌲\n")
+                self.log.debug("\n3. 🌲 Connection state is ready 🌲\n")
                 isConnected = ConnectState(state: .success, stage: .statusCodes)
                 waitForIPAssignment()
                 

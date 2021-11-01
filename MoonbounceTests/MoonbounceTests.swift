@@ -345,6 +345,72 @@ class MoonbounceTests: XCTestCase {
         wait(for: [writeExpectation, readExpectation], timeout: 1000)
     }
     
+    func testUDPWithVPN() {
+        let writeExpectation = expectation(description: "wrote")
+        let readExpectation = expectation(description: "read")
+        
+         guard let replicantConfig = ReplicantConfig<SilverClientConfig>(polish: nil, toneBurst: nil)
+         else
+         {
+             XCTFail()
+             return
+         }
+
+         guard var connection = NWConnection(host: "206.189.173.164", port: 4567, using: <#T##NWParameters#>)
+         else
+         {
+             XCTFail()
+             return
+         }
+
+         connection.stateUpdateHandler =
+         {
+             (newState) in
+
+             switch newState
+             {
+                
+                case .ready:
+                    connection.readMessage { ipAssignMessage in
+                        switch ipAssignMessage {
+                            case .IPAssignV4(let ipv4Address):
+                                print(ipv4Address)
+                                print(ipv4Address.rawValue.hex)
+                                print(ipv4Address.rawValue.array)
+                                let newPacket = "4500003dbfca00004011f783\(ipv4Address.rawValue.hex)8efa72bdd8a801bb00293d7550fa2df0bc8cdbcdf2a9af346c7bdb1f6972e32fc7f45c9a774e6e698999fb1e48"
+                                print(newPacket)
+                                let message = Message.IPDataV4(Data(hex: newPacket)!)
+                                connection.writeMessage(message: message)
+                                {
+                                    (maybeWriteError) in
+
+                                    if let writeError = maybeWriteError
+                                    {
+                                        print("***Write error: \(writeError)")
+                                        XCTFail()
+                                        return
+                                    }
+                                    else
+                                    {
+                                        writeExpectation.fulfill()
+                                        connection.readMessage { message in
+                                            readExpectation.fulfill()
+                                        }
+                                    }
+                                }
+                            default:
+                                print("***Not ready: \(newState)")
+                            }
+                        }
+                default:
+                    XCTFail()
+                    return
+                    }
+                }
+        connection.start(queue: DispatchQueue(label: "TestQueue") )
+        wait(for: [writeExpectation, readExpectation], timeout: 1000)
+    }
+    
     func testReplicantClientConnectionToServer()
     {
        let writeExpectation = expectation(description: "wrote")

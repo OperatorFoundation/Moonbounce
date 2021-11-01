@@ -979,7 +979,7 @@
 			repositoryURL = "https://github.com/OperatorFoundation/Flower.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.17;
+				minimumVersion = 0.1.18;
 			};
 		};
 		AE94E50E24CB66E0007B552B /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */ = {
@@ -1027,7 +1027,7 @@
 			repositoryURL = "https://github.com/OperatorFoundation/ReplicantSwiftClient.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.3.1;
+				minimumVersion = 0.3.11;
 			};
 		};
 		EF5FB20A269CDB0D00D2938D /* XCRemoteSwiftPackageReference "InternetProtocols" */ = {
@@ -1043,7 +1043,7 @@
 			repositoryURL = "https://github.com/OperatorFoundation/Transport";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.3.6;
+				minimumVersion = 2.3.7;
 			};
 		};
 		EFEA2F3D26A5F30B00F1D116 /* XCRemoteSwiftPackageReference "SwiftHexTools" */ = {

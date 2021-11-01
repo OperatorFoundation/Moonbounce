@@ -21,7 +21,9 @@ public class ClientTunnelConnection
     let log: Logger
     let replicantConnection: ReplicantConnection
     var ipAllocationMessage: Message? = nil
-
+    let messagesToPacketsQueue = DispatchQueue(label: "clientTunnelConnection: messagesToPackets")
+    let packetsToMessagesQueue = DispatchQueue(label: "clientTunnelConnection: packetsToMessages")
+    
     // MARK: Initializers
     public init(clientPacketFlow: NEPacketTunnelFlow, replicantConnection: ReplicantConnection, logger: Logger)
     {
@@ -31,47 +33,48 @@ public class ClientTunnelConnection
         logger.debug("Initialized ClientTunnelConnection")
     }
 
-    // MARK: Interface
-    
-    /// Wait for IP assignment from the server
-    public func waitForIPAssignment()
-    {
-        replicantConnection.readMessages(log: self.log)
-        {
-            (message) in
-
-            self.log.debug("🌷 replicantConnection.readMessages callback message: \(message.description) 🌷")
-            switch message
-            {
-                case .IPAssignV4(_),
-                     .IPAssignV6(_):
-                     //.IPAssignDualStack(_, _):
-                    guard self.ipAllocationMessage == nil else {break}
-                    self.ipAllocationMessage = message
-                case .IPDataV4(let data):
-                    self.log.debug("IPDataV4 calling write packets.")
-                    self.packetFlow.writePackets([data], withProtocols: [4])
-                case .IPDataV6(let data):
-                    self.log.debug("IPDataV6 calling write packets.")
-                    self.packetFlow.writePackets([data], withProtocols: [6])
-                default:
-                    self.log.error("unsupported message type")
-            }
-        }
-
-    }
+//    // MARK: Interface
+//
+//    /// Wait for IP assignment from the server
+//    public func waitForIPAssignment()
+//    {
+//        replicantConnection.readMessages(log: self.log)
+//        {
+//            (message) in
+//
+//            self.log.debug("🌷 replicantConnection.readMessages callback message: \(message.description) 🌷")
+//            switch message
+//            {
+//                case .IPAssignV4(_),
+//                     .IPAssignV6(_):
+//                     //.IPAssignDualStack(_, _):
+//                    guard self.ipAllocationMessage == nil else {break}
+//                    self.ipAllocationMessage = message
+//                case .IPDataV4(let data):
+//                    self.log.debug("IPDataV4 calling write packets.")
+//                    self.packetFlow.writePackets([data], withProtocols: [4])
+//                case .IPDataV6(let data):
+//                    self.log.debug("IPDataV6 calling write packets.")
+//                    self.packetFlow.writePackets([data], withProtocols: [6])
+//                default:
+//                    self.log.error("unsupported message type")
+//            }
+//        }
+//
+//    }
     
     /// Make the initial readPacketsWithCompletionHandler call.
     public func startHandlingPackets()
     {
-        log.debug("Start handling packets called.")
-        DispatchQueue.global(qos: .userInitiated).async
+        self.log.debug("7. Start handling packets called.")
+        
+        packetsToMessagesQueue.async
         {
             self.log.debug("calling packetsToMessages async")
             self.packetsToMessages()
         }
         
-        DispatchQueue.global(qos: .userInitiated).async
+        messagesToPacketsQueue.async
         {
             self.log.debug("calling messagesToPackets async")
             self.messagesToPackets()
@@ -81,7 +84,7 @@ public class ClientTunnelConnection
     /// Handle packets coming from the packet flow.
     func packetsToMessages()
     {
-        log.debug("Handle Packets Called")
+        log.debug("8. Handle Packets Called")
         // This is where you should send the packets to the server.
 
         // Read more packets.
@@ -143,27 +146,36 @@ public class ClientTunnelConnection
         
     func messagesToPackets()
     {
-        self.log.debug("calling messagesToPackets!")
-        replicantConnection.readMessages(log: self.log)
+        self.log.debug("9. 📦 calling messagesToPackets! 📦")
+        var counter = 0
+        
+        //replicantConnection.readMessages(log: self.log)
+        while true
         {
-            (message) in
-
-            self.log.debug("🌷 replicantConnection.readMessages callback message: \(message.description) 🌷")
-            switch message
+            replicantConnection.readMessage(log: self.log)
             {
-                case .IPAssignV4(_),
-                     .IPAssignV6(_):
-                     //.IPAssignDualStack(_, _):
-                    guard self.ipAllocationMessage == nil else {break}
-                    self.ipAllocationMessage = message
-                case .IPDataV4(let data):
-                    self.log.debug("IPDataV4 calling write packets.")
-                    self.packetFlow.writePackets([data], withProtocols: [4])
-                case .IPDataV6(let data):
-                    self.log.debug("IPDataV6 calling write packets.")
-                    self.packetFlow.writePackets([data], withProtocols: [6])
-                default:
-                    self.log.error("unsupported message type")
+                message in
+                
+                counter += 1
+                self.log.debug("🌷 📦readMessage called \(counter) times📦 🌷")
+                self.log.debug("10. 🌷 📦replicantConnection.readMessages callback message: \(message.description)📦 🌷")
+                switch message
+                {
+                    case .IPAssignV4(_),
+                         .IPAssignV6(_):
+                        self.log.debug("📦IPAssign message received.📦")
+                         //.IPAssignDualStack(_, _):
+                        guard self.ipAllocationMessage == nil else {break}
+                        self.ipAllocationMessage = message
+                    case .IPDataV4(let data):
+                        self.log.debug("📦IPDataV4 calling write packets.📦")
+                        self.packetFlow.writePackets([data], withProtocols: [4])
+                    case .IPDataV6(let data):
+                        self.log.debug("📦IPDataV6 calling write packets.📦")
+                        self.packetFlow.writePackets([data], withProtocols: [6])
+                    default:
+                        self.log.error("📦unsupported message type📦")
+                }
             }
         }
     }
