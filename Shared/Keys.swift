@@ -8,7 +8,7 @@
 
 import Foundation
 import NetworkExtension
-import Replicant
+import ReplicantSwiftClient
 import ReplicantSwift
 import Network
 

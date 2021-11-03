@@ -55,8 +55,14 @@
 		B4634E331EA15AF40069C1DE /* KeychainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4634E321EA15AF40069C1DE /* KeychainController.swift */; };
 		B4EF3E5D1E15C12700A5DDBD /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EF3E5C1E15C12700A5DDBD /* CustomButton.swift */; };
 		CAFF6EC6250FFC0300BCBF5B /* Moonbounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFF6EC5250FFC0300BCBF5B /* Moonbounce.swift */; };
+		EF1E354D26F282CD006CC1D6 /* ReplicantSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EF1E354C26F282CD006CC1D6 /* ReplicantSwift */; };
+		EF1E355026F2858F006CC1D6 /* ReplicantSwiftClient in Frameworks */ = {isa = PBXBuildFile; productRef = EF1E354F26F2858F006CC1D6 /* ReplicantSwiftClient */; };
+		EF1E355226F2991A006CC1D6 /* ReplicantSwiftClient in Frameworks */ = {isa = PBXBuildFile; productRef = EF1E355126F2991A006CC1D6 /* ReplicantSwiftClient */; };
+		EF5FB20C269CDB0D00D2938D /* InternetProtocols in Frameworks */ = {isa = PBXBuildFile; productRef = EF5FB20B269CDB0D00D2938D /* InternetProtocols */; };
 		EF72F95B265DD97800294C6F /* default.moonbounce in Resources */ = {isa = PBXBuildFile; fileRef = AE1359A6220DFC6F00E81823 /* default.moonbounce */; };
+		EF7449AD2673CC71007BA534 /* Flower in Frameworks */ = {isa = PBXBuildFile; productRef = EF7449AC2673CC71007BA534 /* Flower */; };
 		EFB1F50E26446D4B007AFD1E /* Transport in Frameworks */ = {isa = PBXBuildFile; productRef = EFB1F50D26446D4B007AFD1E /* Transport */; };
+		EFEA2F3F26A5F30B00F1D116 /* SwiftHexTools in Frameworks */ = {isa = PBXBuildFile; productRef = EFEA2F3E26A5F30B00F1D116 /* SwiftHexTools */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,6 +161,8 @@
 		CA8FF117273245F300780567 /* ReplicantSwiftClient */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ReplicantSwiftClient; path = ../ReplicantSwiftClient; sourceTree = "<group>"; };
 		CAFF6EC5250FFC0300BCBF5B /* Moonbounce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moonbounce.swift; sourceTree = "<group>"; };
 		CAFF6EC8250FFDB000BCBF5B /* Moonbounce-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Moonbounce-Bridging-Header.h"; path = "Moonbounce/Moonbounce-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		EF426EF426B867BF008A8504 /* TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestPlan.xctestplan; sourceTree = SOURCE_ROOT; };
+		EF7449AA2673CC32007BA534 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF7449AD2673CC71007BA534 /* Flower in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,9 +179,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				EFB1F50E26446D4B007AFD1E /* Transport in Frameworks */,
+				EFEA2F3F26A5F30B00F1D116 /* SwiftHexTools in Frameworks */,
 				B41FE02C1DF24BF500E02D17 /* ServiceManagement.framework in Frameworks */,
 				B41FE02A1DF24BE900E02D17 /* Security.framework in Frameworks */,
 				AE39BD6822440123007C7C90 /* NetworkExtension.framework in Frameworks */,
+				EF1E354D26F282CD006CC1D6 /* ReplicantSwift in Frameworks */,
+				EF1E355026F2858F006CC1D6 /* ReplicantSwiftClient in Frameworks */,
 				AE59B9F624CBB2CA00703630 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -184,7 +196,9 @@
 				AE71729325B66F2B0070AF2C /* Flower in Frameworks */,
 				AE59B9F224CBB1C200703630 /* LoggerQueue in Frameworks */,
 				AEFDFD7C2432A112003571DB /* NetworkExtension.framework in Frameworks */,
+				EF1E355226F2991A006CC1D6 /* ReplicantSwiftClient in Frameworks */,
 				AE94E51624CB6D18007B552B /* ZIPFoundation in Frameworks */,
+				EF5FB20C269CDB0D00D2938D /* InternetProtocols in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,6 +208,7 @@
 		464DA95921E80E80003460D0 /* MoonbounceTests */ = {
 			isa = PBXGroup;
 			children = (
+				EF426EF426B867BF008A8504 /* TestPlan.xctestplan */,
 				464DA95A21E80E80003460D0 /* MoonbounceTests.swift */,
 				464DA95C21E80E80003460D0 /* Info.plist */,
 			);
@@ -330,6 +345,7 @@
 		D1943F52C69C7904415E81F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EF7449AA2673CC32007BA534 /* AVKit.framework */,
 				AE4CFCCD244135E5006FF16E /* libswiftCreateML.dylib */,
 				AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */,
 				B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */,
@@ -355,6 +371,9 @@
 				464DA95E21E80E80003460D0 /* PBXTargetDependency */,
 			);
 			name = MoonbounceTests;
+			packageProductDependencies = (
+				EF7449AC2673CC71007BA534 /* Flower */,
+			);
 			productName = MoonbounceTests;
 			productReference = 464DA95821E80E80003460D0 /* MoonbounceTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -378,6 +397,9 @@
 			packageProductDependencies = (
 				AE59B9F524CBB2CA00703630 /* ZIPFoundation */,
 				EFB1F50D26446D4B007AFD1E /* Transport */,
+				EFEA2F3E26A5F30B00F1D116 /* SwiftHexTools */,
+				EF1E354C26F282CD006CC1D6 /* ReplicantSwift */,
+				EF1E354F26F2858F006CC1D6 /* ReplicantSwiftClient */,
 			);
 			productName = Moonbounce;
 			productReference = 467CB5B31DBEB6E90086E341 /* Moonbounce.app */;
@@ -401,6 +423,8 @@
 				AE94E51524CB6D18007B552B /* ZIPFoundation */,
 				AE59B9F124CBB1C200703630 /* LoggerQueue */,
 				AE71729225B66F2B0070AF2C /* Flower */,
+				EF5FB20B269CDB0D00D2938D /* InternetProtocols */,
+				EF1E355126F2991A006CC1D6 /* ReplicantSwiftClient */,
 			);
 			productName = MoonbounceNetworkExtension;
 			productReference = 469B0A7821DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex */;
@@ -483,6 +507,10 @@
 				AE94E50E24CB66E0007B552B /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */,
 				AE71729125B66F2B0070AF2C /* XCRemoteSwiftPackageReference "Flower" */,
 				EFB1F50C26446D4B007AFD1E /* XCRemoteSwiftPackageReference "Transport" */,
+				EF5FB20A269CDB0D00D2938D /* XCRemoteSwiftPackageReference "InternetProtocols" */,
+				EFEA2F3D26A5F30B00F1D116 /* XCRemoteSwiftPackageReference "SwiftHexTools" */,
+				EF1E354B26F282CD006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwift" */,
+				EF1E354E26F2858F006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwiftClient" */,
 			);
 			productRefGroup = 467CB5B41DBEB6E90086E341 /* Products */;
 			projectDirPath = "";
@@ -967,7 +995,7 @@
 			repositoryURL = "https://github.com/OperatorFoundation/Shapeshifter-Swift-Transports.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.3.25;
+				minimumVersion = 2.4.1;
 			};
 		};
 		AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
@@ -983,7 +1011,7 @@
 			repositoryURL = "https://github.com/OperatorFoundation/Datable";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.5;
+				minimumVersion = 3.1.0;
 			};
 		};
 		AEFDFD66243262B4003571DB /* XCRemoteSwiftPackageReference "SwiftQueue" */ = {
@@ -991,7 +1019,31 @@
 			repositoryURL = "https://github.com/OperatorFoundation/SwiftQueue.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.3;
+				minimumVersion = 0.1.0;
+			};
+		};
+		EF1E354B26F282CD006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/ReplicantSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.3;
+			};
+		};
+		EF1E354E26F2858F006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwiftClient" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/ReplicantSwiftClient.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.11;
+			};
+		};
+		EF5FB20A269CDB0D00D2938D /* XCRemoteSwiftPackageReference "InternetProtocols" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/InternetProtocols.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.0;
 			};
 		};
 		EFB1F50C26446D4B007AFD1E /* XCRemoteSwiftPackageReference "Transport" */ = {
@@ -999,7 +1051,15 @@
 			repositoryURL = "https://github.com/OperatorFoundation/Transport";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.3.5;
+				minimumVersion = 2.3.7;
+			};
+		};
+		EFEA2F3D26A5F30B00F1D116 /* XCRemoteSwiftPackageReference "SwiftHexTools" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/SwiftHexTools.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1025,10 +1085,40 @@
 			package = AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
 			productName = ZIPFoundation;
 		};
+		EF1E354C26F282CD006CC1D6 /* ReplicantSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF1E354B26F282CD006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwift" */;
+			productName = ReplicantSwift;
+		};
+		EF1E354F26F2858F006CC1D6 /* ReplicantSwiftClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF1E354E26F2858F006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwiftClient" */;
+			productName = ReplicantSwiftClient;
+		};
+		EF1E355126F2991A006CC1D6 /* ReplicantSwiftClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF1E354E26F2858F006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwiftClient" */;
+			productName = ReplicantSwiftClient;
+		};
+		EF5FB20B269CDB0D00D2938D /* InternetProtocols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF5FB20A269CDB0D00D2938D /* XCRemoteSwiftPackageReference "InternetProtocols" */;
+			productName = InternetProtocols;
+		};
+		EF7449AC2673CC71007BA534 /* Flower */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE71729125B66F2B0070AF2C /* XCRemoteSwiftPackageReference "Flower" */;
+			productName = Flower;
+		};
 		EFB1F50D26446D4B007AFD1E /* Transport */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EFB1F50C26446D4B007AFD1E /* XCRemoteSwiftPackageReference "Transport" */;
 			productName = Transport;
+		};
+		EFEA2F3E26A5F30B00F1D116 /* SwiftHexTools */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EFEA2F3D26A5F30B00F1D116 /* XCRemoteSwiftPackageReference "SwiftHexTools" */;
+			productName = SwiftHexTools;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
