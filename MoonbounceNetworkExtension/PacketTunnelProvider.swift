@@ -24,7 +24,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider
     var replicantConnectionFactory: ReplicantConnectionFactory?
     
     /// The tunnel connection.
-    open var connection: ReplicantConnection?
+    var replicantConnection: ReplicantConnection?
+    open var flowerConnection: FlowerConnection?
     
     /// The single logical flow of packets through the tunnel.
     var tunnelConnection: ClientTunnelConnection?
@@ -156,9 +157,9 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         pendingStartCompletion = nil
         
         // Close the tunnel connection.
-        if let TCPConnection = connection
+        if let replicantConnection = self.replicantConnection
         {
-            TCPConnection.cancel()
+            replicantConnection.cancel()
         }
         
         connectionAttemptStatus = .initialized
@@ -220,9 +221,9 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         pendingStartCompletion?(error)
         
         // Close the tunnel connection.
-        if let TCPConnection = connection
+        if let replicantConnection = self.replicantConnection
         {
-            TCPConnection.cancel()
+            replicantConnection.cancel()
         }
         
         tunnelConnection = nil
@@ -297,7 +298,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         connectionAttemptStatus = .ready
         startCompletion(nil)
         
-        let newConnection = ClientTunnelConnection(clientPacketFlow: self.packetFlow, replicantConnection: connection!, logger: log)
+        let newConnection = ClientTunnelConnection(clientPacketFlow: self.packetFlow, flowerConnection: self.flowerConnection!, logger: log)
 
         self.log.debug("\n🚀 Connection to server complete! 🚀\n")
         self.tunnelConnection = newConnection
@@ -325,39 +326,40 @@ class PacketTunnelProvider: NEPacketTunnelProvider
             log.error("🥀  Replicant Factory failed to create a connection. 🥀")
             return
         }
-        
-        connection = replicantConnection
-        
+        self.replicantConnection = replicantConnection
+
         // Kick off the connection to the server
         log.debug("⚽️ Kicking off the connection to the server.")
-        connection!.stateUpdateHandler = handleStateUpdate
-        connection!.start(queue: connectQueue)
+        replicantConnection.stateUpdateHandler = handleStateUpdate
+        replicantConnection.start(queue: connectQueue)
     }
     
     func waitForIPAssignment()
     {
-        guard let currentConnection = connection
-        else
+        guard let flowerConnection = self.flowerConnection else
         {
             failedConnection(error: TunnelError.disconnected)
             
             return
         }
-        
-        currentConnection.readMessage
+
+        var waiting = true
+        while waiting
         {
-            (message) in
-            
+            let message = flowerConnection.readMessage()
             switch message
             {
                 case .IPAssignV4(let ipv4Address):
+                    waiting = false
                     self.setTunnelSettings(tunnelAddress: .ipV4(ipv4Address))
                 case .IPAssignV6(let ipv6Address):
+                    waiting = false
                     self.setTunnelSettings(tunnelAddress: .ipV6(ipv6Address))
                 case .IPAssignDualStack(let ipv4Address, let ipv6Address):
+                    waiting = false
                     self.setTunnelSettings(tunnelAddress: .dualStack(ipv4Address, ipv6Address))
                 default:
-                    self.waitForIPAssignment()
+                    waiting = true
             }
         }
     }
@@ -386,20 +388,21 @@ class PacketTunnelProvider: NEPacketTunnelProvider
             case .ready:
                 // Start reading messages from the tunnel connection.
                 // Open the logical flow of packets through the tunnel.
-                guard connection != nil
-                    else
+                guard let replicantConnection = self.replicantConnection else
                 {
                     log.error("Ready state but replicant connection is nil.")
                     return
                 }
-                
+
+                self.flowerConnection = FlowerConnection(connection: replicantConnection)
+
                 self.log.debug("\n🌲 Connection state is ready 🌲\n")
                 isConnected = ConnectState(state: .success, stage: .statusCodes)
                 waitForIPAssignment()
                 
             case .cancelled:
                 self.log.debug("\n🙅‍♀️  Connection Cancelled  🙅‍♀️\n")
-                self.connection = nil
+                self.flowerConnection = nil
                 self.tunnelDidClose()
                 connectionAttemptStatus = .failed
                 startCompletion(TunnelError.cancelled)
