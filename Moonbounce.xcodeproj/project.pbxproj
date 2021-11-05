@@ -515,6 +515,7 @@
 				EF1E354B26F282CD006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwift" */,
 				EF1E354E26F2858F006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwiftClient" */,
 				CA613A44273509D900F4227B /* XCRemoteSwiftPackageReference "swift-log" */,
+				CA613A472735134B00F4227B /* XCRemoteSwiftPackageReference "TransmissionTransport" */,
 			);
 			productRefGroup = 467CB5B41DBEB6E90086E341 /* Products */;
 			projectDirPath = "";
@@ -991,7 +992,7 @@
 			repositoryURL = "https://github.com/OperatorFoundation/Flower.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.1;
+				minimumVersion = 2.0.0;
 			};
 		};
 		AE94E50E24CB66E0007B552B /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */ = {
@@ -1032,6 +1033,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.4.2;
+			};
+		};
+		CA613A472735134B00F4227B /* XCRemoteSwiftPackageReference "TransmissionTransport" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:OperatorFoundation/TransmissionTransport.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.10;
 			};
 		};
 		EF1E354B26F282CD006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwift" */ = {
