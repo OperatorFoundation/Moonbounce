@@ -54,6 +54,7 @@
 		B44390591DC00EA000389352 /* PopoverContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44390581DC00EA000389352 /* PopoverContentView.swift */; };
 		B4634E331EA15AF40069C1DE /* KeychainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4634E321EA15AF40069C1DE /* KeychainController.swift */; };
 		B4EF3E5D1E15C12700A5DDBD /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EF3E5C1E15C12700A5DDBD /* CustomButton.swift */; };
+		CA613A46273509D900F4227B /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = CA613A45273509D900F4227B /* Logging */; };
 		CAFF6EC6250FFC0300BCBF5B /* Moonbounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFF6EC5250FFC0300BCBF5B /* Moonbounce.swift */; };
 		EF1E354D26F282CD006CC1D6 /* ReplicantSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EF1E354C26F282CD006CC1D6 /* ReplicantSwift */; };
 		EF1E355026F2858F006CC1D6 /* ReplicantSwiftClient in Frameworks */ = {isa = PBXBuildFile; productRef = EF1E354F26F2858F006CC1D6 /* ReplicantSwiftClient */; };
@@ -178,6 +179,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA613A46273509D900F4227B /* Logging in Frameworks */,
 				EFB1F50E26446D4B007AFD1E /* Transport in Frameworks */,
 				EFEA2F3F26A5F30B00F1D116 /* SwiftHexTools in Frameworks */,
 				B41FE02C1DF24BF500E02D17 /* ServiceManagement.framework in Frameworks */,
@@ -400,6 +402,7 @@
 				EFEA2F3E26A5F30B00F1D116 /* SwiftHexTools */,
 				EF1E354C26F282CD006CC1D6 /* ReplicantSwift */,
 				EF1E354F26F2858F006CC1D6 /* ReplicantSwiftClient */,
+				CA613A45273509D900F4227B /* Logging */,
 			);
 			productName = Moonbounce;
 			productReference = 467CB5B31DBEB6E90086E341 /* Moonbounce.app */;
@@ -511,6 +514,7 @@
 				EFEA2F3D26A5F30B00F1D116 /* XCRemoteSwiftPackageReference "SwiftHexTools" */,
 				EF1E354B26F282CD006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwift" */,
 				EF1E354E26F2858F006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwiftClient" */,
+				CA613A44273509D900F4227B /* XCRemoteSwiftPackageReference "swift-log" */,
 			);
 			productRefGroup = 467CB5B41DBEB6E90086E341 /* Products */;
 			projectDirPath = "";
@@ -1022,6 +1026,14 @@
 				minimumVersion = 0.1.0;
 			};
 		};
+		CA613A44273509D900F4227B /* XCRemoteSwiftPackageReference "swift-log" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:apple/swift-log.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.2;
+			};
+		};
 		EF1E354B26F282CD006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OperatorFoundation/ReplicantSwift.git";
@@ -1084,6 +1096,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
 			productName = ZIPFoundation;
+		};
+		CA613A45273509D900F4227B /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CA613A44273509D900F4227B /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
 		};
 		EF1E354C26F282CD006CC1D6 /* ReplicantSwift */ = {
 			isa = XCSwiftPackageProductDependency;
