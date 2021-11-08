@@ -1037,7 +1037,7 @@
 			repositoryURL = "https://github.com/OperatorFoundation/ReplicantSwiftClient.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.2;
+				minimumVersion = 1.0.3;
 			};
 		};
 		EF2017E12739BA9F00465E0A /* XCRemoteSwiftPackageReference "TransmissionTransport" */ = {
