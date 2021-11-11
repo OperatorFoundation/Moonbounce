@@ -35,7 +35,6 @@
 		AE4D6BAD24452FA0002DA1E4 /* NEVPNStatus+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4D6BAB24452FA0002DA1E4 /* NEVPNStatus+Extension.swift */; };
 		AE4D6BAF24462C28002DA1E4 /* VPNPreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4D6BAE24462C28002DA1E4 /* VPNPreferencesController.swift */; };
 		AE4D6BB12447B962002DA1E4 /* ConfigController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0738D322370EF9009E3C4E /* ConfigController.swift */; };
-		AE59B9F224CBB1C200703630 /* LoggerQueue in Frameworks */ = {isa = PBXBuildFile; productRef = AE59B9F124CBB1C200703630 /* LoggerQueue */; };
 		AE59B9F624CBB2CA00703630 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AE59B9F524CBB2CA00703630 /* ZIPFoundation */; };
 		AE6517F8246F4CDA00EFFB94 /* LoggingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6517F7246F4CDA00EFFB94 /* LoggingController.swift */; };
 		AE71729325B66F2B0070AF2C /* Flower in Frameworks */ = {isa = PBXBuildFile; productRef = AE71729225B66F2B0070AF2C /* Flower */; };
@@ -54,6 +53,7 @@
 		B44390591DC00EA000389352 /* PopoverContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44390581DC00EA000389352 /* PopoverContentView.swift */; };
 		B4634E331EA15AF40069C1DE /* KeychainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4634E321EA15AF40069C1DE /* KeychainController.swift */; };
 		B4EF3E5D1E15C12700A5DDBD /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EF3E5C1E15C12700A5DDBD /* CustomButton.swift */; };
+		CA8B9C92273D86D400930089 /* LoggerQueue in Frameworks */ = {isa = PBXBuildFile; productRef = CA8B9C91273D86D400930089 /* LoggerQueue */; };
 		CAFF6EC6250FFC0300BCBF5B /* Moonbounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFF6EC5250FFC0300BCBF5B /* Moonbounce.swift */; };
 		EF1E354D26F282CD006CC1D6 /* ReplicantSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EF1E354C26F282CD006CC1D6 /* ReplicantSwift */; };
 		EF1E355026F2858F006CC1D6 /* ReplicantSwiftClient in Frameworks */ = {isa = PBXBuildFile; productRef = EF1E354F26F2858F006CC1D6 /* ReplicantSwiftClient */; };
@@ -194,10 +194,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE71729325B66F2B0070AF2C /* Flower in Frameworks */,
-				AE59B9F224CBB1C200703630 /* LoggerQueue in Frameworks */,
 				AEFDFD7C2432A112003571DB /* NetworkExtension.framework in Frameworks */,
 				EF1E355226F2991A006CC1D6 /* ReplicantSwiftClient in Frameworks */,
 				AE94E51624CB6D18007B552B /* ZIPFoundation in Frameworks */,
+				CA8B9C92273D86D400930089 /* LoggerQueue in Frameworks */,
 				EF5FB20C269CDB0D00D2938D /* InternetProtocols in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -421,10 +421,10 @@
 			name = MoonbounceNetworkExtension;
 			packageProductDependencies = (
 				AE94E51524CB6D18007B552B /* ZIPFoundation */,
-				AE59B9F124CBB1C200703630 /* LoggerQueue */,
 				AE71729225B66F2B0070AF2C /* Flower */,
 				EF5FB20B269CDB0D00D2938D /* InternetProtocols */,
 				EF1E355126F2991A006CC1D6 /* ReplicantSwiftClient */,
+				CA8B9C91273D86D400930089 /* LoggerQueue */,
 			);
 			productName = MoonbounceNetworkExtension;
 			productReference = 469B0A7821DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex */;
@@ -504,7 +504,6 @@
 				AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				AEFDFD6324326298003571DB /* XCRemoteSwiftPackageReference "Datable" */,
 				AEFDFD66243262B4003571DB /* XCRemoteSwiftPackageReference "SwiftQueue" */,
-				AE94E50E24CB66E0007B552B /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */,
 				AE71729125B66F2B0070AF2C /* XCRemoteSwiftPackageReference "Flower" */,
 				EFB1F50C26446D4B007AFD1E /* XCRemoteSwiftPackageReference "Transport" */,
 				EF5FB20A269CDB0D00D2938D /* XCRemoteSwiftPackageReference "InternetProtocols" */,
@@ -513,6 +512,7 @@
 				EF1E354E26F2858F006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwiftClient" */,
 				EF2017E12739BA9F00465E0A /* XCRemoteSwiftPackageReference "TransmissionTransport" */,
 				EF2017E22739BAD100465E0A /* XCRemoteSwiftPackageReference "swift-log" */,
+				CA8B9C90273D86D400930089 /* XCRemoteSwiftPackageReference "LoggerQueue" */,
 			);
 			productRefGroup = 467CB5B41DBEB6E90086E341 /* Products */;
 			projectDirPath = "";
@@ -992,14 +992,6 @@
 				minimumVersion = 2.0.2;
 			};
 		};
-		AE94E50E24CB66E0007B552B /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/OperatorFoundation/Shapeshifter-Swift-Transports.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.4.1;
-			};
-		};
 		AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/weichsel/ZIPFoundation";
@@ -1022,6 +1014,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.1.2;
+			};
+		};
+		CA8B9C90273D86D400930089 /* XCRemoteSwiftPackageReference "LoggerQueue" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/LoggerQueue.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.1;
 			};
 		};
 		EF1E354B26F282CD006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwift" */ = {
@@ -1083,11 +1083,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		AE59B9F124CBB1C200703630 /* LoggerQueue */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AE94E50E24CB66E0007B552B /* XCRemoteSwiftPackageReference "Shapeshifter-Swift-Transports" */;
-			productName = LoggerQueue;
-		};
 		AE59B9F524CBB2CA00703630 /* ZIPFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
@@ -1102,6 +1097,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
 			productName = ZIPFoundation;
+		};
+		CA8B9C91273D86D400930089 /* LoggerQueue */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CA8B9C90273D86D400930089 /* XCRemoteSwiftPackageReference "LoggerQueue" */;
+			productName = LoggerQueue;
 		};
 		EF1E354C26F282CD006CC1D6 /* ReplicantSwift */ = {
 			isa = XCSwiftPackageProductDependency;
