@@ -114,16 +114,6 @@ public class ClientTunnelConnection
                             let message = Message.IPDataV4(packet)
                             self.log.debug("🌷 encapsulated into Flower Message: \(message.description) 🌷")
 
-                            if let ipv4Packet = IPv4(data: packet) {
-                                if ipv4Packet.destinationAddress == Data(array: [8, 8, 8, 8]) {
-                                    self.log.debug("saw a packet for 8.8.8.8!")
-                                }
-                            }
-                            // Encapsulates packages into Messages (using Flower)
-                            self.log.debug("packet: \(packet)")
-                            let message = Message.IPDataV4(packet)
-                            self.log.debug("🌷 encapsulated into Flower Message: \(message.description) 🌷")
-
                             self.flowerConnection.writeMessage(message: message)
                         case NSNumber(value: AF_INET6):
                             self.log.debug("IPv6 protocol")
