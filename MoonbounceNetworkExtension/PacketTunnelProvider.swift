@@ -329,10 +329,11 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         }
         self.replicantConnection = replicantConnection
 
-        // Kick off the connection to the server
-        log.debug("⚽️ Kicking off the connection to the server.")
-        replicantConnection.stateUpdateHandler = handleStateUpdate
-        replicantConnection.start(queue: connectQueue)
+        self.flowerConnection = FlowerConnection(connection: replicantConnection)
+
+        self.log.debug("\n3. 🌲 Connection state is ready 🌲\n")
+        isConnected = ConnectState(state: .success, stage: .statusCodes)
+        waitForIPAssignment()
     }
     
     func waitForIPAssignment()
@@ -376,61 +377,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
             }
         }
     }
-    
-    func handleStateUpdate(newState: NWConnection.State)
-    {
-        self.log.debug("CURRENT STATE = \(newState)")
         
-        guard let startCompletion = pendingStartCompletion
-            else
-        {
-            log.error("pendingStartCompletion is nil?")
-            return
-        }
-        
-        switch newState
-        {
-            case .preparing:
-                self.log.debug("\n⏳ Connection is  preparing ⏳\n")
-                isConnected = ConnectState(state: .start, stage: .statusCodes)
-                
-            case .setup:
-                self.log.debug("\n👷‍♀️ Connection is in the setup stage 👷‍♀️\n")
-                isConnected = ConnectState(state: .trying, stage: .statusCodes)
-                
-            case .ready:
-                // Start reading messages from the tunnel connection.
-                // Open the logical flow of packets through the tunnel.
-                guard let replicantConnection = self.replicantConnection else
-                {
-                    log.error("Ready state but replicant connection is nil.")
-                    return
-                }
-
-                self.flowerConnection = FlowerConnection(connection: replicantConnection)
-
-                self.log.debug("\n3. 🌲 Connection state is ready 🌲\n")
-                isConnected = ConnectState(state: .success, stage: .statusCodes)
-                waitForIPAssignment()
-                
-            case .cancelled:
-                self.log.debug("\n🙅‍♀️  Connection Cancelled  🙅‍♀️\n")
-                self.flowerConnection = nil
-                self.tunnelDidClose()
-                connectionAttemptStatus = .failed
-                startCompletion(TunnelError.cancelled)
-                
-            case .failed(let error):
-                self.log.error("\n🐒  Connection Failed  🐒\n")
-                self.closeTunnelWithError(error)
-                connectionAttemptStatus = .failed
-                startCompletion(error)
-                
-            default:
-                self.log.debug("\n🤷‍♀️  Unexpected State: \(newState) 🤷‍♀️\n")
-        }
-    }
-    
     func failedConnection(error: Error)
     {
         connectionAttemptStatus = .failed
