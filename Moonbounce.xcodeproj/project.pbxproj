@@ -989,7 +989,7 @@
 			repositoryURL = "https://github.com/OperatorFoundation/Flower.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.2;
+				minimumVersion = 2.0.4;
 			};
 		};
 		AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {

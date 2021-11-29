@@ -14,17 +14,16 @@ import ReplicantSwift
 import SwiftQueue
 import LoggerQueue
 import Flower
+import Transmission
 
 class PacketTunnelProvider: NEPacketTunnelProvider
 {
     private var networkMonitor: NWPathMonitor?
     
     private var ifname: String?
-    
-    var replicantConnectionFactory: ReplicantConnectionFactory?
-    
+        
     /// The tunnel connection.
-    var replicantConnection: ReplicantConnection?
+    var replicantConnection: Transmission.Connection?
     open var flowerConnection: FlowerConnection?
     
     /// The single logical flow of packets through the tunnel.
@@ -130,17 +129,27 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         
         let host = moonbounceConfig.clientConfig.host
         let port = moonbounceConfig.clientConfig.port
-        self.replicantConnectionFactory = ReplicantConnectionFactory(host: host,
-                                                                     port: port,
-                                                                     config: replicantConfig,
-                                                                     log: log)
         
         self.log.debug("\nReplicant Connection Factory Created.\nHost - \(host)\nPort - \(port)\n")
         self.networkMonitor = NWPathMonitor()
         self.networkMonitor!.start(queue: DispatchQueue(label: "NetworkMonitor"))
     
         pendingStartCompletion = completionHandler
-        connectToServer()
+        
+        connectionAttemptStatus = .connecting
+        
+        log.debug("2. Connect to server called.")
+        
+        guard let replicantConnection = ReplicantConnection(host: NWEndpoint.Host(host), port: NWEndpoint.Port(integerLiteral: port), type: ConnectionType.tcp, config: replicantConfig, logger: log) else {
+            log.error("could not initialize replicant connection")
+            return
+        }
+        self.replicantConnection = replicantConnection
+        self.flowerConnection = FlowerConnection(connection: replicantConnection)
+
+        self.log.debug("\n3. 🌲 Connection state is ready 🌲\n")
+        isConnected = ConnectState(state: .success, stage: .statusCodes)
+        waitForIPAssignment()
     }
     
     override func stopTunnel(with reason: NEProviderStopReason, completionHandler: @escaping () -> Void)
@@ -157,10 +166,11 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         pendingStartCompletion = nil
         
         // Close the tunnel connection.
-        if let replicantConnection = self.replicantConnection
-        {
-            replicantConnection.cancel()
-        }
+//        if let replicantConnection = self.replicantConnection
+//        {
+//            // FIXME: make transmission cancellable
+//            // replicantConnection.cancel()
+//        }
         
         connectionAttemptStatus = .initialized
         pendingStopCompletion?()
@@ -221,10 +231,11 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         pendingStartCompletion?(error)
         
         // Close the tunnel connection.
-        if let replicantConnection = self.replicantConnection
-        {
-            replicantConnection.cancel()
-        }
+//        if let replicantConnection = self.replicantConnection
+//        {
+//            // FIXME: make transmission connection cancellable
+//            // replicantConnection.cancel()
+//        }
         
         tunnelConnection = nil
         connectionAttemptStatus = .initialized
@@ -304,36 +315,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         self.log.debug("\n🚀 Connection to server complete! 🚀\n")
         self.tunnelConnection = newConnection
         newConnection.startHandlingPackets()
-    }
-    
-    func connectToServer()
-    {
-        connectionAttemptStatus = .connecting
-        
-        log.debug("2. Connect to server called.")
-        guard let replicantConnectionFactory = replicantConnectionFactory
-            else
-        {
-            log.error("Unable to find connection factory.")
-            return
-        }
-        
-        let parameters = NWParameters.tcp
-        let connectQueue = DispatchQueue(label: "connectQueue")
-        
-        guard let replicantConnection = replicantConnectionFactory.connect(using: parameters) as? ReplicantConnection
-            else
-        {
-            log.error("🥀  Replicant Factory failed to create a connection. 🥀")
-            return
-        }
-        self.replicantConnection = replicantConnection
-
-        self.flowerConnection = FlowerConnection(connection: replicantConnection)
-
-        self.log.debug("\n3. 🌲 Connection state is ready 🌲\n")
-        isConnected = ConnectState(state: .success, stage: .statusCodes)
-        waitForIPAssignment()
     }
     
     func waitForIPAssignment()
