@@ -992,8 +992,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OperatorFoundation/Flower.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.4;
+				branch = main;
+				kind = branch;
 			};
 		};
 		AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
@@ -1008,48 +1008,48 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OperatorFoundation/Datable";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.1.2;
+				branch = main;
+				kind = branch;
 			};
 		};
 		AEFDFD66243262B4003571DB /* XCRemoteSwiftPackageReference "SwiftQueue" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OperatorFoundation/SwiftQueue.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.2;
+				branch = main;
+				kind = branch;
 			};
 		};
 		CA8B9C90273D86D400930089 /* XCRemoteSwiftPackageReference "LoggerQueue" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OperatorFoundation/LoggerQueue.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.1;
+				branch = main;
+				kind = branch;
 			};
 		};
 		EF1E354B26F282CD006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OperatorFoundation/ReplicantSwift.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.13.7;
+				branch = main;
+				kind = branch;
 			};
 		};
 		EF1E354E26F2858F006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwiftClient" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OperatorFoundation/ReplicantSwiftClient.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.5;
+				branch = main;
+				kind = branch;
 			};
 		};
 		EF2017E12739BA9F00465E0A /* XCRemoteSwiftPackageReference "TransmissionTransport" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OperatorFoundation/TransmissionTransport.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				branch = main;
+				kind = branch;
 			};
 		};
 		EF2017E22739BAD100465E0A /* XCRemoteSwiftPackageReference "swift-log" */ = {
@@ -1064,16 +1064,16 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OperatorFoundation/Chord.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.15;
+				branch = main;
+				kind = branch;
 			};
 		};
 		EF5FB20A269CDB0D00D2938D /* XCRemoteSwiftPackageReference "InternetProtocols" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OperatorFoundation/InternetProtocols.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.1.1;
+				branch = main;
+				kind = branch;
 			};
 		};
 		EFB1F50C26446D4B007AFD1E /* XCRemoteSwiftPackageReference "Transport" */ = {
@@ -1081,15 +1081,15 @@
 			repositoryURL = "https://github.com/OperatorFoundation/Transport";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.3.9;
+				minimumVersion = 2.3.12;
 			};
 		};
 		EFEA2F3D26A5F30B00F1D116 /* XCRemoteSwiftPackageReference "SwiftHexTools" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OperatorFoundation/SwiftHexTools.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.4;
+				branch = main;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
