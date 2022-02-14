@@ -178,7 +178,7 @@ class ConfigController
                     
                     // FIXME: Replicant Config from JSON
                     //let replicantConfig = ReplicantConfig(withConfigAtPath: configURL.appendingPathComponent(file1).path)
-                    let replicantConfig: ReplicantConfig<SilverClientConfig>? = nil
+                    let replicantConfig: ReplicantConfig? = nil
                     let moonbounceConfig = MoonbounceConfig(name: configURL.lastPathComponent, clientConfig: clientConfig, replicantConfig: replicantConfig)
                     
                     self.configs.append(moonbounceConfig)
@@ -228,7 +228,8 @@ class ConfigController
             })
             {
                 //Verify  that each of the following files are present as all config files are neccessary for successful connection:
-                let file1 = "replicantclient.config"
+                let clientConfigFilename = "replicantclient.config"
+                let replicantConfigFilename = "replicant.config"
                 //let file2 = "replicant.config"
                 
                 var fileNames = [String]()
@@ -243,21 +244,30 @@ class ConfigController
                 }
                 
                 //If all required files are present refresh server select button
-                if fileNames.contains(file1)
+                if fileNames.contains(clientConfigFilename)
                 {
-                    guard let clientConfig = ClientConfig(withConfigAtPath: configURL.appendingPathComponent(file1).path)
+                    var maybeReplicantConfig: ReplicantConfig?
+                    
+                    guard let clientConfig = ClientConfig(withConfigAtPath: configURL.appendingPathComponent(clientConfigFilename).path)
                         
                         else
                     {
-                        appLog.error("Unable to create replicant config from file at \(configURL.appendingPathComponent(file1))")
+                        appLog.error("Unable to create replicant config from file at \(configURL.appendingPathComponent(clientConfigFilename))")
                         
                         return nil
                     }
                     
-                    // FIXME: Replicant config from file
-                    let replicantConfig = ReplicantConfig<SilverClientConfig>(polish: nil, toneBurst: nil)
+                    // Replicant config from file
+                    if fileNames.contains(replicantConfigFilename)
+                    {
+                        maybeReplicantConfig = ReplicantConfig(withConfigAtPath: configURL.appendingPathComponent(replicantConfigFilename).path)
+                    }
+                    else
+                    {
+                        maybeReplicantConfig = ReplicantConfig(serverIP: clientConfig.host, port: clientConfig.port, polish: nil, toneBurst: nil)
+                    }
                     
-                    let moonbounceConfig = MoonbounceConfig(name: configURL.lastPathComponent, clientConfig: clientConfig, replicantConfig: replicantConfig)
+                    let moonbounceConfig = MoonbounceConfig(name: configURL.lastPathComponent, clientConfig: clientConfig, replicantConfig: maybeReplicantConfig)
                     
                     
                     return moonbounceConfig
@@ -274,47 +284,39 @@ class ConfigController
     
     public static func getMoonbounceConfig(fromProtocolConfiguration protocolConfiguration: NETunnelProviderProtocol) -> MoonbounceConfig?
     {
-        guard let providerConfiguration = protocolConfiguration.providerConfiguration
-            else
+        var maybeReplicantConfig: ReplicantConfig?
+        
+        guard let providerConfiguration = protocolConfiguration.providerConfiguration else
         {
             appLog.error("\nAttempted to initialize a tunnel with a protocol config that does not have a provider config (no replicant or client configs).")
             return nil
         }
         
-        // FIXME: Replicant config from JSON
-        
-//        guard let replicantConfigJSON = providerConfiguration[Keys.replicantConfigKey.rawValue] as? Data
-//            else
-//        {
-//            appLog.error("Unable to get ReplicantConfig JSON from provider config")
-//            return nil
-//        }
-//
-//        guard let replicantConfig = ReplicantConfig.parse(jsonData: replicantConfigJSON)
-//            else
-//        {
-//            return nil
-//        }
-        
-        guard let replicantConfig = ReplicantConfig<SilverClientConfig>(polish: nil, toneBurst: nil)
-            else
-        {
-            return nil
-        }
-        
-        guard let clientConfigJSON = providerConfiguration[Keys.clientConfigKey.rawValue] as? Data
-            else
+        // Client Config
+        guard let clientConfigJSON = providerConfiguration[Keys.clientConfigKey.rawValue] as? Data else
         {
             appLog.error("Unable to get ClientConfig JSON from provider config")
             return nil
         }
         
-        guard let clientConfig = ClientConfig.parse(jsonData: clientConfigJSON)
-            else
+        guard let clientConfig = ClientConfig.parse(jsonData: clientConfigJSON) else
         {
             return nil
         }
         
+        // Replicant Config
+        if let replicantJSON = providerConfiguration[Keys.replicantConfigKey.rawValue] as? Data
+        {
+            guard let replicantConfig = ReplicantConfig(from: replicantJSON) else
+            {
+                appLog.error("Unable to load the Replicant config data.")
+                return nil
+            }
+            
+            maybeReplicantConfig = replicantConfig
+        }
+        
+        // Tunnel Name
         guard let name = providerConfiguration[Keys.tunnelNameKey.rawValue] as? String
         else
         {
@@ -322,7 +324,9 @@ class ConfigController
             return nil
         }
         
-        let moonbounceConfig = MoonbounceConfig(name: name, clientConfig: clientConfig, replicantConfig: replicantConfig)
+        
+        // Moonbounce Config
+        let moonbounceConfig = MoonbounceConfig(name: name, clientConfig: clientConfig, replicantConfig: maybeReplicantConfig)
         
         return moonbounceConfig
     }

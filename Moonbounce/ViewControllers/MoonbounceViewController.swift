@@ -286,7 +286,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     
     func launchServer(_ sender: NSButton)
     {
-        if let userToken = KeychainController.loadToken()
+        if let _ = KeychainController.loadToken()
         {
 //            MoonbounceViewController.terraformController.createVarsFile(token: userToken)
             

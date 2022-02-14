@@ -16,11 +16,11 @@ class MoonbounceConfig: NSObject
     static let filenameExtension = "moonbounce"
     
     let fileManager = FileManager.default
-    let replicantConfig: ReplicantConfig<SilverClientConfig>?
+    let replicantConfig: ReplicantConfig?
     let clientConfig: ClientConfig
     var name: String
 
-    init(name: String, clientConfig: ClientConfig, replicantConfig: ReplicantConfig<SilverClientConfig>?)
+    init(name: String, clientConfig: ClientConfig, replicantConfig: ReplicantConfig?)
     {
         self.name = name
         self.clientConfig = clientConfig

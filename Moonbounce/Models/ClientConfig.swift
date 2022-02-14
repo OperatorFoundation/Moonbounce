@@ -31,7 +31,7 @@ public class ClientConfig: NSObject, Codable, NSSecureCoding
         }
     }
     
-    let clientConfigKey = "ClientConfig"
+    var clientConfigKey = "ClientConfig"
     public let host: String
     public let port: UInt16
     
