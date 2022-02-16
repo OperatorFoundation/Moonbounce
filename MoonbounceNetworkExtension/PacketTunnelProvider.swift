@@ -319,6 +319,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
     
     func waitForIPAssignment()
     {
+        log.debug("Waiting for IP assignment")
         guard let flowerConnection = self.flowerConnection else
         {
             log.error("🛑 Current connection is nil, giving up. 🛑")
@@ -329,7 +330,9 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         var waiting = true
         while waiting
         {
+            log.debug("calling flowerConnection.readMessage()")
             let message = flowerConnection.readMessage()
+            log.debug("finished calling flowerConnection.readMessage()")
 
             switch message
             {

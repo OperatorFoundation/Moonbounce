@@ -168,7 +168,7 @@ class MoonbounceTests: XCTestCase {
                         switch ipAssignMessage {
                             case .IPAssignV4(let sourceAddress):
                                 print(sourceAddress)
-                                print(sourceAddress.rawValue.hex)
+                                print("source in hex: \(sourceAddress.rawValue.hex)")
                                 print(sourceAddress.rawValue.array)
                                 let newPacket = "45000054edfa00004001baf1\(sourceAddress.rawValue.hex)080808080800335dde64021860f5bcab0009db7808090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f3031323334353637"
                                 print(newPacket)
