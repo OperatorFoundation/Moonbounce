@@ -62,11 +62,7 @@ DerivedData/
 
 Moonbounce/terraform
 *.DS_Store
-Moonbounce.xcodeproj/xcshareddata/
 default1.moonbounce
-Moonbounce.xcodeproj/project.pbxproj
 default.moonbounce
 *Package.resolved
-Default/replicant.config
-Default/client.config
-Moonbounce.xcodeproj/project.pbxproj
+Default/
