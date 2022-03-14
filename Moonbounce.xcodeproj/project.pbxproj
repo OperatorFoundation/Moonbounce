@@ -1,0 +1,1161 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		464DA95B21E80E80003460D0 /* MoonbounceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DA95A21E80E80003460D0 /* MoonbounceTests.swift */; };
+		4672B8971DF60498008134E5 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4672B8961DF60498008134E5 /* Globals.swift */; };
+		4678C2FE21DFF5EC00492768 /* ErrorNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4678C2FC21DFF5EB00492768 /* ErrorNotifier.swift */; };
+		467CB5B71DBEB6E90086E341 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467CB5B61DBEB6E90086E341 /* AppDelegate.swift */; };
+		467CB5B91DBEB6E90086E341 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 467CB5B81DBEB6E90086E341 /* Assets.xcassets */; };
+		467CB5BC1DBEB6E90086E341 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 467CB5BA1DBEB6E90086E341 /* MainMenu.xib */; };
+		467CB5C51DBEB8CF0086E341 /* MoonbounceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467CB5C31DBEB8CF0086E341 /* MoonbounceViewController.swift */; };
+		467CB5C61DBEB8CF0086E341 /* MoonbounceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 467CB5C41DBEB8CF0086E341 /* MoonbounceViewController.xib */; };
+		467CB5C91DBEB9730086E341 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467CB5C81DBEB9730086E341 /* EventMonitor.swift */; };
+		469B0A7B21DEA5AB003FC2BC /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469B0A7A21DEA5AB003FC2BC /* PacketTunnelProvider.swift */; };
+		469B0A8021DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 469B0A7821DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		46C6E50C21E57098008D383B /* TunnelErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E50721E57097008D383B /* TunnelErrors.swift */; };
+		46C6E51521E5747B008D383B /* MoonbounceStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E51421E5747B008D383B /* MoonbounceStrings.swift */; };
+		AE0738952232D6E1009E3C4E /* ClientConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0738802232D6E1009E3C4E /* ClientConfig.swift */; };
+		AE0738962232D6E1009E3C4E /* ClientConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0738802232D6E1009E3C4E /* ClientConfig.swift */; };
+		AE07389A2232D739009E3C4E /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0738992232D739009E3C4E /* Keys.swift */; };
+		AE07389B2232D739009E3C4E /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0738992232D739009E3C4E /* Keys.swift */; };
+		AE07389D2232E0C2009E3C4E /* MoonbounceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE07389C2232E0C2009E3C4E /* MoonbounceConfig.swift */; };
+		AE07389E2232E0C2009E3C4E /* MoonbounceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE07389C2232E0C2009E3C4E /* MoonbounceConfig.swift */; };
+		AE0738D422370EF9009E3C4E /* ConfigController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0738D322370EF9009E3C4E /* ConfigController.swift */; };
+		AE13587D21FBB74C00E81823 /* TunnelErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E50721E57097008D383B /* TunnelErrors.swift */; };
+		AE13588321FBBEC700E81823 /* MoonbounceStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E51421E5747B008D383B /* MoonbounceStrings.swift */; };
+		AE39BD4D22400BFC007C7C90 /* ClientTunnelConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE39BD3B22400BFC007C7C90 /* ClientTunnelConnection.swift */; };
+		AE39BD6822440123007C7C90 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */; };
+		AE4D6BAC24452FA0002DA1E4 /* NEVPNStatus+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4D6BAB24452FA0002DA1E4 /* NEVPNStatus+Extension.swift */; };
+		AE4D6BAD24452FA0002DA1E4 /* NEVPNStatus+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4D6BAB24452FA0002DA1E4 /* NEVPNStatus+Extension.swift */; };
+		AE4D6BAF24462C28002DA1E4 /* VPNPreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4D6BAE24462C28002DA1E4 /* VPNPreferencesController.swift */; };
+		AE4D6BB12447B962002DA1E4 /* ConfigController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0738D322370EF9009E3C4E /* ConfigController.swift */; };
+		AE59B9F624CBB2CA00703630 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AE59B9F524CBB2CA00703630 /* ZIPFoundation */; };
+		AE6517F8246F4CDA00EFFB94 /* LoggingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6517F7246F4CDA00EFFB94 /* LoggingController.swift */; };
+		AE71729325B66F2B0070AF2C /* Flower in Frameworks */ = {isa = PBXBuildFile; productRef = AE71729225B66F2B0070AF2C /* Flower */; };
+		AE94E51624CB6D18007B552B /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AE94E51524CB6D18007B552B /* ZIPFoundation */; };
+		AED4EA02243FD3A7003C367F /* PacketTunnelProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA01243FD3A7003C367F /* PacketTunnelProviderError.swift */; };
+		AED4EA03243FD3A7003C367F /* PacketTunnelProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA01243FD3A7003C367F /* PacketTunnelProviderError.swift */; };
+		AED4EA05243FD632003C367F /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA04243FD632003C367F /* FileManager+Extension.swift */; };
+		AED4EA06243FD632003C367F /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA04243FD632003C367F /* FileManager+Extension.swift */; };
+		AED4EA0E243FDA1D003C367F /* TunnelConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA0D243FDA1D003C367F /* TunnelConfiguration.swift */; };
+		AED4EA0F243FDA1D003C367F /* TunnelConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA0D243FDA1D003C367F /* TunnelConfiguration.swift */; };
+		AEE57D2E2461F23A005A784E /* NetworkSettingsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE57D2D2461F23A005A784E /* NetworkSettingsFactory.swift */; };
+		AEE943AD21FAAFC500213EE7 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4672B8961DF60498008134E5 /* Globals.swift */; };
+		AEFDFD7C2432A112003571DB /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */; };
+		B41FE02A1DF24BE900E02D17 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B41FE0291DF24BE900E02D17 /* Security.framework */; };
+		B41FE02C1DF24BF500E02D17 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */; };
+		B44390591DC00EA000389352 /* PopoverContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44390581DC00EA000389352 /* PopoverContentView.swift */; };
+		B4634E331EA15AF40069C1DE /* KeychainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4634E321EA15AF40069C1DE /* KeychainController.swift */; };
+		B4EF3E5D1E15C12700A5DDBD /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EF3E5C1E15C12700A5DDBD /* CustomButton.swift */; };
+		CA8B9C92273D86D400930089 /* LoggerQueue in Frameworks */ = {isa = PBXBuildFile; productRef = CA8B9C91273D86D400930089 /* LoggerQueue */; };
+		CAFF6EC6250FFC0300BCBF5B /* Moonbounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFF6EC5250FFC0300BCBF5B /* Moonbounce.swift */; };
+		EF1E354D26F282CD006CC1D6 /* ReplicantSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EF1E354C26F282CD006CC1D6 /* ReplicantSwift */; };
+		EF1E355026F2858F006CC1D6 /* ReplicantSwiftClient in Frameworks */ = {isa = PBXBuildFile; productRef = EF1E354F26F2858F006CC1D6 /* ReplicantSwiftClient */; };
+		EF1E355226F2991A006CC1D6 /* ReplicantSwiftClient in Frameworks */ = {isa = PBXBuildFile; productRef = EF1E355126F2991A006CC1D6 /* ReplicantSwiftClient */; };
+		EF40EE42275571A9005EA989 /* Chord in Frameworks */ = {isa = PBXBuildFile; productRef = EF40EE41275571A9005EA989 /* Chord */; };
+		EF5FB20C269CDB0D00D2938D /* InternetProtocols in Frameworks */ = {isa = PBXBuildFile; productRef = EF5FB20B269CDB0D00D2938D /* InternetProtocols */; };
+		EF72F95B265DD97800294C6F /* default.moonbounce in Resources */ = {isa = PBXBuildFile; fileRef = AE1359A6220DFC6F00E81823 /* default.moonbounce */; };
+		EF7449AD2673CC71007BA534 /* Flower in Frameworks */ = {isa = PBXBuildFile; productRef = EF7449AC2673CC71007BA534 /* Flower */; };
+		EFB1F50E26446D4B007AFD1E /* Transport in Frameworks */ = {isa = PBXBuildFile; productRef = EFB1F50D26446D4B007AFD1E /* Transport */; };
+		EFEA2F3F26A5F30B00F1D116 /* SwiftHexTools in Frameworks */ = {isa = PBXBuildFile; productRef = EFEA2F3E26A5F30B00F1D116 /* SwiftHexTools */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		464DA95D21E80E80003460D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 467CB5AB1DBEB6E90086E341 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 467CB5B21DBEB6E90086E341;
+			remoteInfo = Moonbounce;
+		};
+		469B0A7E21DEA5AB003FC2BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 467CB5AB1DBEB6E90086E341 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 469B0A7721DEA5AB003FC2BC;
+			remoteInfo = MoonbounceNetworkExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		469B0A9221DEA5AB003FC2BC /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				469B0A8021DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE4CFCC9244134E0006FF16E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B41FE0251DF10A0400E02D17 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LaunchServices;
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		464DA95821E80E80003460D0 /* MoonbounceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoonbounceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		464DA95A21E80E80003460D0 /* MoonbounceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonbounceTests.swift; sourceTree = "<group>"; };
+		464DA95C21E80E80003460D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		465F18F21DDA684600C8F1B8 /* Moonbounce.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Moonbounce.entitlements; sourceTree = "<group>"; };
+		4672B8961DF60498008134E5 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		4678C2FC21DFF5EB00492768 /* ErrorNotifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorNotifier.swift; sourceTree = "<group>"; };
+		4678C32621E009DC00492768 /* MoonbounceNetworkExtension-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoonbounceNetworkExtension-Bridging-Header.h"; sourceTree = "<group>"; };
+		467CB5B31DBEB6E90086E341 /* Moonbounce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moonbounce.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		467CB5B61DBEB6E90086E341 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		467CB5B81DBEB6E90086E341 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		467CB5BB1DBEB6E90086E341 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		467CB5BD1DBEB6E90086E341 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		467CB5C31DBEB8CF0086E341 /* MoonbounceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoonbounceViewController.swift; path = ViewControllers/MoonbounceViewController.swift; sourceTree = "<group>"; };
+		467CB5C41DBEB8CF0086E341 /* MoonbounceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MoonbounceViewController.xib; path = ViewControllers/MoonbounceViewController.xib; sourceTree = "<group>"; };
+		467CB5C81DBEB9730086E341 /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventMonitor.swift; path = Helpers/EventMonitor.swift; sourceTree = "<group>"; };
+		469B0A7821DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MoonbounceNetworkExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		469B0A7A21DEA5AB003FC2BC /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
+		469B0A7C21DEA5AB003FC2BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		469B0A7D21DEA5AB003FC2BC /* MoonbounceNetworkExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MoonbounceNetworkExtension.entitlements; sourceTree = "<group>"; };
+		46C6E50721E57097008D383B /* TunnelErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TunnelErrors.swift; sourceTree = "<group>"; };
+		46C6E51421E5747B008D383B /* MoonbounceStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonbounceStrings.swift; sourceTree = "<group>"; };
+		46EA2C7C1E241BB70069E5DE /* Default */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Default; sourceTree = "<group>"; };
+		AE0738802232D6E1009E3C4E /* ClientConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientConfig.swift; sourceTree = "<group>"; };
+		AE0738992232D739009E3C4E /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		AE07389C2232E0C2009E3C4E /* MoonbounceConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoonbounceConfig.swift; sourceTree = "<group>"; };
+		AE0738D322370EF9009E3C4E /* ConfigController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigController.swift; path = Controllers/ConfigController.swift; sourceTree = "<group>"; };
+		AE1359A6220DFC6F00E81823 /* default.moonbounce */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.moonbounce; sourceTree = "<group>"; };
+		AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		AE39BD3B22400BFC007C7C90 /* ClientTunnelConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientTunnelConnection.swift; sourceTree = "<group>"; };
+		AE4CFCCD244135E5006FF16E /* libswiftCreateML.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftCreateML.dylib; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/libswiftCreateML.dylib; sourceTree = DEVELOPER_DIR; };
+		AE4D6BAB24452FA0002DA1E4 /* NEVPNStatus+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NEVPNStatus+Extension.swift"; sourceTree = "<group>"; };
+		AE4D6BAE24462C28002DA1E4 /* VPNPreferencesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNPreferencesController.swift; sourceTree = "<group>"; };
+		AE6517F7246F4CDA00EFFB94 /* LoggingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingController.swift; sourceTree = "<group>"; };
+		AED4EA01243FD3A7003C367F /* PacketTunnelProviderError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PacketTunnelProviderError.swift; sourceTree = "<group>"; };
+		AED4EA04243FD632003C367F /* FileManager+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
+		AED4EA0D243FDA1D003C367F /* TunnelConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TunnelConfiguration.swift; sourceTree = "<group>"; };
+		AEE57D2D2461F23A005A784E /* NetworkSettingsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSettingsFactory.swift; sourceTree = "<group>"; };
+		B41FE0291DF24BE900E02D17 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+		B44390581DC00EA000389352 /* PopoverContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopoverContentView.swift; path = Helpers/PopoverContentView.swift; sourceTree = "<group>"; };
+		B4634E321EA15AF40069C1DE /* KeychainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainController.swift; path = Controllers/KeychainController.swift; sourceTree = "<group>"; };
+		B4EF3E5C1E15C12700A5DDBD /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomButton.swift; path = Helpers/CustomButton.swift; sourceTree = "<group>"; };
+		CA8FF117273245F300780567 /* ReplicantSwiftClient */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ReplicantSwiftClient; path = ../ReplicantSwiftClient; sourceTree = "<group>"; };
+		CAFF6EC5250FFC0300BCBF5B /* Moonbounce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moonbounce.swift; sourceTree = "<group>"; };
+		CAFF6EC8250FFDB000BCBF5B /* Moonbounce-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Moonbounce-Bridging-Header.h"; path = "Moonbounce/Moonbounce-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		EF426EF426B867BF008A8504 /* TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestPlan.xctestplan; sourceTree = SOURCE_ROOT; };
+		EF7449AA2673CC32007BA534 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		464DA95521E80E80003460D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF7449AD2673CC71007BA534 /* Flower in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		467CB5B01DBEB6E90086E341 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF40EE42275571A9005EA989 /* Chord in Frameworks */,
+				EFB1F50E26446D4B007AFD1E /* Transport in Frameworks */,
+				EFEA2F3F26A5F30B00F1D116 /* SwiftHexTools in Frameworks */,
+				B41FE02C1DF24BF500E02D17 /* ServiceManagement.framework in Frameworks */,
+				B41FE02A1DF24BE900E02D17 /* Security.framework in Frameworks */,
+				AE39BD6822440123007C7C90 /* NetworkExtension.framework in Frameworks */,
+				EF1E354D26F282CD006CC1D6 /* ReplicantSwift in Frameworks */,
+				EF1E355026F2858F006CC1D6 /* ReplicantSwiftClient in Frameworks */,
+				AE59B9F624CBB2CA00703630 /* ZIPFoundation in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		469B0A7521DEA5AB003FC2BC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE71729325B66F2B0070AF2C /* Flower in Frameworks */,
+				AEFDFD7C2432A112003571DB /* NetworkExtension.framework in Frameworks */,
+				EF1E355226F2991A006CC1D6 /* ReplicantSwiftClient in Frameworks */,
+				AE94E51624CB6D18007B552B /* ZIPFoundation in Frameworks */,
+				CA8B9C92273D86D400930089 /* LoggerQueue in Frameworks */,
+				EF5FB20C269CDB0D00D2938D /* InternetProtocols in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		464DA95921E80E80003460D0 /* MoonbounceTests */ = {
+			isa = PBXGroup;
+			children = (
+				EF426EF426B867BF008A8504 /* TestPlan.xctestplan */,
+				464DA95A21E80E80003460D0 /* MoonbounceTests.swift */,
+				464DA95C21E80E80003460D0 /* Info.plist */,
+			);
+			path = MoonbounceTests;
+			sourceTree = "<group>";
+		};
+		467CB5AA1DBEB6E90086E341 = {
+			isa = PBXGroup;
+			children = (
+				CA8FF116273245F300780567 /* Packages */,
+				AE1359A6220DFC6F00E81823 /* default.moonbounce */,
+				AED4E9FD243FD11D003C367F /* Shared */,
+				467CB5B51DBEB6E90086E341 /* Moonbounce */,
+				469B0A7921DEA5AB003FC2BC /* MoonbounceNetworkExtension */,
+				464DA95921E80E80003460D0 /* MoonbounceTests */,
+				467CB5B41DBEB6E90086E341 /* Products */,
+				D1943F52C69C7904415E81F0 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		467CB5B41DBEB6E90086E341 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				467CB5B31DBEB6E90086E341 /* Moonbounce.app */,
+				469B0A7821DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex */,
+				464DA95821E80E80003460D0 /* MoonbounceTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		467CB5B51DBEB6E90086E341 /* Moonbounce */ = {
+			isa = PBXGroup;
+			children = (
+				467CB5BD1DBEB6E90086E341 /* Info.plist */,
+				465F18F21DDA684600C8F1B8 /* Moonbounce.entitlements */,
+				467CB5B81DBEB6E90086E341 /* Assets.xcassets */,
+				467CB5BA1DBEB6E90086E341 /* MainMenu.xib */,
+				CAFF6EC8250FFDB000BCBF5B /* Moonbounce-Bridging-Header.h */,
+				CAFF6EC7250FFCE000BCBF5B /* Resources */,
+				46C6E51421E5747B008D383B /* MoonbounceStrings.swift */,
+				4672B8961DF60498008134E5 /* Globals.swift */,
+				CAFF6EC5250FFC0300BCBF5B /* Moonbounce.swift */,
+				467CB5B61DBEB6E90086E341 /* AppDelegate.swift */,
+				467CB5C71DBEB8DE0086E341 /* ViewControllers */,
+				46C7F4B921ED3523007434DD /* Models */,
+				B4646E481DCBA937007C3EFA /* Controllers */,
+				467CB5CA1DBEB9790086E341 /* Helpers */,
+			);
+			path = Moonbounce;
+			sourceTree = "<group>";
+		};
+		467CB5C71DBEB8DE0086E341 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				467CB5C31DBEB8CF0086E341 /* MoonbounceViewController.swift */,
+				467CB5C41DBEB8CF0086E341 /* MoonbounceViewController.xib */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		467CB5CA1DBEB9790086E341 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				467CB5C81DBEB9730086E341 /* EventMonitor.swift */,
+				B44390581DC00EA000389352 /* PopoverContentView.swift */,
+				B4EF3E5C1E15C12700A5DDBD /* CustomButton.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		469B0A7921DEA5AB003FC2BC /* MoonbounceNetworkExtension */ = {
+			isa = PBXGroup;
+			children = (
+				469B0A7C21DEA5AB003FC2BC /* Info.plist */,
+				469B0A7D21DEA5AB003FC2BC /* MoonbounceNetworkExtension.entitlements */,
+				4678C32621E009DC00492768 /* MoonbounceNetworkExtension-Bridging-Header.h */,
+				469B0A7A21DEA5AB003FC2BC /* PacketTunnelProvider.swift */,
+				AE39BD3B22400BFC007C7C90 /* ClientTunnelConnection.swift */,
+				AEE57D2D2461F23A005A784E /* NetworkSettingsFactory.swift */,
+				4678C2FC21DFF5EB00492768 /* ErrorNotifier.swift */,
+			);
+			path = MoonbounceNetworkExtension;
+			sourceTree = "<group>";
+		};
+		46C7F4B921ED3523007434DD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AE07389C2232E0C2009E3C4E /* MoonbounceConfig.swift */,
+				AE0738802232D6E1009E3C4E /* ClientConfig.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AED4E9FD243FD11D003C367F /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				AED4EA0D243FDA1D003C367F /* TunnelConfiguration.swift */,
+				AED4EA04243FD632003C367F /* FileManager+Extension.swift */,
+				AED4EA01243FD3A7003C367F /* PacketTunnelProviderError.swift */,
+				46C6E50721E57097008D383B /* TunnelErrors.swift */,
+				AE4D6BAB24452FA0002DA1E4 /* NEVPNStatus+Extension.swift */,
+				AE0738992232D739009E3C4E /* Keys.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		B4646E481DCBA937007C3EFA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				AE0738D322370EF9009E3C4E /* ConfigController.swift */,
+				B4634E321EA15AF40069C1DE /* KeychainController.swift */,
+				AE4D6BAE24462C28002DA1E4 /* VPNPreferencesController.swift */,
+				AE6517F7246F4CDA00EFFB94 /* LoggingController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		CA8FF116273245F300780567 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				CA8FF117273245F300780567 /* ReplicantSwiftClient */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		CAFF6EC7250FFCE000BCBF5B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				46EA2C7C1E241BB70069E5DE /* Default */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		D1943F52C69C7904415E81F0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EF7449AA2673CC32007BA534 /* AVKit.framework */,
+				AE4CFCCD244135E5006FF16E /* libswiftCreateML.dylib */,
+				AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */,
+				B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */,
+				B41FE0291DF24BE900E02D17 /* Security.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		464DA95721E80E80003460D0 /* MoonbounceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 464DA97121E80E80003460D0 /* Build configuration list for PBXNativeTarget "MoonbounceTests" */;
+			buildPhases = (
+				464DA95421E80E80003460D0 /* Sources */,
+				464DA95521E80E80003460D0 /* Frameworks */,
+				464DA95621E80E80003460D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				464DA95E21E80E80003460D0 /* PBXTargetDependency */,
+			);
+			name = MoonbounceTests;
+			packageProductDependencies = (
+				EF7449AC2673CC71007BA534 /* Flower */,
+			);
+			productName = MoonbounceTests;
+			productReference = 464DA95821E80E80003460D0 /* MoonbounceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		467CB5B21DBEB6E90086E341 /* Moonbounce */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 467CB5C01DBEB6E90086E341 /* Build configuration list for PBXNativeTarget "Moonbounce" */;
+			buildPhases = (
+				467CB5AF1DBEB6E90086E341 /* Sources */,
+				467CB5B01DBEB6E90086E341 /* Frameworks */,
+				467CB5B11DBEB6E90086E341 /* Resources */,
+				B41FE0251DF10A0400E02D17 /* CopyFiles */,
+				469B0A9221DEA5AB003FC2BC /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				469B0A7F21DEA5AB003FC2BC /* PBXTargetDependency */,
+			);
+			name = Moonbounce;
+			packageProductDependencies = (
+				AE59B9F524CBB2CA00703630 /* ZIPFoundation */,
+				EFB1F50D26446D4B007AFD1E /* Transport */,
+				EFEA2F3E26A5F30B00F1D116 /* SwiftHexTools */,
+				EF1E354C26F282CD006CC1D6 /* ReplicantSwift */,
+				EF1E354F26F2858F006CC1D6 /* ReplicantSwiftClient */,
+				EF40EE41275571A9005EA989 /* Chord */,
+			);
+			productName = Moonbounce;
+			productReference = 467CB5B31DBEB6E90086E341 /* Moonbounce.app */;
+			productType = "com.apple.product-type.application";
+		};
+		469B0A7721DEA5AB003FC2BC /* MoonbounceNetworkExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 469B0A9121DEA5AB003FC2BC /* Build configuration list for PBXNativeTarget "MoonbounceNetworkExtension" */;
+			buildPhases = (
+				469B0A7421DEA5AB003FC2BC /* Sources */,
+				469B0A7521DEA5AB003FC2BC /* Frameworks */,
+				469B0A7621DEA5AB003FC2BC /* Resources */,
+				AE4CFCC9244134E0006FF16E /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MoonbounceNetworkExtension;
+			packageProductDependencies = (
+				AE94E51524CB6D18007B552B /* ZIPFoundation */,
+				AE71729225B66F2B0070AF2C /* Flower */,
+				EF5FB20B269CDB0D00D2938D /* InternetProtocols */,
+				EF1E355126F2991A006CC1D6 /* ReplicantSwiftClient */,
+				CA8B9C91273D86D400930089 /* LoggerQueue */,
+			);
+			productName = MoonbounceNetworkExtension;
+			productReference = 469B0A7821DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		467CB5AB1DBEB6E90086E341 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1220;
+				ORGANIZATIONNAME = operatorfoundation.org;
+				TargetAttributes = {
+					464DA95721E80E80003460D0 = {
+						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
+						TestTargetID = 467CB5B21DBEB6E90086E341;
+					};
+					467CB5B21DBEB6E90086E341 = {
+						CreatedOnToolsVersion = 8.0;
+						LastSwiftMigration = 1020;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 0;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.NetworkExtensions = {
+								enabled = 1;
+							};
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+							com.apple.VPNLite = {
+								enabled = 1;
+							};
+						};
+					};
+					469B0A7721DEA5AB003FC2BC = {
+						CreatedOnToolsVersion = 10.1;
+						DevelopmentTeam = 67Y4NSLDQ3;
+						LastSwiftMigration = 1020;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 0;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.NetworkExtensions = {
+								enabled = 1;
+							};
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+							com.apple.VPNLite = {
+								enabled = 0;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 467CB5AE1DBEB6E90086E341 /* Build configuration list for PBXProject "Moonbounce" */;
+			compatibilityVersion = "Xcode 11.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 467CB5AA1DBEB6E90086E341;
+			packageReferences = (
+				AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+				AEFDFD6324326298003571DB /* XCRemoteSwiftPackageReference "Datable" */,
+				AEFDFD66243262B4003571DB /* XCRemoteSwiftPackageReference "SwiftQueue" */,
+				AE71729125B66F2B0070AF2C /* XCRemoteSwiftPackageReference "Flower" */,
+				EFB1F50C26446D4B007AFD1E /* XCRemoteSwiftPackageReference "Transport" */,
+				EF5FB20A269CDB0D00D2938D /* XCRemoteSwiftPackageReference "InternetProtocols" */,
+				EFEA2F3D26A5F30B00F1D116 /* XCRemoteSwiftPackageReference "SwiftHexTools" */,
+				EF1E354B26F282CD006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwift" */,
+				EF1E354E26F2858F006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwiftClient" */,
+				EF2017E12739BA9F00465E0A /* XCRemoteSwiftPackageReference "TransmissionTransport" */,
+				EF2017E22739BAD100465E0A /* XCRemoteSwiftPackageReference "swift-log" */,
+				CA8B9C90273D86D400930089 /* XCRemoteSwiftPackageReference "LoggerQueue" */,
+				EF40EE40275571A9005EA989 /* XCRemoteSwiftPackageReference "Chord" */,
+			);
+			productRefGroup = 467CB5B41DBEB6E90086E341 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				467CB5B21DBEB6E90086E341 /* Moonbounce */,
+				469B0A7721DEA5AB003FC2BC /* MoonbounceNetworkExtension */,
+				464DA95721E80E80003460D0 /* MoonbounceTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		464DA95621E80E80003460D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		467CB5B11DBEB6E90086E341 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				467CB5C61DBEB8CF0086E341 /* MoonbounceViewController.xib in Resources */,
+				467CB5B91DBEB6E90086E341 /* Assets.xcassets in Resources */,
+				EF72F95B265DD97800294C6F /* default.moonbounce in Resources */,
+				467CB5BC1DBEB6E90086E341 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		469B0A7621DEA5AB003FC2BC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		464DA95421E80E80003460D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				464DA95B21E80E80003460D0 /* MoonbounceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		467CB5AF1DBEB6E90086E341 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE4D6BAC24452FA0002DA1E4 /* NEVPNStatus+Extension.swift in Sources */,
+				AE0738D422370EF9009E3C4E /* ConfigController.swift in Sources */,
+				AED4EA05243FD632003C367F /* FileManager+Extension.swift in Sources */,
+				AED4EA0E243FDA1D003C367F /* TunnelConfiguration.swift in Sources */,
+				CAFF6EC6250FFC0300BCBF5B /* Moonbounce.swift in Sources */,
+				B4EF3E5D1E15C12700A5DDBD /* CustomButton.swift in Sources */,
+				AE07389A2232D739009E3C4E /* Keys.swift in Sources */,
+				B44390591DC00EA000389352 /* PopoverContentView.swift in Sources */,
+				AE0738952232D6E1009E3C4E /* ClientConfig.swift in Sources */,
+				AE6517F8246F4CDA00EFFB94 /* LoggingController.swift in Sources */,
+				467CB5C91DBEB9730086E341 /* EventMonitor.swift in Sources */,
+				AED4EA02243FD3A7003C367F /* PacketTunnelProviderError.swift in Sources */,
+				AE07389D2232E0C2009E3C4E /* MoonbounceConfig.swift in Sources */,
+				467CB5B71DBEB6E90086E341 /* AppDelegate.swift in Sources */,
+				B4634E331EA15AF40069C1DE /* KeychainController.swift in Sources */,
+				46C6E51521E5747B008D383B /* MoonbounceStrings.swift in Sources */,
+				AE4D6BAF24462C28002DA1E4 /* VPNPreferencesController.swift in Sources */,
+				46C6E50C21E57098008D383B /* TunnelErrors.swift in Sources */,
+				467CB5C51DBEB8CF0086E341 /* MoonbounceViewController.swift in Sources */,
+				4672B8971DF60498008134E5 /* Globals.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		469B0A7421DEA5AB003FC2BC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE39BD4D22400BFC007C7C90 /* ClientTunnelConnection.swift in Sources */,
+				AE07389E2232E0C2009E3C4E /* MoonbounceConfig.swift in Sources */,
+				4678C2FE21DFF5EC00492768 /* ErrorNotifier.swift in Sources */,
+				469B0A7B21DEA5AB003FC2BC /* PacketTunnelProvider.swift in Sources */,
+				AEE943AD21FAAFC500213EE7 /* Globals.swift in Sources */,
+				AED4EA03243FD3A7003C367F /* PacketTunnelProviderError.swift in Sources */,
+				AE13588321FBBEC700E81823 /* MoonbounceStrings.swift in Sources */,
+				AED4EA06243FD632003C367F /* FileManager+Extension.swift in Sources */,
+				AE4D6BB12447B962002DA1E4 /* ConfigController.swift in Sources */,
+				AEE57D2E2461F23A005A784E /* NetworkSettingsFactory.swift in Sources */,
+				AE4D6BAD24452FA0002DA1E4 /* NEVPNStatus+Extension.swift in Sources */,
+				AE0738962232D6E1009E3C4E /* ClientConfig.swift in Sources */,
+				AE07389B2232D739009E3C4E /* Keys.swift in Sources */,
+				AED4EA0F243FDA1D003C367F /* TunnelConfiguration.swift in Sources */,
+				AE13587D21FBB74C00E81823 /* TunnelErrors.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		464DA95E21E80E80003460D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 467CB5B21DBEB6E90086E341 /* Moonbounce */;
+			targetProxy = 464DA95D21E80E80003460D0 /* PBXContainerItemProxy */;
+		};
+		469B0A7F21DEA5AB003FC2BC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 469B0A7721DEA5AB003FC2BC /* MoonbounceNetworkExtension */;
+			targetProxy = 469B0A7E21DEA5AB003FC2BC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		467CB5BA1DBEB6E90086E341 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				467CB5BB1DBEB6E90086E341 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		464DA95F21E80E80003460D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MoonbounceTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.operatorFoundation.MoonbounceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Moonbounce.app/Contents/MacOS/Moonbounce";
+			};
+			name = Debug;
+		};
+		464DA96021E80E80003460D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MoonbounceTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.operatorFoundation.MoonbounceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Moonbounce.app/Contents/MacOS/Moonbounce";
+			};
+			name = Release;
+		};
+		467CB5BE1DBEB6E90086E341 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		467CB5BF1DBEB6E90086E341 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		467CB5C11DBEB6E90086E341 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Moonbounce/Moonbounce.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INFOPLIST_FILE = Moonbounce/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = org.OperatorFoundation.Moonbounce.MacOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Moonbounce/Moonbounce-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		467CB5C21DBEB6E90086E341 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Moonbounce/Moonbounce.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INFOPLIST_FILE = Moonbounce/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = org.OperatorFoundation.Moonbounce.MacOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Moonbounce/Moonbounce-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		469B0A8121DEA5AB003FC2BC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = MoonbounceNetworkExtension/MoonbounceNetworkExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MoonbounceNetworkExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.OperatorFoundation.Moonbounce.MacOS.NetworkExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "MoonbounceNetworkExtension/MoonbounceNetworkExtension-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		469B0A8221DEA5AB003FC2BC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = MoonbounceNetworkExtension/MoonbounceNetworkExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MoonbounceNetworkExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.OperatorFoundation.Moonbounce.MacOS.NetworkExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "MoonbounceNetworkExtension/MoonbounceNetworkExtension-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		464DA97121E80E80003460D0 /* Build configuration list for PBXNativeTarget "MoonbounceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				464DA95F21E80E80003460D0 /* Debug */,
+				464DA96021E80E80003460D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		467CB5AE1DBEB6E90086E341 /* Build configuration list for PBXProject "Moonbounce" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				467CB5BE1DBEB6E90086E341 /* Debug */,
+				467CB5BF1DBEB6E90086E341 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		467CB5C01DBEB6E90086E341 /* Build configuration list for PBXNativeTarget "Moonbounce" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				467CB5C11DBEB6E90086E341 /* Debug */,
+				467CB5C21DBEB6E90086E341 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		469B0A9121DEA5AB003FC2BC /* Build configuration list for PBXNativeTarget "MoonbounceNetworkExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				469B0A8121DEA5AB003FC2BC /* Debug */,
+				469B0A8221DEA5AB003FC2BC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AE71729125B66F2B0070AF2C /* XCRemoteSwiftPackageReference "Flower" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/Flower.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.11;
+			};
+		};
+		AEFDFD6324326298003571DB /* XCRemoteSwiftPackageReference "Datable" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/Datable";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		AEFDFD66243262B4003571DB /* XCRemoteSwiftPackageReference "SwiftQueue" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/SwiftQueue.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		CA8B9C90273D86D400930089 /* XCRemoteSwiftPackageReference "LoggerQueue" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/LoggerQueue.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		EF1E354B26F282CD006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/ReplicantSwift.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		EF1E354E26F2858F006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwiftClient" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/ReplicantSwiftClient.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		EF2017E12739BA9F00465E0A /* XCRemoteSwiftPackageReference "TransmissionTransport" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/TransmissionTransport.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		EF2017E22739BAD100465E0A /* XCRemoteSwiftPackageReference "swift-log" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-log.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.2;
+			};
+		};
+		EF40EE40275571A9005EA989 /* XCRemoteSwiftPackageReference "Chord" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/Chord.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		EF5FB20A269CDB0D00D2938D /* XCRemoteSwiftPackageReference "InternetProtocols" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/InternetProtocols.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		EFB1F50C26446D4B007AFD1E /* XCRemoteSwiftPackageReference "Transport" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/Transport";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.12;
+			};
+		};
+		EFEA2F3D26A5F30B00F1D116 /* XCRemoteSwiftPackageReference "SwiftHexTools" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/SwiftHexTools.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AE59B9F524CBB2CA00703630 /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
+		AE71729225B66F2B0070AF2C /* Flower */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE71729125B66F2B0070AF2C /* XCRemoteSwiftPackageReference "Flower" */;
+			productName = Flower;
+		};
+		AE94E51524CB6D18007B552B /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
+		CA8B9C91273D86D400930089 /* LoggerQueue */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CA8B9C90273D86D400930089 /* XCRemoteSwiftPackageReference "LoggerQueue" */;
+			productName = LoggerQueue;
+		};
+		EF1E354C26F282CD006CC1D6 /* ReplicantSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF1E354B26F282CD006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwift" */;
+			productName = ReplicantSwift;
+		};
+		EF1E354F26F2858F006CC1D6 /* ReplicantSwiftClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF1E354E26F2858F006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwiftClient" */;
+			productName = ReplicantSwiftClient;
+		};
+		EF1E355126F2991A006CC1D6 /* ReplicantSwiftClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF1E354E26F2858F006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwiftClient" */;
+			productName = ReplicantSwiftClient;
+		};
+		EF40EE41275571A9005EA989 /* Chord */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF40EE40275571A9005EA989 /* XCRemoteSwiftPackageReference "Chord" */;
+			productName = Chord;
+		};
+		EF5FB20B269CDB0D00D2938D /* InternetProtocols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF5FB20A269CDB0D00D2938D /* XCRemoteSwiftPackageReference "InternetProtocols" */;
+			productName = InternetProtocols;
+		};
+		EF7449AC2673CC71007BA534 /* Flower */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE71729125B66F2B0070AF2C /* XCRemoteSwiftPackageReference "Flower" */;
+			productName = Flower;
+		};
+		EFB1F50D26446D4B007AFD1E /* Transport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EFB1F50C26446D4B007AFD1E /* XCRemoteSwiftPackageReference "Transport" */;
+			productName = Transport;
+		};
+		EFEA2F3E26A5F30B00F1D116 /* SwiftHexTools */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EFEA2F3D26A5F30B00F1D116 /* XCRemoteSwiftPackageReference "SwiftHexTools" */;
+			productName = SwiftHexTools;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 467CB5AB1DBEB6E90086E341 /* Project object */;
+}
