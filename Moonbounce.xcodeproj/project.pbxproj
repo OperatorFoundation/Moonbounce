@@ -1080,8 +1080,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OperatorFoundation/Transport";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.3.12;
+				branch = main;
+				kind = branch;
 			};
 		};
 		EFEA2F3D26A5F30B00F1D116 /* XCRemoteSwiftPackageReference "SwiftHexTools" */ = {
