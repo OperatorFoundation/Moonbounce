@@ -2,6 +2,9 @@
 // Copyright © 2018 WireGuard LLC. All Rights Reserved.
 
 import NetworkExtension
+import MoonbounceLibrary
+import MoonbounceShared
+import MoonbounceNetworkExtensionLibrary
 
 enum TunnelsManagerError: AppError
 {

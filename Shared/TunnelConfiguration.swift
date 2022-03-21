@@ -4,6 +4,9 @@
 import Foundation
 import ReplicantSwift
 import NetworkExtension
+import MoonbounceLibrary
+import MoonbounceShared
+import MoonbounceNetworkExtensionLibrary
 
 final class TunnelConfiguration: NSObject
 {

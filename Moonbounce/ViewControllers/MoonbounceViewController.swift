@@ -8,6 +8,9 @@
 
 import Cocoa
 import Logging
+import MoonbounceLibrary
+import MoonbounceShared
+import MoonbounceNetworkExtensionLibrary
 import ReplicantSwiftClient
 import ReplicantSwift
 import Network

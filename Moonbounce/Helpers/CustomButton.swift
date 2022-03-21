@@ -7,6 +7,9 @@
 //
 
 import Cocoa
+import MoonbounceLibrary
+import MoonbounceShared
+import MoonbounceNetworkExtensionLibrary
 
 @IBDesignable class CustomButton: NSButton
 {

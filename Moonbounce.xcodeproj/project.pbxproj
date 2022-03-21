@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		464DA95B21E80E80003460D0 /* MoonbounceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DA95A21E80E80003460D0 /* MoonbounceTests.swift */; };
-		4672B8971DF60498008134E5 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4672B8961DF60498008134E5 /* Globals.swift */; };
-		4678C2FE21DFF5EC00492768 /* ErrorNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4678C2FC21DFF5EB00492768 /* ErrorNotifier.swift */; };
 		467CB5B71DBEB6E90086E341 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467CB5B61DBEB6E90086E341 /* AppDelegate.swift */; };
 		467CB5B91DBEB6E90086E341 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 467CB5B81DBEB6E90086E341 /* Assets.xcassets */; };
 		467CB5BC1DBEB6E90086E341 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 467CB5BA1DBEB6E90086E341 /* MainMenu.xib */; };
@@ -19,21 +17,11 @@
 		469B0A7B21DEA5AB003FC2BC /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469B0A7A21DEA5AB003FC2BC /* PacketTunnelProvider.swift */; };
 		469B0A8021DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 469B0A7821DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		46C6E50C21E57098008D383B /* TunnelErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E50721E57097008D383B /* TunnelErrors.swift */; };
-		46C6E51521E5747B008D383B /* MoonbounceStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E51421E5747B008D383B /* MoonbounceStrings.swift */; };
-		AE0738952232D6E1009E3C4E /* ClientConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0738802232D6E1009E3C4E /* ClientConfig.swift */; };
-		AE0738962232D6E1009E3C4E /* ClientConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0738802232D6E1009E3C4E /* ClientConfig.swift */; };
-		AE07389A2232D739009E3C4E /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0738992232D739009E3C4E /* Keys.swift */; };
-		AE07389B2232D739009E3C4E /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0738992232D739009E3C4E /* Keys.swift */; };
 		AE07389D2232E0C2009E3C4E /* MoonbounceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE07389C2232E0C2009E3C4E /* MoonbounceConfig.swift */; };
 		AE07389E2232E0C2009E3C4E /* MoonbounceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE07389C2232E0C2009E3C4E /* MoonbounceConfig.swift */; };
 		AE0738D422370EF9009E3C4E /* ConfigController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0738D322370EF9009E3C4E /* ConfigController.swift */; };
 		AE13587D21FBB74C00E81823 /* TunnelErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E50721E57097008D383B /* TunnelErrors.swift */; };
-		AE13588321FBBEC700E81823 /* MoonbounceStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E51421E5747B008D383B /* MoonbounceStrings.swift */; };
-		AE39BD4D22400BFC007C7C90 /* ClientTunnelConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE39BD3B22400BFC007C7C90 /* ClientTunnelConnection.swift */; };
 		AE39BD6822440123007C7C90 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */; };
-		AE4D6BAC24452FA0002DA1E4 /* NEVPNStatus+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4D6BAB24452FA0002DA1E4 /* NEVPNStatus+Extension.swift */; };
-		AE4D6BAD24452FA0002DA1E4 /* NEVPNStatus+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4D6BAB24452FA0002DA1E4 /* NEVPNStatus+Extension.swift */; };
-		AE4D6BAF24462C28002DA1E4 /* VPNPreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4D6BAE24462C28002DA1E4 /* VPNPreferencesController.swift */; };
 		AE4D6BB12447B962002DA1E4 /* ConfigController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0738D322370EF9009E3C4E /* ConfigController.swift */; };
 		AE59B9F624CBB2CA00703630 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AE59B9F524CBB2CA00703630 /* ZIPFoundation */; };
 		AE6517F8246F4CDA00EFFB94 /* LoggingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6517F7246F4CDA00EFFB94 /* LoggingController.swift */; };
@@ -41,20 +29,14 @@
 		AE94E51624CB6D18007B552B /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AE94E51524CB6D18007B552B /* ZIPFoundation */; };
 		AED4EA02243FD3A7003C367F /* PacketTunnelProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA01243FD3A7003C367F /* PacketTunnelProviderError.swift */; };
 		AED4EA03243FD3A7003C367F /* PacketTunnelProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA01243FD3A7003C367F /* PacketTunnelProviderError.swift */; };
-		AED4EA05243FD632003C367F /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA04243FD632003C367F /* FileManager+Extension.swift */; };
-		AED4EA06243FD632003C367F /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA04243FD632003C367F /* FileManager+Extension.swift */; };
 		AED4EA0E243FDA1D003C367F /* TunnelConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA0D243FDA1D003C367F /* TunnelConfiguration.swift */; };
 		AED4EA0F243FDA1D003C367F /* TunnelConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA0D243FDA1D003C367F /* TunnelConfiguration.swift */; };
-		AEE57D2E2461F23A005A784E /* NetworkSettingsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE57D2D2461F23A005A784E /* NetworkSettingsFactory.swift */; };
-		AEE943AD21FAAFC500213EE7 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4672B8961DF60498008134E5 /* Globals.swift */; };
 		AEFDFD7C2432A112003571DB /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */; };
 		B41FE02A1DF24BE900E02D17 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B41FE0291DF24BE900E02D17 /* Security.framework */; };
 		B41FE02C1DF24BF500E02D17 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */; };
 		B44390591DC00EA000389352 /* PopoverContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44390581DC00EA000389352 /* PopoverContentView.swift */; };
-		B4634E331EA15AF40069C1DE /* KeychainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4634E321EA15AF40069C1DE /* KeychainController.swift */; };
 		B4EF3E5D1E15C12700A5DDBD /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EF3E5C1E15C12700A5DDBD /* CustomButton.swift */; };
 		CA8B9C92273D86D400930089 /* LoggerQueue in Frameworks */ = {isa = PBXBuildFile; productRef = CA8B9C91273D86D400930089 /* LoggerQueue */; };
-		CAFF6EC6250FFC0300BCBF5B /* Moonbounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFF6EC5250FFC0300BCBF5B /* Moonbounce.swift */; };
 		EF1E354D26F282CD006CC1D6 /* ReplicantSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EF1E354C26F282CD006CC1D6 /* ReplicantSwift */; };
 		EF1E355026F2858F006CC1D6 /* ReplicantSwiftClient in Frameworks */ = {isa = PBXBuildFile; productRef = EF1E354F26F2858F006CC1D6 /* ReplicantSwiftClient */; };
 		EF1E355226F2991A006CC1D6 /* ReplicantSwiftClient in Frameworks */ = {isa = PBXBuildFile; productRef = EF1E355126F2991A006CC1D6 /* ReplicantSwiftClient */; };
@@ -121,8 +103,6 @@
 		464DA95A21E80E80003460D0 /* MoonbounceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonbounceTests.swift; sourceTree = "<group>"; };
 		464DA95C21E80E80003460D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		465F18F21DDA684600C8F1B8 /* Moonbounce.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Moonbounce.entitlements; sourceTree = "<group>"; };
-		4672B8961DF60498008134E5 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
-		4678C2FC21DFF5EB00492768 /* ErrorNotifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorNotifier.swift; sourceTree = "<group>"; };
 		4678C32621E009DC00492768 /* MoonbounceNetworkExtension-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoonbounceNetworkExtension-Bridging-Header.h"; sourceTree = "<group>"; };
 		467CB5B31DBEB6E90086E341 /* Moonbounce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moonbounce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		467CB5B61DBEB6E90086E341 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -137,30 +117,20 @@
 		469B0A7C21DEA5AB003FC2BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		469B0A7D21DEA5AB003FC2BC /* MoonbounceNetworkExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MoonbounceNetworkExtension.entitlements; sourceTree = "<group>"; };
 		46C6E50721E57097008D383B /* TunnelErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TunnelErrors.swift; sourceTree = "<group>"; };
-		46C6E51421E5747B008D383B /* MoonbounceStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonbounceStrings.swift; sourceTree = "<group>"; };
 		46EA2C7C1E241BB70069E5DE /* Default */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Default; sourceTree = "<group>"; };
-		AE0738802232D6E1009E3C4E /* ClientConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientConfig.swift; sourceTree = "<group>"; };
-		AE0738992232D739009E3C4E /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		AE07389C2232E0C2009E3C4E /* MoonbounceConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoonbounceConfig.swift; sourceTree = "<group>"; };
 		AE0738D322370EF9009E3C4E /* ConfigController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigController.swift; path = Controllers/ConfigController.swift; sourceTree = "<group>"; };
 		AE1359A6220DFC6F00E81823 /* default.moonbounce */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.moonbounce; sourceTree = "<group>"; };
 		AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
-		AE39BD3B22400BFC007C7C90 /* ClientTunnelConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientTunnelConnection.swift; sourceTree = "<group>"; };
 		AE4CFCCD244135E5006FF16E /* libswiftCreateML.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftCreateML.dylib; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/libswiftCreateML.dylib; sourceTree = DEVELOPER_DIR; };
-		AE4D6BAB24452FA0002DA1E4 /* NEVPNStatus+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NEVPNStatus+Extension.swift"; sourceTree = "<group>"; };
-		AE4D6BAE24462C28002DA1E4 /* VPNPreferencesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNPreferencesController.swift; sourceTree = "<group>"; };
 		AE6517F7246F4CDA00EFFB94 /* LoggingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingController.swift; sourceTree = "<group>"; };
 		AED4EA01243FD3A7003C367F /* PacketTunnelProviderError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PacketTunnelProviderError.swift; sourceTree = "<group>"; };
-		AED4EA04243FD632003C367F /* FileManager+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
 		AED4EA0D243FDA1D003C367F /* TunnelConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TunnelConfiguration.swift; sourceTree = "<group>"; };
-		AEE57D2D2461F23A005A784E /* NetworkSettingsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSettingsFactory.swift; sourceTree = "<group>"; };
 		B41FE0291DF24BE900E02D17 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		B44390581DC00EA000389352 /* PopoverContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopoverContentView.swift; path = Helpers/PopoverContentView.swift; sourceTree = "<group>"; };
-		B4634E321EA15AF40069C1DE /* KeychainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainController.swift; path = Controllers/KeychainController.swift; sourceTree = "<group>"; };
 		B4EF3E5C1E15C12700A5DDBD /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomButton.swift; path = Helpers/CustomButton.swift; sourceTree = "<group>"; };
 		CA8FF117273245F300780567 /* ReplicantSwiftClient */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ReplicantSwiftClient; path = ../ReplicantSwiftClient; sourceTree = "<group>"; };
-		CAFF6EC5250FFC0300BCBF5B /* Moonbounce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moonbounce.swift; sourceTree = "<group>"; };
 		CAFF6EC8250FFDB000BCBF5B /* Moonbounce-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Moonbounce-Bridging-Header.h"; path = "Moonbounce/Moonbounce-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		EF426EF426B867BF008A8504 /* TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestPlan.xctestplan; sourceTree = SOURCE_ROOT; };
 		EF7449AA2673CC32007BA534 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
@@ -250,9 +220,6 @@
 				467CB5BA1DBEB6E90086E341 /* MainMenu.xib */,
 				CAFF6EC8250FFDB000BCBF5B /* Moonbounce-Bridging-Header.h */,
 				CAFF6EC7250FFCE000BCBF5B /* Resources */,
-				46C6E51421E5747B008D383B /* MoonbounceStrings.swift */,
-				4672B8961DF60498008134E5 /* Globals.swift */,
-				CAFF6EC5250FFC0300BCBF5B /* Moonbounce.swift */,
 				467CB5B61DBEB6E90086E341 /* AppDelegate.swift */,
 				467CB5C71DBEB8DE0086E341 /* ViewControllers */,
 				46C7F4B921ED3523007434DD /* Models */,
@@ -288,9 +255,6 @@
 				469B0A7D21DEA5AB003FC2BC /* MoonbounceNetworkExtension.entitlements */,
 				4678C32621E009DC00492768 /* MoonbounceNetworkExtension-Bridging-Header.h */,
 				469B0A7A21DEA5AB003FC2BC /* PacketTunnelProvider.swift */,
-				AE39BD3B22400BFC007C7C90 /* ClientTunnelConnection.swift */,
-				AEE57D2D2461F23A005A784E /* NetworkSettingsFactory.swift */,
-				4678C2FC21DFF5EB00492768 /* ErrorNotifier.swift */,
 			);
 			path = MoonbounceNetworkExtension;
 			sourceTree = "<group>";
@@ -299,7 +263,6 @@
 			isa = PBXGroup;
 			children = (
 				AE07389C2232E0C2009E3C4E /* MoonbounceConfig.swift */,
-				AE0738802232D6E1009E3C4E /* ClientConfig.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -308,11 +271,8 @@
 			isa = PBXGroup;
 			children = (
 				AED4EA0D243FDA1D003C367F /* TunnelConfiguration.swift */,
-				AED4EA04243FD632003C367F /* FileManager+Extension.swift */,
 				AED4EA01243FD3A7003C367F /* PacketTunnelProviderError.swift */,
 				46C6E50721E57097008D383B /* TunnelErrors.swift */,
-				AE4D6BAB24452FA0002DA1E4 /* NEVPNStatus+Extension.swift */,
-				AE0738992232D739009E3C4E /* Keys.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -321,8 +281,6 @@
 			isa = PBXGroup;
 			children = (
 				AE0738D322370EF9009E3C4E /* ConfigController.swift */,
-				B4634E321EA15AF40069C1DE /* KeychainController.swift */,
-				AE4D6BAE24462C28002DA1E4 /* VPNPreferencesController.swift */,
 				AE6517F7246F4CDA00EFFB94 /* LoggingController.swift */,
 			);
 			name = Controllers;
@@ -570,26 +528,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE4D6BAC24452FA0002DA1E4 /* NEVPNStatus+Extension.swift in Sources */,
 				AE0738D422370EF9009E3C4E /* ConfigController.swift in Sources */,
-				AED4EA05243FD632003C367F /* FileManager+Extension.swift in Sources */,
 				AED4EA0E243FDA1D003C367F /* TunnelConfiguration.swift in Sources */,
-				CAFF6EC6250FFC0300BCBF5B /* Moonbounce.swift in Sources */,
 				B4EF3E5D1E15C12700A5DDBD /* CustomButton.swift in Sources */,
-				AE07389A2232D739009E3C4E /* Keys.swift in Sources */,
 				B44390591DC00EA000389352 /* PopoverContentView.swift in Sources */,
-				AE0738952232D6E1009E3C4E /* ClientConfig.swift in Sources */,
 				AE6517F8246F4CDA00EFFB94 /* LoggingController.swift in Sources */,
 				467CB5C91DBEB9730086E341 /* EventMonitor.swift in Sources */,
 				AED4EA02243FD3A7003C367F /* PacketTunnelProviderError.swift in Sources */,
 				AE07389D2232E0C2009E3C4E /* MoonbounceConfig.swift in Sources */,
 				467CB5B71DBEB6E90086E341 /* AppDelegate.swift in Sources */,
-				B4634E331EA15AF40069C1DE /* KeychainController.swift in Sources */,
-				46C6E51521E5747B008D383B /* MoonbounceStrings.swift in Sources */,
-				AE4D6BAF24462C28002DA1E4 /* VPNPreferencesController.swift in Sources */,
 				46C6E50C21E57098008D383B /* TunnelErrors.swift in Sources */,
 				467CB5C51DBEB8CF0086E341 /* MoonbounceViewController.swift in Sources */,
-				4672B8971DF60498008134E5 /* Globals.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,19 +546,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE39BD4D22400BFC007C7C90 /* ClientTunnelConnection.swift in Sources */,
 				AE07389E2232E0C2009E3C4E /* MoonbounceConfig.swift in Sources */,
-				4678C2FE21DFF5EC00492768 /* ErrorNotifier.swift in Sources */,
 				469B0A7B21DEA5AB003FC2BC /* PacketTunnelProvider.swift in Sources */,
-				AEE943AD21FAAFC500213EE7 /* Globals.swift in Sources */,
 				AED4EA03243FD3A7003C367F /* PacketTunnelProviderError.swift in Sources */,
-				AE13588321FBBEC700E81823 /* MoonbounceStrings.swift in Sources */,
-				AED4EA06243FD632003C367F /* FileManager+Extension.swift in Sources */,
 				AE4D6BB12447B962002DA1E4 /* ConfigController.swift in Sources */,
-				AEE57D2E2461F23A005A784E /* NetworkSettingsFactory.swift in Sources */,
-				AE4D6BAD24452FA0002DA1E4 /* NEVPNStatus+Extension.swift in Sources */,
-				AE0738962232D6E1009E3C4E /* ClientConfig.swift in Sources */,
-				AE07389B2232D739009E3C4E /* Keys.swift in Sources */,
 				AED4EA0F243FDA1D003C367F /* TunnelConfiguration.swift in Sources */,
 				AE13587D21FBB74C00E81823 /* TunnelErrors.swift in Sources */,
 			);
