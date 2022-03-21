@@ -44,6 +44,9 @@
 		EF5FB20C269CDB0D00D2938D /* InternetProtocols in Frameworks */ = {isa = PBXBuildFile; productRef = EF5FB20B269CDB0D00D2938D /* InternetProtocols */; };
 		EF72F95B265DD97800294C6F /* default.moonbounce in Resources */ = {isa = PBXBuildFile; fileRef = AE1359A6220DFC6F00E81823 /* default.moonbounce */; };
 		EF7449AD2673CC71007BA534 /* Flower in Frameworks */ = {isa = PBXBuildFile; productRef = EF7449AC2673CC71007BA534 /* Flower */; };
+		EF8480FD27E9311500378A2F /* MoonbounceLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = EF8480FC27E9311500378A2F /* MoonbounceLibrary */; };
+		EF8480FF27E9311500378A2F /* MoonbounceNetworkExtensionLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = EF8480FE27E9311500378A2F /* MoonbounceNetworkExtensionLibrary */; };
+		EF84810127E9311500378A2F /* MoonbounceShared in Frameworks */ = {isa = PBXBuildFile; productRef = EF84810027E9311500378A2F /* MoonbounceShared */; };
 		EFB1F50E26446D4B007AFD1E /* Transport in Frameworks */ = {isa = PBXBuildFile; productRef = EFB1F50D26446D4B007AFD1E /* Transport */; };
 		EFEA2F3F26A5F30B00F1D116 /* SwiftHexTools in Frameworks */ = {isa = PBXBuildFile; productRef = EFEA2F3E26A5F30B00F1D116 /* SwiftHexTools */; };
 /* End PBXBuildFile section */
@@ -152,8 +155,10 @@
 				EF40EE42275571A9005EA989 /* Chord in Frameworks */,
 				EFB1F50E26446D4B007AFD1E /* Transport in Frameworks */,
 				EFEA2F3F26A5F30B00F1D116 /* SwiftHexTools in Frameworks */,
+				EF84810127E9311500378A2F /* MoonbounceShared in Frameworks */,
 				B41FE02C1DF24BF500E02D17 /* ServiceManagement.framework in Frameworks */,
 				B41FE02A1DF24BE900E02D17 /* Security.framework in Frameworks */,
+				EF8480FD27E9311500378A2F /* MoonbounceLibrary in Frameworks */,
 				AE39BD6822440123007C7C90 /* NetworkExtension.framework in Frameworks */,
 				EF1E354D26F282CD006CC1D6 /* ReplicantSwift in Frameworks */,
 				EF1E355026F2858F006CC1D6 /* ReplicantSwiftClient in Frameworks */,
@@ -170,6 +175,7 @@
 				EF1E355226F2991A006CC1D6 /* ReplicantSwiftClient in Frameworks */,
 				AE94E51624CB6D18007B552B /* ZIPFoundation in Frameworks */,
 				CA8B9C92273D86D400930089 /* LoggerQueue in Frameworks */,
+				EF8480FF27E9311500378A2F /* MoonbounceNetworkExtensionLibrary in Frameworks */,
 				EF5FB20C269CDB0D00D2938D /* InternetProtocols in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,6 +367,8 @@
 				EF1E354C26F282CD006CC1D6 /* ReplicantSwift */,
 				EF1E354F26F2858F006CC1D6 /* ReplicantSwiftClient */,
 				EF40EE41275571A9005EA989 /* Chord */,
+				EF8480FC27E9311500378A2F /* MoonbounceLibrary */,
+				EF84810027E9311500378A2F /* MoonbounceShared */,
 			);
 			productName = Moonbounce;
 			productReference = 467CB5B31DBEB6E90086E341 /* Moonbounce.app */;
@@ -386,6 +394,7 @@
 				EF5FB20B269CDB0D00D2938D /* InternetProtocols */,
 				EF1E355126F2991A006CC1D6 /* ReplicantSwiftClient */,
 				CA8B9C91273D86D400930089 /* LoggerQueue */,
+				EF8480FE27E9311500378A2F /* MoonbounceNetworkExtensionLibrary */,
 			);
 			productName = MoonbounceNetworkExtension;
 			productReference = 469B0A7821DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex */;
@@ -475,6 +484,7 @@
 				EF2017E22739BAD100465E0A /* XCRemoteSwiftPackageReference "swift-log" */,
 				CA8B9C90273D86D400930089 /* XCRemoteSwiftPackageReference "LoggerQueue" */,
 				EF40EE40275571A9005EA989 /* XCRemoteSwiftPackageReference "Chord" */,
+				EF8480FB27E9311500378A2F /* XCRemoteSwiftPackageReference "MoonbounceLibrary" */,
 			);
 			productRefGroup = 467CB5B41DBEB6E90086E341 /* Products */;
 			projectDirPath = "";
@@ -1016,6 +1026,14 @@
 				kind = branch;
 			};
 		};
+		EF8480FB27E9311500378A2F /* XCRemoteSwiftPackageReference "MoonbounceLibrary" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/MoonbounceLibrary.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		EFB1F50C26446D4B007AFD1E /* XCRemoteSwiftPackageReference "Transport" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OperatorFoundation/Transport";
@@ -1084,6 +1102,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AE71729125B66F2B0070AF2C /* XCRemoteSwiftPackageReference "Flower" */;
 			productName = Flower;
+		};
+		EF8480FC27E9311500378A2F /* MoonbounceLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF8480FB27E9311500378A2F /* XCRemoteSwiftPackageReference "MoonbounceLibrary" */;
+			productName = MoonbounceLibrary;
+		};
+		EF8480FE27E9311500378A2F /* MoonbounceNetworkExtensionLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF8480FB27E9311500378A2F /* XCRemoteSwiftPackageReference "MoonbounceLibrary" */;
+			productName = MoonbounceNetworkExtensionLibrary;
+		};
+		EF84810027E9311500378A2F /* MoonbounceShared */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF8480FB27E9311500378A2F /* XCRemoteSwiftPackageReference "MoonbounceLibrary" */;
+			productName = MoonbounceShared;
 		};
 		EFB1F50D26446D4B007AFD1E /* Transport */ = {
 			isa = XCSwiftPackageProductDependency;
