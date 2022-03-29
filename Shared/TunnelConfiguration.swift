@@ -20,10 +20,10 @@ final class TunnelConfiguration: NSObject
     var tunnelProviderProtocol: NETunnelProviderProtocol
     var name: String?
     var directory: URL?
-    var replicantConfiguration: ReplicantConfig<SilverClientConfig>?
+    var replicantConfiguration: ReplicantConfig?
     var clientConfig: ClientConfig
     
-    init(name: String?, clientConfig: ClientConfig, replicantConfig: ReplicantConfig<SilverClientConfig>? = nil, directory: URL? = nil)
+    init(name: String?, clientConfig: ClientConfig, replicantConfig: ReplicantConfig? = nil, directory: URL? = nil)
     {
         self.name = name
         self.replicantConfiguration = replicantConfig
@@ -66,7 +66,7 @@ final class TunnelConfiguration: NSObject
             return nil
         }
         
-        if let replicantConfig = maybeReplicantConfig as? ReplicantConfig<SilverClientConfig>
+        if let replicantConfig = maybeReplicantConfig as? ReplicantConfig
         {
             self.init(name: name, clientConfig: clientConfig, replicantConfig: replicantConfig)
         }

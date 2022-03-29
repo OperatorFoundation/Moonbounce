@@ -17,12 +17,8 @@
 		469B0A7B21DEA5AB003FC2BC /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469B0A7A21DEA5AB003FC2BC /* PacketTunnelProvider.swift */; };
 		469B0A8021DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 469B0A7821DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		46C6E50C21E57098008D383B /* TunnelErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E50721E57097008D383B /* TunnelErrors.swift */; };
-		AE07389D2232E0C2009E3C4E /* MoonbounceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE07389C2232E0C2009E3C4E /* MoonbounceConfig.swift */; };
-		AE07389E2232E0C2009E3C4E /* MoonbounceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE07389C2232E0C2009E3C4E /* MoonbounceConfig.swift */; };
-		AE0738D422370EF9009E3C4E /* ConfigController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0738D322370EF9009E3C4E /* ConfigController.swift */; };
 		AE13587D21FBB74C00E81823 /* TunnelErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E50721E57097008D383B /* TunnelErrors.swift */; };
 		AE39BD6822440123007C7C90 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */; };
-		AE4D6BB12447B962002DA1E4 /* ConfigController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0738D322370EF9009E3C4E /* ConfigController.swift */; };
 		AE59B9F624CBB2CA00703630 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AE59B9F524CBB2CA00703630 /* ZIPFoundation */; };
 		AE6517F8246F4CDA00EFFB94 /* LoggingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6517F7246F4CDA00EFFB94 /* LoggingController.swift */; };
 		AE71729325B66F2B0070AF2C /* Flower in Frameworks */ = {isa = PBXBuildFile; productRef = AE71729225B66F2B0070AF2C /* Flower */; };
@@ -121,8 +117,6 @@
 		469B0A7D21DEA5AB003FC2BC /* MoonbounceNetworkExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MoonbounceNetworkExtension.entitlements; sourceTree = "<group>"; };
 		46C6E50721E57097008D383B /* TunnelErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TunnelErrors.swift; sourceTree = "<group>"; };
 		46EA2C7C1E241BB70069E5DE /* Default */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Default; sourceTree = "<group>"; };
-		AE07389C2232E0C2009E3C4E /* MoonbounceConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoonbounceConfig.swift; sourceTree = "<group>"; };
-		AE0738D322370EF9009E3C4E /* ConfigController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigController.swift; path = Controllers/ConfigController.swift; sourceTree = "<group>"; };
 		AE1359A6220DFC6F00E81823 /* default.moonbounce */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.moonbounce; sourceTree = "<group>"; };
 		AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		AE4CFCCD244135E5006FF16E /* libswiftCreateML.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftCreateML.dylib; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/libswiftCreateML.dylib; sourceTree = DEVELOPER_DIR; };
@@ -228,7 +222,6 @@
 				CAFF6EC7250FFCE000BCBF5B /* Resources */,
 				467CB5B61DBEB6E90086E341 /* AppDelegate.swift */,
 				467CB5C71DBEB8DE0086E341 /* ViewControllers */,
-				46C7F4B921ED3523007434DD /* Models */,
 				B4646E481DCBA937007C3EFA /* Controllers */,
 				467CB5CA1DBEB9790086E341 /* Helpers */,
 			);
@@ -265,14 +258,6 @@
 			path = MoonbounceNetworkExtension;
 			sourceTree = "<group>";
 		};
-		46C7F4B921ED3523007434DD /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				AE07389C2232E0C2009E3C4E /* MoonbounceConfig.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		AED4E9FD243FD11D003C367F /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -286,7 +271,6 @@
 		B4646E481DCBA937007C3EFA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				AE0738D322370EF9009E3C4E /* ConfigController.swift */,
 				AE6517F7246F4CDA00EFFB94 /* LoggingController.swift */,
 			);
 			name = Controllers;
@@ -538,14 +522,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE0738D422370EF9009E3C4E /* ConfigController.swift in Sources */,
 				AED4EA0E243FDA1D003C367F /* TunnelConfiguration.swift in Sources */,
 				B4EF3E5D1E15C12700A5DDBD /* CustomButton.swift in Sources */,
 				B44390591DC00EA000389352 /* PopoverContentView.swift in Sources */,
 				AE6517F8246F4CDA00EFFB94 /* LoggingController.swift in Sources */,
 				467CB5C91DBEB9730086E341 /* EventMonitor.swift in Sources */,
 				AED4EA02243FD3A7003C367F /* PacketTunnelProviderError.swift in Sources */,
-				AE07389D2232E0C2009E3C4E /* MoonbounceConfig.swift in Sources */,
 				467CB5B71DBEB6E90086E341 /* AppDelegate.swift in Sources */,
 				46C6E50C21E57098008D383B /* TunnelErrors.swift in Sources */,
 				467CB5C51DBEB8CF0086E341 /* MoonbounceViewController.swift in Sources */,
@@ -556,10 +538,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE07389E2232E0C2009E3C4E /* MoonbounceConfig.swift in Sources */,
 				469B0A7B21DEA5AB003FC2BC /* PacketTunnelProvider.swift in Sources */,
 				AED4EA03243FD3A7003C367F /* PacketTunnelProviderError.swift in Sources */,
-				AE4D6BB12447B962002DA1E4 /* ConfigController.swift in Sources */,
 				AED4EA0F243FDA1D003C367F /* TunnelConfiguration.swift in Sources */,
 				AE13587D21FBB74C00E81823 /* TunnelErrors.swift in Sources */,
 			);

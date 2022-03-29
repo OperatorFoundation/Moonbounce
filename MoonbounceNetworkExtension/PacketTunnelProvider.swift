@@ -7,11 +7,13 @@
 //
 
 import Logging
+import MoonbounceNetworkExtensionLibrary
 import NetworkExtension
 import Network
 import ReplicantSwiftClient
 import ReplicantSwift
 import SwiftQueue
+import TunnelClient
 import LoggerQueue
 import Flower
 import Transmission
@@ -91,7 +93,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         // Save the completion handler for when the tunnel is fully established.
         pendingStartCompletion = completionHandler
         
-        guard let tunnelProviderProtocol = protocolConfiguration as? NETunnelProviderProtocol
+        guard let tunnelProviderProtocol = protocolConfiguration as? TunnelProviderProtocol
         else
         {
             log.debug("PacketTunnelProviderError: savedProtocolConfigurationIsInvalid")
@@ -111,7 +113,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         self.remoteHost = serverAddress
         self.log.debug("Server address: \(serverAddress)")
         
-        guard let moonbounceConfig = ConfigController.getMoonbounceConfig(fromProtocolConfiguration: tunnelProviderProtocol)
+        guard let moonbounceConfig = NetworkExtensionConfigController.getMoonbounceConfig(fromProtocolConfiguration: tunnelProviderProtocol)
             else
         {
             log.error("Unable to get moonbounce config from protocol.")
@@ -127,8 +129,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider
             return
         }
         
-        let host = moonbounceConfig.clientConfig.host
-        let port = moonbounceConfig.clientConfig.port
+        let host = replicantConfig.serverIP
+        let port = replicantConfig.port
         
         self.log.debug("\nReplicant Connection Factory Created.\nHost - \(host)\nPort - \(port)\n")
         self.networkMonitor = NWPathMonitor()
@@ -140,7 +142,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider
         
         log.debug("2. Connect to server called.")
         
-        guard let replicantConnection = ReplicantConnection(host: NWEndpoint.Host.ipv4(IPv4Address(moonbounceConfig.clientConfig.host)!), port: NWEndpoint.Port(integerLiteral: moonbounceConfig.clientConfig.port), type: ConnectionType.tcp, config: replicantConfig, logger: log) else {
+        guard let replicantConnection = ReplicantConnection(type: ConnectionType.tcp, config: replicantConfig, logger: log) else {
             log.error("could not initialize replicant connection")
             return
         }
@@ -395,9 +397,9 @@ public enum TunnelError: Error
     case internalError
 }
 
-public enum TunnelAddress
-{
-    case ipV4(IPv4Address)
-    case ipV6(IPv6Address)
-    case dualStack(IPv4Address, IPv6Address)
-}
+//public enum TunnelAddress
+//{
+//    case ipV4(IPv4Address)
+//    case ipV6(IPv6Address)
+//    case dualStack(IPv4Address, IPv6Address)
+//}
