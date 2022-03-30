@@ -8,8 +8,8 @@
 
 import Cocoa
 import MoonbounceLibrary
-import MoonbounceShared
 import MoonbounceNetworkExtensionLibrary
+import MoonbounceShared
 
 class PopoverContentView: NSView
 {

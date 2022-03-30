@@ -6,17 +6,16 @@
 //  Copyright © 2019 operatorfoundation.org. All rights reserved.
 //
 
-import XCTest
-import Logging
-import Network
-import NetworkExtension
-import SwiftHexTools
-import ReplicantSwift
-import Replicant
 import Datable
 import Flower
-import ZIPFoundation
+import Logging
 @testable import Moonbounce
+import Network
+import NetworkExtension
+import ReplicantSwift
+import SwiftHexTools
+import XCTest
+import ZIPFoundation
 
 class MoonbounceTests: XCTestCase {
     

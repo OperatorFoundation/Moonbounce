@@ -6,17 +6,18 @@
 //  Copyright © 2019 operatorfoundation.org. All rights reserved.
 //
 
+import Flower
+import LoggerQueue
 import Logging
 import MoonbounceNetworkExtensionLibrary
-import NetworkExtension
 import Network
-import ReplicantSwiftClient
+import NetworkExtension
 import ReplicantSwift
+import ReplicantSwiftClient
 import SwiftQueue
-import TunnelClient
-import LoggerQueue
-import Flower
 import Transmission
+import TunnelClient
+
 
 class PacketTunnelProvider: NEPacketTunnelProvider
 {

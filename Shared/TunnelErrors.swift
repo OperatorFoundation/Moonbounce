@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 // Copyright © 2018 WireGuard LLC. All Rights Reserved.
 
-import NetworkExtension
 import MoonbounceLibrary
-import MoonbounceShared
 import MoonbounceNetworkExtensionLibrary
+import MoonbounceShared
+import NetworkExtension
 
 enum TunnelsManagerError: AppError
 {

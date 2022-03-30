@@ -9,12 +9,12 @@
 import Cocoa
 import Logging
 import MoonbounceLibrary
-import MoonbounceShared
 import MoonbounceNetworkExtensionLibrary
-import ReplicantSwiftClient
-import ReplicantSwift
+import MoonbounceShared
 import Network
 import NetworkExtension
+import ReplicantSwift
+import ReplicantSwiftClient
 
 class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 {

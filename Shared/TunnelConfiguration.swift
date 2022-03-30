@@ -2,11 +2,11 @@
 // Copyright © 2018 WireGuard LLC. All Rights Reserved.
 
 import Foundation
-import ReplicantSwift
-import NetworkExtension
 import MoonbounceLibrary
-import MoonbounceShared
 import MoonbounceNetworkExtensionLibrary
+import MoonbounceShared
+import NetworkExtension
+import ReplicantSwift
 
 final class TunnelConfiguration: NSObject
 {

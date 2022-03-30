@@ -9,8 +9,8 @@
 import Foundation
 import Logging
 import MoonbounceLibrary
-import MoonbounceShared
 import MoonbounceNetworkExtensionLibrary
+import MoonbounceShared
 import NetworkExtension
 
 class LoggingController

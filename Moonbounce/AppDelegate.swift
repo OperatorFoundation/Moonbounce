@@ -10,7 +10,6 @@ import Cocoa
 import Logging
 import MoonbounceLibrary
 import MoonbounceShared
-import MoonbounceNetworkExtensionLibrary
 
 let statusBarIcon = "icon"
 let statusBarAlternateIcon = "iconWhite"
