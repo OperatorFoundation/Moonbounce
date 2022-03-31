@@ -8,8 +8,6 @@
 
 import Cocoa
 import Logging
-import MoonbounceLibrary
-import MoonbounceShared
 
 let statusBarIcon = "icon"
 let statusBarAlternateIcon = "iconWhite"

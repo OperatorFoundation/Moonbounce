@@ -16,26 +16,17 @@
 		467CB5C91DBEB9730086E341 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467CB5C81DBEB9730086E341 /* EventMonitor.swift */; };
 		469B0A7B21DEA5AB003FC2BC /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469B0A7A21DEA5AB003FC2BC /* PacketTunnelProvider.swift */; };
 		469B0A8021DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 469B0A7821DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		46C6E50C21E57098008D383B /* TunnelErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E50721E57097008D383B /* TunnelErrors.swift */; };
-		AE13587D21FBB74C00E81823 /* TunnelErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C6E50721E57097008D383B /* TunnelErrors.swift */; };
 		AE39BD6822440123007C7C90 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */; };
 		AE59B9F624CBB2CA00703630 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AE59B9F524CBB2CA00703630 /* ZIPFoundation */; };
-		AE6517F8246F4CDA00EFFB94 /* LoggingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6517F7246F4CDA00EFFB94 /* LoggingController.swift */; };
 		AE71729325B66F2B0070AF2C /* Flower in Frameworks */ = {isa = PBXBuildFile; productRef = AE71729225B66F2B0070AF2C /* Flower */; };
 		AE94E51624CB6D18007B552B /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AE94E51524CB6D18007B552B /* ZIPFoundation */; };
-		AED4EA02243FD3A7003C367F /* PacketTunnelProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA01243FD3A7003C367F /* PacketTunnelProviderError.swift */; };
-		AED4EA03243FD3A7003C367F /* PacketTunnelProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA01243FD3A7003C367F /* PacketTunnelProviderError.swift */; };
-		AED4EA0E243FDA1D003C367F /* TunnelConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA0D243FDA1D003C367F /* TunnelConfiguration.swift */; };
-		AED4EA0F243FDA1D003C367F /* TunnelConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED4EA0D243FDA1D003C367F /* TunnelConfiguration.swift */; };
 		AEFDFD7C2432A112003571DB /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */; };
 		B41FE02A1DF24BE900E02D17 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B41FE0291DF24BE900E02D17 /* Security.framework */; };
 		B41FE02C1DF24BF500E02D17 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */; };
 		B44390591DC00EA000389352 /* PopoverContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44390581DC00EA000389352 /* PopoverContentView.swift */; };
 		B4EF3E5D1E15C12700A5DDBD /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EF3E5C1E15C12700A5DDBD /* CustomButton.swift */; };
 		CA8B9C92273D86D400930089 /* LoggerQueue in Frameworks */ = {isa = PBXBuildFile; productRef = CA8B9C91273D86D400930089 /* LoggerQueue */; };
-		EF1E354D26F282CD006CC1D6 /* ReplicantSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EF1E354C26F282CD006CC1D6 /* ReplicantSwift */; };
-		EF1E355026F2858F006CC1D6 /* ReplicantSwiftClient in Frameworks */ = {isa = PBXBuildFile; productRef = EF1E354F26F2858F006CC1D6 /* ReplicantSwiftClient */; };
-		EF1E355226F2991A006CC1D6 /* ReplicantSwiftClient in Frameworks */ = {isa = PBXBuildFile; productRef = EF1E355126F2991A006CC1D6 /* ReplicantSwiftClient */; };
+		DA3B853E27F60DA7003152C0 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3B853D27F60DA7003152C0 /* Globals.swift */; };
 		EF40EE42275571A9005EA989 /* Chord in Frameworks */ = {isa = PBXBuildFile; productRef = EF40EE41275571A9005EA989 /* Chord */; };
 		EF5FB20C269CDB0D00D2938D /* InternetProtocols in Frameworks */ = {isa = PBXBuildFile; productRef = EF5FB20B269CDB0D00D2938D /* InternetProtocols */; };
 		EF72F95B265DD97800294C6F /* default.moonbounce in Resources */ = {isa = PBXBuildFile; fileRef = AE1359A6220DFC6F00E81823 /* default.moonbounce */; };
@@ -115,20 +106,16 @@
 		469B0A7A21DEA5AB003FC2BC /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		469B0A7C21DEA5AB003FC2BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		469B0A7D21DEA5AB003FC2BC /* MoonbounceNetworkExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MoonbounceNetworkExtension.entitlements; sourceTree = "<group>"; };
-		46C6E50721E57097008D383B /* TunnelErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TunnelErrors.swift; sourceTree = "<group>"; };
 		46EA2C7C1E241BB70069E5DE /* Default */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Default; sourceTree = "<group>"; };
 		AE1359A6220DFC6F00E81823 /* default.moonbounce */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.moonbounce; sourceTree = "<group>"; };
 		AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		AE4CFCCD244135E5006FF16E /* libswiftCreateML.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftCreateML.dylib; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/libswiftCreateML.dylib; sourceTree = DEVELOPER_DIR; };
-		AE6517F7246F4CDA00EFFB94 /* LoggingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingController.swift; sourceTree = "<group>"; };
-		AED4EA01243FD3A7003C367F /* PacketTunnelProviderError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PacketTunnelProviderError.swift; sourceTree = "<group>"; };
-		AED4EA0D243FDA1D003C367F /* TunnelConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TunnelConfiguration.swift; sourceTree = "<group>"; };
 		B41FE0291DF24BE900E02D17 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		B44390581DC00EA000389352 /* PopoverContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopoverContentView.swift; path = Helpers/PopoverContentView.swift; sourceTree = "<group>"; };
 		B4EF3E5C1E15C12700A5DDBD /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomButton.swift; path = Helpers/CustomButton.swift; sourceTree = "<group>"; };
-		CA8FF117273245F300780567 /* ReplicantSwiftClient */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ReplicantSwiftClient; path = ../ReplicantSwiftClient; sourceTree = "<group>"; };
 		CAFF6EC8250FFDB000BCBF5B /* Moonbounce-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Moonbounce-Bridging-Header.h"; path = "Moonbounce/Moonbounce-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		DA3B853D27F60DA7003152C0 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		EF426EF426B867BF008A8504 /* TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestPlan.xctestplan; sourceTree = SOURCE_ROOT; };
 		EF7449AA2673CC32007BA534 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -154,8 +141,6 @@
 				B41FE02A1DF24BE900E02D17 /* Security.framework in Frameworks */,
 				EF8480FD27E9311500378A2F /* MoonbounceLibrary in Frameworks */,
 				AE39BD6822440123007C7C90 /* NetworkExtension.framework in Frameworks */,
-				EF1E354D26F282CD006CC1D6 /* ReplicantSwift in Frameworks */,
-				EF1E355026F2858F006CC1D6 /* ReplicantSwiftClient in Frameworks */,
 				AE59B9F624CBB2CA00703630 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -166,7 +151,6 @@
 			files = (
 				AE71729325B66F2B0070AF2C /* Flower in Frameworks */,
 				AEFDFD7C2432A112003571DB /* NetworkExtension.framework in Frameworks */,
-				EF1E355226F2991A006CC1D6 /* ReplicantSwiftClient in Frameworks */,
 				AE94E51624CB6D18007B552B /* ZIPFoundation in Frameworks */,
 				CA8B9C92273D86D400930089 /* LoggerQueue in Frameworks */,
 				EF8480FF27E9311500378A2F /* MoonbounceNetworkExtensionLibrary in Frameworks */,
@@ -192,8 +176,7 @@
 			children = (
 				CA8FF116273245F300780567 /* Packages */,
 				AE1359A6220DFC6F00E81823 /* default.moonbounce */,
-				AED4E9FD243FD11D003C367F /* Shared */,
-				467CB5B51DBEB6E90086E341 /* Moonbounce */,
+				467CB5B51DBEB6E90086E341 /* MoonbounceApplication */,
 				469B0A7921DEA5AB003FC2BC /* MoonbounceNetworkExtension */,
 				464DA95921E80E80003460D0 /* MoonbounceTests */,
 				467CB5B41DBEB6E90086E341 /* Products */,
@@ -211,9 +194,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		467CB5B51DBEB6E90086E341 /* Moonbounce */ = {
+		467CB5B51DBEB6E90086E341 /* MoonbounceApplication */ = {
 			isa = PBXGroup;
 			children = (
+				DA3B853D27F60DA7003152C0 /* Globals.swift */,
 				467CB5BD1DBEB6E90086E341 /* Info.plist */,
 				465F18F21DDA684600C8F1B8 /* Moonbounce.entitlements */,
 				467CB5B81DBEB6E90086E341 /* Assets.xcassets */,
@@ -222,10 +206,9 @@
 				CAFF6EC7250FFCE000BCBF5B /* Resources */,
 				467CB5B61DBEB6E90086E341 /* AppDelegate.swift */,
 				467CB5C71DBEB8DE0086E341 /* ViewControllers */,
-				B4646E481DCBA937007C3EFA /* Controllers */,
 				467CB5CA1DBEB9790086E341 /* Helpers */,
 			);
-			path = Moonbounce;
+			path = MoonbounceApplication;
 			sourceTree = "<group>";
 		};
 		467CB5C71DBEB8DE0086E341 /* ViewControllers */ = {
@@ -258,28 +241,9 @@
 			path = MoonbounceNetworkExtension;
 			sourceTree = "<group>";
 		};
-		AED4E9FD243FD11D003C367F /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				AED4EA0D243FDA1D003C367F /* TunnelConfiguration.swift */,
-				AED4EA01243FD3A7003C367F /* PacketTunnelProviderError.swift */,
-				46C6E50721E57097008D383B /* TunnelErrors.swift */,
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
-		B4646E481DCBA937007C3EFA /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				AE6517F7246F4CDA00EFFB94 /* LoggingController.swift */,
-			);
-			name = Controllers;
-			sourceTree = "<group>";
-		};
 		CA8FF116273245F300780567 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				CA8FF117273245F300780567 /* ReplicantSwiftClient */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -348,8 +312,6 @@
 				AE59B9F524CBB2CA00703630 /* ZIPFoundation */,
 				EFB1F50D26446D4B007AFD1E /* Transport */,
 				EFEA2F3E26A5F30B00F1D116 /* SwiftHexTools */,
-				EF1E354C26F282CD006CC1D6 /* ReplicantSwift */,
-				EF1E354F26F2858F006CC1D6 /* ReplicantSwiftClient */,
 				EF40EE41275571A9005EA989 /* Chord */,
 				EF8480FC27E9311500378A2F /* MoonbounceLibrary */,
 				EF84810027E9311500378A2F /* MoonbounceShared */,
@@ -376,7 +338,6 @@
 				AE94E51524CB6D18007B552B /* ZIPFoundation */,
 				AE71729225B66F2B0070AF2C /* Flower */,
 				EF5FB20B269CDB0D00D2938D /* InternetProtocols */,
-				EF1E355126F2991A006CC1D6 /* ReplicantSwiftClient */,
 				CA8B9C91273D86D400930089 /* LoggerQueue */,
 				EF8480FE27E9311500378A2F /* MoonbounceNetworkExtensionLibrary */,
 			);
@@ -462,8 +423,6 @@
 				EFB1F50C26446D4B007AFD1E /* XCRemoteSwiftPackageReference "Transport" */,
 				EF5FB20A269CDB0D00D2938D /* XCRemoteSwiftPackageReference "InternetProtocols" */,
 				EFEA2F3D26A5F30B00F1D116 /* XCRemoteSwiftPackageReference "SwiftHexTools" */,
-				EF1E354B26F282CD006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwift" */,
-				EF1E354E26F2858F006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwiftClient" */,
 				EF2017E12739BA9F00465E0A /* XCRemoteSwiftPackageReference "TransmissionTransport" */,
 				EF2017E22739BAD100465E0A /* XCRemoteSwiftPackageReference "swift-log" */,
 				CA8B9C90273D86D400930089 /* XCRemoteSwiftPackageReference "LoggerQueue" */,
@@ -522,14 +481,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AED4EA0E243FDA1D003C367F /* TunnelConfiguration.swift in Sources */,
 				B4EF3E5D1E15C12700A5DDBD /* CustomButton.swift in Sources */,
 				B44390591DC00EA000389352 /* PopoverContentView.swift in Sources */,
-				AE6517F8246F4CDA00EFFB94 /* LoggingController.swift in Sources */,
+				DA3B853E27F60DA7003152C0 /* Globals.swift in Sources */,
 				467CB5C91DBEB9730086E341 /* EventMonitor.swift in Sources */,
-				AED4EA02243FD3A7003C367F /* PacketTunnelProviderError.swift in Sources */,
 				467CB5B71DBEB6E90086E341 /* AppDelegate.swift in Sources */,
-				46C6E50C21E57098008D383B /* TunnelErrors.swift in Sources */,
 				467CB5C51DBEB8CF0086E341 /* MoonbounceViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -539,9 +495,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				469B0A7B21DEA5AB003FC2BC /* PacketTunnelProvider.swift in Sources */,
-				AED4EA03243FD3A7003C367F /* PacketTunnelProviderError.swift in Sources */,
-				AED4EA0F243FDA1D003C367F /* TunnelConfiguration.swift in Sources */,
-				AE13587D21FBB74C00E81823 /* TunnelErrors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,7 +634,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -736,7 +689,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -766,7 +719,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.OperatorFoundation.Moonbounce.MacOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -799,7 +752,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.OperatorFoundation.Moonbounce.MacOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -830,7 +783,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.OperatorFoundation.Moonbounce.MacOS.NetworkExtension;
@@ -865,7 +818,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.OperatorFoundation.Moonbounce.MacOS.NetworkExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -958,22 +911,6 @@
 				kind = branch;
 			};
 		};
-		EF1E354B26F282CD006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/OperatorFoundation/ReplicantSwift.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		EF1E354E26F2858F006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwiftClient" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/OperatorFoundation/ReplicantSwiftClient.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		EF2017E12739BA9F00465E0A /* XCRemoteSwiftPackageReference "TransmissionTransport" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OperatorFoundation/TransmissionTransport.git";
@@ -1052,21 +989,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CA8B9C90273D86D400930089 /* XCRemoteSwiftPackageReference "LoggerQueue" */;
 			productName = LoggerQueue;
-		};
-		EF1E354C26F282CD006CC1D6 /* ReplicantSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EF1E354B26F282CD006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwift" */;
-			productName = ReplicantSwift;
-		};
-		EF1E354F26F2858F006CC1D6 /* ReplicantSwiftClient */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EF1E354E26F2858F006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwiftClient" */;
-			productName = ReplicantSwiftClient;
-		};
-		EF1E355126F2991A006CC1D6 /* ReplicantSwiftClient */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EF1E354E26F2858F006CC1D6 /* XCRemoteSwiftPackageReference "ReplicantSwiftClient" */;
-			productName = ReplicantSwiftClient;
 		};
 		EF40EE41275571A9005EA989 /* Chord */ = {
 			isa = XCSwiftPackageProductDependency;

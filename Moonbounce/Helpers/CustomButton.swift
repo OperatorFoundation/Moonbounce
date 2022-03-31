@@ -7,9 +7,11 @@
 //
 
 import Cocoa
-import MoonbounceLibrary
-import MoonbounceNetworkExtensionLibrary
-import MoonbounceShared
+
+public let mbPink = NSColor(red:0.92, green:0.55, blue:0.73, alpha:1.0)
+public let mbDarkBlue = NSColor(red:0.00, green:0.06, blue:0.16, alpha:1.0)
+public let mbBlue = NSColor(red:0.16, green:0.20, blue:0.48, alpha:1.0)
+public let mbWhite = NSColor(red:0.97, green:0.97, blue:0.98, alpha:1.0)
 
 @IBDesignable class CustomButton: NSButton
 {
@@ -65,7 +67,7 @@ import MoonbounceShared
     
     //TODO: These have not yet been implemented
     @IBInspectable var bgColorHover: NSColor = .clear
-    @IBInspectable var titleColorHover: NSColor = mbPink
+    @IBInspectable var titleColorHover: NSColor = mbWhite
     
     //A little prep work to make sure everything is in order
     

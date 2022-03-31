@@ -12,7 +12,7 @@ import Logging
 @testable import Moonbounce
 import Network
 import NetworkExtension
-import ReplicantSwift
+//import ReplicantSwift
 import SwiftHexTools
 import XCTest
 import ZIPFoundation

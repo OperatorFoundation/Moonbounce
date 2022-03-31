@@ -9,13 +9,11 @@
 import Foundation
 import MoonbounceShared
 
-enum PacketTunnelProviderError: String, Error
+protocol AppError: Error
 {
-    case savedProtocolConfigurationIsInvalid
-    case dnsResolutionFailure
-    case couldNotStartBackend
-    case couldNotDetermineFileDescriptor
-    case couldNotSetNetworkSettings
+    typealias AlertText = (title: String, message: String)
+
+    var alertText: AlertText { get }
 }
 
 extension PacketTunnelProviderError: AppError
