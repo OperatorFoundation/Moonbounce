@@ -3,7 +3,6 @@
 
 import Foundation
 import MoonbounceLibrary
-import MoonbounceNetworkExtensionLibrary
 import MoonbounceShared
 import NetworkExtension
 import ReplicantSwift

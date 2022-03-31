@@ -9,7 +9,6 @@
 import Foundation
 import Logging
 import MoonbounceLibrary
-import MoonbounceNetworkExtensionLibrary
 import MoonbounceShared
 import NetworkExtension
 
