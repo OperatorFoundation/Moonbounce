@@ -22,6 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
     let popover = NSPopover()
     let menu = NSMenu()
     let fileManager = FileManager.default
+    let vpnPreferencesController = VPNPreferencesController(logger: appLog)
     
     var eventMonitor: EventMonitor?
 
@@ -134,7 +135,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
     
     func applicationWillTerminate(_ aNotification: Notification)
     {
-        VPNPreferencesController.shared.deactivate
+        vpnPreferencesController.deactivate
         { (maybeError) in
             
             appLog.debug("\n✌️ Callling deactivate before exiting app.\n")

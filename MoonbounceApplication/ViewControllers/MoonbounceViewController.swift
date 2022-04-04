@@ -42,11 +42,12 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     //let tunnelController = TunnelController()
     let configController = ConfigController()
     
-    
     //@objc dynamic var serverManagerReady = false
     var userServerIsConnected = false
     var launching = false
     var loggingEnabled = false
+
+    let vpnPreferencesController = VPNPreferencesController(logger: appLog)
     
     //MARK: View Life Cycle
     
@@ -105,6 +106,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 switch isConnected.stage
                 {
                 case .start:
+                    appLog.info("Connect button pressed")
                     self.connect()
                 default:
                     appLog.error("Error: Connected state of Start but Stage is \(isConnected.stage)")
@@ -417,11 +419,15 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             self.showStatus()
             return
         }
+
+        appLog.info("Default config loaded, updated VPNPreferencesController configuration")
         
-        VPNPreferencesController.shared.updateConfiguration(moonbounceConfig: moonbounceConfig, isEnabled: true)
+        vpnPreferencesController.updateConfiguration(moonbounceConfig: moonbounceConfig, isEnabled: true)
         {
             (maybeLoadError) in
-            
+
+            appLog.info("VPNPreferencesController configuration updated")
+
             if let loadError = maybeLoadError
             {
                 appLog.error("Unable to connect, error loading from preferences: \(loadError)")
@@ -431,7 +437,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 return
             }
             
-            guard let vpnPreference = VPNPreferencesController.shared.maybeVPNPreference
+            guard let vpnPreference = self.vpnPreferencesController.maybeVPNPreference
             else
             {
                 appLog.error("Unable to connect, vpnPreference is nil.")
@@ -446,7 +452,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             if vpnPreference.connection.status == .disconnected || vpnPreference.connection.status == .invalid
             {
                 appLog.debug("\nConnect pressed, starting logging loop.\n")
-                loggingController.startLoggingLoop()
+                loggingController.startLoggingLoop(vpnPreferencesController: self.vpnPreferencesController)
                 
                 do
                 {
@@ -489,7 +495,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 //            return
 //        }
         
-        guard let vpnPreferences = VPNPreferencesController.shared.maybeVPNPreference
+        guard let vpnPreferences = vpnPreferencesController.maybeVPNPreference
         else
         {
             appLog.error("Unable to find a server IP, our vpnPreference is nil.")
