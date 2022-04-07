@@ -29,11 +29,13 @@
 		DA3B853E27F60DA7003152C0 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3B853D27F60DA7003152C0 /* Globals.swift */; };
 		EF40EE42275571A9005EA989 /* Chord in Frameworks */ = {isa = PBXBuildFile; productRef = EF40EE41275571A9005EA989 /* Chord */; };
 		EF5FB20C269CDB0D00D2938D /* InternetProtocols in Frameworks */ = {isa = PBXBuildFile; productRef = EF5FB20B269CDB0D00D2938D /* InternetProtocols */; };
-		EF72F95B265DD97800294C6F /* default.moonbounce in Resources */ = {isa = PBXBuildFile; fileRef = AE1359A6220DFC6F00E81823 /* default.moonbounce */; };
 		EF7449AD2673CC71007BA534 /* Flower in Frameworks */ = {isa = PBXBuildFile; productRef = EF7449AC2673CC71007BA534 /* Flower */; };
 		EF8480FD27E9311500378A2F /* MoonbounceLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = EF8480FC27E9311500378A2F /* MoonbounceLibrary */; };
 		EF8480FF27E9311500378A2F /* MoonbounceNetworkExtensionLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = EF8480FE27E9311500378A2F /* MoonbounceNetworkExtensionLibrary */; };
 		EF84810127E9311500378A2F /* MoonbounceShared in Frameworks */ = {isa = PBXBuildFile; productRef = EF84810027E9311500378A2F /* MoonbounceShared */; };
+		EFA3179527FE224000ADD8A4 /* Simulation in Frameworks */ = {isa = PBXBuildFile; productRef = EFA3179427FE224000ADD8A4 /* Simulation */; };
+		EFA3179727FE224000ADD8A4 /* Spacetime in Frameworks */ = {isa = PBXBuildFile; productRef = EFA3179627FE224000ADD8A4 /* Spacetime */; };
+		EFA3179927FE224000ADD8A4 /* Universe in Frameworks */ = {isa = PBXBuildFile; productRef = EFA3179827FE224000ADD8A4 /* Universe */; };
 		EFB1F50E26446D4B007AFD1E /* Transport in Frameworks */ = {isa = PBXBuildFile; productRef = EFB1F50D26446D4B007AFD1E /* Transport */; };
 		EFEA2F3F26A5F30B00F1D116 /* SwiftHexTools in Frameworks */ = {isa = PBXBuildFile; productRef = EFEA2F3E26A5F30B00F1D116 /* SwiftHexTools */; };
 /* End PBXBuildFile section */
@@ -107,7 +109,6 @@
 		469B0A7C21DEA5AB003FC2BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		469B0A7D21DEA5AB003FC2BC /* MoonbounceNetworkExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MoonbounceNetworkExtension.entitlements; sourceTree = "<group>"; };
 		46EA2C7C1E241BB70069E5DE /* Default */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Default; sourceTree = "<group>"; };
-		AE1359A6220DFC6F00E81823 /* default.moonbounce */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.moonbounce; sourceTree = "<group>"; };
 		AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		AE4CFCCD244135E5006FF16E /* libswiftCreateML.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftCreateML.dylib; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/libswiftCreateML.dylib; sourceTree = DEVELOPER_DIR; };
 		B41FE0291DF24BE900E02D17 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -149,11 +150,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFA3179927FE224000ADD8A4 /* Universe in Frameworks */,
 				AE71729325B66F2B0070AF2C /* Flower in Frameworks */,
 				AEFDFD7C2432A112003571DB /* NetworkExtension.framework in Frameworks */,
 				AE94E51624CB6D18007B552B /* ZIPFoundation in Frameworks */,
 				CA8B9C92273D86D400930089 /* LoggerQueue in Frameworks */,
+				EFA3179727FE224000ADD8A4 /* Spacetime in Frameworks */,
 				EF8480FF27E9311500378A2F /* MoonbounceNetworkExtensionLibrary in Frameworks */,
+				EFA3179527FE224000ADD8A4 /* Simulation in Frameworks */,
 				EF5FB20C269CDB0D00D2938D /* InternetProtocols in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -175,7 +179,6 @@
 			isa = PBXGroup;
 			children = (
 				CA8FF116273245F300780567 /* Packages */,
-				AE1359A6220DFC6F00E81823 /* default.moonbounce */,
 				467CB5B51DBEB6E90086E341 /* MoonbounceApplication */,
 				469B0A7921DEA5AB003FC2BC /* MoonbounceNetworkExtension */,
 				464DA95921E80E80003460D0 /* MoonbounceTests */,
@@ -340,6 +343,9 @@
 				EF5FB20B269CDB0D00D2938D /* InternetProtocols */,
 				CA8B9C91273D86D400930089 /* LoggerQueue */,
 				EF8480FE27E9311500378A2F /* MoonbounceNetworkExtensionLibrary */,
+				EFA3179427FE224000ADD8A4 /* Simulation */,
+				EFA3179627FE224000ADD8A4 /* Spacetime */,
+				EFA3179827FE224000ADD8A4 /* Universe */,
 			);
 			productName = MoonbounceNetworkExtension;
 			productReference = 469B0A7821DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex */;
@@ -428,6 +434,7 @@
 				CA8B9C90273D86D400930089 /* XCRemoteSwiftPackageReference "LoggerQueue" */,
 				EF40EE40275571A9005EA989 /* XCRemoteSwiftPackageReference "Chord" */,
 				EF8480FB27E9311500378A2F /* XCRemoteSwiftPackageReference "MoonbounceLibrary" */,
+				EFA3179327FE224000ADD8A4 /* XCRemoteSwiftPackageReference "Spacetime" */,
 			);
 			productRefGroup = 467CB5B41DBEB6E90086E341 /* Products */;
 			projectDirPath = "";
@@ -454,7 +461,6 @@
 			files = (
 				467CB5C61DBEB8CF0086E341 /* MoonbounceViewController.xib in Resources */,
 				467CB5B91DBEB6E90086E341 /* Assets.xcassets in Resources */,
-				EF72F95B265DD97800294C6F /* default.moonbounce in Resources */,
 				467CB5BC1DBEB6E90086E341 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -951,6 +957,14 @@
 				kind = branch;
 			};
 		};
+		EFA3179327FE224000ADD8A4 /* XCRemoteSwiftPackageReference "Spacetime" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/Spacetime";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		EFB1F50C26446D4B007AFD1E /* XCRemoteSwiftPackageReference "Transport" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OperatorFoundation/Transport";
@@ -1019,6 +1033,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EF8480FB27E9311500378A2F /* XCRemoteSwiftPackageReference "MoonbounceLibrary" */;
 			productName = MoonbounceShared;
+		};
+		EFA3179427FE224000ADD8A4 /* Simulation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EFA3179327FE224000ADD8A4 /* XCRemoteSwiftPackageReference "Spacetime" */;
+			productName = Simulation;
+		};
+		EFA3179627FE224000ADD8A4 /* Spacetime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EFA3179327FE224000ADD8A4 /* XCRemoteSwiftPackageReference "Spacetime" */;
+			productName = Spacetime;
+		};
+		EFA3179827FE224000ADD8A4 /* Universe */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EFA3179327FE224000ADD8A4 /* XCRemoteSwiftPackageReference "Spacetime" */;
+			productName = Universe;
 		};
 		EFB1F50D26446D4B007AFD1E /* Transport */ = {
 			isa = XCSwiftPackageProductDependency;

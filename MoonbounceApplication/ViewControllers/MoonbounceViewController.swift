@@ -9,6 +9,7 @@
 import Cocoa
 import Logging
 import MoonbounceLibrary
+import MoonbounceShared
 
 class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 {
@@ -40,14 +41,13 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     let proximaNARegular = "Proxima Nova Alt Regular"
     let advancedMenuHeight: CGFloat = 176.0
     //let tunnelController = TunnelController()
-    let configController = ConfigController()
+    // let configController = ConfigController()
+    let moonbounce = MoonbounceLibrary()
     
     //@objc dynamic var serverManagerReady = false
     var userServerIsConnected = false
     var launching = false
     var loggingEnabled = false
-
-    let vpnPreferencesController = VPNPreferencesController(logger: appLog)
     
     //MARK: View Life Cycle
     
@@ -55,7 +55,11 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     {
         super.viewDidLoad()
         
-        //TODO: Hiding advanced more for now until we can update DO server functionality
+        do {
+            try moonbounce.configure(MoonbounceConfig(name: "default"))
+        } catch {
+            appLog.error("error loading configuration: \(error)")
+        }
         advancedModeButton.isHidden = true
         
         let nc = NotificationCenter.default
@@ -181,28 +185,28 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         openDialog.allowsMultipleSelection = false
         openDialog.allowedFileTypes = ["moonbounce", "MOONBOUNCE"]
 
-        if let presentingWindow = self.view.window
-        {
-            openDialog.beginSheetModal(for: presentingWindow)
-            {
-                (response) in
-                
-                guard response == NSApplication.ModalResponse.OK
-                    else { return }
-
-                if let chosenDirectory = openDialog.url
-                {
-                    guard self.configController.addConfig(atURL: chosenDirectory)
-                        else
-                    {
-                        appLog.debug("Failed to add a selected config to the config controller.")
-                        return
-                    }
-                }
-                
-                self.populateServerSelectButton()
-            }
-        }
+//        if let presentingWindow = self.view.window
+//        {
+//            openDialog.beginSheetModal(for: presentingWindow)
+//            {
+//                (response) in
+//
+//                guard response == NSApplication.ModalResponse.OK
+//                    else { return }
+//
+//                if let chosenDirectory = openDialog.url
+//                {
+//                    guard self.configController.addConfig(atURL: chosenDirectory)
+//                        else
+//                    {
+//                        appLog.debug("Failed to add a selected config to the config controller.")
+//                        return
+//                    }
+//                }
+//
+//                self.populateServerSelectButton()
+//            }
+//        }
     }
     
     //Button that allows users to save the current config directory to a directory of their choice in order to share it.
@@ -285,8 +289,8 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     
     func launchServer(_ sender: NSButton)
     {
-        if let _ = KeychainController.loadToken()
-        {
+        // if let _ = KeychainController.loadToken()
+        // {
 //            MoonbounceViewController.terraformController.createVarsFile(token: userToken)
             
             sender.isEnabled = false
@@ -311,11 +315,11 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 //                self.cancelLaunchButton.isHidden = true
 //                self.launching = false
 //            }
-        }
-        else
-        {
-            accountTokenBox.isHidden = false
-        }
+        // }
+//        else
+//        {
+//            accountTokenBox.isHidden = false
+//        }
     }
     
     func startIncrementingProgress(by amount: Double)
@@ -386,7 +390,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         else
         {
             appLog.debug("New user token: \(newToken)")
-            KeychainController.saveToken(token: sender.stringValue)
+            // KeychainController.saveToken(token: sender.stringValue)
             hasDoToken = true
 //            MoonbounceViewController.terraformController.createVarsFile(token: sender.stringValue)
         }
@@ -410,73 +414,82 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         //serverManager.tunnelsManager?.startActivation(of: tunnel)
         
         // TODO: For now we are just loading a default config
-        guard let moonbounceConfig = configController.getDefaultMoonbounceConfig()
-        else
-        {
-            appLog.error("Unable to connect, unable to load default config.")
-            self.runningScript = false
-            self.serverSelectButton.isEnabled = true
-            self.showStatus()
-            return
-        }
+//        guard let moonbounceConfig = configController.getDefaultMoonbounceConfig()
+//        else
+//        {
+//            appLog.error("Unable to connect, unable to load default config.")
+//            self.runningScript = false
+//            self.serverSelectButton.isEnabled = true
+//            self.showStatus()
+//            return
+//        }
 
         appLog.info("Default config loaded, updated VPNPreferencesController configuration")
         
-        vpnPreferencesController.updateConfiguration(moonbounceConfig: moonbounceConfig, isEnabled: true)
+//        vpnPreferencesController.updateConfiguration(moonbounceConfig: moonbounceConfig, isEnabled: true)
+//        {
+//            (maybeLoadError) in
+//
+//            appLog.info("VPNPreferencesController configuration updated")
+//
+//            if let loadError = maybeLoadError
+//            {
+//                appLog.error("Unable to connect, error loading from preferences: \(loadError)")
+//                self.runningScript = false
+//                self.serverSelectButton.isEnabled = true
+//                self.showStatus()
+//                return
+//            }
+//
+//            guard let vpnPreference = self.vpnPreferencesController.maybeVPNPreference
+//            else
+//            {
+//                appLog.error("Unable to connect, vpnPreference is nil.")
+//                self.runningScript = false
+//                self.serverSelectButton.isEnabled = true
+//                self.showStatus()
+//                return
+//            }
+//
+//            let loggingController = LoggingController()
+//
+//            if vpnPreference.connection.status == .disconnected || vpnPreference.connection.status == .invalid
+//            {
+//                appLog.debug("\nConnect pressed, starting logging loop.\n")
+//                loggingController.startLoggingLoop(vpnPreferencesController: self.vpnPreferencesController)
+//
+//                do
+//                {
+//                    appLog.debug("\nCalling startVPNTunnel on vpnPreference.connection.\n")
+//                    try vpnPreference.connection.startVPNTunnel()
+//                }
+//                catch
+//                {
+//                    appLog.error("\nFailed to start the VPN: \(error.localizedDescription)\n")
+//                    loggingController.stopLoggingLoop()
+//                }
+//
+//                //self.activityIndicator.stopAnimating()
+//            }
+//            else
+//            {
+//                loggingController.stopLoggingLoop()
+//                vpnPreference.connection.stopVPNTunnel()
+//            }
+//        }
+        do
         {
-            (maybeLoadError) in
-
-            appLog.info("VPNPreferencesController configuration updated")
-
-            if let loadError = maybeLoadError
-            {
-                appLog.error("Unable to connect, error loading from preferences: \(loadError)")
-                self.runningScript = false
-                self.serverSelectButton.isEnabled = true
-                self.showStatus()
-                return
-            }
+            try moonbounce.startVPN()
             
-            guard let vpnPreference = self.vpnPreferencesController.maybeVPNPreference
-            else
-            {
-                appLog.error("Unable to connect, vpnPreference is nil.")
-                self.runningScript = false
-                self.serverSelectButton.isEnabled = true
-                self.showStatus()
-                return
-            }
-            
-            let loggingController = LoggingController()
-            
-            if vpnPreference.connection.status == .disconnected || vpnPreference.connection.status == .invalid
-            {
-                appLog.debug("\nConnect pressed, starting logging loop.\n")
-                loggingController.startLoggingLoop(vpnPreferencesController: self.vpnPreferencesController)
-                
-                do
-                {
-                    appLog.debug("\nCalling startVPNTunnel on vpnPreference.connection.\n")
-                    try vpnPreference.connection.startVPNTunnel()
-                }
-                catch
-                {
-                    appLog.error("\nFailed to start the VPN: \(error.localizedDescription)\n")
-                    loggingController.stopLoggingLoop()
-                }
-                
-                //self.activityIndicator.stopAnimating()
-            }
-            else
-            {
-                loggingController.stopLoggingLoop()
-                vpnPreference.connection.stopVPNTunnel()
-            }
+            //Verify that connection was successful and update accordingly
+            self.runningScript = false
+            self.serverSelectButton.isEnabled = true
+            isConnected.state = .success
+        } catch {
+            isConnected.state = .failed
+            appLog.error("failed to start VPN: \(error)")
         }
         
-        //Verify that connection was successful and update accordingly
-        self.runningScript = false
-        self.serverSelectButton.isEnabled = true
         self.showStatus()
     }
     
@@ -488,21 +501,13 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         
     func disconnect()
     {
-//        guard let tunnel = selectedTunnel
-//            else
-//        {
-//            appLog.error("Unable to find a tunnel to stop.")
-//            return
-//        }
-        
-        guard let vpnPreferences = vpnPreferencesController.maybeVPNPreference
-        else
+        do
         {
-            appLog.error("Unable to find a server IP, our vpnPreference is nil.")
-            return
+            try moonbounce.stopVPN()
+        } catch {
+            appLog.error("failed to disconnect from VPN: \(error)")
         }
         
-        vpnPreferences.connection.stopVPNTunnel()
         self.runningScript = false
         self.serverSelectButton.isEnabled = true
     }
@@ -665,23 +670,23 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         
         //Has the user entered their Digital Ocean Token?
         //if let userToken = UserDefaults.standard.object(forKey: userTokenKey) as! String?
-        if let userToken = KeychainController.loadToken()
-        {
-            if userToken == ""
-            {
-                hasDoToken = false
-            }
-            else
-            {
-                hasDoToken = true
-                accountTokenTextField.stringValue = userToken
-                appLog.debug("******Found a token in keychain!")
-            }
-        }
-        else
-        {
-            hasDoToken = false
-        }
+//        if let userToken = KeychainController.loadToken()
+//        {
+//            if userToken == ""
+//            {
+//                hasDoToken = false
+//            }
+//            else
+//            {
+//                hasDoToken = true
+//                accountTokenTextField.stringValue = userToken
+//                appLog.debug("******Found a token in keychain!")
+//            }
+//        }
+//        else
+//        {
+//            hasDoToken = false
+//        }
     }
     
     func styleTokenTextField()

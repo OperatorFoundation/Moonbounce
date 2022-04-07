@@ -22,7 +22,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
     let popover = NSPopover()
     let menu = NSMenu()
     let fileManager = FileManager.default
-    let vpnPreferencesController = VPNPreferencesController(logger: appLog)
     
     var eventMonitor: EventMonitor?
 
@@ -76,8 +75,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
         
         // Check for config directories, if they don't exist, create them
         fileManager.delegate = self
-        Moonbounce.createServerConfigDirectories()
-        Moonbounce.checkForServerIP()
+//        Moonbounce.createServerConfigDirectories()
+//        Moonbounce.checkForServerIP()
     }
         
     func showPopover(sender: AnyObject?)
@@ -135,15 +134,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
     
     func applicationWillTerminate(_ aNotification: Notification)
     {
-        vpnPreferencesController.deactivate
-        { (maybeError) in
-            
-            appLog.debug("\n✌️ Callling deactivate before exiting app.\n")
-            if let error = maybeError
-            {
-                appLog.error("Error atttempting to deactivate VPNPreferencesController on app exit: \(error)")
-            }
-        }
+        // TODO: implement me
     }
 }
 
