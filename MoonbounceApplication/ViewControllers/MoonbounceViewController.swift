@@ -55,11 +55,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     {
         super.viewDidLoad()
         
-        do {
-            try moonbounce.configure(MoonbounceConfig(name: "default"))
-        } catch {
-            appLog.error("error loading configuration: \(error)")
-        }
+
         advancedModeButton.isHidden = true
         
         let nc = NotificationCenter.default
@@ -71,6 +67,16 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         serverProgressBar.usesThreadedAnimation = true
         updateStatusUI(connected: false, statusDescription: "Not Connected")
         styleTokenTextField()
+        
+        do
+        {
+            let moonbounceConfig = MoonbounceConfig(name: "default")
+            try moonbounce.configure(moonbounceConfig)
+        }
+        catch
+        {
+            appLog.error("error loading configuration: \(error)")
+        }
     }
     
     override func viewWillAppear()
