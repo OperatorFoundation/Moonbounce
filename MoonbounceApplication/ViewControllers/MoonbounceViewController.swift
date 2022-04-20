@@ -48,6 +48,8 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     var userServerIsConnected = false
     var launching = false
     var loggingEnabled = false
+
+    let worker: DispatchQueue = DispatchQueue(label: "MoonbounceViewController.worker")
     
     //MARK: View Life Cycle
     
@@ -67,15 +69,18 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         serverProgressBar.usesThreadedAnimation = true
         updateStatusUI(connected: false, statusDescription: "Not Connected")
         styleTokenTextField()
-        
-        do
+
+        self.worker.async
         {
-            let moonbounceConfig = MoonbounceConfig(name: "default")
-            try moonbounce.configure(moonbounceConfig)
-        }
-        catch
-        {
-            appLog.error("error loading configuration: \(error)")
+            do
+            {
+                let moonbounceConfig = MoonbounceConfig(name: "default")
+                try self.moonbounce.configure(moonbounceConfig)
+            }
+            catch
+            {
+                appLog.error("error loading configuration: \(error)")
+            }
         }
     }
     
