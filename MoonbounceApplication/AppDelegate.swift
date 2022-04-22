@@ -111,18 +111,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, FileManagerDelegate
     {
         if let event = NSApp.currentEvent
         {
-            if event.type == NSEvent.EventType.rightMouseUp
+            if event.type == NSEvent.EventType.rightMouseUp // Show the right-click menu
             {
+                // If the main view/popup is open close it
                 closePopover(sender: nil)
-                statusItem.menu = menu
-                //statusItem.popUpMenu(menu)
                 
-                // This is critical, otherwise clicks won't be processed again
+                // Setup and display the right-click menu
+                let popUpPosition = NSPoint(x: (statusItem.button!.bounds.width * 0.9), y: statusItem.button!.bounds.height)
+                statusItem.menu = menu
+                menu.popUp(positioning: nil, at: popUpPosition, in: statusItem.button)
+                
+                // This is necessary for button clicks to continue to be processed correctly
                 statusItem.menu = nil
             }
             else
             {
-                togglePopover(sender: nil)
+                togglePopover(sender: nil) // Show/hide the main view
             }
         }
     }
