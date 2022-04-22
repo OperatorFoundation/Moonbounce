@@ -8,6 +8,8 @@
 
 import Cocoa
 import Logging
+
+import Chord
 import MoonbounceLibrary
 import MoonbounceShared
 
@@ -120,11 +122,11 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             case .start:
                 switch isConnected.stage
                 {
-                case .start:
-                    appLog.info("Connect button pressed")
-                    self.connect()
-                default:
-                    appLog.error("Error: Connected state of Start but Stage is \(isConnected.stage)")
+                    case .start:
+                        appLog.info("Connect button pressed")
+                        self.connect()
+                    default:
+                        appLog.error("Error: Connected state of Start but Stage is \(isConnected.stage)")
                 }
             case .trying:
                 switch isConnected.stage
@@ -413,7 +415,10 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     }
     
     func connect()
-    {        
+    {
+        isConnected.stage = .start
+        isConnected.state = .trying
+
         serverSelectButton.isEnabled = false
         runBackgroundAnimation()
         isConnected = ConnectState(state: .start, stage: .start)
@@ -488,20 +493,36 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 //                vpnPreference.connection.stopVPNTunnel()
 //            }
 //        }
-        do
+
+        Asynchronizer.asyncThrows(moonbounce.startVPN)
         {
-            try moonbounce.startVPN()
-            
-            //Verify that connection was successful and update accordingly
-            self.runningScript = false
-            self.serverSelectButton.isEnabled = true
-            isConnected.state = .success
-        } catch {
-            isConnected.state = .failed
-            appLog.error("failed to start VPN: \(error)")
+            maybeError in
+
+            if let error = maybeError
+            {
+                isConnected.state = .failed
+                appLog.error("failed to start VPN: \(error)")
+
+                DispatchQueue.main.async
+                {
+                    self.serverSelectButton.isEnabled = true
+                    self.showStatus()
+                }
+            }
+            else
+            {
+                //Verify that connection was successful and update accordingly
+                self.runningScript = false
+                isConnected.state = .success
+                isConnected.stage = .statusCodes
+
+                DispatchQueue.main.async
+                {
+                    self.serverSelectButton.isEnabled = true
+                    self.showStatus()
+                }
+            }
         }
-        
-        self.showStatus()
     }
     
 //    func setSelectedServer(tunnel: Tunnel)
@@ -512,70 +533,75 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         
     func disconnect()
     {
-        do
+        Asynchronizer.asyncThrows(moonbounce.stopVPN)
         {
-            try moonbounce.stopVPN()
-        } catch {
-            appLog.error("failed to disconnect from VPN: \(error)")
+            maybeError in
+
+            if let error = maybeError
+            {
+                appLog.error("failed to disconnect from VPN: \(error)")
+            }
+
+            self.runningScript = false
+
+            DispatchQueue.main.async
+            {
+                self.serverSelectButton.isEnabled = true
+            }
         }
-        
-        self.runningScript = false
-        self.serverSelectButton.isEnabled = true
     }
     
     // MARK: - UI Helpers
-
-    
     func showStatus()
     {
         switch isConnected.state
         {
-        case .start:
-            switch isConnected.stage
-            {
             case .start:
-                self.updateStatusUI(connected: false, statusDescription: "Not Connected")
-            default:
-                appLog.error("Error: Connected state of Start but Stage is \(isConnected.stage)")
-            }
-        case .trying:
-            switch isConnected.stage
-            {
-                case .start:
-                    //Should Not Happen
-                    appLog.error("Error: Connected state of Trying but Stage is Start")
-                case .dispatcher:
-                    self.updateStatusUI(connected: true, statusDescription: "Starting Dispatcher")
-                case .management:
-                    self.updateStatusUI(connected: true, statusDescription: "Connecting to the Management Server")
-                case .statusCodes:
-                    self.updateStatusUI(connected: true, statusDescription: "Getting VPN Status")
-            }
-        case .success:
-            switch isConnected.stage
-            {
-            case .start:
-                //Should Not Happen
-                appLog.error("Error: Connected state of Success but Stage is Start")
-            case .dispatcher:
-                self.updateStatusUI(connected: true, statusDescription: "Started Dispatcher")
-            case .management:
-                self.updateStatusUI(connected: true, statusDescription: "Connected to the Management Server")
-            case .statusCodes:
-                self.updateStatusUI(connected: true, statusDescription: "Connected")
-            }
-        case .failed:
-            switch isConnected.stage
-            {
-            case .start:
-                //Should Not Happen
-                appLog.error("Error: Connected state of Failed but Stage is Start")
-            case .dispatcher:
-                self.updateStatusUI(connected: false, statusDescription: "Failed to start Dispatcher")
-            case .management:
-                self.updateStatusUI(connected: false, statusDescription: "Failed to Connect to the Management Server")
-            case .statusCodes:
-                self.updateStatusUI(connected: false, statusDescription: "Failed to connect  to VPN")
+                switch isConnected.stage
+                {
+                    case .start:
+                        self.updateStatusUI(connected: false, statusDescription: "Not Connected")
+                    default:
+                        appLog.error("Error: Connected state of Start but Stage is \(isConnected.stage)")
+                }
+            case .trying:
+                switch isConnected.stage
+                {
+                    case .start:
+                        //Should Not Happen
+                        appLog.error("Error: Connected state of Trying but Stage is Start")
+                    case .dispatcher:
+                        self.updateStatusUI(connected: true, statusDescription: "Starting Dispatcher")
+                    case .management:
+                        self.updateStatusUI(connected: true, statusDescription: "Connecting to the Management Server")
+                    case .statusCodes:
+                        self.updateStatusUI(connected: true, statusDescription: "Getting VPN Status")
+                }
+            case .success:
+                switch isConnected.stage
+                {
+                    case .start:
+                        //Should Not Happen
+                        appLog.error("Error: Connected state of Success but Stage is Start")
+                    case .dispatcher:
+                        self.updateStatusUI(connected: true, statusDescription: "Started Dispatcher")
+                    case .management:
+                        self.updateStatusUI(connected: true, statusDescription: "Connected to the Management Server")
+                    case .statusCodes:
+                        self.updateStatusUI(connected: true, statusDescription: "Connected")
+                }
+            case .failed:
+                switch isConnected.stage
+                {
+                    case .start:
+                        //Should Not Happen
+                        appLog.error("Error: Connected state of Failed but Stage is Start")
+                    case .dispatcher:
+                        self.updateStatusUI(connected: false, statusDescription: "Failed to start Dispatcher")
+                    case .management:
+                        self.updateStatusUI(connected: false, statusDescription: "Failed to Connect to the Management Server")
+                    case .statusCodes:
+                        self.updateStatusUI(connected: false, statusDescription: "Failed to connect  to VPN")
             }
         }
     }
@@ -811,7 +837,4 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         alert.addButton(withTitle: "OK")
         alert.runModal()
     }
-    
-
-    
 }
