@@ -56,16 +56,14 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
 
-        advancedModeButton.isHidden = true
-        
         let nc = NotificationCenter.default
         nc.addObserver(forName: NSNotification.Name(rawValue: kConnectionStatusNotification), object: nil, queue: nil, using: connectionStatusChanged)
         nc.addObserver(forName: NSNotification.Name.NEVPNStatusDidChange, object: nil, queue: nil, using: connectionStatusChanged)
         nc.addObserver(forName: NSNotification.Name(rawValue: kNewServerAddedNotification), object: nil, queue: nil, using: newServerAdded)
         //nc.addObserver(forName: NSNotification.Name(serverManagerReadyNotification), object: nil, queue: nil, using: serverManagerNotificationReceived)
         
+        advancedModeButton.isHidden = true
         serverProgressBar.usesThreadedAnimation = true
         updateStatusUI(connected: false, statusDescription: "Not Connected")
         styleTokenTextField()
@@ -812,6 +810,5 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         alert.runModal()
     }
     
-
     
 }
