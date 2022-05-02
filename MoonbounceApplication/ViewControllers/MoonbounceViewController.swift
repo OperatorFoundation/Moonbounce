@@ -74,7 +74,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         {
             do
             {
-                let moonbounceConfig = MoonbounceConfig(name: "default")
+                let moonbounceConfig = MoonbounceConfig(name: "default", providerBundleIdentifier: "NetworkExtension")
                 try self.moonbounce.configure(moonbounceConfig)
             }
             catch
