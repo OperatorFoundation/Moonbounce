@@ -8,7 +8,6 @@
 
 import MoonbounceNetworkExtensionLibrary
 
-// FIXME - for testing, uncomment
-//class MoonbounceNetworkExtensionPacketTunnelProvider: MoonbouncePacketTunnelProvider
-//{
-//}
+class MoonbounceNetworkExtensionPacketTunnelProvider: MoonbouncePacketTunnelProvider
+{
+}
