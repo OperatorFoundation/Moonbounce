@@ -17,15 +17,12 @@
 		469B0A7B21DEA5AB003FC2BC /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469B0A7A21DEA5AB003FC2BC /* PacketTunnelProvider.swift */; };
 		469B0A8021DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 469B0A7821DEA5AB003FC2BC /* MoonbounceNetworkExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		AE39BD6822440123007C7C90 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */; };
-		AE59B9F624CBB2CA00703630 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AE59B9F524CBB2CA00703630 /* ZIPFoundation */; };
-		AE71729325B66F2B0070AF2C /* Flower in Frameworks */ = {isa = PBXBuildFile; productRef = AE71729225B66F2B0070AF2C /* Flower */; };
-		AE94E51624CB6D18007B552B /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AE94E51524CB6D18007B552B /* ZIPFoundation */; };
+		AEEC232D28E3965400FE1220 /* ShadowSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AEEC232C28E3965400FE1220 /* ShadowSwift */; };
 		AEFDFD7C2432A112003571DB /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */; };
 		B41FE02A1DF24BE900E02D17 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B41FE0291DF24BE900E02D17 /* Security.framework */; };
 		B41FE02C1DF24BF500E02D17 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */; };
 		B44390591DC00EA000389352 /* PopoverContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44390581DC00EA000389352 /* PopoverContentView.swift */; };
 		B4EF3E5D1E15C12700A5DDBD /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EF3E5C1E15C12700A5DDBD /* CustomButton.swift */; };
-		CA8B9C92273D86D400930089 /* LoggerQueue in Frameworks */ = {isa = PBXBuildFile; productRef = CA8B9C91273D86D400930089 /* LoggerQueue */; };
 		DA3B853E27F60DA7003152C0 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3B853D27F60DA7003152C0 /* Globals.swift */; };
 		DAE6D36B28249DCE00BA71DA /* MoonbounceLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = DAE6D36A28249DCE00BA71DA /* MoonbounceLibrary */; };
 		DAE6D36D28249DCE00BA71DA /* MoonbounceShared in Frameworks */ = {isa = PBXBuildFile; productRef = DAE6D36C28249DCE00BA71DA /* MoonbounceShared */; };
@@ -37,12 +34,6 @@
 		DAE6D38128249E3800BA71DA /* Simulation in Frameworks */ = {isa = PBXBuildFile; productRef = DAE6D38028249E3800BA71DA /* Simulation */; };
 		DAE6D38328249E3800BA71DA /* Spacetime in Frameworks */ = {isa = PBXBuildFile; productRef = DAE6D38228249E3800BA71DA /* Spacetime */; };
 		DAE6D38528249E3800BA71DA /* Universe in Frameworks */ = {isa = PBXBuildFile; productRef = DAE6D38428249E3800BA71DA /* Universe */; };
-		EF40EE42275571A9005EA989 /* Chord in Frameworks */ = {isa = PBXBuildFile; productRef = EF40EE41275571A9005EA989 /* Chord */; };
-		EF5FB20C269CDB0D00D2938D /* InternetProtocols in Frameworks */ = {isa = PBXBuildFile; productRef = EF5FB20B269CDB0D00D2938D /* InternetProtocols */; };
-		EF64E86928493A3C00879F35 /* DebugPacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF64E86828493A3C00879F35 /* DebugPacketTunnelProvider.swift */; };
-		EF7449AD2673CC71007BA534 /* Flower in Frameworks */ = {isa = PBXBuildFile; productRef = EF7449AC2673CC71007BA534 /* Flower */; };
-		EFB1F50E26446D4B007AFD1E /* Transport in Frameworks */ = {isa = PBXBuildFile; productRef = EFB1F50D26446D4B007AFD1E /* Transport */; };
-		EFEA2F3F26A5F30B00F1D116 /* SwiftHexTools in Frameworks */ = {isa = PBXBuildFile; productRef = EFEA2F3E26A5F30B00F1D116 /* SwiftHexTools */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,16 +84,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DAAE066028248EC2001CD41C /* Embed System Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(SYSTEM_EXTENSIONS_FOLDER_PATH)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			name = "Embed System Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -132,9 +113,7 @@
 		B4EF3E5C1E15C12700A5DDBD /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomButton.swift; path = Helpers/CustomButton.swift; sourceTree = "<group>"; };
 		CAFF6EC8250FFDB000BCBF5B /* Moonbounce-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Moonbounce-Bridging-Header.h"; path = "Moonbounce/Moonbounce-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		DA3B853D27F60DA7003152C0 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
-		DA85FBB12847FBBA00042191 /* DebugPacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugPacketTunnelProvider.swift; sourceTree = "<group>"; };
 		EF426EF426B867BF008A8504 /* TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestPlan.xctestplan; sourceTree = SOURCE_ROOT; };
-		EF64E86828493A3C00879F35 /* DebugPacketTunnelProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugPacketTunnelProvider.swift; sourceTree = "<group>"; };
 		EF7449AA2673CC32007BA534 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -143,7 +122,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF7449AD2673CC71007BA534 /* Flower in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,10 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF40EE42275571A9005EA989 /* Chord in Frameworks */,
 				DAE6D36D28249DCE00BA71DA /* MoonbounceShared in Frameworks */,
-				EFB1F50E26446D4B007AFD1E /* Transport in Frameworks */,
-				EFEA2F3F26A5F30B00F1D116 /* SwiftHexTools in Frameworks */,
 				DAE6D36B28249DCE00BA71DA /* MoonbounceLibrary in Frameworks */,
 				B41FE02C1DF24BF500E02D17 /* ServiceManagement.framework in Frameworks */,
 				B41FE02A1DF24BE900E02D17 /* Security.framework in Frameworks */,
@@ -162,7 +137,7 @@
 				DAE6D37C28249E1F00BA71DA /* Spacetime in Frameworks */,
 				DAE6D37E28249E1F00BA71DA /* Universe in Frameworks */,
 				AE39BD6822440123007C7C90 /* NetworkExtension.framework in Frameworks */,
-				AE59B9F624CBB2CA00703630 /* ZIPFoundation in Frameworks */,
+				AEEC232D28E3965400FE1220 /* ShadowSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,13 +145,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE71729325B66F2B0070AF2C /* Flower in Frameworks */,
 				AEFDFD7C2432A112003571DB /* NetworkExtension.framework in Frameworks */,
 				DAE6D37528249DFC00BA71DA /* MoonbounceNetworkExtensionLibrary in Frameworks */,
 				DAE6D37728249DFC00BA71DA /* MoonbounceShared in Frameworks */,
-				AE94E51624CB6D18007B552B /* ZIPFoundation in Frameworks */,
-				CA8B9C92273D86D400930089 /* LoggerQueue in Frameworks */,
-				EF5FB20C269CDB0D00D2938D /* InternetProtocols in Frameworks */,
 				DAE6D38128249E3800BA71DA /* Simulation in Frameworks */,
 				DAE6D38328249E3800BA71DA /* Spacetime in Frameworks */,
 				DAE6D38528249E3800BA71DA /* Universe in Frameworks */,
@@ -257,12 +228,10 @@
 		469B0A7921DEA5AB003FC2BC /* MoonbounceNetworkExtension */ = {
 			isa = PBXGroup;
 			children = (
-				EF64E86828493A3C00879F35 /* DebugPacketTunnelProvider.swift */,
 				469B0A7C21DEA5AB003FC2BC /* Info.plist */,
 				469B0A7D21DEA5AB003FC2BC /* MoonbounceNetworkExtension.entitlements */,
 				4678C32621E009DC00492768 /* MoonbounceNetworkExtension-Bridging-Header.h */,
 				469B0A7A21DEA5AB003FC2BC /* PacketTunnelProvider.swift */,
-				DA85FBB12847FBBA00042191 /* DebugPacketTunnelProvider.swift */,
 			);
 			path = MoonbounceNetworkExtension;
 			sourceTree = "<group>";
@@ -312,7 +281,6 @@
 			);
 			name = MoonbounceTests;
 			packageProductDependencies = (
-				EF7449AC2673CC71007BA534 /* Flower */,
 			);
 			productName = MoonbounceTests;
 			productReference = 464DA95821E80E80003460D0 /* MoonbounceTests.xctest */;
@@ -327,7 +295,6 @@
 				467CB5B11DBEB6E90086E341 /* Resources */,
 				B41FE0251DF10A0400E02D17 /* CopyFiles */,
 				469B0A9221DEA5AB003FC2BC /* Embed App Extensions */,
-				DAAE066028248EC2001CD41C /* Embed System Extensions */,
 			);
 			buildRules = (
 			);
@@ -336,15 +303,12 @@
 			);
 			name = Moonbounce;
 			packageProductDependencies = (
-				AE59B9F524CBB2CA00703630 /* ZIPFoundation */,
-				EFB1F50D26446D4B007AFD1E /* Transport */,
-				EFEA2F3E26A5F30B00F1D116 /* SwiftHexTools */,
-				EF40EE41275571A9005EA989 /* Chord */,
 				DAE6D36A28249DCE00BA71DA /* MoonbounceLibrary */,
 				DAE6D36C28249DCE00BA71DA /* MoonbounceShared */,
 				DAE6D37928249E1F00BA71DA /* Simulation */,
 				DAE6D37B28249E1F00BA71DA /* Spacetime */,
 				DAE6D37D28249E1F00BA71DA /* Universe */,
+				AEEC232C28E3965400FE1220 /* ShadowSwift */,
 			);
 			productName = Moonbounce;
 			productReference = 467CB5B31DBEB6E90086E341 /* Moonbounce.app */;
@@ -365,10 +329,6 @@
 			);
 			name = MoonbounceNetworkExtension;
 			packageProductDependencies = (
-				AE94E51524CB6D18007B552B /* ZIPFoundation */,
-				AE71729225B66F2B0070AF2C /* Flower */,
-				EF5FB20B269CDB0D00D2938D /* InternetProtocols */,
-				CA8B9C91273D86D400930089 /* LoggerQueue */,
 				DAE6D37428249DFC00BA71DA /* MoonbounceNetworkExtensionLibrary */,
 				DAE6D37628249DFC00BA71DA /* MoonbounceShared */,
 				DAE6D38028249E3800BA71DA /* Simulation */,
@@ -448,23 +408,10 @@
 			);
 			mainGroup = 467CB5AA1DBEB6E90086E341;
 			packageReferences = (
-				AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
-				AEFDFD6324326298003571DB /* XCRemoteSwiftPackageReference "Datable" */,
-				AEFDFD66243262B4003571DB /* XCRemoteSwiftPackageReference "SwiftQueue" */,
-				AE71729125B66F2B0070AF2C /* XCRemoteSwiftPackageReference "Flower" */,
-				EFB1F50C26446D4B007AFD1E /* XCRemoteSwiftPackageReference "Transport" */,
-				EF5FB20A269CDB0D00D2938D /* XCRemoteSwiftPackageReference "InternetProtocols" */,
-				EFEA2F3D26A5F30B00F1D116 /* XCRemoteSwiftPackageReference "SwiftHexTools" */,
-				EF2017E12739BA9F00465E0A /* XCRemoteSwiftPackageReference "TransmissionTransport" */,
 				EF2017E22739BAD100465E0A /* XCRemoteSwiftPackageReference "swift-log" */,
-				CA8B9C90273D86D400930089 /* XCRemoteSwiftPackageReference "LoggerQueue" */,
-				EF40EE40275571A9005EA989 /* XCRemoteSwiftPackageReference "Chord" */,
 				DAE6D36928249DCE00BA71DA /* XCRemoteSwiftPackageReference "MoonbounceLibrary" */,
-				DAE6D36E28249DE800BA71DA /* XCRemoteSwiftPackageReference "MoonbounceLibrary" */,
-				DAE6D37328249DFC00BA71DA /* XCRemoteSwiftPackageReference "MoonbounceLibrary" */,
 				DAE6D37828249E1F00BA71DA /* XCRemoteSwiftPackageReference "Spacetime" */,
-				DAE6D37F28249E3800BA71DA /* XCRemoteSwiftPackageReference "Spacetime" */,
-				DAE6D38628249E4700BA71DA /* XCRemoteSwiftPackageReference "Spacetime" */,
+				AEEC232B28E3965400FE1220 /* XCRemoteSwiftPackageReference "ShadowSwift" */,
 			);
 			productRefGroup = 467CB5B41DBEB6E90086E341 /* Products */;
 			projectDirPath = "";
@@ -530,7 +477,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF64E86928493A3C00879F35 /* DebugPacketTunnelProvider.swift in Sources */,
 				469B0A7B21DEA5AB003FC2BC /* PacketTunnelProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -747,6 +693,7 @@
 				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Moonbounce/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -780,6 +727,7 @@
 				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Moonbounce/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -813,6 +761,7 @@
 				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MoonbounceNetworkExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -848,6 +797,7 @@
 				DEVELOPMENT_TEAM = 67Y4NSLDQ3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MoonbounceNetworkExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -908,63 +858,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		AE71729125B66F2B0070AF2C /* XCRemoteSwiftPackageReference "Flower" */ = {
+		AEEC232B28E3965400FE1220 /* XCRemoteSwiftPackageReference "ShadowSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/OperatorFoundation/Flower.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/weichsel/ZIPFoundation";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.11;
-			};
-		};
-		AEFDFD6324326298003571DB /* XCRemoteSwiftPackageReference "Datable" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/OperatorFoundation/Datable";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		AEFDFD66243262B4003571DB /* XCRemoteSwiftPackageReference "SwiftQueue" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/OperatorFoundation/SwiftQueue.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		CA8B9C90273D86D400930089 /* XCRemoteSwiftPackageReference "LoggerQueue" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/OperatorFoundation/LoggerQueue.git";
+			repositoryURL = "https://github.com/OperatorFoundation/ShadowSwift.git";
 			requirement = {
 				branch = main;
 				kind = branch;
 			};
 		};
 		DAE6D36928249DCE00BA71DA /* XCRemoteSwiftPackageReference "MoonbounceLibrary" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/OperatorFoundation/MoonbounceLibrary";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		DAE6D36E28249DE800BA71DA /* XCRemoteSwiftPackageReference "MoonbounceLibrary" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/OperatorFoundation/MoonbounceLibrary";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		DAE6D37328249DFC00BA71DA /* XCRemoteSwiftPackageReference "MoonbounceLibrary" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OperatorFoundation/MoonbounceLibrary";
 			requirement = {
@@ -980,30 +882,6 @@
 				kind = branch;
 			};
 		};
-		DAE6D37F28249E3800BA71DA /* XCRemoteSwiftPackageReference "Spacetime" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/OperatorFoundation/Spacetime";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		DAE6D38628249E4700BA71DA /* XCRemoteSwiftPackageReference "Spacetime" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/OperatorFoundation/Spacetime";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		EF2017E12739BA9F00465E0A /* XCRemoteSwiftPackageReference "TransmissionTransport" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/OperatorFoundation/TransmissionTransport.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		EF2017E22739BAD100465E0A /* XCRemoteSwiftPackageReference "swift-log" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-log.git";
@@ -1012,60 +890,13 @@
 				minimumVersion = 1.4.2;
 			};
 		};
-		EF40EE40275571A9005EA989 /* XCRemoteSwiftPackageReference "Chord" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/OperatorFoundation/Chord.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		EF5FB20A269CDB0D00D2938D /* XCRemoteSwiftPackageReference "InternetProtocols" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/OperatorFoundation/InternetProtocols.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		EFB1F50C26446D4B007AFD1E /* XCRemoteSwiftPackageReference "Transport" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/OperatorFoundation/Transport";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		EFEA2F3D26A5F30B00F1D116 /* XCRemoteSwiftPackageReference "SwiftHexTools" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/OperatorFoundation/SwiftHexTools.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		AE59B9F524CBB2CA00703630 /* ZIPFoundation */ = {
+		AEEC232C28E3965400FE1220 /* ShadowSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
-			productName = ZIPFoundation;
-		};
-		AE71729225B66F2B0070AF2C /* Flower */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AE71729125B66F2B0070AF2C /* XCRemoteSwiftPackageReference "Flower" */;
-			productName = Flower;
-		};
-		AE94E51524CB6D18007B552B /* ZIPFoundation */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AEFDFD1824325299003571DB /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
-			productName = ZIPFoundation;
-		};
-		CA8B9C91273D86D400930089 /* LoggerQueue */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CA8B9C90273D86D400930089 /* XCRemoteSwiftPackageReference "LoggerQueue" */;
-			productName = LoggerQueue;
+			package = AEEC232B28E3965400FE1220 /* XCRemoteSwiftPackageReference "ShadowSwift" */;
+			productName = ShadowSwift;
 		};
 		DAE6D36A28249DCE00BA71DA /* MoonbounceLibrary */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1116,31 +947,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DAE6D37828249E1F00BA71DA /* XCRemoteSwiftPackageReference "Spacetime" */;
 			productName = Universe;
-		};
-		EF40EE41275571A9005EA989 /* Chord */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EF40EE40275571A9005EA989 /* XCRemoteSwiftPackageReference "Chord" */;
-			productName = Chord;
-		};
-		EF5FB20B269CDB0D00D2938D /* InternetProtocols */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EF5FB20A269CDB0D00D2938D /* XCRemoteSwiftPackageReference "InternetProtocols" */;
-			productName = InternetProtocols;
-		};
-		EF7449AC2673CC71007BA534 /* Flower */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AE71729125B66F2B0070AF2C /* XCRemoteSwiftPackageReference "Flower" */;
-			productName = Flower;
-		};
-		EFB1F50D26446D4B007AFD1E /* Transport */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EFB1F50C26446D4B007AFD1E /* XCRemoteSwiftPackageReference "Transport" */;
-			productName = Transport;
-		};
-		EFEA2F3E26A5F30B00F1D116 /* SwiftHexTools */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EFEA2F3D26A5F30B00F1D116 /* XCRemoteSwiftPackageReference "SwiftHexTools" */;
-			productName = SwiftHexTools;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -1,26 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21225" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21225"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MoonbounceViewController" customModule="Moonbounce" customModuleProvider="target">
             <connections>
-                <outlet property="accountTokenBox" destination="6MA-RR-NPb" id="yr0-Ta-XPp"/>
-                <outlet property="accountTokenTextField" destination="0o9-u3-aeC" id="tCN-Jm-u6T"/>
                 <outlet property="advModeHeightConstraint" destination="M1o-Ug-dOB" id="dGT-mu-NxE"/>
                 <outlet property="advancedModeButton" destination="6ga-6e-hhM" id="NsN-Ab-pLU"/>
                 <outlet property="backgroundImageView" destination="Y4N-Sp-Fsi" id="RhO-jJ-p7a"/>
-                <outlet property="cancelLaunchButton" destination="owa-4z-BTf" id="n3a-yo-sUz"/>
                 <outlet property="laserImageView" destination="Eoy-Bt-WyB" id="yjC-K5-qM2"/>
                 <outlet property="laserLeadingConstraint" destination="eHT-ZT-lUB" id="XYP-2o-P1m"/>
-                <outlet property="launchServerButton" destination="xg9-Jf-dld" id="ffb-70-CXy"/>
-                <outlet property="launchServerButtonCell" destination="yxI-uK-AfJ" id="i4x-K7-Tb8"/>
-                <outlet property="serverProgressBar" destination="vyQ-8c-VaX" id="TwJ-uU-xZp"/>
-                <outlet property="serverSelectButton" destination="IlK-KZ-Hx3" id="aD0-OI-fz3"/>
-                <outlet property="serverStatusLabel" destination="K04-Kv-gvR" id="1jR-48-rXO"/>
-                <outlet property="shareServerButton" destination="dtL-4f-K0Y" id="vsc-HN-eHZ"/>
                 <outlet property="statusLabel" destination="k4n-CL-bsI" id="0dG-oZ-Tcv"/>
                 <outlet property="toggleConnectionButton" destination="GYv-NE-gSi" id="ew7-Ln-1TT"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -141,290 +133,6 @@
                     <view key="contentView" wantsLayer="YES" appearanceType="aqua" id="Fln-xu-uld">
                         <rect key="frame" x="0.0" y="0.0" width="439" height="175"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <box boxType="custom" borderType="line" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="xbE-G4-Xj2" userLabel="Connect Box">
-                                <rect key="frame" x="0.0" y="131" width="439" height="44"/>
-                                <view key="contentView" id="wmh-Ji-l89">
-                                    <rect key="frame" x="1" y="1" width="437" height="42"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qgh-0T-rx6" userLabel="Server Select Label">
-                                            <rect key="frame" x="14" y="12" width="92" height="19"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Connect To:" id="R9H-PP-zDC">
-                                                <font key="font" metaFont="system" size="16"/>
-                                                <color key="textColor" red="0.96862745098039216" green="0.97254901960784312" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IlK-KZ-Hx3">
-                                            <rect key="frame" x="109" y="7" width="78" height="25"/>
-                                            <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="7mO-1k-hhb" id="bzg-0p-Yb5">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
-                                                <menu key="menu" id="DWX-sK-Rv4">
-                                                    <items>
-                                                        <menuItem title="Item 1" state="on" id="7mO-1k-hhb"/>
-                                                        <menuItem title="Item 2" id="QoW-ZW-h5E"/>
-                                                        <menuItem title="Item 3" id="kez-rG-E9s"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="serverSelectionChanged:" target="-2" id="QAg-r0-9i7"/>
-                                            </connections>
-                                        </popUpButton>
-                                        <button toolTip="Share Your Server!" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dtL-4f-K0Y">
-                                            <rect key="frame" x="394" y="9" width="33" height="19"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="share" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="3Es-lB-aN0">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="cellTitle"/>
-                                            </buttonCell>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                    <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                    <real key="value" value="0.0"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="shareServerClick:" target="-2" id="vMa-wL-khV"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="qgh-0T-rx6" firstAttribute="centerY" secondItem="wmh-Ji-l89" secondAttribute="centerY" id="3AZ-DY-fx7"/>
-                                        <constraint firstItem="IlK-KZ-Hx3" firstAttribute="leading" secondItem="qgh-0T-rx6" secondAttribute="trailing" constant="8" id="FDH-0u-uBP"/>
-                                        <constraint firstItem="IlK-KZ-Hx3" firstAttribute="centerY" secondItem="qgh-0T-rx6" secondAttribute="centerY" id="ORH-ge-dxM"/>
-                                        <constraint firstItem="qgh-0T-rx6" firstAttribute="leading" secondItem="wmh-Ji-l89" secondAttribute="leading" constant="16" id="mit-53-Oly"/>
-                                    </constraints>
-                                </view>
-                                <constraints>
-                                    <constraint firstAttribute="height" priority="750" constant="44" id="4aJ-da-p14"/>
-                                </constraints>
-                            </box>
-                            <box boxType="custom" borderType="line" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="t3l-VY-xE2" userLabel="Add File Box">
-                                <rect key="frame" x="0.0" y="88" width="439" height="44"/>
-                                <view key="contentView" id="Wkc-B3-g3E">
-                                    <rect key="frame" x="1" y="1" width="437" height="42"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uqx-S8-1Gh" userLabel="Add File Button" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="11" width="73" height="19"/>
-                                            <buttonCell key="cell" type="roundRect" title="Add File" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NlE-gS-T4H">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system" size="16"/>
-                                            </buttonCell>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="halfBorder" value="YES"/>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="addFileClicked:" target="-2" id="8pB-nt-ci3"/>
-                                            </connections>
-                                        </button>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kfx-3G-5ai" userLabel="Files Label">
-                                            <rect key="frame" x="95" y="13" width="184" height="17"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Add Moonbounce VPN Files" id="QB1-B2-yia">
-                                                <font key="font" metaFont="system" size="14"/>
-                                                <color key="textColor" red="0.63941168617806543" green="0.49871700153727133" blue="0.79499363732822048" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="kfx-3G-5ai" firstAttribute="leading" secondItem="uqx-S8-1Gh" secondAttribute="trailing" constant="8" id="NeG-1i-cG3"/>
-                                        <constraint firstItem="uqx-S8-1Gh" firstAttribute="leading" secondItem="Wkc-B3-g3E" secondAttribute="leading" constant="16" id="W67-3U-9YR"/>
-                                        <constraint firstItem="kfx-3G-5ai" firstAttribute="centerY" secondItem="uqx-S8-1Gh" secondAttribute="centerY" id="rhr-Su-6c5"/>
-                                        <constraint firstItem="uqx-S8-1Gh" firstAttribute="centerY" secondItem="Wkc-B3-g3E" secondAttribute="centerY" id="xCV-YR-MA2"/>
-                                    </constraints>
-                                </view>
-                                <constraints>
-                                    <constraint firstAttribute="height" priority="750" constant="44" id="cqQ-rV-8Uq"/>
-                                </constraints>
-                            </box>
-                            <button verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="55v-2e-jP8" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
-                                <rect key="frame" x="16" y="13" width="87" height="20"/>
-                                <buttonCell key="cell" type="roundRect" title="Kill Server" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ndI-uw-dTL">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system" size="16"/>
-                                </buttonCell>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="halfBorder" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="killServer:" target="-2" id="wVA-vR-E8X"/>
-                                </connections>
-                            </button>
-                            <box boxType="custom" borderType="line" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="wbw-fc-TB9" userLabel="Server Box">
-                                <rect key="frame" x="0.0" y="45" width="439" height="44"/>
-                                <view key="contentView" id="ely-i5-jhh">
-                                    <rect key="frame" x="1" y="1" width="437" height="42"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xg9-Jf-dld" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="11" width="119" height="19"/>
-                                            <buttonCell key="cell" type="roundRect" title="Launch Server" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yxI-uK-AfJ">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system" size="16"/>
-                                            </buttonCell>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="halfBorder" value="YES"/>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="toggleServerStatus:" target="-2" id="3oT-NA-PUn"/>
-                                            </connections>
-                                        </button>
-                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MjW-wy-YNA" userLabel="edit token button">
-                                            <rect key="frame" x="139" y="13" width="20" height="16"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="20" id="pru-ij-tbp"/>
-                                            </constraints>
-                                            <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="buttonKey" imagePosition="overlaps" alignment="center" imageScaling="axesIndependently" inset="2" id="qoW-z2-r53">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="cellTitle"/>
-                                            </buttonCell>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                    <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                    <real key="value" value="0.0"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
-                                                    <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="editToken:" target="-2" id="j6j-aa-EOb"/>
-                                            </connections>
-                                        </button>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K04-Kv-gvR" userLabel="Server Status Field">
-                                            <rect key="frame" x="161" y="13" width="252" height="17"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Launch Your Own Moonbounce Server" id="2tc-Xp-vXH">
-                                                <font key="font" metaFont="system" size="14"/>
-                                                <color key="textColor" red="0.63941168617806543" green="0.49871700153727133" blue="0.79499363732822048" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <progressIndicator wantsLayer="YES" maxValue="100" displayedWhenStopped="NO" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="vyQ-8c-VaX">
-                                            <rect key="frame" x="16" y="-5" width="119" height="20"/>
-                                            <contentFilters>
-                                                <ciFilter name="CIHueAdjust">
-                                                    <configuration>
-                                                        <real key="inputAngle" value="1.5"/>
-                                                        <null key="inputImage"/>
-                                                    </configuration>
-                                                </ciFilter>
-                                                <ciFilter name="CIVibrance">
-                                                    <configuration>
-                                                        <real key="inputAmount" value="-0.5"/>
-                                                        <null key="inputImage"/>
-                                                    </configuration>
-                                                </ciFilter>
-                                            </contentFilters>
-                                        </progressIndicator>
-                                        <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="owa-4z-BTf" userLabel="Cancel Server Launch Button" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
-                                            <rect key="frame" x="374" y="11" width="59" height="19"/>
-                                            <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LpO-2H-GuV">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system" size="14"/>
-                                                <string key="keyEquivalent" base64-UTF8="YES">
-Gw
-</string>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="cancelLaunch:" target="-2" id="Zit-LC-OEw"/>
-                                            </connections>
-                                        </button>
-                                        <box boxType="custom" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="6MA-RR-NPb">
-                                            <rect key="frame" x="0.0" y="-2" width="437" height="44"/>
-                                            <view key="contentView" id="Ljf-C3-yom">
-                                                <rect key="frame" x="1" y="1" width="435" height="42"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <subviews>
-                                                    <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0o9-u3-aeC">
-                                                        <rect key="frame" x="16" y="9" width="372" height="24"/>
-                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Paste Your Account Token Here" drawsBackground="YES" id="ymg-jc-HUB">
-                                                            <font key="font" metaFont="system" size="15"/>
-                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                        <connections>
-                                                            <action selector="accountTokenEntered:" target="-2" id="Wh8-LK-ov2"/>
-                                                        </connections>
-                                                    </textField>
-                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="t1S-HJ-Y4d" customClass="CustomButton" customModule="Moonbounce" customModuleProvider="target">
-                                                        <rect key="frame" x="391" y="11" width="24" height="19"/>
-                                                        <buttonCell key="cell" type="roundRect" title="X" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FIk-Gn-l8o">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="system" size="14"/>
-                                                        </buttonCell>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                <real key="value" value="0.0"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="closeTokenWindow:" target="-2" id="jCB-12-xHE"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="0o9-u3-aeC" firstAttribute="centerY" secondItem="Ljf-C3-yom" secondAttribute="centerY" id="LpX-gb-56k"/>
-                                                    <constraint firstItem="0o9-u3-aeC" firstAttribute="leading" secondItem="Ljf-C3-yom" secondAttribute="leading" constant="16" id="NLi-xV-zlN"/>
-                                                    <constraint firstItem="t1S-HJ-Y4d" firstAttribute="centerY" secondItem="0o9-u3-aeC" secondAttribute="centerY" id="fqL-8d-t40"/>
-                                                    <constraint firstAttribute="trailing" secondItem="t1S-HJ-Y4d" secondAttribute="trailing" constant="20" id="kSG-jo-eFK"/>
-                                                    <constraint firstItem="t1S-HJ-Y4d" firstAttribute="leading" secondItem="0o9-u3-aeC" secondAttribute="trailing" constant="3" id="sEF-8s-fHg"/>
-                                                </constraints>
-                                            </view>
-                                            <constraints>
-                                                <constraint firstAttribute="height" priority="750" constant="44" id="RGl-oY-7Tr"/>
-                                            </constraints>
-                                            <connections>
-                                                <binding destination="-2" name="hidden" keyPath="self.hasDoToken" id="lP6-5s-zj8"/>
-                                            </connections>
-                                        </box>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="vyQ-8c-VaX" firstAttribute="top" secondItem="xg9-Jf-dld" secondAttribute="bottom" constant="-2" id="0EI-Q1-SKn"/>
-                                        <constraint firstItem="vyQ-8c-VaX" firstAttribute="leading" secondItem="ely-i5-jhh" secondAttribute="leading" constant="16" id="0xg-bF-kAa"/>
-                                        <constraint firstAttribute="trailing" secondItem="owa-4z-BTf" secondAttribute="trailing" constant="4" id="FHy-0O-Nwv"/>
-                                        <constraint firstAttribute="trailing" secondItem="6MA-RR-NPb" secondAttribute="trailing" id="ItO-mC-M5v"/>
-                                        <constraint firstItem="MjW-wy-YNA" firstAttribute="centerY" secondItem="xg9-Jf-dld" secondAttribute="centerY" id="J4T-gM-P6M"/>
-                                        <constraint firstItem="owa-4z-BTf" firstAttribute="centerY" secondItem="K04-Kv-gvR" secondAttribute="centerY" id="NGF-oL-ull"/>
-                                        <constraint firstItem="xg9-Jf-dld" firstAttribute="centerY" secondItem="ely-i5-jhh" secondAttribute="centerY" id="Ra6-YC-kaY"/>
-                                        <constraint firstItem="6MA-RR-NPb" firstAttribute="top" secondItem="ely-i5-jhh" secondAttribute="top" id="Vgw-Ld-ZfR"/>
-                                        <constraint firstItem="K04-Kv-gvR" firstAttribute="centerY" secondItem="xg9-Jf-dld" secondAttribute="centerY" id="Xoo-89-0ud"/>
-                                        <constraint firstItem="MjW-wy-YNA" firstAttribute="trailing" secondItem="K04-Kv-gvR" secondAttribute="leading" constant="-4" id="dV0-AP-kxv"/>
-                                        <constraint firstItem="6MA-RR-NPb" firstAttribute="leading" secondItem="ely-i5-jhh" secondAttribute="leading" id="fL3-rb-8BJ"/>
-                                        <constraint firstItem="xg9-Jf-dld" firstAttribute="leading" secondItem="ely-i5-jhh" secondAttribute="leading" constant="16" id="k05-IF-geU"/>
-                                        <constraint firstItem="MjW-wy-YNA" firstAttribute="leading" secondItem="xg9-Jf-dld" secondAttribute="trailing" constant="4" id="pYy-xS-Kog"/>
-                                        <constraint firstItem="vyQ-8c-VaX" firstAttribute="width" secondItem="xg9-Jf-dld" secondAttribute="width" id="vYl-Ec-EAs"/>
-                                    </constraints>
-                                </view>
-                                <constraints>
-                                    <constraint firstAttribute="height" priority="750" constant="44" id="d55-Vo-jk4"/>
-                                </constraints>
-                            </box>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="t3l-VY-xE2" firstAttribute="leading" secondItem="Fln-xu-uld" secondAttribute="leading" id="043-F2-2SE"/>
-                            <constraint firstItem="xbE-G4-Xj2" firstAttribute="top" secondItem="Fln-xu-uld" secondAttribute="top" id="BUR-T1-37q"/>
-                            <constraint firstAttribute="trailing" secondItem="wbw-fc-TB9" secondAttribute="trailing" id="BVL-nP-WZg"/>
-                            <constraint firstItem="55v-2e-jP8" firstAttribute="leading" secondItem="Fln-xu-uld" secondAttribute="leading" constant="16" id="Gy9-Nj-IBo"/>
-                            <constraint firstItem="t3l-VY-xE2" firstAttribute="top" secondItem="wmh-Ji-l89" secondAttribute="bottom" id="NUc-UX-9SX"/>
-                            <constraint firstAttribute="trailing" secondItem="t3l-VY-xE2" secondAttribute="trailing" id="TQy-rc-WZ1"/>
-                            <constraint firstAttribute="trailing" secondItem="xbE-G4-Xj2" secondAttribute="trailing" id="Xqf-iW-D8P"/>
-                            <constraint firstItem="wbw-fc-TB9" firstAttribute="top" secondItem="Wkc-B3-g3E" secondAttribute="bottom" id="ZIb-Ty-y9w"/>
-                            <constraint firstItem="xbE-G4-Xj2" firstAttribute="leading" secondItem="Fln-xu-uld" secondAttribute="leading" id="ep3-fR-I3N"/>
-                            <constraint firstAttribute="bottom" secondItem="55v-2e-jP8" secondAttribute="bottom" priority="250" constant="14" id="gPw-Hv-Md8"/>
-                            <constraint firstItem="wbw-fc-TB9" firstAttribute="leading" secondItem="Fln-xu-uld" secondAttribute="leading" id="jyl-w5-c8m"/>
-                            <constraint firstItem="55v-2e-jP8" firstAttribute="top" secondItem="wbw-fc-TB9" secondAttribute="bottom" priority="250" constant="12" id="zvg-1x-dh8"/>
-                        </constraints>
                     </view>
                     <constraints>
                         <constraint firstAttribute="height" constant="175" id="M1o-Ug-dOB"/>
@@ -467,11 +175,9 @@ Gw
     <resources>
         <image name="arrow" width="18" height="10"/>
         <image name="background" width="439" height="265"/>
-        <image name="buttonKey" width="16" height="16"/>
         <image name="earth" width="77" height="265"/>
         <image name="laser" width="34" height="10"/>
         <image name="lcanon" width="38" height="24"/>
         <image name="moonBounceTitle" width="397" height="14"/>
-        <image name="share" width="18" height="18"/>
     </resources>
 </document>

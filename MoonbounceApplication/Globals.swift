@@ -10,7 +10,7 @@ import Cocoa
 import Logging
 import Net
 
-public var appLog = Logger(label: "org.OperatorFoundation.Moonbounce.MacOS")
+public var appLog = Logger(label: "Moonbounce.MacOS.AppLogger")
 
 public let mbDarkBlue = NSColor(red:0.00, green:0.06, blue:0.16, alpha:1.0)
 public let mbWhite = NSColor(red:0.97, green:0.97, blue:0.98, alpha:1.0)
