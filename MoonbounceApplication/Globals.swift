@@ -16,10 +16,6 @@ public let mbDarkBlue = NSColor(red:0.00, green:0.06, blue:0.16, alpha:1.0)
 public let mbWhite = NSColor(red:0.97, green:0.97, blue:0.98, alpha:1.0)
 
 public let kConnectionStatusNotification = "ConnectionStatusChanged"
-//public let kServerIPAvailableNotification = "PTServerIPAvailable"
-public let kNewServerAddedNotification = "NewServerHasBeenAdded"
-//public let serverManagerReadyNotification = "ServerFinishedInit"
-//public let userTokenKey = "UserDoToken"
 //public let userDirectoryName = "User"
 //public let importedDirectoryName = "Imported"
 //public let defaultDirectoryName = "Default"
