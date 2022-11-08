@@ -106,6 +106,7 @@
 		469B0A7D21DEA5AB003FC2BC /* MoonbounceNetworkExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MoonbounceNetworkExtension.entitlements; sourceTree = "<group>"; };
 		46EA2C7C1E241BB70069E5DE /* Default */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Default; sourceTree = "<group>"; };
 		AE0635282910992400453CC4 /* MoonbounceLibrary */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MoonbounceLibrary; path = ../MoonbounceLibrary; sourceTree = "<group>"; };
+		AE351D202919AAA00009241D /* Spacetime */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Spacetime; path = ../Spacetime; sourceTree = "<group>"; };
 		AE39BD2E223B576B007C7C90 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		B41FE0291DF24BE900E02D17 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B41FE02B1DF24BF500E02D17 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
@@ -170,6 +171,7 @@
 		467CB5AA1DBEB6E90086E341 = {
 			isa = PBXGroup;
 			children = (
+				AE351D202919AAA00009241D /* Spacetime */,
 				AE0635282910992400453CC4 /* MoonbounceLibrary */,
 				467CB5B51DBEB6E90086E341 /* MoonbounceApplication */,
 				469B0A7921DEA5AB003FC2BC /* MoonbounceNetworkExtension */,

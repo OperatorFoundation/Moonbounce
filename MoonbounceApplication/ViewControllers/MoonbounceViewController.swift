@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-import Logging
+import os.log
 
 import Chord
 import MoonbounceLibrary
@@ -30,7 +30,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     
     let proximaNARegular = "Proxima Nova Alt Regular"
     let advancedMenuHeight: CGFloat = 176.0
-    let moonbounce = MoonbounceLibrary()
+    let moonbounce = MoonbounceLibrary(logger: Logger(subsystem: "org.OperatorFoundation.MoonbounceLogger", category: "NetworkExtension"))
     var loggingEnabled = false
 
     let worker: DispatchQueue = DispatchQueue(label: "MoonbounceViewController.worker")
