@@ -53,15 +53,18 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             do
             {
                 let appId = Bundle.main.bundleIdentifier!
-                let configPath = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("shadowClient.json").path
-                
-                guard let shadowConfig = ShadowConfig(path: configPath) else
-                {
-                    appLog.error("Failed to find a valid Shadow config file.")
-                    return
+                let configURL = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("moonbounce.json")
+                let configPath = configURL.path
+                let decoder = JSONDecoder()
+                let decodedData = try Data(contentsOf: configURL)
+                let clientConfig = try decoder.decode(ClientConfig.self, from: decodedData)
+                guard let keyData = clientConfig.serverPublicKey.data else {
+                    throw MoonbounceConfigError.serverPublicKeyInvalid
                 }
                 
-                print("Saving moonbounce configuration with \nip: \(shadowConfig.serverIP)\nport: \(shadowConfig.port)\nproviderBundleIdentifier: \(appId).NetworkExtension")
+                let shadowConfig = ShadowConfig(key: keyData.hex, serverIP: clientConfig.host, port: UInt16(clientConfig.port), mode: .DARKSTAR)
+                
+                print("Saving moonbounce configuration with \nip: \(clientConfig.host)\nport: \(clientConfig.port)\nproviderBundleIdentifier: \(appId).NetworkExtension")
                 try self.moonbounce.configure(shadowConfig, providerBundleIdentifier: "\(appId).NetworkExtension", tunnelName: "MoonbounceTunnel")
             }
             catch
@@ -345,4 +348,8 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         alert.addButton(withTitle: "OK")
         alert.runModal()
     }
+}
+
+public enum MoonbounceConfigError: Error {
+    case serverPublicKeyInvalid
 }

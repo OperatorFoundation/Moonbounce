@@ -34,6 +34,8 @@
 		DAE6D38128249E3800BA71DA /* Simulation in Frameworks */ = {isa = PBXBuildFile; productRef = DAE6D38028249E3800BA71DA /* Simulation */; };
 		DAE6D38328249E3800BA71DA /* Spacetime in Frameworks */ = {isa = PBXBuildFile; productRef = DAE6D38228249E3800BA71DA /* Spacetime */; };
 		DAE6D38528249E3800BA71DA /* Universe in Frameworks */ = {isa = PBXBuildFile; productRef = DAE6D38428249E3800BA71DA /* Universe */; };
+		EF2D8C72292C0B1600777928 /* ClientConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2D8C71292C0B1600777928 /* ClientConfig.swift */; };
+		EF2D8C75292C0BAF00777928 /* Keychain in Frameworks */ = {isa = PBXBuildFile; productRef = EF2D8C74292C0BAF00777928 /* Keychain */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +116,7 @@
 		B4EF3E5C1E15C12700A5DDBD /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomButton.swift; path = Helpers/CustomButton.swift; sourceTree = "<group>"; };
 		CAFF6EC8250FFDB000BCBF5B /* Moonbounce-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Moonbounce-Bridging-Header.h"; path = "Moonbounce/Moonbounce-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		DA3B853D27F60DA7003152C0 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		EF2D8C71292C0B1600777928 /* ClientConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientConfig.swift; sourceTree = "<group>"; };
 		EF426EF426B867BF008A8504 /* TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestPlan.xctestplan; sourceTree = SOURCE_ROOT; };
 		EF7449AA2673CC32007BA534 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -134,6 +137,7 @@
 				DAE6D36B28249DCE00BA71DA /* MoonbounceLibrary in Frameworks */,
 				B41FE02C1DF24BF500E02D17 /* ServiceManagement.framework in Frameworks */,
 				B41FE02A1DF24BE900E02D17 /* Security.framework in Frameworks */,
+				EF2D8C75292C0BAF00777928 /* Keychain in Frameworks */,
 				DAE6D37A28249E1F00BA71DA /* Simulation in Frameworks */,
 				DAE6D37C28249E1F00BA71DA /* Spacetime in Frameworks */,
 				DAE6D37E28249E1F00BA71DA /* Universe in Frameworks */,
@@ -204,6 +208,7 @@
 				467CB5B61DBEB6E90086E341 /* AppDelegate.swift */,
 				467CB5C71DBEB8DE0086E341 /* ViewControllers */,
 				467CB5CA1DBEB9790086E341 /* Helpers */,
+				EF2D8C71292C0B1600777928 /* ClientConfig.swift */,
 			);
 			path = MoonbounceApplication;
 			sourceTree = "<group>";
@@ -303,6 +308,7 @@
 				DAE6D37B28249E1F00BA71DA /* Spacetime */,
 				DAE6D37D28249E1F00BA71DA /* Universe */,
 				AEEC232C28E3965400FE1220 /* ShadowSwift */,
+				EF2D8C74292C0BAF00777928 /* Keychain */,
 			);
 			productName = Moonbounce;
 			productReference = 467CB5B31DBEB6E90086E341 /* Moonbounce.app */;
@@ -406,6 +412,7 @@
 				DAE6D36928249DCE00BA71DA /* XCRemoteSwiftPackageReference "MoonbounceLibrary" */,
 				DAE6D37828249E1F00BA71DA /* XCRemoteSwiftPackageReference "Spacetime" */,
 				AEEC232B28E3965400FE1220 /* XCRemoteSwiftPackageReference "ShadowSwift" */,
+				EF2D8C73292C0BAF00777928 /* XCRemoteSwiftPackageReference "Keychain" */,
 			);
 			productRefGroup = 467CB5B41DBEB6E90086E341 /* Products */;
 			projectDirPath = "";
@@ -458,6 +465,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF2D8C72292C0B1600777928 /* ClientConfig.swift in Sources */,
 				B4EF3E5D1E15C12700A5DDBD /* CustomButton.swift in Sources */,
 				B44390591DC00EA000389352 /* PopoverContentView.swift in Sources */,
 				DA3B853E27F60DA7003152C0 /* Globals.swift in Sources */,
@@ -898,6 +906,14 @@
 				minimumVersion = 1.4.2;
 			};
 		};
+		EF2D8C73292C0BAF00777928 /* XCRemoteSwiftPackageReference "Keychain" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/Keychain.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -955,6 +971,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DAE6D37828249E1F00BA71DA /* XCRemoteSwiftPackageReference "Spacetime" */;
 			productName = Universe;
+		};
+		EF2D8C74292C0BAF00777928 /* Keychain */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF2D8C73292C0BAF00777928 /* XCRemoteSwiftPackageReference "Keychain" */;
+			productName = Keychain;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
