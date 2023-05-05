@@ -66,3 +66,5 @@ default1.moonbounce
 default.moonbounce
 *Package.resolved
 Default/
+*.xml
+.idea/Moonbounce.iml
