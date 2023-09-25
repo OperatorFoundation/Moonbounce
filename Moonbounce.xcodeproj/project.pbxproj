@@ -33,6 +33,7 @@
 		DAE6D37728249DFC00BA71DA /* MoonbounceShared in Frameworks */ = {isa = PBXBuildFile; productRef = DAE6D37628249DFC00BA71DA /* MoonbounceShared */; };
 		EF2D8C72292C0B1600777928 /* ClientConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2D8C71292C0B1600777928 /* ClientConfig.swift */; };
 		EF2D8C75292C0BAF00777928 /* Keychain in Frameworks */ = {isa = PBXBuildFile; productRef = EF2D8C74292C0BAF00777928 /* Keychain */; };
+		EFAFA6882AC1FA10008355CB /* TransmissionAsync in Frameworks */ = {isa = PBXBuildFile; productRef = EFAFA6872AC1FA10008355CB /* TransmissionAsync */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFAFA6882AC1FA10008355CB /* TransmissionAsync in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +272,7 @@
 			);
 			name = MoonbounceTests;
 			packageProductDependencies = (
+				EFAFA6872AC1FA10008355CB /* TransmissionAsync */,
 			);
 			productName = MoonbounceTests;
 			productReference = 464DA95821E80E80003460D0 /* MoonbounceTests.xctest */;
@@ -400,6 +403,7 @@
 				EF2D8C73292C0BAF00777928 /* XCRemoteSwiftPackageReference "Keychain" */,
 				DA3F5D7C29B26AFB001E62EB /* XCRemoteSwiftPackageReference "ShadowSwift" */,
 				DA3F5D7F29B26BE2001E62EB /* XCRemoteSwiftPackageReference "Spacetime" */,
+				EFAFA6862AC1FA10008355CB /* XCRemoteSwiftPackageReference "TransmissionAsync" */,
 			);
 			productRefGroup = 467CB5B41DBEB6E90086E341 /* Products */;
 			projectDirPath = "";
@@ -901,6 +905,14 @@
 				kind = branch;
 			};
 		};
+		EFAFA6862AC1FA10008355CB /* XCRemoteSwiftPackageReference "TransmissionAsync" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OperatorFoundation/TransmissionAsync.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -948,6 +960,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EF2D8C73292C0BAF00777928 /* XCRemoteSwiftPackageReference "Keychain" */;
 			productName = Keychain;
+		};
+		EFAFA6872AC1FA10008355CB /* TransmissionAsync */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EFAFA6862AC1FA10008355CB /* XCRemoteSwiftPackageReference "TransmissionAsync" */;
+			productName = TransmissionAsync;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
