@@ -50,10 +50,11 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 
         self.worker.async
         {
+            let appId = Bundle.main.bundleIdentifier!
+            let configURL = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("moonbounce.json")
+            
             do
             {
-                let appId = Bundle.main.bundleIdentifier!
-                let configURL = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("moonbounce.json")
                 let decoder = JSONDecoder()
                 let decodedData = try Data(contentsOf: configURL)
                 let clientConfig = try decoder.decode(ClientConfig.self, from: decodedData)
@@ -67,12 +68,13 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 
                 let shadowConfig = try ShadowConfig.ShadowClientConfig(serverAddress: "\(clientConfig.host) : \(UInt16(clientConfig.port))", serverPublicKey: clientConfig.serverPublicKey, mode: .DARKSTAR)
                 
-                print("Saving moonbounce configuration with \nip: \(clientConfig.host)\nport: \(clientConfig.port)\nproviderBundleIdentifier: \(appId).NetworkExtension")
+                print("☾ Saving moonbounce configuration with \nip: \(clientConfig.host)\nport: \(clientConfig.port)\nproviderBundleIdentifier: \(appId).NetworkExtension")
                 try self.moonbounce.configure(shadowConfig, providerBundleIdentifier: "\(appId).NetworkExtension", tunnelName: "MoonbounceTunnel")
             }
             catch
             {
-                appLog.error("error loading configuration: \(error)")
+                print("☾ Failed to load the moonbounce configuration file at \(configURL.path()) please ensure that you have a valid file at this location.")
+                print("☾ error loading configuration file: \(error)")
             }
         }
     }
@@ -139,7 +141,8 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     
     func sharingServicePicker(_ sharingServicePicker: NSSharingServicePicker, sharingServicesForItems items: [Any], proposedSharingServices proposedServices: [NSSharingService]) -> [NSSharingService]
     {
-        appLog.debug("Share services: \(proposedServices)")
+        print("☾ Share services: \(proposedServices)")
+        
         return proposedServices
     }
     
@@ -164,7 +167,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             {
                 isConnected.state = .failed
                 print("☾ moonbounce.startVPN() returned an error: \(error). Setting isConnected.state to failed.")
-//                appLog.error("failed to start VPN: \(error)")
+//                appLog.error("moonbounce.startVPN() returned an error: \(error). Setting isConnected.state to failed.")
 
                 DispatchQueue.main.async
                 {
@@ -195,7 +198,8 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 
             if let error = maybeError
             {
-                appLog.error("failed to disconnect from VPN: \(error)")
+                print("☾ Failed to disconnect from the VPN. Error: \(error)")
+//                appLog.error("Failed to disconnect from the VPN. Error: \(error)")
             }
 
             self.runningScript = false
@@ -213,14 +217,16 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                     case .start:
                         self.updateStatusUI(connected: false, statusDescription: "Not Connected")
                     default:
-                        appLog.error("Error: Connected state of Start but Stage is \(isConnected.stage)")
+                        print("☾ Start state with \(isConnected.stage) stage. Expected start stage.")
+//                        appLog.error("Error: Connected state of Start but Stage is \(isConnected.stage)")
                 }
             case .trying:
                 switch isConnected.stage
                 {
                     case .start:
-                        //Should Not Happen
-                        appLog.error("Error: Connected state of Trying but Stage is Start")
+                        // Should Not Happen
+                        print("☾ Trying state with start stage. This is unexpected behavior.")
+//                        appLog.error("Error: Connected state of Trying but Stage is Start")
                     case .dispatcher:
                         self.updateStatusUI(connected: true, statusDescription: "Starting Dispatcher")
                     case .management:
@@ -232,8 +238,9 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 switch isConnected.stage
                 {
                     case .start:
-                        //Should Not Happen
-                        appLog.error("Error: Connected state of Success but Stage is Start")
+                        // Should Not Happen
+                        print("☾ Success state with start stage. This is unexpected behavior.")
+//                        appLog.error("Error: Connected state of Success but Stage is Start")
                     case .dispatcher:
                         self.updateStatusUI(connected: true, statusDescription: "Started Dispatcher")
                     case .management:
@@ -245,8 +252,9 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 switch isConnected.stage
                 {
                     case .start:
-                        //Should Not Happen
-                        appLog.error("Error: Connected state of Failed but Stage is Start")
+                        // Should Not Happen
+                        print("☾ Failed state with start stage. This is unexpected behavior.")
+//                        appLog.error("Error: Connected state of Failed but Stage is Start")
                     case .dispatcher:
                         self.updateStatusUI(connected: false, statusDescription: "Failed to start Dispatcher")
                     case .management:

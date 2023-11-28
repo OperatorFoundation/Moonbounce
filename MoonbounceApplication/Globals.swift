@@ -58,7 +58,7 @@ public var isConnected = ConnectState(state: .start, stage: .start)
 {
     didSet
     {
-        appLog.debug("Changed Global var for connection status: \(isConnected)")
+        print("☾ Global isConnected var updated: \(isConnected)")
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: kConnectionStatusNotification), object: isConnected)
     }
 }
