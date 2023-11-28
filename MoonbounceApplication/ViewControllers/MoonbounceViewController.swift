@@ -54,11 +54,12 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             {
                 let appId = Bundle.main.bundleIdentifier!
                 let configURL = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("moonbounce.json")
-                let configPath = configURL.path
                 let decoder = JSONDecoder()
                 let decodedData = try Data(contentsOf: configURL)
                 let clientConfig = try decoder.decode(ClientConfig.self, from: decodedData)
-                guard let keyData = clientConfig.serverPublicKey.data else {
+                
+                guard clientConfig.serverPublicKey.data != nil else
+                {
                     throw MoonbounceConfigError.serverPublicKeyInvalid
                 }
                 
@@ -90,30 +91,36 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     //MARK: Action!
     @IBAction func toggleConnection(_ sender: NSButton)
     {
+        print("☾ User toggled connection switch.")
+        print("☾ isConnected.state - \(isConnected.state), isConnected.stage - \(isConnected.stage)")
         switch isConnected.state
         {
             case .start:
                 switch isConnected.stage
                 {
                     case .start:
-                        appLog.info("Connect button pressed")
+                        print("☾ Calling connect()")
                         self.connect()
                     default:
-                        appLog.error("Error: Connected state of Start but Stage is \(isConnected.stage)")
+                        print("☾ We are in the start state so we expected start stage, but we got: \(isConnected.stage) stage. Doing nothing.")
                 }
             case .trying:
                 switch isConnected.stage
                 {
                     case .start:
                         //Should Not Happen
+                        print("☾ We are in the trying state and the start stage at the same time, this is considered an error. Doing nothing.")
                         appLog.error("Error: Connected state of Trying but Stage is Start")
                     default:
-                        //Disconnect from VPN server
+                        // Disconnect from VPN server
+                        print("☾ Calling disconnect()")
                         disconnect()
                 }
             case .success:
+                print("☾ Calling disconnect()")
                 disconnect()
             case .failed:
+                print("☾ Calling connect()")
                 connect()
         }
     }
@@ -146,7 +153,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         isConnected = ConnectState(state: .start, stage: .start)
         runningScript = true
         
-        //Update button name
+        // Update button name
         self.toggleConnectionButton.title = "Disconnect"
 
         Asynchronizer.asyncThrows(moonbounce.startVPN)
@@ -156,7 +163,8 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             if let error = maybeError
             {
                 isConnected.state = .failed
-                appLog.error("failed to start VPN: \(error)")
+                print("☾ moonbounce.startVPN() returned an error: \(error). Setting isConnected.state to failed.")
+//                appLog.error("failed to start VPN: \(error)")
 
                 DispatchQueue.main.async
                 {
@@ -165,7 +173,8 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             }
             else
             {
-                //Verify that connection was successful and update accordingly
+                // Verify that connection was successful and update accordingly
+                print("☾ moonbounce.startVPN() returned without error. Setting isConnected.state to success and the stage to statusCodes.")
                 self.runningScript = false
                 isConnected.state = .success
                 isConnected.stage = .statusCodes
