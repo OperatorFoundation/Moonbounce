@@ -98,7 +98,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             print("☾ \(notification.object!)")
         }
         
-        showStatus()
+//        showStatus()
     }
     
     func neVPNStatusChanged(notification: Notification)
@@ -115,7 +115,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             print("☾ \(notification.object!)")
         }
         
-        showStatus()
+//        showStatus()
     }
     
     func printConnectionStatus( status: NEVPNStatus )
@@ -124,18 +124,25 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         {
             case NEVPNStatus.invalid:
                 print("☾ NEVPNConnection: Invalid")
+                updateStatusUI(connected: false, statusDescription: "Invalid")
             case NEVPNStatus.disconnected:
                 print("☾ NEVPNConnection: Disconnected")
+                updateStatusUI(connected: false, statusDescription: "Disconnected")
             case NEVPNStatus.connecting:
                 print("☾ NEVPNConnection: Connecting")
+                updateStatusUI(connected: false, statusDescription: "Connecting")
             case NEVPNStatus.connected:
                 print("☾ NEVPNConnection: Connected")
+                updateStatusUI(connected: true, statusDescription: "Connected")
             case NEVPNStatus.reasserting:
                 print("☾ NEVPNConnection: Reasserting")
+                updateStatusUI(connected: true, statusDescription: "Reasserting")
             case NEVPNStatus.disconnecting:
                 print("☾ NEVPNConnection: Disconnecting")
+                updateStatusUI(connected: true, statusDescription: "Disconnecting")
             default:
                 print("☾ NEVPNConnection: Unknown Status")
+                updateStatusUI(connected: false, statusDescription: "Unknown")
       }
     }
     
@@ -267,15 +274,12 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                         self.updateStatusUI(connected: false, statusDescription: "Not Connected")
                     default:
                         print("☾ Start state with \(isConnected.stage) stage. Expected start stage.")
-//                        appLog.error("Error: Connected state of Start but Stage is \(isConnected.stage)")
                 }
             case .trying:
                 switch isConnected.stage
                 {
                     case .start:
-                        // Should Not Happen
                         print("☾ Trying state with start stage. This is unexpected behavior.")
-//                        appLog.error("Error: Connected state of Trying but Stage is Start")
                     case .dispatcher:
                         self.updateStatusUI(connected: true, statusDescription: "Starting Dispatcher")
                     case .management:
@@ -287,9 +291,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 switch isConnected.stage
                 {
                     case .start:
-                        // Should Not Happen
                         print("☾ Success state with start stage. This is unexpected behavior.")
-//                        appLog.error("Error: Connected state of Success but Stage is Start")
                     case .dispatcher:
                         self.updateStatusUI(connected: true, statusDescription: "Started Dispatcher")
                     case .management:
@@ -301,9 +303,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 switch isConnected.stage
                 {
                     case .start:
-                        // Should Not Happen
                         print("☾ Failed state with start stage. This is unexpected behavior.")
-//                        appLog.error("Error: Connected state of Failed but Stage is Start")
                     case .dispatcher:
                         self.updateStatusUI(connected: false, statusDescription: "Failed to start Dispatcher")
                     case .management:
