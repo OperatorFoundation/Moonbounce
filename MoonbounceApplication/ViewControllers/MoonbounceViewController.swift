@@ -65,7 +65,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                     throw MoonbounceConfigError.serverPublicKeyInvalid
                 }
                                 
-                let shadowConfig = try ShadowConfig.ShadowClientConfig(serverAddress: "\(clientConfig.host) : \(UInt16(clientConfig.port))", serverPublicKey: clientConfig.serverPublicKey, mode: .DARKSTAR)
+                let shadowConfig = try ShadowConfig.ShadowClientConfig(serverAddress: "\(clientConfig.host):\(UInt16(clientConfig.port))", serverPublicKey: clientConfig.serverPublicKey, mode: .DARKSTAR)
                 
                 print("☾ Saving moonbounce configuration with \nip: \(clientConfig.host)\nport: \(clientConfig.port)\nproviderBundleIdentifier: \(appId).NetworkExtension")
                 try self.moonbounce.configure(shadowConfig, providerBundleIdentifier: "\(appId).NetworkExtension", tunnelName: "MoonbounceTunnel")
