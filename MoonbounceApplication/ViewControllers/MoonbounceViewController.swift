@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import NetworkExtension
 import os.log
 
 import Chord
@@ -43,7 +44,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 
         let nc = NotificationCenter.default
         nc.addObserver(forName: NSNotification.Name(rawValue: kConnectionStatusNotification), object: nil, queue: nil, using: connectionStatusChanged)
-        nc.addObserver(forName: NSNotification.Name.NEVPNStatusDidChange, object: nil, queue: nil, using: connectionStatusChanged)
+        nc.addObserver(forName: NSNotification.Name.NEVPNStatusDidChange, object: nil, queue: nil, using: neVPNStatusChanged)
         
         advancedModeButton.isHidden = true
         updateStatusUI(connected: false, statusDescription: "Not Connected")
@@ -63,9 +64,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 {
                     throw MoonbounceConfigError.serverPublicKeyInvalid
                 }
-                
-//                let shadowConfig = ShadowConfig(key: keyData.hex, serverIP: clientConfig.host, port: UInt16(clientConfig.port), mode: .DARKSTAR)
-                
+                                
                 let shadowConfig = try ShadowConfig.ShadowClientConfig(serverAddress: "\(clientConfig.host) : \(UInt16(clientConfig.port))", serverPublicKey: clientConfig.serverPublicKey, mode: .DARKSTAR)
                 
                 print("☾ Saving moonbounce configuration with \nip: \(clientConfig.host)\nport: \(clientConfig.port)\nproviderBundleIdentifier: \(appId).NetworkExtension")
@@ -87,7 +86,57 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     
     func connectionStatusChanged(notification: Notification)
     {
+        print("☾ Received a status changed notification:")
+        
+        if let session = notification.object as? NETunnelProviderSession
+        {
+            let status = session.status
+            self.printConnectionStatus(status: status)
+        }
+        else
+        {
+            print("☾ \(notification.object!)")
+        }
+        
         showStatus()
+    }
+    
+    func neVPNStatusChanged(notification: Notification)
+    {
+        print("☾ Received a neVPNStatusChanged changed notification:")
+        
+        if let session = notification.object as? NETunnelProviderSession
+        {
+            let status = session.status
+            self.printConnectionStatus(status: status)
+        }
+        else
+        {
+            print("☾ \(notification.object!)")
+        }
+        
+        showStatus()
+    }
+    
+    func printConnectionStatus( status: NEVPNStatus )
+    {
+        switch status 
+        {
+            case NEVPNStatus.invalid:
+                print("☾ NEVPNConnection: Invalid")
+            case NEVPNStatus.disconnected:
+                print("☾ NEVPNConnection: Disconnected")
+            case NEVPNStatus.connecting:
+                print("☾ NEVPNConnection: Connecting")
+            case NEVPNStatus.connected:
+                print("☾ NEVPNConnection: Connected")
+            case NEVPNStatus.reasserting:
+                print("☾ NEVPNConnection: Reasserting")
+            case NEVPNStatus.disconnecting:
+                print("☾ NEVPNConnection: Disconnecting")
+            default:
+                print("☾ NEVPNConnection: Unknown Status")
+      }
     }
     
     //MARK: Action!
