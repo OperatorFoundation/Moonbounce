@@ -54,7 +54,7 @@ public let defaultTunnelName = "Default"
 //    }
 //}
 
-public var isConnected = ConnectState(state: .start, stage: .start)
+public var isConnected = State.start
 {
     didSet
     {
@@ -63,17 +63,17 @@ public var isConnected = ConnectState(state: .start, stage: .start)
     }
 }
 
-public struct ConnectState
-{
-    var state: State = .start
-    var stage: Stage = .start
-    
-    public init(state: State, stage: Stage)
-    {
-        self.state = state
-        self.stage = stage
-    }
-}
+//public struct ConnectState
+//{
+//    var state: State = .start
+//    var stage: Stage = .start
+//    
+//    public init(state: State, stage: Stage)
+//    {
+//        self.state = state
+//        self.stage = stage
+//    }
+//}
 
 public enum State
 {
@@ -82,11 +82,11 @@ public enum State
     case success
     case failed
 }
-
-public enum Stage
-{
-    case start
-    case dispatcher
-    case management
-    case statusCodes
-}
+//
+//public enum Stage
+//{
+//    case start
+//    case dispatcher
+//    case management
+//    case statusCodes
+//}

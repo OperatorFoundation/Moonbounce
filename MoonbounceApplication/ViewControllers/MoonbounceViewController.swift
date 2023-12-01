@@ -124,24 +124,31 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
         {
             case NEVPNStatus.invalid:
                 print("☾ NEVPNConnection: Invalid")
+                isConnected = .failed
                 updateStatusUI(connected: false, statusDescription: "Invalid")
             case NEVPNStatus.disconnected:
                 print("☾ NEVPNConnection: Disconnected")
+                isConnected = .start
                 updateStatusUI(connected: false, statusDescription: "Disconnected")
             case NEVPNStatus.connecting:
                 print("☾ NEVPNConnection: Connecting")
+                isConnected = .trying
                 updateStatusUI(connected: false, statusDescription: "Connecting")
             case NEVPNStatus.connected:
                 print("☾ NEVPNConnection: Connected")
+                isConnected = .success
                 updateStatusUI(connected: true, statusDescription: "Connected")
             case NEVPNStatus.reasserting:
                 print("☾ NEVPNConnection: Reasserting")
+                isConnected = .trying
                 updateStatusUI(connected: true, statusDescription: "Reasserting")
             case NEVPNStatus.disconnecting:
                 print("☾ NEVPNConnection: Disconnecting")
+                isConnected = .success
                 updateStatusUI(connected: true, statusDescription: "Disconnecting")
             default:
                 print("☾ NEVPNConnection: Unknown Status")
+                isConnected = .failed
                 updateStatusUI(connected: false, statusDescription: "Unknown")
       }
     }
@@ -150,30 +157,14 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     @IBAction func toggleConnection(_ sender: NSButton)
     {
         print("☾ User toggled connection switch.")
-        print("☾ isConnected.state - \(isConnected.state), isConnected.stage - \(isConnected.stage)")
-        switch isConnected.state
+        switch isConnected
         {
             case .start:
-                switch isConnected.stage
-                {
-                    case .start:
-                        print("☾ Calling connect()")
-                        self.connect()
-                    default:
-                        print("☾ We are in the start state so we expected start stage, but we got: \(isConnected.stage) stage. Doing nothing.")
-                }
+                print("☾ Calling connect()")
+                connect()
             case .trying:
-                switch isConnected.stage
-                {
-                    case .start:
-                        //Should Not Happen
-                        print("☾ We are in the trying state and the start stage at the same time, this is considered an error. Doing nothing.")
-                        appLog.error("Error: Connected state of Trying but Stage is Start")
-                    default:
-                        // Disconnect from VPN server
-                        print("☾ Calling disconnect()")
-                        disconnect()
-                }
+                print("☾ Calling disconnect()")
+                disconnect()
             case .success:
                 print("☾ Calling disconnect()")
                 disconnect()
@@ -205,11 +196,9 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     
     func connect()
     {
-        isConnected.stage = .start
-        isConnected.state = .trying
+        isConnected = .trying
 
         runBackgroundAnimation()
-        isConnected = ConnectState(state: .start, stage: .start)
         runningScript = true
         
         // Update button name
@@ -221,9 +210,8 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
 
             if let error = maybeError
             {
-                isConnected.state = .failed
-                print("☾ moonbounce.startVPN() returned an error: \(error). Setting isConnected.state to failed.")
-//                appLog.error("moonbounce.startVPN() returned an error: \(error). Setting isConnected.state to failed.")
+                isConnected = .failed
+                print("☾ moonbounce.startVPN() returned an error: \(error). Setting state to failed.")
 
                 DispatchQueue.main.async
                 {
@@ -235,8 +223,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
                 // Verify that connection was successful and update accordingly
                 print("☾ moonbounce.startVPN() returned without error. Setting isConnected.state to success and the stage to statusCodes.")
                 self.runningScript = false
-                isConnected.state = .success
-                isConnected.stage = .statusCodes
+                isConnected = .success
 
                 DispatchQueue.main.async
                 {
@@ -265,52 +252,16 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
     // MARK: - UI Helpers
     func showStatus()
     {
-        switch isConnected.state
+        switch isConnected
         {
             case .start:
-                switch isConnected.stage
-                {
-                    case .start:
-                        self.updateStatusUI(connected: false, statusDescription: "Not Connected")
-                    default:
-                        print("☾ Start state with \(isConnected.stage) stage. Expected start stage.")
-                }
+                self.updateStatusUI(connected: false, statusDescription: "Not Connected")
             case .trying:
-                switch isConnected.stage
-                {
-                    case .start:
-                        print("☾ Trying state with start stage. This is unexpected behavior.")
-                    case .dispatcher:
-                        self.updateStatusUI(connected: true, statusDescription: "Starting Dispatcher")
-                    case .management:
-                        self.updateStatusUI(connected: true, statusDescription: "Connecting to the Management Server")
-                    case .statusCodes:
-                        self.updateStatusUI(connected: true, statusDescription: "Getting VPN Status")
-                }
+                self.updateStatusUI(connected: true, statusDescription: "Getting VPN Status")
             case .success:
-                switch isConnected.stage
-                {
-                    case .start:
-                        print("☾ Success state with start stage. This is unexpected behavior.")
-                    case .dispatcher:
-                        self.updateStatusUI(connected: true, statusDescription: "Started Dispatcher")
-                    case .management:
-                        self.updateStatusUI(connected: true, statusDescription: "Connected to the Management Server")
-                    case .statusCodes:
-                        self.updateStatusUI(connected: true, statusDescription: "Connected")
-                }
+                self.updateStatusUI(connected: true, statusDescription: "Connected")
             case .failed:
-                switch isConnected.stage
-                {
-                    case .start:
-                        print("☾ Failed state with start stage. This is unexpected behavior.")
-                    case .dispatcher:
-                        self.updateStatusUI(connected: false, statusDescription: "Failed to start Dispatcher")
-                    case .management:
-                        self.updateStatusUI(connected: false, statusDescription: "Failed to Connect to the Management Server")
-                    case .statusCodes:
-                        self.updateStatusUI(connected: false, statusDescription: "Failed to connect  to VPN")
-            }
+                self.updateStatusUI(connected: false, statusDescription: "Failed to connect  to VPN")
         }
     }
     
@@ -363,7 +314,7 @@ class MoonbounceViewController: NSViewController, NSSharingServicePickerDelegate
             },
             completionHandler:
             {
-                if isConnected.state == .trying
+                if isConnected == .trying
                 //if self.runningScript == true
                 {
                     self.runBackgroundAnimation()
