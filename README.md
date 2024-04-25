@@ -1,8 +1,8 @@
-# The Operator Foundation
+### The Operator Foundation
 
 [Operator](https://operatorfoundation.org) makes useable tools to help people around the world with censorship, security, and privacy.
 
-## Moonbounce
+# Moonbounce
 
 Moonbounce is graphical user interface for configuring a VPN with Pluggable Transport support designed to connect to [Persona](https://www.github.com/OperatorFoundation/Persona) servers. The goal of Moonbounce is to provide a usability-focused, streamlined user experience to using PT-enabled VPNs.
 ### VPNs on macOS
